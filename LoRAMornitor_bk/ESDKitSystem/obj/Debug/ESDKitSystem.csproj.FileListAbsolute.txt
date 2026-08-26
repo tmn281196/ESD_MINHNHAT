@@ -1,0 +1,1371 @@
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\LineMonitorPage.g.cs
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Xbee\DeviceManagerPage.g.cs
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\LineMonitorPage.baml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Xbee\DeviceManagerPage.baml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\ADMIN\Documents\main\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.SuggestedBindingRedirects.cache
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.g.cs
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.baml
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\working\MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\AsyncIO.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\BinarySerializer.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\NaCl.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\NetMQ.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Buffers.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Memory.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Text.Json.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\XBee.Classic.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\XBee.Core.dll
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\AsyncIO.pdb
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.pdb
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\NaCl.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\NetMQ.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Buffers.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Memory.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Text.Json.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.SuggestedBindingRedirects.cache
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\MainWindow.baml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.g.cs
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\MainWindow.g.cs
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\App.g.cs
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.baml
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+E:\#focus.projects\ESD\MOONSUNG-ESD-main\Program\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.SuggestedBindingRedirects.cache
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.g.cs
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.baml
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\TNG RD\Desktop\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\MainWindow.baml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.g.cs
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\MainWindow.g.cs
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\App.g.cs
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\AsyncIO.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\BinarySerializer.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NaCl.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NetMQ.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Buffers.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Memory.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Json.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\XBee.Classic.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\XBee.Core.dll
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\AsyncIO.pdb
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.pdb
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NaCl.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\NetMQ.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Buffers.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Memory.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Text.Json.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\Networking\DeviceManagerPage.baml
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+E:\MSI\MOONSUNG-ESD-main\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Kveer.XBeeApi.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Kveer.XBeeApi.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Kveer.XBeeApi.dll.config
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.SuggestedBindingRedirects.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+E:\MSI\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\SRP.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\PropertyChanged.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD - Copy\ESDKitSystem\bin\Debug\PropertyChanged.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\SRP.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\SRP.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.dll
+C:\Users\ADMIN\Desktop\TNG\RELEASE\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\SRP.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.dll
+E:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Classic.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBee.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\SRP.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NaCl.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\NetMQ.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\App.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD\ESDKitSystem\bin\Debug\PropertyChanged.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Classic.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\SRP.dll
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\App.g.cs
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+D:\TNG\ZIGBEE\ESD\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\SRP.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.exe.config
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\PropertyChanged.dll
+C:\Users\QC\Desktop\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\PropertyChanged.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Classic.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBee.Core.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\SRP.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NaCl.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\NetMQ.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\App.g.cs
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\PropertyChanged.dll
+D:\1ABC\TNG\#LATEST\ZIGBEE\ESD\AGEING\NEW_MOONSUNG-ESD_UI_FIX\NEW_MOONSUNG-ESD_UI_FIX\ESDKitSystem\bin\Debug\PropertyChanged.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\App.g.cs
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NaCl.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NetMQ.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBee.Classic.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBee.Core.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\SRP.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NaCl.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NetMQ.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\PropertyChanged.dll
+D:\1ABC\TNG\#LATEST\0x00_ESD_Monitoring_System\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\PropertyChanged.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\AsyncIO.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\BinarySerializer.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NaCl.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NetMQ.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Buffers.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Memory.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Json.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBee.Classic.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBee.Core.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\SRP.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\AsyncIO.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NaCl.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\NetMQ.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Buffers.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Memory.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Text.Json.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\MainWindow.baml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\MainWindow.g.cs
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\App.g.cs
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\PropertyChanged.dll
+C:\Users\Com26\Desktop\MOONSUNG-ESD_2.0\MOONSUNG-ESD_2.0\ESDKitSystem\bin\Debug\PropertyChanged.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\AsyncIO.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\BinarySerializer.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\NaCl.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\NetMQ.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Buffers.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Memory.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Text.Json.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBee.Classic.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBee.Core.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\SRP.dll
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\AsyncIO.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\NaCl.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\NetMQ.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Buffers.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Memory.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Text.Json.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\MainWindow.baml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\MainWindow.g.cs
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\App.g.cs
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+E:\New folder\MOONSUNG-ESD_Line2\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\NaCl.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\NetMQ.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBee.Classic.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBee.Core.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBeeLibrary.Core.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ZigBeeNet.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ZigBeeNet.Hardware.Digi.XBee.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\ZigBeeNet.Transport.SerialPort.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\SRP.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBeeLibrary.Core.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\XBeeLibrary.Windows.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\NaCl.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\NetMQ.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\App.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\PCProgram\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.AssemblyReference.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\MainWindow.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\MainWindow.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\App.g.cs
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem_MarkupCompile.lref
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\ESDKitSystem.exe.config
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\ESDKitSystem.exe
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\ESDKitSystem.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\AsyncIO.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\BinarySerializer.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.Core.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\FontAwesome.Sharp.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\FontAwesome.Sharp.Pro.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\NaCl.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Newtonsoft.Json.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Buffers.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.IO.Pipelines.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.IO.Ports.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Memory.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Numerics.Vectors.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Reflection.TypeExtensions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Text.Json.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.ValueTuple.dll
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\AsyncIO.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.Core.pdb
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Common.Logging.Core.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\NaCl.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\Newtonsoft.Json.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Buffers.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.IO.Pipelines.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.IO.Ports.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Memory.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Numerics.Vectors.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Text.Encodings.Web.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Text.Json.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\bin\Debug\System.ValueTuple.xml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\Monitoring\MornitorPage.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\Device\DeviceManagerPage.baml
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.g.resources
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.Properties.Resources.resources
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.GenerateResource.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.CoreCompileInputs.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSy.6EFB099E.Up2Date
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.CopyLocal.cache
+D:\1ABC\TNG\#LATEST\ESD\ESD_3.0\LoRAMornitor\ESDKitSystem\obj\Debug\ESDKitSystem.csproj.Fody.RuntimeCopyLocal.cache

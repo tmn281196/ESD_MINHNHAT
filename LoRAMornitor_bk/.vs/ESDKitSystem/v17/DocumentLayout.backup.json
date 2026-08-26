@@ -1,0 +1,864 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|c:\\users\\qc\\desktop\\new_moonsung-esd_ui_fix\\esdkitsystem\\device\\devicemanagerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\devicemanagerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:1:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\esdbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\esdbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\rootcanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\rootcanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\devicemanagerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\devicemanagerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\mornitorpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\mornitorpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\mornitorpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\mornitorpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\controlbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\controlbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\blockdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\blockdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\blockcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\blockcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\0f3491909d25a409ed5aa2edcdaa7959f1ffbc83b450dda3d548ad232ea87142\\DispatcherOperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\blockcanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\blockcanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\monitoring\\configmonitoring.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\monitoring\\configmonitoring.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\3dd90a9ac1aef715c9cc1c0b5b585fbac816c260e5d9af1ba4ddf7c2f5ca3ec3\\RenderData.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\fodyweavers.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\fodyweavers.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\b577b8b6f02562c86ddc1527d1f90626df4c83955cb372ffd25e97e29d2aee30\\SerialStream.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2030134891b910d0a091a73e6c647eb6e4f698bedf3c17dde8078a91bf2bf770\\ExecutionContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\5b86774778aff0ce3cec52deedde3e68e73999a1df9f25a32d2212d4f3b14744\\ThreadHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\297b7a223225bd7abd061f9cf655fd77f3777fb4689f2c7fb8ecedfa874a0104\\MediaContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\e8d68e7af1fb94bc3cfd753c560f12bc92ccb3bdaccf6e4be8ffa111bf800af6\\ExceptionWrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\d08ce70ac101e55360aa54fa4d0182a744f8b91a589ae0b4335d85bab85fddc8\\DrawingContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\ef22e84854cb509b25919eeed93bc772c1d9a90ce3b4cc49b4ff5e3b590869a8\\App.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1300d66ecbfd4ed19328df16904ac32630fdd480c488ed3d55b6601f60be8cb0\\CulturePreservingExecutionContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2b4ab4eeae24d9e23d7e27edcfe4c14d3a1b31e2cfa2f541e5dd6812431c08be\\Dispatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\74b97e881a54c8d4168b7fb9a221f4f7788bf6d4bcb87e6f5c78a195e544ab42\\HwndWrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\6ae5ddec7e9509d329ab86c02aa616dfda26e3c1d1f94878fba9ba63103a5f94\\HwndSubclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1d538629b5cfff5d94087168bb5ccd0355681bd2e1b3412d5bbeb73aa2b4b115\\Application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\982a8b666a067d8472aae5228e3368de0ce51dc014fc05fabc8abb9a2685da8f\\UIElement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ESDBox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\91c960aed72a9dda2a726a035a93c97b7c607dca4f22c72109788f5872982d4c\\Window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\877f2bcb802de2d02370681eb6731ec48db4c5d6c10c89d8fb85eefb3c8e99c8\\ContextLayoutManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1409bc466d86e57ea1923e23e1fc52d6831ee50cf35c1e0fbf13bc1a9d37c820\\DataBindEngine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\de699906b935264c87350233116c23d6e19bc945fb2695931d8e2f370078e27b\\BindingExpression.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\14bfa4200ffdeced11c7ecc13045954d93c1af181111be9df4901399bec5d051\\BindingExpressionBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\CoordinatorDevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Device.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Publisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Subscriber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ControlBox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\XBee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\AbstractXBeeDevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Connection\\DataReader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Packet\\XBeePacketParser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\esdkitsystem\\device\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{4B8FF658-567C-46FE-86F8-CBE11D0E0E69}|ESDKitSystem\\ESDKitSystem.csproj|solutionrelative:esdkitsystem\\device\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6027B58-2401-415E-B441-C1EE5122D850}|xbee-csharp\\XBeeLibrary.Windows\\XBeeLibrary.Windows.csproj|C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6027B58-2401-415E-B441-C1EE5122D850}|xbee-csharp\\XBeeLibrary.Windows\\XBeeLibrary.Windows.csproj|solutionrelative:xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ViewModel.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\ViewModel.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ViewModel.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\ViewModel.cs",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAhwKwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T06:52:35.26Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ESDBox.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ESDBox.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\ESDBox.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ESDBox.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\ESDBox.cs",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAnwLcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T06:52:25.601Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RootCanvas.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\RootCanvas.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\RootCanvas.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\RootCanvas.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\RootCanvas.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAAGoAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:34:10.35Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DeviceManagerPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\DeviceManagerPage.xaml.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\DeviceManagerPage.xaml.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\DeviceManagerPage.xaml.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\DeviceManagerPage.xaml.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAIAwwOAAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T07:41:25.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\MainWindow.xaml.cs",
+              "RelativeToolTip": "ESDKitSystem\\MainWindow.xaml.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAD4vy0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T02:21:10.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DeviceManagerPage.xaml",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\DeviceManagerPage.xaml",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\DeviceManagerPage.xaml",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\DeviceManagerPage.xaml",
+              "RelativeToolTip": "ESDKitSystem\\Device\\DeviceManagerPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-13T07:41:30.352Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MornitorPage.xaml",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\MornitorPage.xaml",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\MornitorPage.xaml",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\MornitorPage.xaml",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\MornitorPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-22T12:29:54.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MornitorPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\MornitorPage.xaml.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\MornitorPage.xaml.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\MornitorPage.xaml.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\MornitorPage.xaml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAewBgAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T02:34:07.747Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ControlBox.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ControlBox.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\ControlBox.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ControlBox.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\ControlBox.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAtwA4BAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T09:28:13.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DeviceManagerPage.g.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs",
+              "RelativeToolTip": "ESDKitSystem\\obj\\Debug\\Device\\DeviceManagerPage.g.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAAAL4AAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T04:52:29.724Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Config.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\Config.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\Config.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\Config.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\Config.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-22T06:37:46.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BlockDevice.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockDevice.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\BlockDevice.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockDevice.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\BlockDevice.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAcwBMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:34:02.319Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "ESDKitSystem\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\MainWindow.xaml",
+              "RelativeToolTip": "ESDKitSystem\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-25T06:10:50.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DispatcherOperation.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\0f3491909d25a409ed5aa2edcdaa7959f1ffbc83b450dda3d548ad232ea87142\\DispatcherOperation.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\0f3491909d25a409ed5aa2edcdaa7959f1ffbc83b450dda3d548ad232ea87142\\DispatcherOperation.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\0f3491909d25a409ed5aa2edcdaa7959f1ffbc83b450dda3d548ad232ea87142\\DispatcherOperation.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\0f3491909d25a409ed5aa2edcdaa7959f1ffbc83b450dda3d548ad232ea87142\\DispatcherOperation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:27:58.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BlockCategory.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockCategory.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\BlockCategory.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockCategory.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\BlockCategory.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowBkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:34:01.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BlockCanvas.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockCanvas.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\BlockCanvas.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\BlockCanvas.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\BlockCanvas.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAwAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:33:58.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ConfigMonitoring.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\ConfigMonitoring.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Monitoring\\ConfigMonitoring.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Monitoring\\ConfigMonitoring.cs",
+              "RelativeToolTip": "ESDKitSystem\\Monitoring\\ConfigMonitoring.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:34:03.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.xaml.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.xaml.cs",
+              "RelativeToolTip": "ESDKitSystem\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T13:57:17.104Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.xaml",
+              "RelativeDocumentMoniker": "ESDKitSystem\\App.xaml",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.xaml",
+              "RelativeToolTip": "ESDKitSystem\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-22T04:59:34.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RenderData.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\3dd90a9ac1aef715c9cc1c0b5b585fbac816c260e5d9af1ba4ddf7c2f5ca3ec3\\RenderData.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\3dd90a9ac1aef715c9cc1c0b5b585fbac816c260e5d9af1ba4ddf7c2f5ca3ec3\\RenderData.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\3dd90a9ac1aef715c9cc1c0b5b585fbac816c260e5d9af1ba4ddf7c2f5ca3ec3\\RenderData.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\3dd90a9ac1aef715c9cc1c0b5b585fbac816c260e5d9af1ba4ddf7c2f5ca3ec3\\RenderData.cs",
+              "ViewState": "AgIAAEwDAAAAAAAAAAAAwF4DAAAFAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T16:00:03.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.config",
+              "RelativeDocumentMoniker": "ESDKitSystem\\App.config",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\App.config",
+              "RelativeToolTip": "ESDKitSystem\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-08-22T04:59:32.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Input.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\Input.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\Input.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\Input.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\Input.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-22T06:37:35.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "XBeeDevice.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs",
+              "RelativeDocumentMoniker": "xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs",
+              "RelativeToolTip": "xbee-csharp\\XBeeLibrary.Windows\\XBeeDevice.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T08:37:48.52Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FodyWeavers.xml",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\FodyWeavers.xml",
+              "RelativeDocumentMoniker": "ESDKitSystem\\FodyWeavers.xml",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\FodyWeavers.xml",
+              "RelativeToolTip": "ESDKitSystem\\FodyWeavers.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-06-27T06:37:22.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SerialStream.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\b577b8b6f02562c86ddc1527d1f90626df4c83955cb372ffd25e97e29d2aee30\\SerialStream.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\b577b8b6f02562c86ddc1527d1f90626df4c83955cb372ffd25e97e29d2aee30\\SerialStream.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\b577b8b6f02562c86ddc1527d1f90626df4c83955cb372ffd25e97e29d2aee30\\SerialStream.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\b577b8b6f02562c86ddc1527d1f90626df4c83955cb372ffd25e97e29d2aee30\\SerialStream.cs",
+              "ViewState": "AgIAANMEAAAAAAAAAAAswOIEAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T09:19:14.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "XBee.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\XBee.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\XBee.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\XBee.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\XBee.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:55:49.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "ViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ViewModel.cs",
+              "RelativeDocumentMoniker": "ESDKitSystem\\Device\\ViewModel.cs",
+              "ToolTip": "C:\\Users\\QC\\Desktop\\NEW_MOONSUNG-ESD_UI_FIX\\ESDKitSystem\\Device\\ViewModel.cs",
+              "RelativeToolTip": "ESDKitSystem\\Device\\ViewModel.cs",
+              "ViewState": "AgIAAAQBAAAAAAAAAAAswBwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:29:13.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Dispatcher.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2b4ab4eeae24d9e23d7e27edcfe4c14d3a1b31e2cfa2f541e5dd6812431c08be\\Dispatcher.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2b4ab4eeae24d9e23d7e27edcfe4c14d3a1b31e2cfa2f541e5dd6812431c08be\\Dispatcher.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2b4ab4eeae24d9e23d7e27edcfe4c14d3a1b31e2cfa2f541e5dd6812431c08be\\Dispatcher.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2b4ab4eeae24d9e23d7e27edcfe4c14d3a1b31e2cfa2f541e5dd6812431c08be\\Dispatcher.cs",
+              "ViewState": "AgIAALYEAAAAAAAAAAASwMoEAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:20:37.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "CulturePreservingExecutionContext.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1300d66ecbfd4ed19328df16904ac32630fdd480c488ed3d55b6601f60be8cb0\\CulturePreservingExecutionContext.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1300d66ecbfd4ed19328df16904ac32630fdd480c488ed3d55b6601f60be8cb0\\CulturePreservingExecutionContext.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1300d66ecbfd4ed19328df16904ac32630fdd480c488ed3d55b6601f60be8cb0\\CulturePreservingExecutionContext.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1300d66ecbfd4ed19328df16904ac32630fdd480c488ed3d55b6601f60be8cb0\\CulturePreservingExecutionContext.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAlwGoAAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:27:59.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Application.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1d538629b5cfff5d94087168bb5ccd0355681bd2e1b3412d5bbeb73aa2b4b115\\Application.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1d538629b5cfff5d94087168bb5ccd0355681bd2e1b3412d5bbeb73aa2b4b115\\Application.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1d538629b5cfff5d94087168bb5ccd0355681bd2e1b3412d5bbeb73aa2b4b115\\Application.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1d538629b5cfff5d94087168bb5ccd0355681bd2e1b3412d5bbeb73aa2b4b115\\Application.cs",
+              "ViewState": "AgIAAAAFAAAAAAAAAAAlwBgFAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:21:54.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "UIElement.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\982a8b666a067d8472aae5228e3368de0ce51dc014fc05fabc8abb9a2685da8f\\UIElement.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\982a8b666a067d8472aae5228e3368de0ce51dc014fc05fabc8abb9a2685da8f\\UIElement.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\982a8b666a067d8472aae5228e3368de0ce51dc014fc05fabc8abb9a2685da8f\\UIElement.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\982a8b666a067d8472aae5228e3368de0ce51dc014fc05fabc8abb9a2685da8f\\UIElement.cs",
+              "ViewState": "AgIAAD8WAAAAAAAAAAAlwFcWAAAGAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:20:34.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "CoordinatorDevice.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\CoordinatorDevice.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\CoordinatorDevice.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T07:42:29.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ESDBox.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ESDBox.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ESDBox.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:36:30.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Device.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Device.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Device.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T09:42:53.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "AbstractXBeeDevice.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\AbstractXBeeDevice.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\AbstractXBeeDevice.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\AbstractXBeeDevice.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\AbstractXBeeDevice.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T11:19:17.318Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "Publisher.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Publisher.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Publisher.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T05:55:22.079Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "MediaContext.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\297b7a223225bd7abd061f9cf655fd77f3777fb4689f2c7fb8ecedfa874a0104\\MediaContext.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\297b7a223225bd7abd061f9cf655fd77f3777fb4689f2c7fb8ecedfa874a0104\\MediaContext.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\297b7a223225bd7abd061f9cf655fd77f3777fb4689f2c7fb8ecedfa874a0104\\MediaContext.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\297b7a223225bd7abd061f9cf655fd77f3777fb4689f2c7fb8ecedfa874a0104\\MediaContext.cs",
+              "ViewState": "AgIAAPsDAAAAAAAAAAAewAoEAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:27:57.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "DataReader.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Connection\\DataReader.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Connection\\DataReader.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Connection\\DataReader.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Connection\\DataReader.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:01:19.742Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "ControlBox.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ControlBox.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ControlBox.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:33:03.461Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "Config.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Config.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Config.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T06:00:07.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "Subscriber.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Subscriber.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\Subscriber.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T05:55:23.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ExecutionContext.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2030134891b910d0a091a73e6c647eb6e4f698bedf3c17dde8078a91bf2bf770\\ExecutionContext.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2030134891b910d0a091a73e6c647eb6e4f698bedf3c17dde8078a91bf2bf770\\ExecutionContext.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2030134891b910d0a091a73e6c647eb6e4f698bedf3c17dde8078a91bf2bf770\\ExecutionContext.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\2030134891b910d0a091a73e6c647eb6e4f698bedf3c17dde8078a91bf2bf770\\ExecutionContext.cs",
+              "ViewState": "AgIAANcBAAAAAAAAAAAewN8BAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:01:22.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "DrawingContext.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\d08ce70ac101e55360aa54fa4d0182a744f8b91a589ae0b4335d85bab85fddc8\\DrawingContext.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\d08ce70ac101e55360aa54fa4d0182a744f8b91a589ae0b4335d85bab85fddc8\\DrawingContext.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\d08ce70ac101e55360aa54fa4d0182a744f8b91a589ae0b4335d85bab85fddc8\\DrawingContext.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\d08ce70ac101e55360aa54fa4d0182a744f8b91a589ae0b4335d85bab85fddc8\\DrawingContext.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAewCcAAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T12:17:37.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "HwndWrapper.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\74b97e881a54c8d4168b7fb9a221f4f7788bf6d4bcb87e6f5c78a195e544ab42\\HwndWrapper.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\74b97e881a54c8d4168b7fb9a221f4f7788bf6d4bcb87e6f5c78a195e544ab42\\HwndWrapper.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\74b97e881a54c8d4168b7fb9a221f4f7788bf6d4bcb87e6f5c78a195e544ab42\\HwndWrapper.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\74b97e881a54c8d4168b7fb9a221f4f7788bf6d4bcb87e6f5c78a195e544ab42\\HwndWrapper.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAlwNwAAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:20:52.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "XBeePacketParser.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Packet\\XBeePacketParser.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Packet\\XBeePacketParser.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Packet\\XBeePacketParser.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\Desktop\\TNG\\RELEASE\\NEW_MOONSUNG-ESD - Copy\\XBeeLibrary\\Packet\\XBeePacketParser.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T09:20:14.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ThreadHelper.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\5b86774778aff0ce3cec52deedde3e68e73999a1df9f25a32d2212d4f3b14744\\ThreadHelper.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\5b86774778aff0ce3cec52deedde3e68e73999a1df9f25a32d2212d4f3b14744\\ThreadHelper.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\5b86774778aff0ce3cec52deedde3e68e73999a1df9f25a32d2212d4f3b14744\\ThreadHelper.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\5b86774778aff0ce3cec52deedde3e68e73999a1df9f25a32d2212d4f3b14744\\ThreadHelper.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAewEEAAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T07:01:23.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ExceptionWrapper.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\e8d68e7af1fb94bc3cfd753c560f12bc92ccb3bdaccf6e4be8ffa111bf800af6\\ExceptionWrapper.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\e8d68e7af1fb94bc3cfd753c560f12bc92ccb3bdaccf6e4be8ffa111bf800af6\\ExceptionWrapper.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\e8d68e7af1fb94bc3cfd753c560f12bc92ccb3bdaccf6e4be8ffa111bf800af6\\ExceptionWrapper.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\e8d68e7af1fb94bc3cfd753c560f12bc92ccb3bdaccf6e4be8ffa111bf800af6\\ExceptionWrapper.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAewBcAAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:20:47.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "App.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\ef22e84854cb509b25919eeed93bc772c1d9a90ce3b4cc49b4ff5e3b590869a8\\App.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\ef22e84854cb509b25919eeed93bc772c1d9a90ce3b4cc49b4ff5e3b590869a8\\App.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\ef22e84854cb509b25919eeed93bc772c1d9a90ce3b4cc49b4ff5e3b590869a8\\App.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\ef22e84854cb509b25919eeed93bc772c1d9a90ce3b4cc49b4ff5e3b590869a8\\App.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAlwCgAAAAAAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:57:32.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "HwndSubclass.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\6ae5ddec7e9509d329ab86c02aa616dfda26e3c1d1f94878fba9ba63103a5f94\\HwndSubclass.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\6ae5ddec7e9509d329ab86c02aa616dfda26e3c1d1f94878fba9ba63103a5f94\\HwndSubclass.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\6ae5ddec7e9509d329ab86c02aa616dfda26e3c1d1f94878fba9ba63103a5f94\\HwndSubclass.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\6ae5ddec7e9509d329ab86c02aa616dfda26e3c1d1f94878fba9ba63103a5f94\\HwndSubclass.cs",
+              "ViewState": "AgIAAOgAAAAAAAAAAAASwPwAAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T08:20:53.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "DataBindEngine.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1409bc466d86e57ea1923e23e1fc52d6831ee50cf35c1e0fbf13bc1a9d37c820\\DataBindEngine.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1409bc466d86e57ea1923e23e1fc52d6831ee50cf35c1e0fbf13bc1a9d37c820\\DataBindEngine.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1409bc466d86e57ea1923e23e1fc52d6831ee50cf35c1e0fbf13bc1a9d37c820\\DataBindEngine.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\1409bc466d86e57ea1923e23e1fc52d6831ee50cf35c1e0fbf13bc1a9d37c820\\DataBindEngine.cs",
+              "ViewState": "AgIAADsBAAAAAAAAAAAewFMBAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:53:34.59Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "BindingExpressionBase.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\14bfa4200ffdeced11c7ecc13045954d93c1af181111be9df4901399bec5d051\\BindingExpressionBase.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\14bfa4200ffdeced11c7ecc13045954d93c1af181111be9df4901399bec5d051\\BindingExpressionBase.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\14bfa4200ffdeced11c7ecc13045954d93c1af181111be9df4901399bec5d051\\BindingExpressionBase.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\14bfa4200ffdeced11c7ecc13045954d93c1af181111be9df4901399bec5d051\\BindingExpressionBase.cs",
+              "ViewState": "AgIAAM4EAAAAAAAAAAAYwOgEAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:53:31.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "BindingExpression.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\de699906b935264c87350233116c23d6e19bc945fb2695931d8e2f370078e27b\\BindingExpression.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\de699906b935264c87350233116c23d6e19bc945fb2695931d8e2f370078e27b\\BindingExpression.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\de699906b935264c87350233116c23d6e19bc945fb2695931d8e2f370078e27b\\BindingExpression.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\de699906b935264c87350233116c23d6e19bc945fb2695931d8e2f370078e27b\\BindingExpression.cs",
+              "ViewState": "AgIAAPMAAAAAAAAAAAAYwA0BAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:53:30.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "DeviceManagerPage.xaml.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T06:45:39.424Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "DeviceManagerPage.xaml",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\DeviceManagerPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-20T07:29:32.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ViewModel.cs",
+              "DocumentMoniker": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ViewModel.cs",
+              "ToolTip": "E:\\MSI\\NEW_MOONSUNG-ESD\\ESDKitSystem\\Networking\\ViewModel.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:32:53.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "ContextLayoutManager.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\877f2bcb802de2d02370681eb6731ec48db4c5d6c10c89d8fb85eefb3c8e99c8\\ContextLayoutManager.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\877f2bcb802de2d02370681eb6731ec48db4c5d6c10c89d8fb85eefb3c8e99c8\\ContextLayoutManager.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\877f2bcb802de2d02370681eb6731ec48db4c5d6c10c89d8fb85eefb3c8e99c8\\ContextLayoutManager.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\877f2bcb802de2d02370681eb6731ec48db4c5d6c10c89d8fb85eefb3c8e99c8\\ContextLayoutManager.cs",
+              "ViewState": "AgIAAGsCAAAAAAAAAAAAwIECAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:55:41.175Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Window.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\91c960aed72a9dda2a726a035a93c97b7c607dca4f22c72109788f5872982d4c\\Window.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\91c960aed72a9dda2a726a035a93c97b7c607dca4f22c72109788f5872982d4c\\Window.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\91c960aed72a9dda2a726a035a93c97b7c607dca4f22c72109788f5872982d4c\\Window.cs",
+              "RelativeToolTip": "..\\..\\..\\ADMIN\\AppData\\Local\\Temp\\.vsdbgsrc\\91c960aed72a9dda2a726a035a93c97b7c607dca4f22c72109788f5872982d4c\\Window.cs",
+              "ViewState": "AgIAAIkIAAAAAAAAAAAewKEIAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T06:55:42.484Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

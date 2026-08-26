@@ -1,0 +1,64 @@
+{
+  "CategoryLength": [
+    11,
+    1,
+    1,
+    1
+  ],
+  "DevicePosition": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    11,
+    13,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "DevicesIsActive": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "CategoryPosition": [
+    0,
+    13,
+    11,
+    12
+  ],
+  "CategoriePC": [
+    1,
+    1,
+    1,
+    1
+  ]
+}
