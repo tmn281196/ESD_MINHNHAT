@@ -9,6 +9,18 @@
       <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
         <Setter Property="FrameworkElement.Cursor" Value="Hand" />
       </Style>
+      <!-- Fonts embedded from Fonts/ (SIL OFL 1.1, see Fonts/LICENSE-*), same as the docs:
+           Google Sans for the UI text, JetBrains Mono for the console log.
+           Glyphs they do not have (Korean, Thai) fall back to the Windows UI font automatically. -->
+      <FontFamily x:Key="AppFont">pack://application:,,,/ESDCMS;component/Fonts/#Google Sans</FontFamily>
+      <FontFamily x:Key="MonoFont">pack://application:,,,/ESDCMS;component/Fonts/#JetBrains Mono</FontFamily>
+      <!-- ToolTips and context menus are separate popups: they do not inherit the window font. -->
+      <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+      </Style>
+      <Style TargetType="{x:Type ContextMenu}">
+        <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+      </Style>
     </ResourceDictionary>
   </Application.Resources>
 </Application>

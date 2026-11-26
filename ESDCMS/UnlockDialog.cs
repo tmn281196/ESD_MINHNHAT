@@ -88,6 +88,11 @@ internal static class UnlockDialog
 			Background = Brushes.White,
 			Content = panel
 		};
+		// A window created in code does not inherit the main window font: use the app font (App.xaml).
+		if (Application.Current?.TryFindResource("AppFont") is FontFamily appFont)
+		{
+			win.FontFamily = appFont;
+		}
 		okButton.Click += delegate
 		{
 			if (Verify(box.Password))

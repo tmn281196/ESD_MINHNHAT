@@ -227,14 +227,14 @@ def cau_hinh():
 def giao_dien():
     body = '''
 <h2 id="tong-quan">Tổng quan</h2>
-<p class="lede"><em>Một cửa sổ: thanh tiêu đề, bản đồ băng tải (kèm dải cảnh báo Offline ngay dưới hàng ô), console log, và thanh dưới chia group theo thiết bị.</em></p>
+<p class="lede"><em>Một cửa sổ: thanh tiêu đề, bản đồ băng tải (kèm dải cảnh báo Offline ngay dưới hàng ô), console log, và thanh dưới chia group theo thiết bị. Font nhúng trong exe, giống docs: Google Sans cho chữ, JetBrains Mono cho log.</em></p>
 <div class="table-wrap"><table>
 <thead><tr><th>Vùng</th><th>Nội dung</th></tr></thead>
 <tbody>
 <tr><td class="nowrap">Thanh tiêu đề</td><td>"ESD Compliance Monitoring System" và <strong>nút ngôn ngữ</strong> bên phải: nút ghi tên ngôn ngữ đang dùng; mỗi lần bấm chuyển <em>English → 한국어 → ไทย → English</em>, đổi ngay không cần khởi động lại, lưu vào <code>config.json</code>. Bấm được cả khi đang khóa.</td></tr>
 <tr><td class="nowrap">Bản đồ băng tải</td><td>Một dải (băng tải) với 20 ô vị trí; mỗi hộp là một ô mang số 01..20, tô màu theo trạng thái. Chú thích màu (theo ngôn ngữ): Inactive (vàng), Warning (đỏ cam), Active (xanh lá), <strong>Offline (xanh dương)</strong>, Not in use (xám).</td></tr>
 <tr><td class="nowrap">Cảnh báo Offline</td><td>Dải vàng nhạt nằm trên bản đồ, <strong>ngay dưới hàng ô hộp</strong> và rộng bằng dải băng tải (vị trí cố định), chữ lớn đậm, icon ⚠ nhấp nháy nhẹ, <strong>chỉ hiện khi có hộp đang dùng ở Offline</strong>: "Box 03, 07 offline — please check the power supply." (theo ngôn ngữ). Tự ẩn khi các hộp trả lời lại. Hộp Unknown lúc mới mở (chưa hỏi tới) không tính.</td></tr>
-<tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ Consolas trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
+<tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ JetBrains Mono trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
 <tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Bên trái: <strong>Refresh Connection</strong>, <strong>Start with Windows</strong>, nút 🔒. Bên phải, sát lề, ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
 <strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s) ·
 <strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·

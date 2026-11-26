@@ -24,6 +24,9 @@
     <Resource Include="Images\*.png" />
     <Resource Include="Monitoring\user.png" />
     <Resource Include="icon.ico" />
+    <!-- UI fonts, same as the docs (SIL OFL 1.1): Google Sans + JetBrains Mono -->
+    <Resource Include="Fonts\*.ttf" />
+    <None Update="Fonts\LICENSE-*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
