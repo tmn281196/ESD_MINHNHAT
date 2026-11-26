@@ -50,7 +50,7 @@ Khi tất cả trở lại bình thường, băng tải chạy lại. Toàn bộ
 <tr><td class="nowrap">Hộp ESD</td><td>tối đa 20 hộp/line (ID 1..20) · LoRa 433&nbsp;MHz · trạng thái A / W / I từ hai chân vào · ba đèn đỏ/vàng/xanh · trả lời query <code>?</code></td></tr>
 <tr><td class="nowrap">Hai cổng COM</td><td>RF Gateway và Control Box, đều 9600 8N1 · tự nhận cắm/rút USB, tự nối lại</td></tr>
 <tr><td class="nowrap">Khung tin</td><td>LoRa: <code>AA NetID TxID LEN DATA CRC8 BB</code> (CRC8 poly 0x31) · Control Box: <code>44 45 LEN OP STATE XOR 56</code>, echo làm ACK</td></tr>
-<tr><td class="nowrap">Nhịp</td><td>timer băng tải 200 ms · TX gap 500 ms · RX timeout 500 ms · Retry 4× gap 100 ms · query timeout 400 ms × 3 · hỏi lại Offline mỗi 300 s</td></tr>
+<tr><td class="nowrap">Nhịp</td><td>timer băng tải 200 ms · TX gap 500 ms · RX timeout 500 ms · Retry 4× gap 100 ms · query 3 vòng × 5 s (nghe 400 ms mỗi query) · hỏi lại mọi hộp mỗi 120 s</td></tr>
 </tbody>
 </table></div>
 

@@ -46,7 +46,7 @@
   <sys:String x:Key="S.Tip.RfPort">RF 게이트웨이의 COM 포트 - 포트를 고르면 바로 연결, Close는 연결 해제</sys:String>
   <sys:String x:Key="S.Tip.CbPort">컨트롤 박스의 COM 포트 - 포트를 고르면 바로 연결, Close는 연결 해제</sys:String>
   <sys:String x:Key="S.Tip.NetId">RF 게이트웨이에서 받아들이는 LoRa 네트워크 ID (라인)</sys:String>
-  <sys:String x:Key="S.Tip.AskAgain">응답하지 않은 박스(파란색, 오프라인)를 이 초마다 다시 질의 (최소 5). 0 = 안 함</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">사용 중인 모든 박스를 이 초마다 하나씩 다시 질의 (최소 5). 0 = 안 함</sys:String>
   <sys:String x:Key="S.Tip.TxGap">컨트롤 박스로 보내는 연속 명령 사이의 지연 (ms)</sys:String>
   <sys:String x:Key="S.Tip.RxTimeout">명령 실패로 보기 전까지 컨트롤 박스 에코를 기다리는 시간 (ms)</sys:String>
   <sys:String x:Key="S.Tip.Retry">포기하기 전 컨트롤 박스로 명령을 보내는 횟수 (첫 시도 포함)</sys:String>

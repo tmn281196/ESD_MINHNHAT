@@ -23,7 +23,7 @@ PAGES = {
     "kien_truc/01_boi_canh.html": ("System Context", "ESDCMS.exe: một tiến trình WPF .NET 4.8 giữ hai link serial (RF Gateway, Control Box) và tất cả logic; single-instance theo thư mục, chống treo cổng COM."),
     "kien_truc/02_phan_tang.html": ("Layers & File Map", "Bản đồ file: Device/, Monitoring/, cửa sổ chính; mỗi file làm gì, và quy ước Fody/PropertyChanged."),
     "kien_truc/03_ket_noi.html": ("Connections & COM", "Mở/đóng cổng an toàn (SerialPortSafe), tự nhận cắm/rút USB, tự nối lại, thử lại lúc khởi động cùng Windows."),
-    "kien_truc/04_poll.html": ("Status Polling", "Vòng hỏi trạng thái: query mỗi hộp lúc mở cổng, phát hiện Offline, hỏi lại định kỳ, và click vào ô hộp để hỏi ngay."),
+    "kien_truc/04_poll.html": ("Status Polling", "Vòng hỏi trạng thái: hỏi theo vòng lúc mở cổng, xác nhận Warning, hỏi lại mọi hộp định kỳ, phát hiện Offline, và click vào ô hộp để hỏi ngay."),
     "kien_truc/05_conveyor.html": ("Conveyor Control", "Luật dừng băng tải: bất kỳ hộp đang dùng ở Warning → dừng; timer 200 ms, retry/gap, xung SWON lúc kết nối, chế độ Lock/manual."),
     "kien_truc/06_cau_hinh.html": ("Config & Settings", "%USERPROFILE%\\.esdcms\\config.json: tất cả khóa và giá trị mặc định, chuyển từ bản cũ, lưu an toàn, layout màn hình, auto-start cùng Windows."),
     "kien_truc/07_giao_dien.html": ("User Interface", "Một cửa sổ: nút ngôn ngữ English / 한국어 / ไทย, bản đồ băng tải, cảnh báo hộp Offline, console log, và thanh dưới một hàng chia group theo thiết bị."),

@@ -51,7 +51,7 @@
   <sys:String x:Key="S.Tip.RfPort">COM port of the RF Gateway - picking a port connects it, Close disconnects</sys:String>
   <sys:String x:Key="S.Tip.CbPort">COM port of the Control Box - picking a port connects it, Close disconnects</sys:String>
   <sys:String x:Key="S.Tip.NetId">LoRa Network ID (line) accepted from the RF Gateway</sys:String>
-  <sys:String x:Key="S.Tip.AskAgain">Every this many seconds the boxes that did not answer (blue, Offline) are asked again (min 5). 0 = never</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">Every this many seconds every box in use is asked for its status, one at a time (min 5). 0 = never</sys:String>
   <sys:String x:Key="S.Tip.TxGap">Delay between consecutive commands sent to the Control Box (ms)</sys:String>
   <sys:String x:Key="S.Tip.RxTimeout">How long to wait for the Control Box echo before a command counts as failed (ms)</sys:String>
   <sys:String x:Key="S.Tip.Retry">How many times a command to the Control Box is sent before giving up (first attempt included)</sys:String>

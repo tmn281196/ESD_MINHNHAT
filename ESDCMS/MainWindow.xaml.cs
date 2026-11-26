@@ -59,6 +59,12 @@ public partial class MainWindow : Window
 	{
 		InitializeComponent();
 		ApplyLock(LockToggle.IsChecked == true);   // starts locked
+		// Title bar: the name + the version from AssemblyInformationalVersion (Properties/AssemblyInfo.cs), e.g. "... 2.1".
+		string version = typeof(MainWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+		if (!string.IsNullOrEmpty(version))
+		{
+			Title = Title + " " + version;
+		}
 		base.Closed += WindowClosed;
 		GlobalViewModel = new ViewModel();
 		DeviceManagerPage = new DeviceManagerPage(GlobalViewModel);
@@ -451,7 +457,8 @@ public partial class MainWindow : Window
 			{ "RF Gateway COM", c.RFGatewayCOM ?? "" },
 			{ "Control Box COM", c.ControlBoxCOM ?? "" },
 			{ "RF Gateway Net ID", $"0x{c.NetworkID:X2}" },
-			{ "RF Gateway ask again", c.AskAgainSec > 0 ? c.EffectiveAskAgainSec + " s (Offline boxes)" : "off" },
+			{ "RF Gateway ask again", c.AskAgainSec > 0 ? c.EffectiveAskAgainSec + " s (all boxes)" : "off" },
+			{ "RF Gateway status query", c.EffectivePollRetries + " rounds x " + (c.EffectivePollRoundWaitMs / 1000.0).ToString("0.#") + " s before Offline" },
 			{ "Control Box TX gap", c.TxGapMs + " ms" },
 			{ "Control Box RX timeout", c.TxTimeoutMs + " ms" },
 			{ "Control Box retry", c.TxRetries + "x" },

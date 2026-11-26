@@ -96,7 +96,7 @@
 <li>Khi cửa sổ <code>Loaded</code>, <code>InitComConnections</code> mở lần lượt RF Gateway rồi Control Box (đều trên luồng nền).</li>
 <li>Mở cổng RF thành công thì <code>OpenGeneration</code> tăng; mở Control Box thì chạy xung SWON (Motor 1..4 = RUN, rồi Start All HIGH 500&nbsp;ms → LOW) dưới khóa <code>_controlBoxGate</code>.</li>
 <li>Nếu một cổng chưa lên (driver USB chưa sẵn sàng lúc khởi động cùng Windows), <code>MainWindow</code> thử lại tới 12 lần, mỗi 5&nbsp;s.</li>
-<li>Vòng polling thấy <code>OpenGeneration</code> đổi, đợi 2,5&nbsp;s (gateway có thể reboot) rồi query từng hộp đang dùng. Hộp chạy firmware v2 trả lời sau khoảng 20&nbsp;ms; hộp không trả lời sau <code>PollRetries</code> lần thì hiện Offline.</li>
+<li>Vòng polling thấy <code>OpenGeneration</code> đổi, đợi 2,5&nbsp;s (gateway có thể reboot) rồi query mọi hộp đang dùng theo vòng (xem <a href="../kien_truc/04_poll.html">Status Polling</a>). Hộp chạy firmware v2 trả lời sau khoảng 20&nbsp;ms; hộp vẫn im sau <code>PollRetries</code> vòng (mỗi vòng ít nhất <code>PollRoundWaitMs</code> = 5&nbsp;s) thì hiện Offline.</li>
 </ul>
 
 <nav class="pager" aria-label="Pages"></nav>

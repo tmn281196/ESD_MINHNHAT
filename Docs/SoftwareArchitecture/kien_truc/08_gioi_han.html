@@ -37,7 +37,8 @@
 <li><strong>Mọi hộp và gateway phải nạp bản v2.</strong> Hộp còn firmware cũ không đáp query → hiện <strong>Offline</strong> tới khi nó tự gửi một thay đổi.</li>
 <li><strong><code>NODE_ID</code> nằm cứng trong <code>lora_node.ino</code></strong> (đang là <code>0x04</code>): phải sửa rồi nạp riêng cho từng hộp. Hai hộp trùng ID sẽ đè trạng thái của nhau và trùng khe trả lời.</li>
 <li><strong>PC chưa dùng query <code>0xFF</code></strong> (hỏi tất cả, trả lời theo khe <code>NODE_ID × 60&nbsp;ms</code>) dù firmware hỗ trợ; PC đang hỏi lần lượt từng hộp.</li>
-<li><strong>Khung trạng thái không có ACK:</strong> hộp bù bằng cách lặp 5 lần khi đổi. Nếu PC lỡ cả 6 lần, ô hiện sai tới thay đổi kế tiếp hoặc tới khi người dùng click ô — <code>AskAgainSec</code> chỉ hỏi lại hộp Offline/Unknown.</li>
+<li><strong>Khung trạng thái không có ACK:</strong> hộp bù bằng cách lặp 5 lần khi đổi. Nếu PC lỡ cả 6 lần, ô hiện sai tới lượt PC hỏi lại mọi hộp (mỗi <code>AskAgainSec</code>, mặc định 120&nbsp;s), tới thay đổi kế tiếp, hoặc tới khi người dùng click ô.</li>
+<li><strong><code>PollRoundWaitMs</code> chưa có ô trên giao diện</strong> (thêm từ v2.1): muốn đổi phải sửa <code>config.json</code>.</li>
 </ul>
 
 <h2 id="firmware-khac">Khác biệt firmware khác</h2>

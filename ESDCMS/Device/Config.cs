@@ -17,7 +17,7 @@ public class Config
 	/// <summary>UI language: "en", "ko" or "th" (anything else = English).</summary>
 	public string Language { get; set; } = "en";
 
-	/// <summary>How long (ms) to wait for a box to answer one status query.</summary>
+	/// <summary>How long (ms) to listen for a box's answer after one status query, before the next query is sent.</summary>
 	public int PollReplyTimeoutMs { get; set; } = DefaultPollReplyTimeoutMs;
 
 	public const int DefaultPollReplyTimeoutMs = 400;
@@ -25,7 +25,18 @@ public class Config
 	[JsonIgnore]
 	public int EffectivePollReplyTimeoutMs => PollReplyTimeoutMs < 100 ? 100 : PollReplyTimeoutMs;
 
-	/// <summary>How many queries a box gets in one round before it is shown as Offline (first query included).</summary>
+	/// <summary>
+	/// One round of status queries lasts at least this long (ms) unless every box answered sooner: after asking
+	/// the boxes the PC waits this long for the answers before it asks the silent ones again. Only in config.json.
+	/// </summary>
+	public int PollRoundWaitMs { get; set; } = DefaultPollRoundWaitMs;
+
+	public const int DefaultPollRoundWaitMs = 5000;
+
+	[JsonIgnore]
+	public int EffectivePollRoundWaitMs => PollRoundWaitMs < 1000 ? 1000 : PollRoundWaitMs;
+
+	/// <summary>How many rounds of queries a box gets before it is shown as Offline (first round included).</summary>
 	public int PollRetries { get; set; } = DefaultPollRetries;
 
 	public const int DefaultPollRetries = 3;
@@ -33,10 +44,11 @@ public class Config
 	[JsonIgnore]
 	public int EffectivePollRetries => PollRetries < 1 ? 1 : PollRetries;
 
-	/// <summary>Every this many seconds the boxes that did not answer (Offline) are asked again. 0 = never.</summary>
+	/// <summary>Every this many seconds every box in use is asked for its status, one at a time. 0 = never.</summary>
 	public int AskAgainSec { get; set; } = DefaultAskAgainSec;
 
-	public const int DefaultAskAgainSec = 300;
+	// Was 300 before v2.1; a value already saved in config.json is kept, so set it on the settings bar.
+	public const int DefaultAskAgainSec = 120;
 
 	[JsonIgnore]
 	public int EffectiveAskAgainSec => AskAgainSec <= 0 ? 0 : (AskAgainSec < 5 ? 5 : AskAgainSec);

@@ -115,18 +115,23 @@ def poll():
 
 <h2 id="vong">Vòng polling</h2>
 <ul>
-<li><strong>Lúc cổng RF (re)mở</strong> (<code>OpenGeneration</code> đổi): đợi <strong>2,5&nbsp;s</strong> (gateway ESP32 có thể reboot khi mở cổng), rồi hỏi <em>từng hộp đang dùng</em> một lượt.</li>
-<li>Mỗi hộp được hỏi tới <strong>PollRetries</strong> lần (mặc định 3), mỗi lần chờ trả lời <strong>PollReplyTimeout</strong> (mặc định 400&nbsp;ms). Trả lời ở lần nào thì dừng ngay.</li>
-<li>Hộp không trả lời sau tất cả các lần → đặt <strong>Offline</strong> (ô giữ màu xanh dương mặc định, không phải xám), và dải cảnh báo vàng ngay dưới hàng ô hộp hiện số hộp kèm lời nhắc kiểm tra nguồn điện (xem <a href="07_giao_dien.html">User Interface</a>).</li>
-<li>Sau đó, mỗi <strong>AskAgainSec</strong> giây (mặc định 300; 0 = không), các hộp đang Offline/Unknown được hỏi lại; hộp nào đáp thì "back online".</li>
+<li><strong>Lúc cổng RF (re)mở</strong> (<code>OpenGeneration</code> đổi): đợi <strong>2,5&nbsp;s</strong> (gateway ESP32 có thể reboot khi mở cổng), rồi hỏi <em>mọi hộp đang dùng</em>.</li>
+<li><strong>Hỏi theo vòng</strong> (từ v2.1, <code>AskBoxesInRoundsAsync</code>): mỗi vòng gửi một query cho từng hộp chưa nghe thấy — sau mỗi query nghe <strong>PollReplyTimeoutMs</strong> (mặc định 400&nbsp;ms) rồi mới gửi query kế — rồi chờ cho đủ <strong>PollRoundWaitMs</strong> (mặc định 5&nbsp;s) kể từ đầu vòng để gom câu trả lời. Vòng sau chỉ hỏi lại các hộp còn im; tối đa <strong>PollRetries</strong> vòng (mặc định 3).</li>
+<li>Hộp vẫn im sau tất cả các vòng → đặt <strong>Offline</strong> (ô giữ màu xanh dương mặc định, không phải xám), và dải cảnh báo vàng ngay dưới hàng ô hộp hiện số hộp kèm lời nhắc kiểm tra nguồn điện (xem <a href="07_giao_dien.html">User Interface</a>). Rải các lần hỏi lại ra vài giây để một đợt nhiễu sóng ngắn không làm hộp bị báo Offline nhầm; đổi lại, một hộp tắt thật phải tới khoảng 15&nbsp;s mới thành Offline.</li>
+<li>Sau đó vòng polling xét lần lượt, việc nào có thì làm trước:
+<ol>
+<li><strong>Xác nhận Warning:</strong> hộp vừa chuyển sang Warning và đã im <strong>4&nbsp;s</strong> (tức là đã tự lặp xong) thì được hỏi lại. Hộp trả lời thì trạng thái theo câu trả lời; im thì thành <strong>Offline</strong> (log ghi "switched off?") và không còn tính là Warning để dừng băng tải.</li>
+<li><strong>Hộp chưa có trạng thái</strong> (Unknown, ví dụ vừa bật dùng trên bản đồ): hỏi ngay, mỗi hộp tối đa 30&nbsp;s một lần.</li>
+<li>Mỗi <strong>AskAgainSec</strong> giây (mặc định <strong>120</strong>; 0 = không): hỏi <em>lần lượt mọi hộp đang dùng</em>. Khung trạng thái không có ACK, nên lượt này sửa ô nào hiện sai vì PC lỡ khung đổi trạng thái; hộp đang Offline mà trả lời thì "back online". Hai PC cùng Network ID nên đặt chu kỳ lệch nhau (ví dụ 120 và 130) để không hỏi cùng lúc.</li>
+</ol></li>
 </ul>
-<p>Chỉ <strong>một query trên không tại một thời điểm</strong> (<code>_radioLock</code>): lượt hỏi lúc khởi động và cú click vào ô hộp thay nhau dùng sóng.</p>
+<p>Chỉ <strong>một query trên không tại một thời điểm</strong> (<code>_radioLock</code>): các lượt hỏi của vòng polling và cú click vào ô hộp thay nhau dùng sóng.</p>
 
 <h2 id="khop">Khớp hỏi với trả lời</h2>
-<p>Mỗi hộp có một "người chờ" (<code>TaskCompletionSource</code>). Gửi query xong, vòng hỏi chờ <em>hoặc</em> hộp trả lời (parser gọi <code>NotifyBoxAnswered</code> khi khung CRC đúng) <em>hoặc</em> hết timeout. Khung trạng thái bình thường của hộp cũng được tính là "đã trả lời".</p>
+<p>Mỗi hộp có một "người chờ" (<code>TaskCompletionSource</code>). Gửi query xong, vòng hỏi chờ <em>hoặc</em> hộp trả lời (parser gọi <code>NotifyBoxAnswered</code> khi khung CRC đúng) <em>hoặc</em> hết timeout. Khung trạng thái bình thường của hộp cũng được tính là "đã trả lời". Ngoài ra mỗi hộp lưu thời điểm được nghe thấy gần nhất (<code>_lastAnswerTicks</code>); hỏi theo vòng dựa vào đó để biết hộp nào đã trả lời kể từ đầu lượt, kể cả khi câu trả lời tới sau thời gian nghe.</p>
 
 <h2 id="click">Click để hỏi ngay</h2>
-<p>Click (không kéo) vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay. Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
+<p>Click (không kéo) vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay, cũng theo vòng như trên (nên một hộp im phải tới khoảng 15&nbsp;s mới thành Offline). Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
 <div class="callout warn"><p class="label">Phụ thuộc firmware</p>
 <p>Query cần firmware v2 ở cả gateway (chuyển tiếp PC→LoRa) và hộp (đáp <code>'?'</code>, sau 20&nbsp;ms) — đều có trong <code>Firmware_LoRA/</code>. Hộp chạy firmware cũ không trả lời nên sẽ hiện <strong>Offline</strong> cho tới khi nó tự gửi một thay đổi trạng thái. Xem <a href="08_gioi_han.html">Limits &amp; Open Work</a>.</p></div>
 '''
@@ -178,8 +183,9 @@ def cau_hinh():
     "LogCollapsed": false,
     "Language": "en",
     "PollReplyTimeoutMs": 400,
+    "PollRoundWaitMs": 5000,
     "PollRetries": 3,
-    "AskAgainSec": 300,
+    "AskAgainSec": 120,
     "TxGapMs": 500,
     "NetworkID": 3,
     "TxTimeoutMs": 500,
@@ -199,9 +205,10 @@ def cau_hinh():
 <tr><td class="mono">RFGatewayCOM / ControlBoxCOM</td><td class="nowrap">—</td><td>—</td><td>Tên cổng COM, chọn ở combo của group (chọn là kết nối); <code>Close</code> = không mở. Giá trị cũ <code>Unused</code>/<code>Unset</code> cũng được hiểu là Close.</td></tr>
 <tr><td class="mono">Language</td><td class="num">en</td><td>en / ko / th</td><td>Ngôn ngữ giao diện, đổi bằng nút ngôn ngữ trên thanh tiêu đề; console log vẫn tiếng Anh</td></tr>
 <tr><td class="mono">NetworkID</td><td class="num">3 (0x03)</td><td>—</td><td>Line ID chấp nhận từ RF Gateway; khung ID khác bị bỏ — ô <em>Net ID</em>, group RF Gateway</td></tr>
-<tr><td class="mono">PollReplyTimeoutMs</td><td class="num">400</td><td>≥ 100</td><td>Chờ một hộp trả lời một query</td></tr>
-<tr><td class="mono">PollRetries</td><td class="num">3</td><td>≥ 1</td><td>Số lần hỏi một hộp trước khi cho Offline (gồm lần đầu)</td></tr>
-<tr><td class="mono">AskAgainSec</td><td class="num">300</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại hộp Offline; 0 = không — ô <em>Ask again</em>, group RF Gateway</td></tr>
+<tr><td class="mono">PollReplyTimeoutMs</td><td class="num">400</td><td>≥ 100</td><td>Thời gian nghe trả lời sau một query, trước khi gửi query kế</td></tr>
+<tr><td class="mono">PollRoundWaitMs</td><td class="num">5000</td><td>≥ 1000</td><td>Một vòng hỏi kéo dài ít nhất chừng này (trừ khi mọi hộp đã trả lời) rồi mới hỏi lại các hộp còn im. Không có ô trên giao diện, chỉ sửa trong file. Từ v2.1</td></tr>
+<tr><td class="mono">PollRetries</td><td class="num">3</td><td>≥ 1</td><td>Số vòng hỏi trước khi cho Offline (gồm vòng đầu)</td></tr>
+<tr><td class="mono">AskAgainSec</td><td class="num">120</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại mọi hộp đang dùng; 0 = không — ô <em>Ask again</em>, group RF Gateway. Trước v2.1 mặc định là 300; giá trị đã lưu trong file được giữ nguyên nên khi cập nhật phải tự đặt lại</td></tr>
 <tr><td class="mono">TxGapMs</td><td class="num">500</td><td>≥ 0</td><td>Khoảng cách giữa hai lệnh Control Box liên tiếp — ô <em>TX gap</em>, group Control Box</td></tr>
 <tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>
@@ -283,7 +290,8 @@ def gioi_han():
 <li><strong>Mọi hộp và gateway phải nạp bản v2.</strong> Hộp còn firmware cũ không đáp query → hiện <strong>Offline</strong> tới khi nó tự gửi một thay đổi.</li>
 <li><strong><code>NODE_ID</code> nằm cứng trong <code>lora_node.ino</code></strong> (đang là <code>0x04</code>): phải sửa rồi nạp riêng cho từng hộp. Hai hộp trùng ID sẽ đè trạng thái của nhau và trùng khe trả lời.</li>
 <li><strong>PC chưa dùng query <code>0xFF</code></strong> (hỏi tất cả, trả lời theo khe <code>NODE_ID × 60&nbsp;ms</code>) dù firmware hỗ trợ; PC đang hỏi lần lượt từng hộp.</li>
-<li><strong>Khung trạng thái không có ACK:</strong> hộp bù bằng cách lặp 5 lần khi đổi. Nếu PC lỡ cả 6 lần, ô hiện sai tới thay đổi kế tiếp hoặc tới khi người dùng click ô — <code>AskAgainSec</code> chỉ hỏi lại hộp Offline/Unknown.</li>
+<li><strong>Khung trạng thái không có ACK:</strong> hộp bù bằng cách lặp 5 lần khi đổi. Nếu PC lỡ cả 6 lần, ô hiện sai tới lượt PC hỏi lại mọi hộp (mỗi <code>AskAgainSec</code>, mặc định 120&nbsp;s), tới thay đổi kế tiếp, hoặc tới khi người dùng click ô.</li>
+<li><strong><code>PollRoundWaitMs</code> chưa có ô trên giao diện</strong> (thêm từ v2.1): muốn đổi phải sửa <code>config.json</code>.</li>
 </ul>
 
 <h2 id="firmware-khac">Khác biệt firmware khác</h2>

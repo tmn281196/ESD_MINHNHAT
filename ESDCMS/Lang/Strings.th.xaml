@@ -46,7 +46,7 @@
   <sys:String x:Key="S.Tip.RfPort">พอร์ต COM ของ RF เกตเวย์ - เลือกพอร์ตแล้วเชื่อมต่อทันที เลือก Close เพื่อตัดการเชื่อมต่อ</sys:String>
   <sys:String x:Key="S.Tip.CbPort">พอร์ต COM ของกล่องควบคุม - เลือกพอร์ตแล้วเชื่อมต่อทันที เลือก Close เพื่อตัดการเชื่อมต่อ</sys:String>
   <sys:String x:Key="S.Tip.NetId">LoRa Network ID (ไลน์) ที่รับจาก RF เกตเวย์</sys:String>
-  <sys:String x:Key="S.Tip.AskAgain">ถามกล่องที่ไม่ตอบ (สีน้ำเงิน, ออฟไลน์) ซ้ำทุก ๆ จำนวนวินาทีนี้ (ขั้นต่ำ 5) 0 = ไม่ถาม</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">ถามสถานะทุกกล่องที่ใช้งาน ทีละกล่อง ซ้ำทุก ๆ จำนวนวินาทีนี้ (ขั้นต่ำ 5) 0 = ไม่ถาม</sys:String>
   <sys:String x:Key="S.Tip.TxGap">ช่วงหน่วงระหว่างคำสั่งที่ส่งไปกล่องควบคุมติดกัน (ms)</sys:String>
   <sys:String x:Key="S.Tip.RxTimeout">เวลารอ echo จากกล่องควบคุมก่อนถือว่าคำสั่งล้มเหลว (ms)</sys:String>
   <sys:String x:Key="S.Tip.Retry">จำนวนครั้งที่ส่งคำสั่งไปกล่องควบคุมก่อนเลิก (นับครั้งแรกด้วย)</sys:String>

@@ -44,8 +44,9 @@
     "LogCollapsed": false,
     "Language": "en",
     "PollReplyTimeoutMs": 400,
+    "PollRoundWaitMs": 5000,
     "PollRetries": 3,
-    "AskAgainSec": 300,
+    "AskAgainSec": 120,
     "TxGapMs": 500,
     "NetworkID": 3,
     "TxTimeoutMs": 500,
@@ -65,9 +66,10 @@
 <tr><td class="mono">RFGatewayCOM / ControlBoxCOM</td><td class="nowrap">—</td><td>—</td><td>Tên cổng COM, chọn ở combo của group (chọn là kết nối); <code>Close</code> = không mở. Giá trị cũ <code>Unused</code>/<code>Unset</code> cũng được hiểu là Close.</td></tr>
 <tr><td class="mono">Language</td><td class="num">en</td><td>en / ko / th</td><td>Ngôn ngữ giao diện, đổi bằng nút ngôn ngữ trên thanh tiêu đề; console log vẫn tiếng Anh</td></tr>
 <tr><td class="mono">NetworkID</td><td class="num">3 (0x03)</td><td>—</td><td>Line ID chấp nhận từ RF Gateway; khung ID khác bị bỏ — ô <em>Net ID</em>, group RF Gateway</td></tr>
-<tr><td class="mono">PollReplyTimeoutMs</td><td class="num">400</td><td>≥ 100</td><td>Chờ một hộp trả lời một query</td></tr>
-<tr><td class="mono">PollRetries</td><td class="num">3</td><td>≥ 1</td><td>Số lần hỏi một hộp trước khi cho Offline (gồm lần đầu)</td></tr>
-<tr><td class="mono">AskAgainSec</td><td class="num">300</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại hộp Offline; 0 = không — ô <em>Ask again</em>, group RF Gateway</td></tr>
+<tr><td class="mono">PollReplyTimeoutMs</td><td class="num">400</td><td>≥ 100</td><td>Thời gian nghe trả lời sau một query, trước khi gửi query kế</td></tr>
+<tr><td class="mono">PollRoundWaitMs</td><td class="num">5000</td><td>≥ 1000</td><td>Một vòng hỏi kéo dài ít nhất chừng này (trừ khi mọi hộp đã trả lời) rồi mới hỏi lại các hộp còn im. Không có ô trên giao diện, chỉ sửa trong file. Từ v2.1</td></tr>
+<tr><td class="mono">PollRetries</td><td class="num">3</td><td>≥ 1</td><td>Số vòng hỏi trước khi cho Offline (gồm vòng đầu)</td></tr>
+<tr><td class="mono">AskAgainSec</td><td class="num">120</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại mọi hộp đang dùng; 0 = không — ô <em>Ask again</em>, group RF Gateway. Trước v2.1 mặc định là 300; giá trị đã lưu trong file được giữ nguyên nên khi cập nhật phải tự đặt lại</td></tr>
 <tr><td class="mono">TxGapMs</td><td class="num">500</td><td>≥ 0</td><td>Khoảng cách giữa hai lệnh Control Box liên tiếp — ô <em>TX gap</em>, group Control Box</td></tr>
 <tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>

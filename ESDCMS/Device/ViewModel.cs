@@ -266,6 +266,11 @@ public class ViewModel : INotifyPropertyChanged
 					if (status != esdBox.Status)
 					{
 						Console.WriteLine($"RX <- RFGateway: {frameHex}  | Line {lineId:D2} Box {boxId:D2} {esdBox.Status}");
+						if (esdBox.Status == DeviceStatus.Warning && boxId <= DEVNUM)
+						{
+							// The poller asks this box to confirm it once it has been quiet (WarningConfirmQuietMs).
+							_warningToConfirm[boxId] = true;
+						}
 					}
 				}
 			});
@@ -511,11 +516,20 @@ public class ViewModel : INotifyPropertyChanged
 	// Status query (PC -> RF gateway -> LoRa -> boxes). Needs the v2 box and gateway firmware.
 	//   PC -> box : AA NetID ID 01 '?' CRC BB   (ID = box ID; the firmware also accepts 0xFF = all)
 	//   box -> PC : the normal status frame 'A' / 'W' / 'I'
-	// Only when the RF port opens (program start, Refresh Connection) each used box is asked in
-	// turn (up to PollRetries queries each), so the first status is known without waiting for an
-	// input change. After that the boxes report changes themselves; a click on a box tile asks
-	// that box again. A box that does not answer is shown as Offline (blue, like Unknown) until it is heard again,
-	// and every AskAgainSec seconds the Offline boxes are asked again.
+	// When the RF port opens (program start, Refresh Connection) every used box is asked, so the first
+	// status is known without waiting for an input change; after that the boxes report changes themselves.
+	// Since v2.1 boxes are asked in rounds (AskBoxesInRoundsAsync): every box still to be heard is asked once,
+	// then the PC waits up to PollRoundWaitMs for the answers (any status frame from the box counts, also one
+	// it sent by itself) and asks only the silent ones again, PollRetries rounds in all. A box still silent is
+	// shown as Offline (blue, like Unknown) until it is heard again. Spreading the retries over seconds keeps
+	// a short burst of radio noise from marking boxes Offline.
+	// Besides that the poller asks, in this order:
+	//   - a box that changed to Warning, once it has been quiet for WarningConfirmQuietMs, to confirm it.
+	//     No answer -> Offline (switched off?), so it no longer counts as Warning for the conveyor;
+	//   - a used box that still has no status (Unknown), at most every NoStatusCooldownSec;
+	//   - every AskAgainSec seconds: every used box, one at a time. Status frames have no ACK, so this
+	//     corrects a tile whose change the PC missed.
+	// A click on a box tile asks that box again.
 	// ---------------------------------------------------------------------------------------------
 
 	private const byte CmdQuery = (byte)'?';
@@ -524,6 +538,15 @@ public class ViewModel : INotifyPropertyChanged
 	private const int StartupQueryDelayMs = 2500;
 
 	private const int GapBetweenBoxesMs = 50;
+
+	/// <summary>A used box that still has no status (Unknown) is asked again at most this often.</summary>
+	private const int NoStatusCooldownSec = 30;
+
+	/// <summary>
+	/// A box that changed to Warning is asked to confirm it once it has sent nothing for this long
+	/// (its own repeats after a change take 100 + 200 + 400 + 800 + 1600 ms).
+	/// </summary>
+	private const int WarningConfirmQuietMs = 4000;
 
 	private readonly CancellationTokenSource _pollCts = new CancellationTokenSource();
 
@@ -538,6 +561,15 @@ public class ViewModel : INotifyPropertyChanged
 
 	/// <summary>Box IDs with a click request in progress (UI thread only), so repeated clicks do not queue up.</summary>
 	private readonly bool[] _clickBusy = new bool[DEVNUM + 1];
+
+	/// <summary>When each box without status was last asked (poller only), for NoStatusCooldownSec.</summary>
+	private readonly DateTime[] _noStatusAskedAt = new DateTime[DEVNUM + 1];
+
+	/// <summary>Boxes that changed to Warning and are still to be asked to confirm it (UI thread only).</summary>
+	private readonly bool[] _warningToConfirm = new bool[DEVNUM + 1];
+
+	/// <summary>Rounds of queries a box gets before it is shown as Offline.</summary>
+	private int RoundCount => Config?.EffectivePollRetries ?? Config.DefaultPollRetries;
 
 	/// <summary>Called from the serial thread for every valid status frame of a box.</summary>
 	private void NotifyBoxAnswered(byte boxId)
@@ -624,14 +656,33 @@ public class ViewModel : INotifyPropertyChanged
 					lastRound = DateTime.Now;
 					continue;
 				}
-				// Read every time so a change in the settings applies at once.
+				// A box that changed to Warning and has been quiet since: ask it to confirm the Warning.
+				long quietTicks = TimeSpan.FromMilliseconds(WarningConfirmQuietMs).Ticks;
+				long nowTicks = DateTime.UtcNow.Ticks;
+				List<byte> toConfirm = UsedBoxIds().Where((byte id) => _warningToConfirm[id]
+					&& ESDBoxes[id - 1].Status == DeviceStatus.Warning
+					&& nowTicks - Interlocked.Read(ref _lastAnswerTicks[id]) >= quietTicks).ToList();
+				if (toConfirm.Count > 0)
+				{
+					await ConfirmWarningBoxesAsync(gateway, toConfirm, ct);
+					continue;
+				}
+				// A used box that still has no status (e.g. just enabled on the layout): ask it now.
+				List<byte> noStatus = UsedBoxIds().Where((byte id) => ESDBoxes[id - 1].Status == DeviceStatus.Unknown
+					&& DateTime.UtcNow - _noStatusAskedAt[id] >= TimeSpan.FromSeconds(NoStatusCooldownSec)).ToList();
+				if (noStatus.Count > 0)
+				{
+					await AskNoStatusBoxesAsync(gateway, noStatus, ct);
+					continue;
+				}
+				// Every AskAgainSec: every used box. Read every time so a change in the settings applies at once.
 				int askAgainSec = Config?.EffectiveAskAgainSec ?? Config.DefaultAskAgainSec;
 				if (askAgainSec <= 0 || DateTime.Now < lastRound.AddSeconds(askAgainSec))
 				{
 					await Task.Delay(500, ct);
 					continue;
 				}
-				await AskOfflineBoxesAgainAsync(gateway, ct);
+				await AskAllBoxesAgainAsync(gateway, ct);
 				lastRound = DateTime.Now;
 			}
 			catch (OperationCanceledException)
@@ -653,108 +704,200 @@ public class ViewModel : INotifyPropertyChanged
 		}
 	}
 
-	/// <summary>Startup: asks each used box in turn for its first status and logs who answered.</summary>
+	/// <summary>RF port opened: asks every used box for its first status (in rounds) and logs who answered.</summary>
 	private async Task QueryAllBoxesAsync(RFGateway gateway, CancellationToken ct)
 	{
 		List<byte> used = UsedBoxIds();
-		int timeoutMs = Config?.EffectivePollReplyTimeoutMs ?? Config.DefaultPollReplyTimeoutMs;
-		int tries = Config?.EffectivePollRetries ?? Config.DefaultPollRetries;
 		Console.WriteLine($"Status: asking each box for its status ({used.Count} in use)");
-		List<byte> silent = new List<byte>();
-		foreach (byte id in used)
-		{
-			ct.ThrowIfCancellationRequested();
-			if (!gateway.IsOpen)
-			{
-				return;
-			}
-			if (!await AskBoxAsync(gateway, id, tries, timeoutMs, ct))
-			{
-				silent.Add(id);
-				if (gateway.IsOpen)
-				{
-					ESDBoxes[id - 1].Status = DeviceStatus.Offline;
-				}
-			}
-			await Task.Delay(GapBetweenBoxesMs, ct);
-		}
-		Console.WriteLine((silent.Count == 0)
-			? "Status: all boxes in use answered"
-			: $"Status: no answer after {tries} queries from box " + string.Join(", ", silent.Select((byte id) => id.ToString("D2"))) + " -> Offline");
-	}
-
-	/// <summary>Asks the used boxes that have not answered (Offline / Unknown) again.</summary>
-	private async Task AskOfflineBoxesAgainAsync(RFGateway gateway, CancellationToken ct)
-	{
-		List<byte> ids = UsedBoxIds().Where((byte id) => ESDBoxes[id - 1].Status == DeviceStatus.Offline || ESDBoxes[id - 1].Status == DeviceStatus.Unknown).ToList();
-		if (ids.Count == 0)
+		List<byte> silent = await AskBoxesInRoundsAsync(gateway, used, ct);
+		if (silent == null)
 		{
 			return;
 		}
-		int timeoutMs = Config?.EffectivePollReplyTimeoutMs ?? Config.DefaultPollReplyTimeoutMs;
-		int tries = Config?.EffectivePollRetries ?? Config.DefaultPollRetries;
-		Console.WriteLine("Status: asking again box " + string.Join(", ", ids.Select((byte id) => id.ToString("D2"))));
-		List<byte> answered = new List<byte>();
-		List<byte> silent = new List<byte>();
-		foreach (byte id in ids)
+		MarkOffline(gateway, silent);
+		Console.WriteLine((silent.Count == 0)
+			? "Status: all boxes in use answered"
+			: $"Status: no answer after {RoundCount} rounds from box " + JoinIds(silent) + " -> Offline");
+	}
+
+	/// <summary>Every AskAgainSec: asks every used box again; logs the boxes back online and the new Offline ones.</summary>
+	private async Task AskAllBoxesAgainAsync(RFGateway gateway, CancellationToken ct)
+	{
+		List<byte> used = UsedBoxIds();
+		if (used.Count == 0)
 		{
-			ct.ThrowIfCancellationRequested();
-			if (!gateway.IsOpen)
-			{
-				return;
-			}
-			if (await AskBoxAsync(gateway, id, tries, timeoutMs, ct))
-			{
-				answered.Add(id);
-			}
-			else
-			{
-				silent.Add(id);
-				ESDBox box = ESDBoxes[id - 1];
-				if (gateway.IsOpen && box.Status != DeviceStatus.Offline)
-				{
-					box.Status = DeviceStatus.Offline;
-				}
-			}
-			await Task.Delay(GapBetweenBoxesMs, ct);
+			return;
 		}
-		if (answered.Count > 0)
+		List<byte> wasOffline = used.Where((byte id) => ESDBoxes[id - 1].Status == DeviceStatus.Offline || ESDBoxes[id - 1].Status == DeviceStatus.Unknown).ToList();
+		List<byte> silent = await AskBoxesInRoundsAsync(gateway, used, ct);
+		if (silent == null)
 		{
-			Console.WriteLine("Status: box " + string.Join(", ", answered.Select((byte id) => id.ToString("D2"))) + " answered - back online");
+			return;
 		}
-		if (silent.Count > 0)
+		List<byte> newlyOffline = silent.Where((byte id) => ESDBoxes[id - 1].Status != DeviceStatus.Offline).ToList();
+		MarkOffline(gateway, silent);
+		List<byte> backOnline = wasOffline.Except(silent).ToList();
+		if (backOnline.Count > 0)
 		{
-			Console.WriteLine("Status: still no answer from box " + string.Join(", ", silent.Select((byte id) => id.ToString("D2"))) + " -> Offline");
+			Console.WriteLine("Status: box " + JoinIds(backOnline) + " answered - back online");
+		}
+		if (newlyOffline.Count > 0)
+		{
+			Console.WriteLine($"Status: no answer after {RoundCount} rounds from box " + JoinIds(newlyOffline) + " -> Offline");
 		}
 	}
 
-	/// <summary>Sends up to <paramref name="tries"/> queries to one box; true as soon as it answers.</summary>
-	private async Task<bool> AskBoxAsync(RFGateway gateway, byte id, int tries, int timeoutMs, CancellationToken ct)
+	/// <summary>Asks used boxes that still have no status (Unknown); each one at most every NoStatusCooldownSec.</summary>
+	private async Task AskNoStatusBoxesAsync(RFGateway gateway, List<byte> ids, CancellationToken ct)
+	{
+		foreach (byte id in ids)
+		{
+			_noStatusAskedAt[id] = DateTime.UtcNow;
+		}
+		Console.WriteLine("Status: box " + JoinIds(ids) + " has no status - asking now");
+		List<byte> silent = await AskBoxesInRoundsAsync(gateway, ids, ct);
+		if (silent == null)
+		{
+			return;
+		}
+		MarkOffline(gateway, silent);
+		List<byte> answered = ids.Except(silent).ToList();
+		if (answered.Count > 0)
+		{
+			Console.WriteLine("Status: box " + JoinIds(answered) + " answered");
+		}
+		if (silent.Count > 0)
+		{
+			Console.WriteLine($"Status: no answer after {RoundCount} rounds from box " + JoinIds(silent) + " -> Offline");
+		}
+	}
+
+	/// <summary>
+	/// Asks boxes that changed to Warning to confirm it. A box that does not answer was probably switched off:
+	/// it is shown as Offline, so it no longer counts as Warning for the conveyor.
+	/// </summary>
+	private async Task ConfirmWarningBoxesAsync(RFGateway gateway, List<byte> ids, CancellationToken ct)
+	{
+		foreach (byte id in ids)
+		{
+			_warningToConfirm[id] = false;
+		}
+		Console.WriteLine("Status: box " + JoinIds(ids) + " Warning - asking to confirm");
+		List<byte> silent = await AskBoxesInRoundsAsync(gateway, ids, ct);
+		if (silent == null)
+		{
+			return;
+		}
+		MarkOffline(gateway, silent);
+		List<byte> answered = ids.Except(silent).ToList();
+		if (answered.Count > 0)
+		{
+			Console.WriteLine("Status: box " + JoinIds(answered) + " answered - Warning confirmed");
+		}
+		if (silent.Count > 0)
+		{
+			Console.WriteLine($"Status: no answer after {RoundCount} rounds from box " + JoinIds(silent) + " (switched off?) -> Offline");
+		}
+	}
+
+	private static string JoinIds(IEnumerable<byte> ids)
+	{
+		return string.Join(", ", ids.Select((byte id) => id.ToString("D2")));
+	}
+
+	/// <summary>Shows the boxes as Offline. Not while the RF port is closed: then no box could have answered.</summary>
+	private void MarkOffline(RFGateway gateway, List<byte> ids)
+	{
+		if (!gateway.IsOpen)
+		{
+			return;
+		}
+		foreach (byte id in ids)
+		{
+			ESDBox box = ESDBoxes[id - 1];
+			if (box.Status != DeviceStatus.Offline)
+			{
+				box.Status = DeviceStatus.Offline;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Asks the boxes in rounds: each box not heard since the start is asked once (SendOneQueryAsync), then the PC
+	/// waits until PollRoundWaitMs have passed since the round started (or every box has answered); only the silent
+	/// boxes are asked in the next round, RoundCount rounds in all. Any status frame from a box counts as its answer,
+	/// also one it sent by itself. Returns the boxes that never answered, or null if the RF port closed meanwhile.
+	/// </summary>
+	private async Task<List<byte>> AskBoxesInRoundsAsync(RFGateway gateway, List<byte> ids, CancellationToken ct)
+	{
+		int listenMs = Config?.EffectivePollReplyTimeoutMs ?? Config.DefaultPollReplyTimeoutMs;
+		int roundWaitMs = Config?.EffectivePollRoundWaitMs ?? Config.DefaultPollRoundWaitMs;
+		int rounds = RoundCount;
+		long since = DateTime.UtcNow.Ticks;
+		List<byte> pending = ids.Distinct().ToList();
+		for (int round = 1; round <= rounds && pending.Count > 0; round++)
+		{
+			if (round > 1)
+			{
+				Console.WriteLine($"Status: no answer yet from box {JoinIds(pending)} - asking again (round {round}/{rounds})");
+			}
+			DateTime roundStart = DateTime.UtcNow;
+			foreach (byte id in pending)
+			{
+				ct.ThrowIfCancellationRequested();
+				if (!gateway.IsOpen)
+				{
+					return null;
+				}
+				if (Interlocked.Read(ref _lastAnswerTicks[id]) < since)
+				{
+					await SendOneQueryAsync(gateway, id, listenMs, ct);
+					await Task.Delay(GapBetweenBoxesMs, ct);
+				}
+			}
+			while (DateTime.UtcNow - roundStart < TimeSpan.FromMilliseconds(roundWaitMs)
+				&& !pending.All((byte id) => Interlocked.Read(ref _lastAnswerTicks[id]) >= since))
+			{
+				if (!gateway.IsOpen)
+				{
+					return null;
+				}
+				await Task.Delay(100, ct);
+			}
+			pending = pending.Where((byte id) => Interlocked.Read(ref _lastAnswerTicks[id]) < since).ToList();
+		}
+		return gateway.IsOpen ? pending : null;
+	}
+
+	/// <summary>
+	/// Sends one query to a box and listens up to <paramref name="listenMs"/> for its answer before the next query
+	/// may go on the air (one query at a time). True if it answered within that time.
+	/// </summary>
+	private async Task<bool> SendOneQueryAsync(RFGateway gateway, byte id, int listenMs, CancellationToken ct)
 	{
 		await _radioLock.WaitAsync(ct);
 		try
 		{
-			for (int attempt = 1; attempt <= tries; attempt++)
+			if (!gateway.IsOpen)
 			{
-				if (!gateway.IsOpen)
-				{
-					return false;
-				}
-				bool answered = false;
-				TaskCompletionSource<bool> waiter = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-				lock (_waiterLock)
-				{
-					_answerWaiters[id] = waiter;
-				}
+				return false;
+			}
+			TaskCompletionSource<bool> waiter = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+			lock (_waiterLock)
+			{
+				_answerWaiters[id] = waiter;
+			}
+			bool answered = false;
+			try
+			{
 				if (await SendQueryAsync(gateway, id))
 				{
-					Task done = await Task.WhenAny(waiter.Task, Task.Delay(timeoutMs, ct));
+					Task done = await Task.WhenAny(waiter.Task, Task.Delay(listenMs, ct));
 					answered = done == waiter.Task;
 				}
-				else
-				{
-					await Task.Delay(timeoutMs, ct);
-				}
+			}
+			finally
+			{
 				lock (_waiterLock)
 				{
 					if (_answerWaiters[id] == waiter)
@@ -762,13 +905,9 @@ public class ViewModel : INotifyPropertyChanged
 						_answerWaiters[id] = null;
 					}
 				}
-				ct.ThrowIfCancellationRequested();
-				if (answered)
-				{
-					return true;
-				}
 			}
-			return false;
+			ct.ThrowIfCancellationRequested();
+			return answered;
 		}
 		finally
 		{
@@ -807,21 +946,19 @@ public class ViewModel : INotifyPropertyChanged
 		_clickBusy[id] = true;
 		try
 		{
-			int timeoutMs = Config?.EffectivePollReplyTimeoutMs ?? Config.DefaultPollReplyTimeoutMs;
-			int tries = Config?.EffectivePollRetries ?? Config.DefaultPollRetries;
 			Console.WriteLine($"Status: asking Box {id:D2} for its status...");
-			bool answered = await AskBoxAsync(gateway, id, tries, timeoutMs, _pollCts.Token);
-			if (answered)
+			List<byte> silent = await AskBoxesInRoundsAsync(gateway, new List<byte> { id }, _pollCts.Token);
+			if (silent == null)
+			{
+				return;
+			}
+			if (silent.Count == 0)
 			{
 				Console.WriteLine($"Status: Box {id:D2} answered");
 				return;
 			}
-			ESDBox box = ESDBoxes[id - 1];
-			if (gateway.IsOpen && box.Status != DeviceStatus.Offline)
-			{
-				box.Status = DeviceStatus.Offline;
-			}
-			Console.WriteLine($"Status: Box {id:D2} no answer after {tries} queries -> Offline");
+			MarkOffline(gateway, silent);
+			Console.WriteLine($"Status: Box {id:D2} no answer after {RoundCount} rounds -> Offline");
 		}
 		catch (OperationCanceledException)
 		{
