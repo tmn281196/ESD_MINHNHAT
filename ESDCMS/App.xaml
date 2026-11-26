@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application x:Class="ESDCMS.App" StartupUri="MainWindow.xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ESDCMS">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!-- UI strings; MainWindow switches this to the language saved in config.json (see Lang/Lang.cs) -->
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Lang/Strings.en.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

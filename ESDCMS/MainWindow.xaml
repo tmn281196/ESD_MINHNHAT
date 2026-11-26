@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="ESDCMS.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" Title="ESD Compliance Monitoring System" Height="1000" Width="1920" Left="0" Top="0" WindowState="Maximized" xmlns:esdcms="clr-namespace:ESDCMS">
+  <FrameworkElement.Resources>
+    <ResourceDictionary>
+      <esdcms:HexByteConverter x:Key="HexByte" />
+      <Style x:Key="MotorButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="10 0" />
+        <Setter Property="Margin" Value="3 0 0 0" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+        <Setter Property="Background" Value="#556275" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Name="bd" Background="{TemplateBinding Control.Background}" CornerRadius="0" Padding="{TemplateBinding Control.Padding}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                  <Setter TargetName="bd" Property="UIElement.Opacity" Value="0.88" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                  <Setter TargetName="bd" Property="UIElement.Opacity" Value="0.72" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="LockButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+        <Setter Property="Background" Value="#52565E" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ToggleButton}">
+              <Border Name="bd" Background="{TemplateBinding Control.Background}" CornerRadius="0">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsChecked" Value="False">
+                  <Setter TargetName="bd" Property="Border.Background" Value="#D08A00" />
+                </Trigger>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                  <Setter TargetName="bd" Property="UIElement.Opacity" Value="0.9" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="BarButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="24" />
+        <Setter Property="MinHeight" Value="24" />
+        <Setter Property="Padding" Value="6 0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+      </Style>
+      <BooleanToVisibilityConverter x:Key="BoolToVis" />
+      <!-- Language button in the title bar: shows the current language, each click switches to the next -->
+      <Style x:Key="LangButton" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="#3E4C5E" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="MinWidth" Value="104" />
+        <Setter Property="Padding" Value="12 0" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Name="bd" Background="{TemplateBinding Background}" BorderBrush="#55647A" BorderThickness="1" Padding="{TemplateBinding Padding}" CornerRadius="0">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                  <Setter TargetName="bd" Property="Border.Background" Value="#4CAF50" />
+                  <Setter TargetName="bd" Property="Border.BorderBrush" Value="#4CAF50" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                  <Setter TargetName="bd" Property="Border.Background" Value="#3D8B40" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="BarUnit" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="#9AA5B1" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="2 0" />
+      </Style>
+      <!-- Bottom bar group: a frame with the device name (icon + name) at its left, then its controls, all on one line -->
+      <Style x:Key="BarGroupBox" TargetType="{x:Type GroupBox}">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#55647A" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="0 3 8 3" />
+        <Setter Property="Margin" Value="0 0 10 0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type GroupBox}">
+              <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#2B3746" CornerRadius="0">
+                <DockPanel>
+                  <Border DockPanel.Dock="Left" Background="#3E4C5E" Padding="10 0">
+                    <ContentPresenter ContentSource="Header" VerticalAlignment="Center" TextElement.FontWeight="Bold" TextElement.FontSize="12" TextElement.Foreground="{TemplateBinding Foreground}" />
+                  </Border>
+                  <ContentPresenter Margin="{TemplateBinding Padding}" />
+                </DockPanel>
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="BarField" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="#C8D2DC" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="8 0 4 0" />
+      </Style>
+      <Style x:Key="BarBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="22" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
+      </Style>
+    </ResourceDictionary>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="64" />
+      <RowDefinition Height="*" />
+      <RowDefinition Name="LogRow" Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid Background="#323F4E" Row="0">
+      <Label Content="ESD Compliance Monitoring System" FontSize="30" Foreground="#FFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" />
+      <!-- Language: one button showing the current language; each click switches English → 한국어 → ไทย (saved in config.json, Com.Language) -->
+      <StackPanel Name="pnlTitleRight" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 16 0">
+        <Button Name="LangButton" Style="{StaticResource LangButton}" Content="{DynamicResource S.LangName}" ToolTip="{DynamicResource S.Tip.Language}" Click="LangButton_Click" />
+      </StackPanel>
+    </Grid>
+    <!-- Monitor page: legend + conveyor map; the offline alert lives on the map, below the box row (MonitorPage) -->
+    <Frame Name="MonitorPageHolder" Grid.Row="1" Margin="5" JournalOwnership="UsesParentJournal" Navigated="MonitorPageHolder_Navigated" />
+    <!-- Console log: always visible, PowerShell-style blue background with white text; log lines stay in English -->
+    <Grid Row="2" Background="#012456">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <DockPanel Grid.Row="0" Background="#001A40" LastChildFill="False">
+        <fa:IconImage DockPanel.Dock="Left" Icon="Terminal" Height="12" Foreground="#FFFFFF" VerticalAlignment="Center" Margin="8 0 6 0" />
+        <TextBlock DockPanel.Dock="Left" Text="Console Log" Foreground="#FFFFFF" FontWeight="Bold" VerticalAlignment="Center" />
+        <StackPanel Name="pnlLogControls" DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 5 0">
+          <ToggleButton Name="LogCollapseToggle" Width="26" Height="26" VerticalAlignment="Center" Margin="1 0" Cursor="Hand" Background="#0A3570" BorderThickness="0" ToolTip="{DynamicResource S.Tip.LogToggle}" Click="LogCollapseToggle_Click">
+            <fa:IconImage Name="LogCollapseIcon" Icon="ChevronDown" Height="8" Foreground="#DDDDDD" />
+          </ToggleButton>
+          <Button Width="26" Height="26" VerticalAlignment="Center" Margin="1 0" Cursor="Hand" Background="#0A3570" BorderThickness="0" ToolTip="{DynamicResource S.Tip.LogClear}" Click="ClearLog_Click">
+            <fa:IconImage Icon="TrashCan" Height="13" Foreground="#DDDDDD" />
+          </Button>
+          <Button Width="26" Height="26" VerticalAlignment="Center" Margin="1 0" Cursor="Hand" Background="#0A3570" BorderThickness="0" ToolTip="{DynamicResource S.Tip.LogSave}" Click="SaveLog_Click">
+            <fa:IconImage Icon="FloppyDisk" Height="13" Foreground="#DDDDDD" />
+          </Button>
+        </StackPanel>
+      </DockPanel>
+      <ScrollViewer Name="LogScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" ScrollChanged="LogScroll_ScrollChanged">
+        <FrameworkElement.Resources>
+          <ResourceDictionary>
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+              <Setter Property="Width" Value="4" />
+              <Setter Property="Background" Value="#00FFFFFF" />
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid Background="#00FFFFFF">
+                      <Track Name="PART_Track" IsDirectionReversed="True">
+                        <Track.DecreaseRepeatButton>
+                          <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False" IsTabStop="False" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.IncreaseRepeatButton>
+                          <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False" IsTabStop="False" />
+                        </Track.IncreaseRepeatButton>
+                        <Track.Thumb>
+                          <Thumb MinHeight="24">
+                            <Control.Template>
+                              <ControlTemplate TargetType="{x:Type Thumb}">
+                                <Border Name="ThumbBorder" CornerRadius="2" Background="#3D6AA8" Margin="1 0" />
+                                <ControlTemplate.Triggers>
+                                  <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                    <Setter TargetName="ThumbBorder" Property="Border.Background" Value="#5C88C4" />
+                                  </Trigger>
+                                  <Trigger Property="Thumb.IsDragging" Value="True">
+                                    <Setter TargetName="ThumbBorder" Property="Border.Background" Value="#7BA3DA" />
+                                  </Trigger>
+                                </ControlTemplate.Triggers>
+                              </ControlTemplate>
+                            </Control.Template>
+                          </Thumb>
+                        </Track.Thumb>
+                      </Track>
+                    </Grid>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </ResourceDictionary>
+        </FrameworkElement.Resources>
+        <ItemsControl ItemsSource="{Binding LogLines}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Foreground="#FFFFFF" FontFamily="Consolas" FontSize="12" TextWrapping="Wrap" Margin="8 0" Text="{Binding}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Grid>
+    <!-- Bottom bar, one line: one framed group per device (status icon + name at its left, COM port, OPEN/CLOSE, its settings),
+         the manual motor buttons; Refresh Connection / Start with Windows / Lock come first (left).
+         While locked the device controls and motor buttons do not react and the settings are read-only (ApplyLock). -->
+    <Grid Row="3" Background="#323F4E">
+      <DockPanel Name="pnlBottomBar" Margin="8 6" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 12 0">
+          <Button Style="{StaticResource MotorButton}" Margin="0" Content="{DynamicResource S.RefreshConnection}" ToolTip="{DynamicResource S.Tip.Refresh}" Click="ButtonReconnect_Click" />
+          <CheckBox Name="AutoStartBox" Margin="14 0" Foreground="#FFFFFFFF" FontWeight="Bold" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="{DynamicResource S.StartWithWindows}" ToolTip="{DynamicResource S.Tip.AutoStart}" IsChecked="{Binding Config.AutoStart}" Click="AutoStartBox_Click" />
+          <ToggleButton Name="LockToggle" IsChecked="True" Style="{StaticResource LockButton}" VerticalAlignment="Center" ToolTip="{DynamicResource S.Tip.Lock}" Click="LockToggle_Click">
+            <fa:IconImage Name="LockIcon" Icon="Lock" Foreground="#FFFFFFFF" Height="16" />
+          </ToggleButton>
+        </StackPanel>
+        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+          <GroupBox Style="{StaticResource BarGroupBox}">
+            <GroupBox.Header>
+              <StackPanel Orientation="Horizontal" ToolTip="{DynamicResource S.Tip.RfStatus}">
+                <fa:IconImage Icon="Wifi" Height="10" Foreground="{Binding ConnectionStatusRFColor}" VerticalAlignment="Center" Margin="0 0 5 0" />
+                <TextBlock Text="{DynamicResource S.RfGateway}" VerticalAlignment="Center" />
+              </StackPanel>
+            </GroupBox.Header>
+            <StackPanel Orientation="Horizontal">
+              <ComboBox Name="RFComboBoxPorts" Margin="8 0 0 0" SelectionChanged="ComPort_SelectionChanged" Width="70" Height="24" VerticalAlignment="Center" ToolTip="{DynamicResource S.Tip.RfPort}" ItemsSource="{Binding SerialPorts}" SelectedValue="{Binding Config.RFGatewayCOM}" />
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.NetId}" />
+              <Label Style="{StaticResource BarUnit}" Padding="0 0 2 0">0x</Label>
+              <TextBox Name="NetworkIdBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="34" ToolTip="{DynamicResource S.Tip.NetId}" Text="{Binding Config.NetworkID, Converter={StaticResource HexByte}, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.AskAgain}" />
+              <TextBox Name="AskAgainBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="40" ToolTip="{DynamicResource S.Tip.AskAgain}" Text="{Binding Config.AskAgainSec, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarUnit}">s</Label>
+            </StackPanel>
+          </GroupBox>
+          <GroupBox Style="{StaticResource BarGroupBox}">
+            <GroupBox.Header>
+              <StackPanel Orientation="Horizontal" ToolTip="{DynamicResource S.Tip.CbStatus}">
+                <fa:IconImage Icon="Forward" Height="10" Foreground="{Binding ConnectionStatusControlBoxColor}" VerticalAlignment="Center" Margin="0 0 5 0" />
+                <TextBlock Text="{DynamicResource S.ControlBox}" VerticalAlignment="Center" />
+              </StackPanel>
+            </GroupBox.Header>
+            <StackPanel Orientation="Horizontal">
+              <ComboBox Name="ControlBoxComboBoxPorts" Margin="8 0 0 0" SelectionChanged="ComPort_SelectionChanged" Width="70" Height="24" VerticalAlignment="Center" ToolTip="{DynamicResource S.Tip.CbPort}" ItemsSource="{Binding SerialPorts}" SelectedValue="{Binding Config.ControlBoxCOM}" />
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.TxGap}" />
+              <TextBox Name="TxGapBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="46" ToolTip="{DynamicResource S.Tip.TxGap}" Text="{Binding Config.TxGapMs, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarUnit}">ms</Label>
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.RxTimeout}" />
+              <TextBox Name="TxTimeoutBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="46" ToolTip="{DynamicResource S.Tip.RxTimeout}" Text="{Binding Config.TxTimeoutMs, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarUnit}">ms</Label>
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.Retry}" />
+              <TextBox Name="TxRetriesBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="30" ToolTip="{DynamicResource S.Tip.Retry}" Text="{Binding Config.TxRetries, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarUnit}">x</Label>
+              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.RetryGap}" />
+              <TextBox Name="TxRetryDelayBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="40" ToolTip="{DynamicResource S.Tip.RetryGap}" Text="{Binding Config.TxRetryDelayMs, UpdateSourceTrigger=PropertyChanged}" />
+              <Label Style="{StaticResource BarUnit}">ms</Label>
+            </StackPanel>
+          </GroupBox>
+          <GroupBox Style="{StaticResource BarGroupBox}">
+            <GroupBox.Header>
+              <StackPanel Orientation="Horizontal">
+                <fa:IconImage Icon="Industry" Height="10" Foreground="#FFFFFF" VerticalAlignment="Center" Margin="0 0 5 0" />
+                <TextBlock Text="{DynamicResource S.Motors}" VerticalAlignment="Center" />
+              </StackPanel>
+            </GroupBox.Header>
+            <StackPanel Orientation="Horizontal" Margin="8 0 0 0">
+              <Button Name="ToggleableButton4" Tag="4" Style="{StaticResource MotorButton}" Margin="0" Content="{DynamicResource S.StartAll}" Click="SendControl_Click" />
+              <Button Name="ToggleableButton0" Tag="0" Style="{StaticResource MotorButton}" Content="{DynamicResource S.Stop1}" Click="SendControl_Click" />
+              <Button Name="ToggleableButton1" Tag="1" Style="{StaticResource MotorButton}" Content="{DynamicResource S.Stop2}" Click="SendControl_Click" />
+              <Button Name="ToggleableButton2" Tag="2" Style="{StaticResource MotorButton}" Content="{DynamicResource S.Stop3}" Click="SendControl_Click" />
+              <Button Name="ToggleableButton3" Tag="3" Style="{StaticResource MotorButton}" Content="{DynamicResource S.Stop4}" Click="SendControl_Click" />
+            </StackPanel>
+          </GroupBox>
+        </WrapPanel>
+      </DockPanel>
+    </Grid>
+  </Grid>
+</Window>

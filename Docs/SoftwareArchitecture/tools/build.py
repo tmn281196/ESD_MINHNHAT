@@ -1,0 +1,102 @@
+import os, sys
+sys.path.insert(0, os.path.dirname(__file__))
+import frame
+from frame import write, OUT
+import p_ht, p_gt, p_kt, p_sd
+
+
+def index():
+    body = '''
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Các hộp ESD báo trạng thái về PC qua LoRa; PC dừng băng tải khi có cảnh báo tĩnh điện.</em></p>
+<p>Mỗi vị trí thao tác có một <strong>hộp ESD</strong> đo dây đeo cổ tay / thảm của người ngồi đó và rút ra một trạng thái
+<strong>Active</strong> (đạt), <strong>Warning</strong> (hở tĩnh điện) hay <strong>Inactive</strong> (không có người / chưa nối).
+Hộp gửi trạng thái bằng sóng <strong>LoRa 433&nbsp;MHz</strong> tới một <strong>RF Gateway</strong>; gateway đẩy tiếp qua USB-serial về
+ứng dụng WPF <strong>ESDCMS</strong> (<em>ESD Compliance Monitoring System</em>) trên PC. Ứng dụng vẽ từng hộp thành một ô trên bản đồ băng tải và, khi <em>bất kỳ</em> hộp đang dùng
+chuyển sang Warning, gửi lệnh qua một đường serial thứ hai tới <strong>Control Box</strong> (Arduino) để đóng relay <strong>dừng băng tải</strong>.
+Khi tất cả trở lại bình thường, băng tải chạy lại. Toàn bộ chạy trong một cửa sổ, lưu cấu hình vào <code>%USERPROFILE%\\.esdcms\\config.json</code>.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Nhánh</th><th>Câu hỏi</th><th>Bên trong</th><th>Số trang</th></tr></thead>
+  <tbody>
+    <tr><td class="nowrap"><a href="he_thong/he_thong.html"><strong>Hệ thống</strong></a></td><td>Hệ gồm gì, giải bài toán gì?</td>
+      <td><a href="he_thong/00_tong_quan.html">System Overview</a>, <a href="he_thong/01_thiet_bi.html">Devices &amp; Roles</a>,
+        <a href="he_thong/02_trang_thai.html">Box Status Model</a>.</td><td class="nowrap">3 trang</td></tr>
+    <tr><td class="nowrap"><a href="giao_thuc/giao_thuc.html"><strong>Giao thức</strong></a></td><td>Các khung tin trông thế nào?</td>
+      <td><a href="giao_thuc/01_lora.html">LoRa Status Protocol</a>, <a href="giao_thuc/02_control_box.html">Control Box Protocol</a>.</td><td class="nowrap">2 trang</td></tr>
+    <tr><td class="nowrap"><a href="kien_truc/kien_truc.html"><strong>Kiến trúc</strong></a></td><td>Ứng dụng PC dựng thế nào?</td>
+      <td><a href="kien_truc/01_boi_canh.html">System Context</a>, <a href="kien_truc/03_ket_noi.html">Connections &amp; COM</a>,
+        <a href="kien_truc/04_poll.html">Status Polling</a>, <a href="kien_truc/05_conveyor.html">Conveyor Control</a>,
+        <a href="kien_truc/06_cau_hinh.html">Config &amp; Settings</a>, <a href="kien_truc/07_giao_dien.html">User Interface</a>,
+        <a href="kien_truc/08_gioi_han.html">Limits</a>.</td><td class="nowrap">8 trang</td></tr>
+    <tr><td class="nowrap"><a href="so_do/so_do.html"><strong>Sơ đồ</strong></a></td><td>Ai gọi ai, theo thứ tự nào?</td>
+      <td><a href="so_do/01_lop.html">Class Overview</a>, <a href="so_do/02_canh_bao.html">Warning → Stop</a>,
+        <a href="so_do/03_khoi_dong.html">Startup &amp; Connect</a>.</td><td class="nowrap">4 trang</td></tr>
+  </tbody>
+</table></div>
+
+<div class="callout note"><p class="label">Bắt đầu</p>
+  <p>Đọc <a href="he_thong/00_tong_quan.html">System Overview</a> rồi đi lần lượt bằng nút <em>Next</em> cuối mỗi trang:
+    Hệ thống → Giao thức → Kiến trúc → Sơ đồ. Mở <code>ESDCMS.exe</code> bên cạnh để đối chiếu.</p></div>
+
+<h2 id="so-lieu">Số liệu</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Mục</th><th>Giá trị</th></tr></thead>
+<tbody>
+<tr><td class="nowrap">Ứng dụng PC</td><td>.NET Framework 4.8 · WPF · x64 · <code>ESDCMS.exe</code> v2.0 (project <code>ESDCMS.csproj</code>, solution <code>ESDCMS.slnx</code>)</td></tr>
+<tr><td class="nowrap">Dữ liệu</td><td><code>%USERPROFILE%\\.esdcms\\</code>: <code>config.json</code>, <code>crash.log</code></td></tr>
+<tr><td class="nowrap">Mã nguồn</td><td>khoảng 3.700 dòng C# + XAML (dịch ngược từ exe, dọn lại để build) + 540 dòng firmware Arduino</td></tr>
+<tr><td class="nowrap">Thư viện</td><td>FontAwesome.Sharp 6.6.0 · Newtonsoft.Json 13.0.3 · Fody 6.9.2 + PropertyChanged.Fody 4.1.0</td></tr>
+<tr><td class="nowrap">Hộp ESD</td><td>tối đa 20 hộp/line (ID 1..20) · LoRa 433&nbsp;MHz · trạng thái A / W / I từ hai chân vào · ba đèn đỏ/vàng/xanh · trả lời query <code>?</code></td></tr>
+<tr><td class="nowrap">Hai cổng COM</td><td>RF Gateway và Control Box, đều 9600 8N1 · tự nhận cắm/rút USB, tự nối lại</td></tr>
+<tr><td class="nowrap">Khung tin</td><td>LoRa: <code>AA NetID TxID LEN DATA CRC8 BB</code> (CRC8 poly 0x31) · Control Box: <code>44 45 LEN OP STATE XOR 56</code>, echo làm ACK</td></tr>
+<tr><td class="nowrap">Nhịp</td><td>timer băng tải 200 ms · TX gap 500 ms · RX timeout 500 ms · Retry 4× gap 100 ms · query timeout 400 ms × 3 · hỏi lại Offline mỗi 300 s</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="trang-thai">Trạng thái</h2>
+<p>Ứng dụng chạy và đã dùng thực tế cho phần giám sát và dừng băng tải: hộp báo A / W / I qua gateway, PC đổi màu ô và đóng/mở relay băng tải theo cảnh báo,
+tự nhận cắm/rút USB, lưu cấu hình và layout. Phần <strong>query trạng thái chủ động</strong> (PC hỏi từng hộp, phát hiện Offline) có đủ ở PC và ở firmware v2
+trong <code>Firmware_LoRA/</code>; điều kiện là mọi hộp và gateway đã nạp bản v2, mỗi hộp một <code>NODE_ID</code> riêng.
+Xem <a href="kien_truc/08_gioi_han.html">Limits &amp; Open Work</a>.</p>
+<div class="callout warn"><p class="label">Khi mã nguồn đổi</p>
+<p>Tài liệu bám sát mã nguồn và sẽ lệch đi một cách lặng lẽ: luật dừng băng tải và polling (<code>Device/ViewModel.cs</code>), khung lệnh Control Box (<code>Device/ControlBox.cs</code> + firmware <code>Firmware_ControBox/</code>), khung LoRa (<code>Device/RFGateway.cs</code>, parser trong <code>ViewModel.cs</code> + firmware <code>Firmware_LoRA/</code>), và các khóa cấu hình (<code>Device/Config.cs</code>).
+Sửa nội dung ở <code>tools/p_*.py</code>, menu ở <code>tools/sections.py</code>, rồi chạy <code>python tools/build.py</code>.</p></div>
+'''
+    write("index.html", body=body, facts=[("Trang", 22)])
+
+
+README = '''# ESD Compliance Monitoring System — tài liệu kiến trúc
+
+Một site HTML tĩnh theo template **dark-noir-docs**: mở **`index.html`** bằng trình duyệt (double-click),
+không cần server, không cần mạng. Mục lục dạng cây bên trái (CONTENTS), mục lục của trang bên phải,
+nút Previous / Next cuối mỗi trang.
+
+Tài liệu mô tả **hành vi hiện tại** của ứng dụng WPF `ESDCMS` — ESD Compliance Monitoring System (bản v2, dịch ngược,
+trước tên là `ESDKitSystem`) cùng firmware Control Box và LoRA, bám sát mã nguồn trong `ESDCMS/` và `Firmware_*/`.
+
+| Đường dẫn | Nội dung |
+|------|----------|
+| `index.html` | Trang chủ: bốn nhánh, số liệu, trạng thái |
+| `he_thong/` | 3 trang: System Overview, Devices & Roles, Box Status Model |
+| `giao_thuc/` | 2 trang: LoRa Status Protocol, Control Box Protocol |
+| `kien_truc/` | 8 trang: System Context, Layers & File Map, Connections & COM, Status Polling, Conveyor Control, Config & Settings, User Interface, Limits & Open Work |
+| `so_do/` | 4 trang: Reading the Drawings, Class Overview, Warning → Stop, Startup & Connect (SVG, không Mermaid) |
+| `assets/` | `noir.css` + `noir.js` (theme), `site.css`, `arch.css` (màu SVG + khung byte), `diagram-view.js`, `site.js` (sinh ra), `fonts/` |
+| `tools/` | bộ sinh site: `sections.py` (tiêu đề, cây, liên kết), `frame.py` (khung trang), `svg.py` (helper SVG), `p_*.py` (nội dung), `build.py` |
+
+## Quy ước
+
+- Tiêu đề trang (h1, mục lục) tiếng Anh; dòng tóm tắt và nội dung tiếng Việt; chữ trong hình tiếng Anh.
+- Mỗi trang mở đầu bằng khối **Thuộc / Trang con / Liên quan** (`dl.kv`), sinh từ `sections.py`.
+- Đầu trang có chip **Updated**; đổi ngày ở `UPDATED` trong `sections.py`.
+- Sửa nội dung ở `tools/p_*.py` rồi chạy `python tools/build.py`; sửa thẳng file HTML thì lần dựng sau mất.
+'''
+
+if __name__ == "__main__":
+    frame.write_site_js()
+    p_ht.build(); p_gt.build(); p_kt.build(); p_sd.build()
+    index()
+    with open(os.path.join(OUT, "README.md"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(README)
+    print("ok")

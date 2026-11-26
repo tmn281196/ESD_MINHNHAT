@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Limits & Open Work · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/08_gioi_han.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>Limits & Open Work</h1>
+    <p class="summary">Hệ khác hệ hoàn chỉnh ở đâu: query cần nạp firmware v2 + NODE_ID riêng cho mọi hộp, L2 là bản sao L1, vài điểm cần dọn.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../giao_thuc/01_lora.html">LoRa Status Protocol</a> · <a href="../kien_truc/04_poll.html">Status Polling</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Những chỗ hệ khác hệ hoàn chỉnh, và việc còn để ngỏ — đọc kèm mã nguồn.</em></p>
+
+<h2 id="query-fw">Query cần nạp firmware v2 cho mọi hộp</h2>
+<p>Hỏi trạng thái chủ động và phát hiện Offline (<a href="04_poll.html">Status Polling</a>, <a href="../giao_thuc/01_lora.html#query">LoRa query</a>) chạy đủ hai đầu: PC, và firmware v2 trong <code>Firmware_LoRA/</code> (gateway chuyển tiếp hai chiều, hộp đáp <code>'?'</code>). Khi triển khai cần để ý:</p>
+<ul>
+<li><strong>Mọi hộp và gateway phải nạp bản v2.</strong> Hộp còn firmware cũ không đáp query → hiện <strong>Offline</strong> tới khi nó tự gửi một thay đổi.</li>
+<li><strong><code>NODE_ID</code> nằm cứng trong <code>lora_node.ino</code></strong> (đang là <code>0x04</code>): phải sửa rồi nạp riêng cho từng hộp. Hai hộp trùng ID sẽ đè trạng thái của nhau và trùng khe trả lời.</li>
+<li><strong>PC chưa dùng query <code>0xFF</code></strong> (hỏi tất cả, trả lời theo khe <code>NODE_ID × 60&nbsp;ms</code>) dù firmware hỗ trợ; PC đang hỏi lần lượt từng hộp.</li>
+<li><strong>Khung trạng thái không có ACK:</strong> hộp bù bằng cách lặp 5 lần khi đổi. Nếu PC lỡ cả 6 lần, ô hiện sai tới thay đổi kế tiếp hoặc tới khi người dùng click ô — <code>AskAgainSec</code> chỉ hỏi lại hộp Offline/Unknown.</li>
+</ul>
+
+<h2 id="firmware-khac">Khác biệt firmware khác</h2>
+<ul>
+<li><strong>Line2 cùng logic với Line1:</strong> <code>Firmware_ControBox/Line2/L2</code> (header "Line2 / L2PC1") chạy đúng code của <code>Line1/L1</code>, và <code>Pin.h</code> trùng chân. Nếu line 2 khác chân thì phải sửa riêng.</li>
+<li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
+</ul>
+
+<h2 id="khac">Chỗ khác cần biết</h2>
+<ul>
+<li><strong>Dừng cả băng tải, không theo từng động cơ:</strong> luật hiện tại là "bất kỳ hộp Warning → đặt cả Motor 1..4 = STOP". Không có ánh xạ "hộp X dừng riêng động cơ Y".</li>
+<li><strong>Danh sách MAC trong <code>App.xaml.cs</code>:</strong> có tính nhưng kết quả không dùng (một kiểu kiểm tra giấy phép còn ngủ).</li>
+<li><strong>Mã nguồn dịch ngược:</strong> tên tham số lambda và vài cấu trúc <code>async</code> có thể khác bản gốc; hành vi thì bám theo exe đã chạy.</li>
+<li><strong>Một PC, một line:</strong> Network ID phân biệt line, và cấu hình nằm theo user Windows (<code>%USERPROFILE%\.esdcms</code>), nên mọi bản ESDCMS của một user dùng chung cổng COM. Nhiều line trên một PC cần nhiều user Windows, hoặc mở rộng thêm (ví dụ tham số dòng lệnh chọn file config).</li>
+</ul>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Limits & Open Work</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

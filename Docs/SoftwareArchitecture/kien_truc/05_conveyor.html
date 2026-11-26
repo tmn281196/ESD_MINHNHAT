@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conveyor Control · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/05_conveyor.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>Conveyor Control</h1>
+    <p class="summary">Luật dừng băng tải: bất kỳ hộp đang dùng ở Warning → dừng; timer 200 ms, retry/gap, xung SWON lúc kết nối, chế độ Lock/manual.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../giao_thuc/02_control_box.html">Control Box Protocol</a> · <a href="../so_do/02_canh_bao.html">Warning → Stop</a> · <a href="../he_thong/02_trang_thai.html">Box Status Model</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Bất kỳ hộp đang dùng ở Warning → dừng băng tải; hết Warning → chạy lại. Một timer lo việc đó.</em></p>
+
+<h2 id="luat">Luật</h2>
+<p>Mỗi khi một hộp đổi trạng thái, <code>EnqueueControlBoxUpdate</code> tính lại: có <em>bất kỳ</em> ô đang dùng nào ở <strong>Warning</strong> không? Kết quả (dừng / chạy) được đặt làm "mong muốn", và nhãn băng tải đổi màu (đỏ "Conveyor Stopped" / xanh "Conveyor Moving").</p>
+<p>Một <strong>DispatcherTimer 200&nbsp;ms</strong> (<code>ConveyorTimer_Tick</code>) so "mong muốn" với trạng thái đã gửi lần trước; chỉ khi khác mới gửi lệnh, nên không spam Control Box. Gửi hụt (không đủ echo) thì giữ nguyên "lần trước" để lần tick sau <strong>thử lại</strong>.</p>
+
+<h2 id="gui">Gửi một trạng thái</h2>
+<p><code>AssertMotorChannels(on)</code> đặt bốn kênh Motor 1..4 về cùng mức, lần lượt, cách nhau <strong>TX gap</strong>:</p>
+<ul>
+<li>Mỗi kênh: <code>AssertChannel</code> gửi tới <strong>Retry</strong> lần (mặc định 4), cách nhau <strong>Retry gap</strong> (100&nbsp;ms), dừng ngay khi có echo.</li>
+<li>Mỗi lần gửi: <code>SendChannel → SendTX</code> ghi khung rồi chờ echo trong <strong>RX timeout</strong> (mặc định 500&nbsp;ms), so từng byte.</li>
+<li>Giữa hai kênh liên tiếp chờ <strong>TX gap</strong> (mặc định 500&nbsp;ms).</li>
+</ul>
+<p class="tnote">Vì vậy thời gian phản ứng xấu nhất (hộp báo Warning → cả 4 kênh đã gửi) khi Control Box im lặng vào cỡ <code>4 × Retry × (RX timeout + Retry gap) + 3 × TX gap</code> — hàng giây; khi Control Box đáp bình thường thì gần như chỉ còn <code>3 × TX gap</code>.</p>
+
+<h2 id="ket-noi">Xung SWON lúc kết nối</h2>
+<p>Khi mở cổng Control Box (<code>OpenControlBoxCore</code>), app đưa Motor 1..4 về <strong>RUN</strong> (cách nhau TX gap) rồi phát một xung <strong>Start All</strong>: kênh 5 = HIGH, đợi 500&nbsp;ms, = LOW. Toàn bộ chạy dưới khóa <code>_controlBoxGate</code> nên không đụng timer băng tải.</p>
+
+<h2 id="lock">Lock / manual</h2>
+<p>Mở khóa bằng nút <strong>Lock</strong> (phải nhập mật khẩu) sẽ bật chế độ manual: timer băng tải <em>ngừng</em> tự điều khiển (<code>_controlsUnlocked</code>), người vận hành tự bấm các nút Start All / Stop 1..4 (group Motors), và sửa được các ô cài đặt. Khóa lại thì tự động hoạt động trở lại. Bản đồ hộp cũng chỉ cho kéo/đổi khi mở khóa (xem <a href="07_giao_dien.html">User Interface</a>).</p>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Conveyor Control</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class Overview · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="so_do/01_lop.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../so_do/so_do.html">Sơ đồ</a></div>
+    <h1>Class Overview</h1>
+    <p class="summary">Các lớp chính và quan hệ: MainWindow, ViewModel, ControlBox, RFGateway, RootCanvas/BlockDevice, ConfigStore.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../so_do/so_do.html">Sơ đồ</a></dd>
+  <dt>Liên quan</dt><dd><a href="../kien_truc/02_phan_tang.html">Layers & File Map</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>MainWindow giữ tất cả; hai phần cứng móc vào qua DeviceManagerPage.</em></p>
+<figure class="diagram">
+<svg id="svg-classes" viewBox="0 0 980 800" role="img" aria-label="Class overview: MainWindow owns the ViewModel, the DeviceManagerPage (ControlBox + RFGateway) and the MonitorPage (RootCanvas + BlockDevice); the RF gateway's serial event feeds the ViewModel parser">
+<defs>
+  <marker id="svg-classes-dia" viewBox="0 0 16 10" refX="15" refY="5" markerWidth="14" markerHeight="9" orient="auto-start-reverse">
+    <path d="M1 5 L8 1 L15 5 L8 9 z" fill="currentColor"/></marker>
+  <marker id="svg-classes-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+  <marker id="svg-classes-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10" fill="none" stroke="currentColor"/></marker>
+</defs>
+<g font-family="Google Sans, sans-serif" font-size="12">
+<rect x="370" y="20" width="250" height="84" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="495.0" y="38" text-anchor="middle" font-weight="600" fill="currentColor">MainWindow</text>
+<line x1="370" y1="46" x2="620" y2="46" stroke="var(--rule-strong)"/>
+<text x="380" y="62" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+GlobalViewModel</text>
+<text x="380" y="78" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+DeviceManagerPage · MonitorPage</text>
+<text x="380" y="94" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">COM auto-refresh · Lock</text>
+<rect x="20" y="170" width="310" height="116" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="175.0" y="188" text-anchor="middle" font-weight="600" fill="currentColor">ViewModel</text>
+<line x1="20" y1="196" x2="330" y2="196" stroke="var(--rule-strong)"/>
+<text x="30" y="212" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+ESDBoxes : ESDBox[20]</text>
+<text x="30" y="228" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+Config</text>
+<text x="30" y="244" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">FeedByte()  // LoRa parser</text>
+<text x="30" y="260" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">conveyor timer 200 ms</text>
+<text x="30" y="276" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">StatusPollLoopAsync()  // query</text>
+<rect x="370" y="170" width="270" height="100" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="505.0" y="188" text-anchor="middle" font-weight="600" fill="currentColor">DeviceManagerPage</text>
+<line x1="370" y1="196" x2="640" y2="196" stroke="var(--rule-strong)"/>
+<text x="380" y="212" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+ControlBox · +RFGateway</text>
+<text x="380" y="228" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">ApplyRFConnection()</text>
+<text x="380" y="244" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">ApplyControlBoxConnection()</text>
+<text x="380" y="260" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">OpenControlBoxCore()  // SWON</text>
+<rect x="700" y="170" width="250" height="52" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="825.0" y="188" text-anchor="middle" font-weight="600" fill="currentColor">MonitorPage</text>
+<line x1="700" y1="196" x2="950" y2="196" stroke="var(--rule-strong)"/>
+<text x="710" y="212" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+RootCanvas</text>
+<rect x="70" y="400" width="250" height="68" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="195.0" y="418" text-anchor="middle" font-weight="600" fill="currentColor">ESDBox</text>
+<line x1="70" y1="426" x2="320" y2="426" stroke="var(--rule-strong)"/>
+<text x="80" y="442" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">ID · Status · ColorState</text>
+<text x="80" y="458" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">StatusChangeAction</text>
+<rect x="370" y="400" width="130" height="100" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="435.0" y="418" text-anchor="middle" font-weight="600" fill="currentColor">ControlBox</text>
+<line x1="370" y1="426" x2="500" y2="426" stroke="var(--rule-strong)"/>
+<text x="380" y="442" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+SerialPort</text>
+<text x="380" y="458" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+Channels[5]</text>
+<text x="380" y="474" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">GetFrame()</text>
+<text x="380" y="490" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">SendTX()  // echo=ACK</text>
+<rect x="510" y="400" width="130" height="100" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="575.0" y="418" text-anchor="middle" font-weight="600" fill="currentColor">RFGateway</text>
+<line x1="510" y1="426" x2="640" y2="426" stroke="var(--rule-strong)"/>
+<text x="520" y="442" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+SerialPort</text>
+<text x="520" y="458" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">OpenGeneration</text>
+<text x="520" y="474" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">Send(frame)</text>
+<text x="520" y="490" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">event RX</text>
+<rect x="700" y="360" width="250" height="84" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="825.0" y="378" text-anchor="middle" font-weight="600" fill="currentColor">RootCanvas</text>
+<line x1="700" y1="386" x2="950" y2="386" stroke="var(--rule-strong)"/>
+<text x="710" y="402" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">+DynamicDevicesList</text>
+<text x="710" y="418" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">   : BlockDevice[20]</text>
+<text x="710" y="434" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">BoxClicked</text>
+<rect x="700" y="560" width="250" height="68" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="825.0" y="578" text-anchor="middle" font-weight="600" fill="currentColor">BlockDevice</text>
+<line x1="700" y1="586" x2="950" y2="586" stroke="var(--rule-strong)"/>
+<text x="710" y="602" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">Status · IsUsed · Position</text>
+<text x="710" y="618" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">click → query, drag → move</text>
+<path d="M440 104 L440 150 L175 150 L175 170" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M500 104 L500 170" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M560 104 L560 150 L825 150 L825 170" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M175 286 L175 400" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M470 270 L435 400" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M540 270 L575 400" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M825 222 L825 360" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<path d="M825 444 L825 560" stroke="currentColor" stroke-width="1.3" fill="none" marker-start="url(#svg-classes-dia)"/>
+<text x="185" y="392" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">20</text>
+<text x="835" y="552" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">20</text>
+<path d="M575 500 L575 770 L40 770 L40 286" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="5 4" fill="none" marker-end="url(#svg-classes-open)"/>
+<text x="300" y="784" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--accent)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">RFGateway RX event → ViewModel.FeedByte</text>
+</g>
+</svg>
+<figcaption><b>Cây sở hữu một chiều.</b> <code>MainWindow</code> giữ mọi thứ. Đường nét đứt trắng là liên kết chéo duy nhất: sự kiện nhận serial của <code>RFGateway</code> chạy vào parser <code>ViewModel.FeedByte</code>.</figcaption>
+</figure>
+
+<h2 id="doc-hinh">Đọc hình</h2>
+<ul>
+<li><code>MainWindow</code> tạo và giữ <code>ViewModel</code> (logic), <code>DeviceManagerPage</code> (hai cổng) và <code>MonitorPage</code> (bản đồ).</li>
+<li><code>ViewModel</code> giữ 20 <code>ESDBox</code>, timer băng tải và vòng polling; nó cũng là nơi phân tích khung LoRa.</li>
+<li><code>DeviceManagerPage</code> giữ <code>ControlBox</code> và <code>RFGateway</code>, mỗi lớp bọc một <code>SerialPort</code>.</li>
+<li><code>MonitorPage</code> giữ <code>RootCanvas</code>, canvas giữ 20 <code>BlockDevice</code> (ô hộp trên băng tải).</li>
+<li>Liên kết chéo duy nhất là sự kiện nhận serial của <code>RFGateway</code> gọi vào <code>ViewModel.FeedByte</code> — chạy trên luồng serial, nên luôn <code>BeginInvoke</code> về UI.</li>
+</ul>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Class Overview</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

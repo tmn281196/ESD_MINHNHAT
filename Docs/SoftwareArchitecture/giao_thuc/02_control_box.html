@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control Box Protocol · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="giao_thuc/02_control_box.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../giao_thuc/giao_thuc.html">Giao thức</a></div>
+    <h1>Control Box Protocol</h1>
+    <p class="summary">Khung 44 45 .. 56 tới Arduino: opcode kênh, STATE, checksum XOR, echo làm ACK; bản đồ chân và logic relay NC.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../giao_thuc/giao_thuc.html">Giao thức</a></dd>
+  <dt>Liên quan</dt><dd><a href="../kien_truc/05_conveyor.html">Conveyor Control</a> · <a href="../so_do/02_canh_bao.html">Warning → Stop</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Một khung 7 byte đặt một kênh relay; Arduino echo lại nguyên khung làm xác nhận.</em></p>
+<p>Control Box nối PC bằng USB-serial <strong>9600 8N1</strong>. Mỗi lệnh đặt <em>một</em> kênh về mức mong muốn:</p>
+
+<div class="meta"><span><b>Serial</b> 9600 8N1</span><span><b>Prefix</b> 0x44 0x45</span><span><b>Suffix</b> 0x56</span><span><b>LEN</b> 3</span><span><b>CS</b> XOR</span><span><b>ACK</b> echo nguyên khung</span></div>
+
+<div class="bytes">
+  <span class="v hdr">44<small>'D'</small></span>
+  <span class="v hdr">45<small>'E'</small></span>
+  <span class="v dat">03<small>LEN</small></span>
+  <span class="v typ">OP<small>kênh 1..5</small></span>
+  <span class="v typ">STATE<small>0 / 1</small></span>
+  <span class="v typ">XOR<small>của 5 byte trước</small></span>
+  <span class="v ftr">56<small>'V'</small></span>
+</div>
+<p class="tnote">XOR tính trên cả năm byte trước nó: <code>44 ^ 45 ^ 03 ^ OP ^ STATE</code>. <code>LEN = 3</code> là số byte sau nó (OP, STATE, XOR); firmware chỉ nhận khung có <code>LEN = 3</code>.</p>
+
+<h2 id="opcode">Opcode và STATE</h2>
+<div class="table-wrap"><table>
+<thead><tr><th class="mono">OP</th><th>Kênh (app)</th><th class="mono">STATE=1</th><th class="mono">STATE=0</th></tr></thead>
+<tbody>
+<tr><td class="num">1..4</td><td>Motor 1..4</td><td>chân HIGH → relay ON → <b>motor STOP</b></td><td>chân LOW → relay OFF → <b>motor RUN</b></td></tr>
+<tr><td class="num">5</td><td>Start All (SWON)</td><td>chân SWON HIGH</td><td>chân SWON LOW</td></tr>
+</tbody>
+</table></div>
+<p>Relay dùng tiếp điểm <strong>thường đóng (NC)</strong> nối tiếp mạch động cơ: cấp điện relay (chân HIGH) thì NC hở ra và động cơ dừng; thả (chân LOW) thì NC đóng lại và động cơ chạy. Vì vậy "cảnh báo" = đặt STATE 1.</p>
+<div class="ex"><span class="dir">TX</span> <b>44 45 03 01 01 02 56</b> &nbsp;— Motor 1 STOP</div>
+<div class="ex"><span class="dir">TX</span> <b>44 45 03 01 00 03 56</b> &nbsp;— Motor 1 RUN</div>
+<div class="ex"><span class="dir">TX</span> <b>44 45 03 05 01 06 56</b> &nbsp;— Start All = HIGH</div>
+<div class="ex"><span class="dir rx">RX</span> <b>44 45 03 01 01 02 56</b> &nbsp;— echo y hệt = ACK</div>
+
+<h2 id="echo">Echo làm ACK</h2>
+<p>Arduino nhận khung (máy trạng thái <code>WAIT_P1 → P2 → LEN → BODY</code>), kiểm XOR và suffix, rồi nếu <code>LEN = 3</code> thì gọi <code>SetChannel(OP, STATE)</code> và <strong>ghi lại nguyên khung</strong> ra serial. PC đọc khung trả về, so <em>từng byte</em> với khung đã gửi: khớp = thành công. Khung sai CRC ở Arduino thì không echo → PC coi là thất bại và thử lại (xem <a href="../kien_truc/05_conveyor.html">Conveyor Control</a>, các khóa Retry / RX timeout).</p>
+<p class="tnote">Arduino cũng bỏ khung nhận dở nếu im lặng quá 100&nbsp;ms (chống dính nửa khung).</p>
+
+<h2 id="pin">Bản đồ chân (Arduino Mega)</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Kênh</th><th class="mono">OP</th><th class="mono">Chân</th><th>Nhãn</th></tr></thead>
+<tbody>
+<tr><td>Motor 1</td><td class="num">1</td><td class="num">28</td><td>MI</td></tr>
+<tr><td>Motor 2</td><td class="num">2</td><td class="num">24</td><td>SOLDER</td></tr>
+<tr><td>Motor 3</td><td class="num">3</td><td class="num">22</td><td>PACKING</td></tr>
+<tr><td>Motor 4</td><td class="num">4</td><td class="num">22</td><td>FCT</td></tr>
+<tr><td>Start All</td><td class="num">5</td><td class="num">30</td><td>SWON</td></tr>
+</tbody>
+</table></div>
+<div class="callout warn"><p class="label">Motor 3 và Motor 4 trùng chân</p>
+<p>Trong <code>Pin.h</code> hiện tại <code>MOTOR3</code> và <code>MOTOR4</code> đều là chân <code>22</code>, nên hai kênh này điều khiển cùng một relay. Nếu line cần 4 động cơ độc lập thì phải đổi <code>MOTOR4</code> sang chân khác. Xem <a href="../kien_truc/08_gioi_han.html">Limits</a>.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Control Box Protocol</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

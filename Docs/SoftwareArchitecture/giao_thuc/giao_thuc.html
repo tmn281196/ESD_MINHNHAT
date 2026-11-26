@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giao thức · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="giao_thuc/giao_thuc.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a></div>
+    <h1>Giao thức</h1>
+    <p class="summary">Hai đường serial, hai khung tin khác nhau: khung trạng thái LoRa (hộp ↔ PC) và khung lệnh Control Box (PC ↔ Arduino).</p>
+    <div class="facts">
+      <span class="fact"><b>Trang</b> 2</span><span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../index.html">ESD Compliance Monitoring System</a></dd>
+  <dt>Trang con</dt><dd><a href="../giao_thuc/01_lora.html">LoRa Status Protocol</a> · <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p>Hai trang khung tin: khung trạng thái LoRa qua RF Gateway (cả chiều query), và khung lệnh Control Box có echo xác nhận cùng bản đồ chân relay.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Trang</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td class="nowrap"><a href="01_lora.html"><strong>LoRa Status Protocol</strong></a></td><td>Khung AA..BB qua RF Gateway: byte, CRC8, Network ID, khung trạng thái hộp gửi lên và khung query ‘?’ PC gửi xuống.</td></tr>
+<tr><td class="nowrap"><a href="02_control_box.html"><strong>Control Box Protocol</strong></a></td><td>Khung 44 45 .. 56 tới Arduino: opcode kênh, STATE, checksum XOR, echo làm ACK; bản đồ chân và logic relay NC.</td></tr>
+</tbody>
+</table></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Giao thức</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

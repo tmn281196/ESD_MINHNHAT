@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <!-- UI strings, English. Same keys in Strings.ko.xaml and Strings.th.xaml; see Lang/Lang.cs. -->
+  <sys:String x:Key="S.LangCode">en</sys:String>
+  <sys:String x:Key="S.LangName">English</sys:String>
+
+  <!-- Bottom bar -->
+  <sys:String x:Key="S.RfGateway">RF Gateway</sys:String>
+  <sys:String x:Key="S.ControlBox">Control Box</sys:String>
+  <sys:String x:Key="S.Motors">Motors</sys:String>
+  <sys:String x:Key="S.NetId">Net ID</sys:String>
+  <sys:String x:Key="S.AskAgain">Ask again</sys:String>
+  <sys:String x:Key="S.TxGap">TX gap</sys:String>
+  <sys:String x:Key="S.RxTimeout">RX timeout</sys:String>
+  <sys:String x:Key="S.Retry">Retry</sys:String>
+  <sys:String x:Key="S.RetryGap">Retry gap</sys:String>
+  <sys:String x:Key="S.StartAll">Start All</sys:String>
+  <sys:String x:Key="S.Stop1">Stop 1</sys:String>
+  <sys:String x:Key="S.Stop2">Stop 2</sys:String>
+  <sys:String x:Key="S.Stop3">Stop 3</sys:String>
+  <sys:String x:Key="S.Stop4">Stop 4</sys:String>
+  <sys:String x:Key="S.RefreshConnection">Refresh Connection</sys:String>
+  <sys:String x:Key="S.StartWithWindows">Start with Windows</sys:String>
+
+
+  <!-- Monitor legend -->
+  <sys:String x:Key="S.Inactive">Inactive</sys:String>
+  <sys:String x:Key="S.Warning">Warning</sys:String>
+  <sys:String x:Key="S.Active">Active</sys:String>
+  <sys:String x:Key="S.Offline">Offline</sys:String>
+  <sys:String x:Key="S.NotInUse">Not in use</sys:String>
+
+  <!-- Offline alert on the map, just below the box row; {0} = box numbers -->
+  <sys:String x:Key="S.Alert.Offline">Box {0} offline — please check the power supply.</sys:String>
+
+  <!-- Dialogs -->
+  <sys:String x:Key="S.Unlock.Title">Unlock</sys:String>
+  <sys:String x:Key="S.Unlock.Prompt">Enter the password to unlock the controls:</sys:String>
+  <sys:String x:Key="S.Unlock.Wrong">Wrong password</sys:String>
+  <sys:String x:Key="S.Unlock.Ok">Unlock</sys:String>
+  <sys:String x:Key="S.Cancel">Cancel</sys:String>
+
+  <!-- Tooltips -->
+  <sys:String x:Key="S.Tip.Language">Display language - click to switch (English → 한국어 → ไทย)</sys:String>
+  <sys:String x:Key="S.Tip.Refresh">Reconnect all COM ports (works even when locked)</sys:String>
+  <sys:String x:Key="S.Tip.Lock">Lock / unlock the controls (unlocking needs the password; unlock to edit the settings)</sys:String>
+  <sys:String x:Key="S.Tip.AutoStart">Open this program automatically when Windows starts</sys:String>
+  <sys:String x:Key="S.Tip.RfStatus">Green = RF Gateway connected</sys:String>
+  <sys:String x:Key="S.Tip.CbStatus">Green = Control Box connected</sys:String>
+  <sys:String x:Key="S.Tip.RfPort">COM port of the RF Gateway - picking a port connects it, Close disconnects</sys:String>
+  <sys:String x:Key="S.Tip.CbPort">COM port of the Control Box - picking a port connects it, Close disconnects</sys:String>
+  <sys:String x:Key="S.Tip.NetId">LoRa Network ID (line) accepted from the RF Gateway</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">Every this many seconds the boxes that did not answer (blue, Offline) are asked again (min 5). 0 = never</sys:String>
+  <sys:String x:Key="S.Tip.TxGap">Delay between consecutive commands sent to the Control Box (ms)</sys:String>
+  <sys:String x:Key="S.Tip.RxTimeout">How long to wait for the Control Box echo before a command counts as failed (ms)</sys:String>
+  <sys:String x:Key="S.Tip.Retry">How many times a command to the Control Box is sent before giving up (first attempt included)</sys:String>
+  <sys:String x:Key="S.Tip.RetryGap">Delay between two attempts of the same Control Box command (ms)</sys:String>
+  <sys:String x:Key="S.Tip.LogToggle">Show / hide the log window (logging continues)</sys:String>
+  <sys:String x:Key="S.Tip.LogClear">Clear log</sys:String>
+  <sys:String x:Key="S.Tip.LogSave">Save log to a .txt file</sys:String>
+  <sys:String x:Key="S.Tip.Tile">Click: ask this box for its status</sys:String>
+</ResourceDictionary>

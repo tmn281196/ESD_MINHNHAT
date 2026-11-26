@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <!-- UI strings, Korean (한국어). Keys must match Strings.en.xaml. -->
+  <sys:String x:Key="S.LangCode">ko</sys:String>
+  <sys:String x:Key="S.LangName">한국어</sys:String>
+
+  <sys:String x:Key="S.RfGateway">RF 게이트웨이</sys:String>
+  <sys:String x:Key="S.ControlBox">컨트롤 박스</sys:String>
+  <sys:String x:Key="S.Motors">모터</sys:String>
+  <sys:String x:Key="S.NetId">네트워크 ID</sys:String>
+  <sys:String x:Key="S.AskAgain">재질의</sys:String>
+  <sys:String x:Key="S.TxGap">송신 간격</sys:String>
+  <sys:String x:Key="S.RxTimeout">응답 대기</sys:String>
+  <sys:String x:Key="S.Retry">재시도</sys:String>
+  <sys:String x:Key="S.RetryGap">재시도 간격</sys:String>
+  <sys:String x:Key="S.StartAll">전체 시작</sys:String>
+  <sys:String x:Key="S.Stop1">정지 1</sys:String>
+  <sys:String x:Key="S.Stop2">정지 2</sys:String>
+  <sys:String x:Key="S.Stop3">정지 3</sys:String>
+  <sys:String x:Key="S.Stop4">정지 4</sys:String>
+  <sys:String x:Key="S.RefreshConnection">연결 새로고침</sys:String>
+  <sys:String x:Key="S.StartWithWindows">Windows 시작 시 실행</sys:String>
+
+
+  <sys:String x:Key="S.Inactive">비활성</sys:String>
+  <sys:String x:Key="S.Warning">경고</sys:String>
+  <sys:String x:Key="S.Active">활성</sys:String>
+  <sys:String x:Key="S.Offline">오프라인</sys:String>
+  <sys:String x:Key="S.NotInUse">미사용</sys:String>
+
+  <sys:String x:Key="S.Alert.Offline">박스 {0} 오프라인 — 전원을 확인해 주세요.</sys:String>
+
+  <sys:String x:Key="S.Unlock.Title">잠금 해제</sys:String>
+  <sys:String x:Key="S.Unlock.Prompt">제어 잠금을 해제하려면 비밀번호를 입력하세요:</sys:String>
+  <sys:String x:Key="S.Unlock.Wrong">비밀번호가 올바르지 않습니다</sys:String>
+  <sys:String x:Key="S.Unlock.Ok">해제</sys:String>
+  <sys:String x:Key="S.Cancel">취소</sys:String>
+
+  <sys:String x:Key="S.Tip.Language">표시 언어 - 클릭하여 전환 (English → 한국어 → ไทย)</sys:String>
+  <sys:String x:Key="S.Tip.Refresh">모든 COM 포트 다시 연결 (잠금 상태에서도 동작)</sys:String>
+  <sys:String x:Key="S.Tip.Lock">제어 잠금 / 해제 (해제하려면 비밀번호 필요, 해제해야 설정 변경 가능)</sys:String>
+  <sys:String x:Key="S.Tip.AutoStart">Windows가 시작될 때 이 프로그램을 자동으로 실행</sys:String>
+  <sys:String x:Key="S.Tip.RfStatus">녹색 = RF 게이트웨이 연결됨</sys:String>
+  <sys:String x:Key="S.Tip.CbStatus">녹색 = 컨트롤 박스 연결됨</sys:String>
+  <sys:String x:Key="S.Tip.RfPort">RF 게이트웨이의 COM 포트 - 포트를 고르면 바로 연결, Close는 연결 해제</sys:String>
+  <sys:String x:Key="S.Tip.CbPort">컨트롤 박스의 COM 포트 - 포트를 고르면 바로 연결, Close는 연결 해제</sys:String>
+  <sys:String x:Key="S.Tip.NetId">RF 게이트웨이에서 받아들이는 LoRa 네트워크 ID (라인)</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">응답하지 않은 박스(파란색, 오프라인)를 이 초마다 다시 질의 (최소 5). 0 = 안 함</sys:String>
+  <sys:String x:Key="S.Tip.TxGap">컨트롤 박스로 보내는 연속 명령 사이의 지연 (ms)</sys:String>
+  <sys:String x:Key="S.Tip.RxTimeout">명령 실패로 보기 전까지 컨트롤 박스 에코를 기다리는 시간 (ms)</sys:String>
+  <sys:String x:Key="S.Tip.Retry">포기하기 전 컨트롤 박스로 명령을 보내는 횟수 (첫 시도 포함)</sys:String>
+  <sys:String x:Key="S.Tip.RetryGap">같은 컨트롤 박스 명령의 두 시도 사이 지연 (ms)</sys:String>
+  <sys:String x:Key="S.Tip.LogToggle">로그 창 표시 / 숨기기 (기록은 계속됨)</sys:String>
+  <sys:String x:Key="S.Tip.LogClear">로그 지우기</sys:String>
+  <sys:String x:Key="S.Tip.LogSave">로그를 .txt 파일로 저장</sys:String>
+  <sys:String x:Key="S.Tip.Tile">클릭: 이 박스의 상태를 질의</sys:String>
+</ResourceDictionary>

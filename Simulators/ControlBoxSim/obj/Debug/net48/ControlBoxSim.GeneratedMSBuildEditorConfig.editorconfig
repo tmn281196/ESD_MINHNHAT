@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = ControlBoxSim
+build_property.ProjectDir = D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

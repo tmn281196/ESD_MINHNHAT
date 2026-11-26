@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connections & COM · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/03_ket_noi.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>Connections & COM</h1>
+    <p class="summary">Mở/đóng cổng an toàn (SerialPortSafe), tự nhận cắm/rút USB, tự nối lại, thử lại lúc khởi động cùng Windows.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../kien_truc/07_giao_dien.html">User Interface</a> · <a href="../so_do/03_khoi_dong.html">Startup & Connect</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Cổng USB-serial hay bị rút giữa chừng; phần lớn code kết nối là để không bị treo vì điều đó.</em></p>
+
+<h2 id="safe">SerialPortSafe</h2>
+<p>Mọi lần mở cổng dùng một đối tượng <code>SerialPort</code> <strong>mới toanh</strong>, và đóng có timeout:</p>
+<ul>
+<li><strong>Đối tượng mới mỗi lần mở:</strong> một <code>SerialPort</code> đóng hụt (cáp bị rút) có thể báo <code>IsOpen = true</code> mãi mãi và mọi <code>Open()</code> sau đều lỗi tới khi khởi động lại — nên luôn tạo mới.</li>
+<li><strong>Chặn finalizer của BaseStream:</strong> khi thiết bị USB biến mất, finalizer ném lỗi trên luồng GC và <em>giết cả tiến trình</em>; <code>GC.SuppressFinalize</code> sau khi mở để tránh.</li>
+<li><strong>Đóng có timeout 2&nbsp;s:</strong> driver treo không bao giờ làm đơ UI hay giữ tiến trình sống.</li>
+<li><strong>ReadTimeout / WriteTimeout 500&nbsp;ms:</strong> mặc định là vô hạn — một driver chết sẽ chặn <code>Write()</code> mãi và giữ khóa TX.</li>
+</ul>
+<p>Lỗi mở được dịch sang lời khuyên cụ thể: <em>busy (access denied)</em> → chương trình khác đang giữ cổng, rút/cắm cáp rồi Refresh; <em>not found</em> → kiểm cáp.</p>
+
+<h2 id="auto">Tự nhận cắm / rút</h2>
+<p>Cửa sổ nghe thông điệp Windows <code>WM_DEVICECHANGE</code>. Mỗi lần tập cổng COM đổi (chống dội 500&nbsp;ms):</p>
+<ul>
+<li>Làm tươi danh sách COM trong hai ComboBox.</li>
+<li>Cổng vừa <strong>biến mất</strong> mà là cổng đang dùng → đóng handle ngay (giữ handle trên thiết bị đã rút chính là thứ làm cổng "access denied" tới khi reboot).</li>
+<li>Cổng vừa <strong>trở lại</strong> mà người dùng muốn mở → đợi 1,5&nbsp;s cho driver liệt kê xong rồi tự nối lại.</li>
+</ul>
+
+<h2 id="chon-cong">Chọn cổng = kết nối</h2>
+<p>Không có nút OPEN/CLOSE. Chọn một cổng trong combo của group RF Gateway hay Control Box là app mở cổng đó ngay (đang nối cổng khác thì đóng cổng cũ trước); chọn <strong>Close</strong> là đóng và lưu lại. Chỉ lựa chọn của người dùng (combo đang mở hoặc đang có focus) mới gây kết nối — việc làm tươi danh sách khi cắm/rút USB hay binding gán lại giá trị đã lưu thì không. Trạng thái kết nối hiện ở màu icon ở đầu group.</p>
+
+<h2 id="startup">Thử lại lúc khởi động</h2>
+<p>Khi chạy cùng Windows, driver USB-serial thường chưa sẵn sàng và lần mở đầu thất bại. App thử lại <strong>12 lần, mỗi 5&nbsp;s</strong> (khoảng một phút) thay vì nằm im mất kết nối. Nút <strong>Refresh Connection</strong> trên thanh điều khiển ép đóng rồi mở lại cả hai cổng, hoạt động cả khi đang khóa.</p>
+<h2 id="sim">Thử không cần phần cứng</h2>
+<p>Thư mục <code>Simulators/</code> có hai app WPF giả lập phần cứng theo đúng giao thức: <code>ControlBoxSim</code> (nhận khung Control Box, echo làm ACK, có thể tắt/làm chậm echo) và <code>RfGatewaySim</code> (gateway + 20 hộp: bấm A/W/I để đổi trạng thái, bỏ Online để hộp im lặng, trả lời query <code>'?'</code>). Nối với ESDCMS bằng cặp cổng ảo com0com, ví dụ ESDCMS mở <code>COM15</code>/<code>COM16</code>, simulator mở <code>COM18</code>/<code>COM17</code>. Hướng dẫn ở <code>Simulators/README.md</code>.</p>
+<div class="callout note"><p class="label">OpenGeneration</p>
+<p>Mỗi lần cổng RF mở thành công, <code>OpenGeneration</code> tăng một. Vòng polling thấy số này đổi là biết cổng vừa (re)mở và sẽ hỏi lại trạng thái tất cả hộp — xem <a href="04_poll.html">Status Polling</a>.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Connections & COM</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

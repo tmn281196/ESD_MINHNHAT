@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading the Drawings · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="so_do/00_cach_doc.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../so_do/so_do.html">Sơ đồ</a></div>
+    <h1>Reading the Drawings</h1>
+    <p class="summary">Cách đọc sơ đồ: ký hiệu quan hệ lớp và mũi tên tuần tự dùng trong các trang sau.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../so_do/so_do.html">Sơ đồ</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p>Các sơ đồ dùng ký hiệu UML: <b>sơ đồ lớp</b> cho biết lớp nào giữ lớp nào, <b>sơ đồ tuần tự</b> cho biết ai gọi ai theo thứ tự thời gian.
+Tên trong hình là tên lớp và member thật trong mã nguồn. Chữ trong hình để tiếng Anh.</p>
+<h2 id="so-do-lop">Sơ đồ lớp</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Ký hiệu</th><th>Nghĩa</th></tr></thead>
+<tbody>
+<tr><td>Đường có hình thoi đặc ở đầu A</td><td>A <b>sở hữu</b> B: A tạo ra B, B sống cùng A</td></tr>
+<tr><td>Đường nét đứt màu trắng, mũi tên mở</td><td>A <b>dùng</b> B (ở đây: sự kiện serial, đi qua ranh giới luồng)</td></tr>
+<tr><td class="mono">+</td><td>thành phần công khai; <code>[20]</code> = có 20 cái</td></tr>
+</tbody></table></div>
+<h2 id="so-do-tuan-tu">Sơ đồ tuần tự</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Ký hiệu</th><th>Nghĩa</th></tr></thead>
+<tbody>
+<tr><td>Cột có hộp tên ở trên</td><td>Một đối tượng hoặc một luồng; dòng chấm đi xuống là thời gian</td></tr>
+<tr><td>Mũi tên liền, đầu đặc</td><td>Gọi hoặc gửi khung</td></tr>
+<tr><td>Mũi tên nét đứt, đầu mở</td><td>Trả về / echo / thông báo</td></tr>
+<tr><td>Mũi tên quay về chính nó</td><td>Việc làm bên trong đối tượng đó</td></tr>
+<tr><td>Khung nét đứt có nhãn</td><td>Nhóm bước lặp hoặc có điều kiện</td></tr>
+</tbody></table></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Reading the Drawings</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

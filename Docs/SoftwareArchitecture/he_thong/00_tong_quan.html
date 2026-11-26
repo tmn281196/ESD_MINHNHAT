@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Overview · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="he_thong/00_tong_quan.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../he_thong/he_thong.html">Hệ thống</a></div>
+    <h1>System Overview</h1>
+    <p class="summary">Toàn chuỗi: hộp ESD → LoRa → RF Gateway → ứng dụng PC → Control Box → contactor băng tải; bài toán cần giải và cách hệ giải nó.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../he_thong/he_thong.html">Hệ thống</a></dd>
+  <dt>Liên quan</dt><dd><a href="../he_thong/01_thiet_bi.html">Devices & Roles</a> · <a href="../kien_truc/01_boi_canh.html">System Context</a> · <a href="../so_do/02_canh_bao.html">Warning → Stop</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Các hộp ESD báo trạng thái về PC qua LoRa; PC dừng băng tải khi có cảnh báo tĩnh điện.</em></p>
+<figure class="diagram">
+<svg viewBox="0 0 1200 244" role="img" aria-label="System chain: ESD box over LoRa to the RF gateway, over USB to the PC app, over a second USB link to the control box and the conveyor relays">
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+  </marker>
+  <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#ffffff"/>
+  </marker>
+</defs>
+<g font-family="Google Sans, sans-serif" font-size="12.5">
+<text x="24" y="44" text-anchor="start" font-family="Google Sans, sans-serif" font-size="13" font-weight="600" fill="var(--accent)">STATUS  (box → PC)</text>
+<text x="778" y="44" text-anchor="start" font-family="Google Sans, sans-serif" font-size="13" font-weight="600" fill="var(--accent)">COMMAND  (PC → conveyor)</text>
+<rect x="14" y="60" width="668" height="118" fill="none" stroke="var(--rule)" stroke-dasharray="6 4"/>
+<rect x="766" y="60" width="420" height="118" fill="none" stroke="var(--rule)" stroke-dasharray="6 4"/>
+<rect x="24" y="94" width="150" height="58" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="99.0" y="120.0" text-anchor="middle" font-weight="600" fill="currentColor">ESD Box</text>
+<text x="99.0" y="137.0" text-anchor="middle" fill="var(--ink-2)" font-size="11">A · W · I</text>
+<rect x="274" y="94" width="150" height="58" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="349.0" y="120.0" text-anchor="middle" font-weight="600" fill="currentColor">RF Gateway</text>
+<text x="349.0" y="137.0" text-anchor="middle" fill="var(--ink-2)" font-size="11">LoRa → USB</text>
+<rect x="524" y="94" width="150" height="58" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2"/>
+<text x="599.0" y="120.0" text-anchor="middle" font-weight="600" fill="currentColor">PC · app</text>
+<text x="599.0" y="137.0" text-anchor="middle" fill="var(--ink-2)" font-size="11">ESDCMS.exe</text>
+<rect x="774" y="94" width="150" height="58" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="849.0" y="120.0" text-anchor="middle" font-weight="600" fill="currentColor">Control Box</text>
+<text x="849.0" y="137.0" text-anchor="middle" fill="var(--ink-2)" font-size="11">Arduino</text>
+<rect x="1024" y="94" width="150" height="58" fill="var(--surface-2)" stroke="currentColor"/>
+<text x="1099.0" y="120.0" text-anchor="middle" font-weight="600" fill="currentColor">Conveyor</text>
+<text x="1099.0" y="137.0" text-anchor="middle" fill="var(--ink-2)" font-size="11">relays</text>
+<path d="M174 123.0 L274 123.0" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<text x="224.0" y="112.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink-2)" paint-order="stroke" stroke="var(--bg)" stroke-width="6" stroke-linejoin="round">LoRa 433 MHz</text>
+<path d="M424 123.0 L524 123.0" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<text x="474.0" y="112.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink-2)" paint-order="stroke" stroke="var(--bg)" stroke-width="6" stroke-linejoin="round">USB · 9600</text>
+<path d="M674 123.0 L774 123.0" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<text x="724.0" y="112.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink-2)" paint-order="stroke" stroke="var(--bg)" stroke-width="6" stroke-linejoin="round">USB · 9600</text>
+<path d="M924 123.0 L1024 123.0" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<text x="974.0" y="112.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink-2)" paint-order="stroke" stroke="var(--bg)" stroke-width="6" stroke-linejoin="round">relay (NC)</text>
+<text x="600.0" y="224" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--accent)" paint-order="stroke" stroke="var(--bg)" stroke-width="6" stroke-linejoin="round">any used box = Warning → STOP   ·   all clear → RUN</text>
+</g>
+</svg>
+<figcaption><b>Hai nửa gặp nhau ở PC.</b> Nửa trái là trạng thái hộp đi lên; nửa phải là lệnh dừng/chạy băng tải đi xuống. PC là chỗ duy nhất nối hai nửa.</figcaption>
+</figure>
+
+<h2 id="bai-toan">Bài toán</h2>
+<p>Trên một line lắp ráp điện tử, mỗi người thao tác phải nối đất qua dây đeo cổ tay hoặc thảm ESD để phóng tĩnh điện an toàn.
+Nếu một vị trí bị <strong>hở tĩnh điện</strong> (tuột dây, đứt mạch nối đất) mà băng tải vẫn chạy, bo mạch đi qua vị trí đó có nguy cơ hỏng vì phóng tĩnh điện.
+Hệ này giám sát mọi vị trí theo thời gian thực và <strong>dừng băng tải</strong> ngay khi có vị trí hở, rồi cho chạy lại khi mọi thứ bình thường.</p>
+
+<h2 id="chuoi">Chuỗi thiết bị</h2>
+<p>Trạng thái đi từ trái sang phải trong hình trên:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Chặng</th><th>Thiết bị</th><th>Làm gì</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="nowrap">Hộp ESD</td><td>Đo hai đầu vào (dây đeo / thảm) ở một vị trí, rút ra trạng thái <code>A</code>/<code>W</code>/<code>I</code>, gửi bằng LoRa khi trạng thái đổi (lặp lại vài lần cho chắc) và khi PC hỏi.</td></tr>
+<tr><td class="num">2</td><td class="nowrap">RF Gateway</td><td>Nhận gói LoRa của mọi hộp cùng Network ID, chuyển tiếp qua USB-serial về PC dưới dạng khung <code>AA … BB</code>; chiều ngược lại phát lệnh query của PC ra LoRa.</td></tr>
+<tr><td class="num">3</td><td class="nowrap">PC · ESDCMS</td><td>Phân tích khung, cập nhật màu ô của hộp trên bản đồ băng tải; nếu có hộp Warning thì ra lệnh dừng.</td></tr>
+<tr><td class="num">4</td><td class="nowrap">Control Box</td><td>Arduino nhận khung lệnh qua USB-serial, bật/tắt các chân relay tương ứng, echo lại khung làm xác nhận.</td></tr>
+<tr><td class="num">5</td><td class="nowrap">Băng tải</td><td>Relay (tiếp điểm thường đóng) ngắt/đóng mạch động cơ: cảnh báo → dừng, hết cảnh báo → chạy.</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="hai-duong">Hai đường serial tách biệt</h2>
+<p>PC giữ <strong>hai cổng COM riêng</strong>, hai khung tin khác nhau:</p>
+<ul>
+<li><strong>RF Gateway</strong> — giám sát hộp, hai chiều: trạng thái hộp đi lên, lệnh query <code>'?'</code> của PC đi xuống. Xem <a href="../giao_thuc/01_lora.html">LoRa Status Protocol</a>.</li>
+<li><strong>Control Box</strong> — đường ra, điều khiển relay băng tải, có echo xác nhận. Xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>.</li>
+</ul>
+<div class="callout note"><p class="label">Vì sao tách hai đường</p>
+<p>Hai chức năng độc lập: giám sát (không dây, nhiều hộp) và điều khiển cơ cấu (có dây, một hộp Arduino, cần phản hồi chắc chắn).
+Tách hai cổng cho phép rút/cắm, nối lại, hỏng một bên mà bên kia vẫn chạy.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>System Overview</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

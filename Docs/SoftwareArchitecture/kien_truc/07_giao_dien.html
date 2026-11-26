@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User Interface · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/07_giao_dien.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>User Interface</h1>
+    <p class="summary">Một cửa sổ: nút ngôn ngữ English / 한국어 / ไทย, bản đồ băng tải, cảnh báo hộp Offline, console log, và thanh dưới một hàng chia group theo thiết bị.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../kien_truc/06_cau_hinh.html">Config & Settings</a> · <a href="../kien_truc/03_ket_noi.html">Connections & COM</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Một cửa sổ: thanh tiêu đề, bản đồ băng tải (kèm dải cảnh báo Offline ngay dưới hàng ô), console log, và thanh dưới chia group theo thiết bị.</em></p>
+<div class="table-wrap"><table>
+<thead><tr><th>Vùng</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td class="nowrap">Thanh tiêu đề</td><td>"ESD Compliance Monitoring System" và <strong>nút ngôn ngữ</strong> bên phải: nút ghi tên ngôn ngữ đang dùng; mỗi lần bấm chuyển <em>English → 한국어 → ไทย → English</em>, đổi ngay không cần khởi động lại, lưu vào <code>config.json</code>. Bấm được cả khi đang khóa.</td></tr>
+<tr><td class="nowrap">Bản đồ băng tải</td><td>Một dải (băng tải) với 20 ô vị trí; mỗi hộp là một ô mang số 01..20, tô màu theo trạng thái. Chú thích màu (theo ngôn ngữ): Inactive (vàng), Warning (đỏ cam), Active (xanh lá), <strong>Offline (xanh dương)</strong>, Not in use (xám).</td></tr>
+<tr><td class="nowrap">Cảnh báo Offline</td><td>Dải vàng nhạt nằm trên bản đồ, <strong>ngay dưới hàng ô hộp</strong> và rộng bằng dải băng tải (vị trí cố định), chữ lớn đậm, icon ⚠ nhấp nháy nhẹ, <strong>chỉ hiện khi có hộp đang dùng ở Offline</strong>: "Box 03, 07 offline — please check the power supply." (theo ngôn ngữ). Tự ẩn khi các hộp trả lời lại. Hộp Unknown lúc mới mở (chưa hỏi tới) không tính.</td></tr>
+<tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ Consolas trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
+<tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Bên trái: <strong>Refresh Connection</strong>, <strong>Start with Windows</strong>, nút 🔒. Bên phải, sát lề, ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
+<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s) ·
+<strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·
+<strong>Motors</strong> (Start All, Stop 1..4).</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="com">Chọn cổng COM</h2>
+<ul>
+<li>Không có nút OPEN/CLOSE. Chọn một cổng trong combo của group là <strong>kết nối ngay</strong> (đang nối cổng khác thì đóng cổng cũ trước); chọn <strong>Close</strong> là ngắt thiết bị đó và nhớ lại lựa chọn.</li>
+<li>Icon ở đầu group (📶 RF Gateway, ⏩ Control Box) <strong>xanh lá</strong> khi đã kết nối, trắng khi chưa.</li>
+<li>Chỉ lựa chọn của người dùng mới gây kết nối. Lúc app làm tươi danh sách cổng (cắm/rút USB) hay gán lại giá trị đã lưu thì không. Khởi động, cắm lại USB, hay bấm Refresh Connection thì app tự mở lại cổng đã chọn (xem <a href="03_ket_noi.html">Connections &amp; COM</a>).</li>
+</ul>
+
+<h2 id="o-hop">Thao tác trên ô hộp</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Thao tác</th><th>Tác dụng</th><th>Điều kiện</th></tr></thead>
+<tbody>
+<tr><td class="nowrap">Click (không kéo)</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
+<tr><td class="nowrap">Kéo</td><td>Đổi vị trí ô (hoán đổi với ô đích)</td><td>chỉ khi mở khóa</td></tr>
+<tr><td class="nowrap">Phải-chuột</td><td>Bật/tắt "đang dùng" ô (vào/ra khỏi line)</td><td>chỉ khi mở khóa</td></tr>
+</tbody>
+</table></div>
+<p>Ô "không dùng" luôn màu xám. Vị trí và trạng thái dùng được lưu vào <code>config.json</code> (mục Monitoring) khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>
+<h2 id="lock">Khóa</h2>
+<p>Để phòng lỡ tay, mặc định cửa sổ <strong>khóa</strong>. Khi khóa: combo COM, các nút Motors và ô Start with Windows không bấm được; các ô cài đặt chỉ đọc (nhìn như thường, vẫn chọn/copy được); không kéo/đổi ô hộp. <strong>Refresh Connection</strong> và <strong>nút ngôn ngữ</strong> thì luôn dùng được.</p>
+<p>Mở khóa (biểu tượng ổ khóa) phải <strong>nhập mật khẩu</strong>; đúng thì mới sửa được, đồng thời bật chế độ điều khiển motor bằng tay và tắt tự-động dừng băng tải cho tới khi khóa lại. Nhập sai thì hộp báo "Wrong password" và cho nhập lại; Cancel thì vẫn khóa. Khóa lại không cần mật khẩu. Mật khẩu nhập đúng một lần thì được nhớ <strong>tới khi tắt chương trình</strong> (khóa rồi mở lại không hỏi nữa); tắt app mở lại thì phải nhập lại. Không ghi mật khẩu ra đâu cả.</p>
+
+<h2 id="ngon-ngu">Ngôn ngữ</h2>
+<p>Mọi chữ trên giao diện nằm trong <code>Lang/Strings.en.xaml</code>, <code>Strings.ko.xaml</code>, <code>Strings.th.xaml</code> (cùng bộ khóa <code>S.…</code>); XAML dùng <code>{DynamicResource S.…}</code> nên đổi ngôn ngữ là cả cửa sổ đổi theo ngay. Thêm hay sửa một chữ thì sửa ở cả ba file. Bản tiếng Hàn và tiếng Thái nên được người bản ngữ rà lại. Console log và hộp báo "already running" lúc khởi động vẫn bằng tiếng Anh.</p>
+
+<h2 id="icon">Icon</h2>
+<p>Icon ứng dụng là ký hiệu ESD gốc (đĩa vàng viền đen, tam giác đen, bàn tay và vạch chéo), vẽ lại dạng vector, không chữ, nền trong suốt: <code>Images/icon/esd.svg</code>. <code>app.ico</code> (7 cỡ 16–256&nbsp;px) sinh từ cùng bộ tọa độ bằng <code>Images/icon/make_esd_icon.ps1</code>.</p>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>User Interface</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

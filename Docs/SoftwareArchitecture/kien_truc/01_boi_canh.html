@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Context · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/01_boi_canh.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>System Context</h1>
+    <p class="summary">ESDCMS.exe: một tiến trình WPF .NET 4.8 giữ hai link serial (RF Gateway, Control Box) và tất cả logic; single-instance theo thư mục, chống treo cổng COM.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../he_thong/00_tong_quan.html">System Overview</a> · <a href="../kien_truc/02_phan_tang.html">Layers & File Map</a> · <a href="../so_do/01_lop.html">Class Overview</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Một tiến trình WPF giữ hai cổng COM và toàn bộ logic; nhiều luồng, nhưng mọi thứ UI đi qua Dispatcher.</em></p>
+<p><code>ESDCMS</code> — <em>ESD Compliance Monitoring System</em> — là ứng dụng <strong>.NET Framework 4.8, WPF, x64</strong> (WinExe <code>ESDCMS.exe</code>, bản v2.0; trước tên là <code>ESDKitSystem</code>). Một cửa sổ duy nhất chứa trang giám sát, console log và thanh điều khiển.
+Khi chạy, nó mở hai cổng COM — RF Gateway (vào) và Control Box (ra) — và giữ trạng thái của tối đa 20 hộp.</p>
+
+<h2 id="luong">Các luồng</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Luồng</th><th>Việc</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td class="nowrap">UI Dispatcher</td><td>Vẽ, đổi màu ô, chạy vòng polling, timer băng tải</td><td>Mọi thay đổi UI phải ở đây</td></tr>
+<tr><td class="nowrap">Serial RX (RF)</td><td><code>DataReceived</code> của RF Gateway → parser byte</td><td>Dùng <code>BeginInvoke</code>, không bao giờ chờ UI (tránh deadlock khi đóng cổng)</td></tr>
+<tr><td class="nowrap"><code>Task.Run</code> nền</td><td>Mở/đóng cổng, ghi/đọc Control Box (chờ echo)</td><td>Port <code>Open()</code>/<code>Write()</code> có thể treo lâu, không để trên UI</td></tr>
+<tr><td class="nowrap">Watchdog thoát</td><td>Giết tiến trình nếu driver treo 5&nbsp;s sau khi đóng cửa sổ</td><td>Tránh exe "ma" giữ cổng COM</td></tr>
+</tbody>
+</table></div>
+<p>Hai khóa đồng bộ giữ cho phần cứng không bị hai luồng giành: <code>_controlBoxGate</code> (một thao tác Control Box tại một thời điểm) và <code>_radioLock</code> (một query LoRa trên không tại một thời điểm).</p>
+
+<h2 id="ben-bi">Thiết kế để bền</h2>
+<p>Nhiều chi tiết sinh ra từ việc chạy liên tục trên sàn máy với cáp USB hay bị rút:</p>
+<ul>
+<li><strong>Single-instance theo thư mục:</strong> mutex <code>Local\ESDCMS_&lt;hash đường dẫn exe&gt;</code>. Mở bản thứ hai <em>cùng thư mục</em> bị chặn (sẽ tranh cổng COM). Bản ở <em>thư mục khác</em> vẫn mở được, nhưng mọi bản của cùng một user Windows dùng chung <code>%USERPROFILE%\.esdcms\config.json</code> — cùng cổng COM — nên thực tế chỉ một bản nắm được cổng.</li>
+<li><strong>Không chết vì lỗi lẻ:</strong> lỗi Dispatcher được bắt và ghi <code>%USERPROFILE%\.esdcms\crash.log</code>, cửa sổ vẫn sống thay vì tắt với cổng COM còn mở.</li>
+<li><strong>Đóng cổng dứt khoát khi thoát</strong> + watchdog giết tiến trình nếu driver không nhả.</li>
+</ul>
+<p>Chi tiết mở/đóng cổng ở <a href="03_ket_noi.html">Connections &amp; COM</a>.</p>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>System Context</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sơ đồ · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="so_do/so_do.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a></div>
+    <h1>Sơ đồ</h1>
+    <p class="summary">Sơ đồ lớp và sơ đồ tuần tự, vẽ bằng SVG ngay trong trang, chữ trong hình tiếng Anh, xem được khi không có mạng.</p>
+    <div class="facts">
+      <span class="fact"><b>Trang</b> 4</span><span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../index.html">ESD Compliance Monitoring System</a></dd>
+  <dt>Trang con</dt><dd><a href="../so_do/00_cach_doc.html">Reading the Drawings</a> · <a href="../so_do/01_lop.html">Class Overview</a> · <a href="../so_do/02_canh_bao.html">Warning → Stop</a> · <a href="../so_do/03_khoi_dong.html">Startup & Connect</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p>Bốn trang: cách đọc ký hiệu, sơ đồ lớp của toàn ứng dụng, và hai sơ đồ tuần tự (cảnh báo → dừng, và khởi động). Mọi hình vẽ bằng SVG nằm sẵn trong trang.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Trang</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td class="nowrap"><a href="00_cach_doc.html"><strong>Reading the Drawings</strong></a></td><td>Cách đọc sơ đồ: ký hiệu quan hệ lớp và mũi tên tuần tự dùng trong các trang sau.</td></tr>
+<tr><td class="nowrap"><a href="01_lop.html"><strong>Class Overview</strong></a></td><td>Các lớp chính và quan hệ: MainWindow, ViewModel, ControlBox, RFGateway, RootCanvas/BlockDevice, ConfigStore.</td></tr>
+<tr><td class="nowrap"><a href="02_canh_bao.html"><strong>Warning → Stop</strong></a></td><td>Một hộp chuyển Warning: từ khung LoRa, qua parser, timer băng tải, tới khung lệnh Control Box và relay — đúng theo mã nguồn hiện tại.</td></tr>
+<tr><td class="nowrap"><a href="03_khoi_dong.html"><strong>Startup & Connect</strong></a></td><td>Thứ tự lúc khởi động: mở hai cổng COM, xung SWON của Control Box, và vòng query trạng thái lần đầu.</td></tr>
+</tbody>
+</table></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Sơ đồ</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

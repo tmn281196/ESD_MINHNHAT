@@ -1,0 +1,15 @@
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\bin\Debug\net48\ControlBoxSim.exe.config
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\bin\Debug\net48\ControlBoxSim.exe
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\bin\Debug\net48\ControlBoxSim.pdb
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.csproj.AssemblyReference.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\MainWindow.baml
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\MainWindow.g.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\App.g.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim_MarkupCompile.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.g.resources
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.GeneratedMSBuildEditorConfig.editorconfig
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.AssemblyInfoInputs.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.AssemblyInfo.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.csproj.CoreCompileInputs.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.exe
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\ControlBoxSim\obj\Debug\net48\ControlBoxSim.pdb

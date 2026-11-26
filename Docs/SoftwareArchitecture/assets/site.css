@@ -1,0 +1,44 @@
+/* Site-only overrides on top of noir.css (which stays the skill's copy).
+   Same rules as the Philosophy notes site. */
+
+/* The header summary reserves 3 lines (noir.css default: 2), for the branch pages'
+   question + description, so the header keeps one height on every page. */
+:root { --summary-lines: 3; }
+
+/* Site map: noir.css indents a nested <details> by 12px but not a leaf page beside it, so
+   siblings drifted apart and a leaf's text sat under its sibling's +/− sign. Indent every
+   child the same, and start a leaf's text where a group's text starts (after the 14px sign). */
+.side nav.site details details { margin-left: 0; }
+.side nav.site details > ul > li { margin-left: 12px; }
+.side nav.site li > a { padding-left: 12px; }
+/* Group titles in normal case at the page links' size (noir.css: 11.5px uppercase, which
+   wrapped long titles); the weight still tells a group from a page. */
+.side nav.site summary { font: 600 13.5px/1.7 var(--display); letter-spacing: normal; text-transform: none; }
+
+/* Key/value rows: the links at the top of a note (Thuộc, Khái niệm con, Thuật ngữ,
+   Liên quan) and the whole body of a term page (Bản chất, Suy ngẫm, …). */
+dl.kv { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 8px 16px; margin: 4px 0 22px;
+        padding: 12px 16px; border: 1px solid var(--line); background: var(--panel); }
+dl.kv dt { font: 600 11.5px/1.9 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+dl.kv dd { margin: 0; }
+dl.kv dd.q { color: var(--grey); font-style: italic; }
+dl.kv.term { padding: 16px 18px; gap: 12px 16px; }
+@media (max-width: 560px) { dl.kv { grid-template-columns: minmax(0, 1fr); gap: 0; } dl.kv dd { margin-bottom: 10px; } }
+
+/* Muted text: the Vietnamese name after a link in the branch lists, the counts on cards. */
+.dim { color: var(--muted); }
+
+/* A tree written as nested lists (Ontology): drawn with ├─ └─ │ lines. */
+ul.ltree, ul.ltree ul { list-style: none; margin: 0; padding: 0; }
+ul.ltree { margin: 0 0 22px; padding: 14px 16px 14px 8px; background: var(--panel); border: 1px solid var(--line); }
+ul.ltree li { position: relative; margin: 0; padding: 3px 0 3px 26px; }
+ul.ltree li::before { content: ""; position: absolute; left: 9px; top: 0; bottom: 0; border-left: 1px solid var(--line-strong); }
+ul.ltree li:last-child::before { bottom: auto; height: 1.15em; }
+ul.ltree li::after { content: ""; position: absolute; left: 9px; top: 1.15em; width: 12px; border-top: 1px solid var(--line-strong); }
+ul.ltree > li { padding-left: 22px; }
+ul.ltree > li::before, ul.ltree > li::after { left: 4px; }
+
+
+/* Diagrams: hand-drawn SVG keep their own width; screenshots fill the column. */
+figure.diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+figure.diagram img { display: block; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--line); }

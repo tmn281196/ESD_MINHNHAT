@@ -1,0 +1,82 @@
+/* Kiến trúc HR1280 MTP - additions on top of noir.css (kept separate so noir.css stays the template's).
+   Colour variables for the hand-drawn SVGs, mapped onto the noir greys
+   (white = emphasis, red only for "fail" and danger). */
+:root {
+  --accent: #ffffff;  --accent-soft: #1c1c1c;
+  --amber: #a6a6a6;   --amber-soft: #1a1a1a;
+  --pass: #ffffff;    --fail: #ff6b6b;
+  --ground: #0b0b0b;  --surface: #121212;  --surface-2: #161616;
+  --ink: #cfcfcf;     --ink-2: #a6a6a6;    --ink-3: #858585;
+  --rule: #3a3a3a;    --rule-strong: #5a5a5a;
+  --grid: #242424;    --grid-strong: #3a3a3a;
+  --paper: #121212;   --paper-ink: #cfcfcf; --paper-rule: #3a3a3a; --paper-strip: #161616;
+  --code-bg: #000;
+}
+figure.diagram { color: var(--text); }
+figure.diagram svg text { font-family: var(--sans); }
+pre.mermaid { background: transparent; border: 0; margin: 0; padding: 0; color: var(--text);
+  font-family: var(--mono); font-size: 12px; white-space: pre; overflow-x: auto; }
+pre.mermaid svg { max-width: 100%; height: auto; }
+/* No diagram text may sit on a stroke. Mermaid centres a sequence message between its two lifelines
+   (and a self-message right on its own), so a long one crosses every lifeline in between; a halo in
+   the page colour cuts the line behind the glyphs. Multiplicities (1, 8, 0..*) get a solid backing for
+   the same reason. Edge labels are padded via themeCSS in each diagram's init line. */
+pre.mermaid svg .messageText, pre.mermaid svg .loopText, pre.mermaid svg .loopText tspan,
+.dv-sheet svg .messageText, .dv-sheet svg .loopText, .dv-sheet svg .loopText tspan {
+  paint-order: stroke fill !important; stroke: var(--bg) !important; stroke-width: 7px !important;
+  stroke-linejoin: round !important; }
+pre.mermaid svg .edgeTerminals span, .dv-sheet svg .edgeTerminals span { background: var(--bg) !important; }
+.card .where { color: var(--muted); font-family: var(--mono); font-size: 12.5px; }
+
+/* --- protocol pages --- */
+.sub { color: var(--text); }
+.tnote { color: var(--muted); font-size: 14px; }
+td.num { text-align: center; font-family: var(--mono); }
+td.mono, th.mono, span.mono { font-family: var(--mono); white-space: nowrap; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
+.meta span { border: 1px solid var(--line-strong); background: var(--panel); padding: 4px 10px;
+  font-family: var(--mono); font-size: 13px; }
+.meta b { color: var(--head); font-weight: 600; }
+.bytes { display: flex; gap: 4px; flex-wrap: wrap; margin: 10px 0; font-family: var(--mono); font-size: 13px; }
+.bytes .v { border: 1px solid var(--line-strong); padding: 6px 10px; background: var(--panel);
+  min-width: 92px; text-align: center; color: var(--head); }
+.bytes .v small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; font-family: var(--sans); }
+.bytes .v.hdr { border-color: #8a8a8a; }  .bytes .v.typ { border-color: #ffffff; }
+.bytes .v.dat { border-color: #5a5a5a; }  .bytes .v.ftr { border-style: dashed; }
+.ex { font-family: var(--mono); font-size: 13px; background: var(--code); border: 1px solid var(--line);
+  padding: 8px 12px; margin: 6px 0; overflow-x: auto; white-space: normal; line-height: 1.9; }
+.table-wrap table { margin: 0; }
+td.mono { font-size: 13.5px; }
+.ex b { color: var(--head); }
+.dir { display: inline-block; padding: 0 8px; font-size: 12px; font-weight: 700; margin-right: 8px;
+  border: 1px solid var(--line-strong); color: var(--head); }
+.dir.rx { background: #1c1c1c; }
+
+/* the stack drawings (from LibAcdc/docs and LibAcdcConfig/docs): scaled to the column, and running
+   into main's own side padding (44 px, 16 px on a narrow screen) for a larger print - never past
+   the column into the outline beside it */
+figure.stack-sheet { overflow-x: auto; margin-left: -44px; margin-right: -44px; }
+@media (max-width: 900px) { figure.stack-sheet { margin-left: -16px; margin-right: -16px; } }
+svg.stack { display: block; width: 100%; height: auto; }
+
+/* --- full-size diagram view (assets/diagram-view.js) --- */
+figure.diagram { position: relative; }
+figure.diagram svg { cursor: zoom-in; }
+a.dv-open { display: inline-block; margin: 0 0 8px; font: 600 12px var(--display); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); padding: 3px 10px; }
+a.dv-open:hover { color: var(--text); border-color: var(--muted); }
+.dv-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: rgba(0, 0, 0, .92); }
+.dv-bar { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-bottom: 1px solid var(--line-strong);
+  background: var(--bg); font: 13px var(--sans); color: var(--muted); }
+.dv-bar .dv-title { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dv-bar button { font: 600 12px var(--sans); color: var(--text); background: #000; border: 1px solid var(--line-strong);
+  padding: 4px 10px; min-width: 34px; cursor: pointer; }
+.dv-bar button:hover { border-color: var(--muted); }
+.dv-stage { flex: 1; overflow: auto; padding: 24px; cursor: zoom-out; }
+.dv-sheet { display: inline-block; background: var(--bg); padding: 16px; border: 1px solid var(--line); cursor: default; }
+.dv-sheet svg { display: block; max-width: none !important; height: auto; }
+.dv-sheet { color: var(--text); }
+.dv-sheet svg text { font-family: var(--sans); }
+
+/* warning callouts: one solid line on the left, like the other callouts (the template draws a double one) */
+.callout.warn { border-left-style: solid; border-left-width: 3px; }

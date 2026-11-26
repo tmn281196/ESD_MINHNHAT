@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ControlBoxSim/ControlBoxSim.csproj" />
+  <Project Path="RfGatewaySim/RfGatewaySim.csproj" />
+</Solution>

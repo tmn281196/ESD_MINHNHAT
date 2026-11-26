@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiến trúc · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/kien_truc.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a></div>
+    <h1>Kiến trúc</h1>
+    <p class="summary">Ứng dụng WPF được dựng thế nào: các lớp, hai cổng COM, các luồng, và luồng dữ liệu đi đâu làm gì.</p>
+    <div class="facts">
+      <span class="fact"><b>Trang</b> 8</span><span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../index.html">ESD Compliance Monitoring System</a></dd>
+  <dt>Trang con</dt><dd><a href="../kien_truc/01_boi_canh.html">System Context</a> · <a href="../kien_truc/02_phan_tang.html">Layers & File Map</a> · <a href="../kien_truc/03_ket_noi.html">Connections & COM</a> · <a href="../kien_truc/04_poll.html">Status Polling</a> · <a href="../kien_truc/05_conveyor.html">Conveyor Control</a> · <a href="../kien_truc/06_cau_hinh.html">Config & Settings</a> · <a href="../kien_truc/07_giao_dien.html">User Interface</a> · <a href="../kien_truc/08_gioi_han.html">Limits & Open Work</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p>Tám trang về ứng dụng WPF: bối cảnh và luồng, bản đồ file, xử lý cổng COM, vòng polling, luật dừng băng tải, cấu hình, giao diện, và các giới hạn hiện tại.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Trang</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td class="nowrap"><a href="01_boi_canh.html"><strong>System Context</strong></a></td><td>ESDCMS.exe: một tiến trình WPF .NET 4.8 giữ hai link serial (RF Gateway, Control Box) và tất cả logic; single-instance theo thư mục, chống treo cổng COM.</td></tr>
+<tr><td class="nowrap"><a href="02_phan_tang.html"><strong>Layers & File Map</strong></a></td><td>Bản đồ file: Device/, Monitoring/, cửa sổ chính; mỗi file làm gì, và quy ước Fody/PropertyChanged.</td></tr>
+<tr><td class="nowrap"><a href="03_ket_noi.html"><strong>Connections & COM</strong></a></td><td>Mở/đóng cổng an toàn (SerialPortSafe), tự nhận cắm/rút USB, tự nối lại, thử lại lúc khởi động cùng Windows.</td></tr>
+<tr><td class="nowrap"><a href="04_poll.html"><strong>Status Polling</strong></a></td><td>Vòng hỏi trạng thái: query mỗi hộp lúc mở cổng, phát hiện Offline, hỏi lại định kỳ, và click vào ô hộp để hỏi ngay.</td></tr>
+<tr><td class="nowrap"><a href="05_conveyor.html"><strong>Conveyor Control</strong></a></td><td>Luật dừng băng tải: bất kỳ hộp đang dùng ở Warning → dừng; timer 200 ms, retry/gap, xung SWON lúc kết nối, chế độ Lock/manual.</td></tr>
+<tr><td class="nowrap"><a href="06_cau_hinh.html"><strong>Config & Settings</strong></a></td><td>%USERPROFILE%\.esdcms\config.json: tất cả khóa và giá trị mặc định, chuyển từ bản cũ, lưu an toàn, layout màn hình, auto-start cùng Windows.</td></tr>
+<tr><td class="nowrap"><a href="07_giao_dien.html"><strong>User Interface</strong></a></td><td>Một cửa sổ: nút ngôn ngữ English / 한국어 / ไทย, bản đồ băng tải, cảnh báo hộp Offline, console log, và thanh dưới một hàng chia group theo thiết bị.</td></tr>
+<tr><td class="nowrap"><a href="08_gioi_han.html"><strong>Limits & Open Work</strong></a></td><td>Hệ khác hệ hoàn chỉnh ở đâu: query cần nạp firmware v2 + NODE_ID riêng cho mọi hộp, L2 là bản sao L1, vài điểm cần dọn.</td></tr>
+</tbody>
+</table></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Kiến trúc</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

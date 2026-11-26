@@ -1,0 +1,36 @@
+<Window x:Class="RfGatewaySim.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RF Gateway Simulator — ESDCMS" Width="1000" Height="720" Background="#F4F5F7"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel Margin="12">
+    <!-- Port + gateway -->
+    <WrapPanel DockPanel.Dock="Top">
+      <TextBlock Text="COM port" VerticalAlignment="Center" FontWeight="SemiBold" />
+      <ComboBox Name="PortBox" Width="110" Margin="8 0 0 0" IsEditable="True" VerticalAlignment="Center" />
+      <Button Content="↻" Width="28" Margin="4 0 0 0" ToolTip="Refresh the port list" Click="Refresh_Click" />
+      <Button Name="OpenBtn" Content="Open" Width="80" Margin="8 0 0 0" Click="Open_Click" />
+      <TextBlock Name="PortState" Text="closed" Margin="10 0 24 0" VerticalAlignment="Center" Foreground="#757575" />
+      <TextBlock Text="Net ID  0x" VerticalAlignment="Center" FontWeight="SemiBold" />
+      <TextBox Name="NetIdBox" Width="36" Text="03" TextAlignment="Center" VerticalAlignment="Center"
+               ToolTip="Network ID of this line (hex). Must match ESDCMS's Net ID, else ESDCMS ignores the frames" />
+      <CheckBox Name="AnswerBox" Content="Boxes answer '?' queries" IsChecked="True" Margin="20 0 0 0" VerticalAlignment="Center"
+                ToolTip="Untick to simulate the old box firmware (no query answer): ESDCMS shows the boxes Offline" />
+      <Button Content="Power up all" Margin="20 0 0 0" Padding="8 2" Click="PowerUp_Click"
+              ToolTip="Every online box sends its status in its own slot (box ID x 60 ms), as after a power cut" />
+      <Button Content="All Active" Margin="6 0 0 0" Padding="8 2" Click="AllActive_Click" />
+    </WrapPanel>
+    <TextBlock DockPanel.Dock="Top" Margin="0 10 0 0" Foreground="#555" TextWrapping="Wrap"
+               Text="A / W / I = change the box inputs (Active / Warning / Inactive): the box sends its new status at once. Untick Online = the box is silent (no power / out of range): ESDCMS shows it Offline and the yellow alert." />
+
+    <!-- 20 boxes -->
+    <UniformGrid Name="BoxGrid" DockPanel.Dock="Top" Columns="5" Margin="0 10 0 0" />
+
+    <!-- Log -->
+    <DockPanel DockPanel.Dock="Top" Margin="0 12 0 4">
+      <Button DockPanel.Dock="Right" Content="Clear log" Padding="8 1" Click="ClearLog_Click" />
+      <TextBlock Text="Log" FontWeight="SemiBold" VerticalAlignment="Center" />
+    </DockPanel>
+    <ListBox Name="LogList" FontFamily="Consolas" FontSize="12" />
+  </DockPanel>
+</Window>

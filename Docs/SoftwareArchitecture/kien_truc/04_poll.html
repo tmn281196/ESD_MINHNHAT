@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status Polling · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/04_poll.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>Status Polling</h1>
+    <p class="summary">Vòng hỏi trạng thái: query mỗi hộp lúc mở cổng, phát hiện Offline, hỏi lại định kỳ, và click vào ô hộp để hỏi ngay.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../giao_thuc/01_lora.html">LoRa Status Protocol</a> · <a href="../he_thong/02_trang_thai.html">Box Status Model</a> · <a href="../kien_truc/08_gioi_han.html">Limits & Open Work</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Hộp tự báo khi đổi; polling lấp chỗ trống: biết trạng thái đầu, và phát hiện hộp im lặng.</em></p>
+<p>Hộp chỉ tự gửi <em>khi trạng thái đổi</em> và lúc bật nguồn, nên nếu chỉ nghe thụ động thì PC mở sau các hộp không biết chúng đang thế nào, và không phân biệt được "đang Active" với "đã tắt nguồn". Vòng polling (<code>StatusPollLoopAsync</code>) giải việc đó bằng khung query <code>'?'</code>.</p>
+
+<h2 id="vong">Vòng polling</h2>
+<ul>
+<li><strong>Lúc cổng RF (re)mở</strong> (<code>OpenGeneration</code> đổi): đợi <strong>2,5&nbsp;s</strong> (gateway ESP32 có thể reboot khi mở cổng), rồi hỏi <em>từng hộp đang dùng</em> một lượt.</li>
+<li>Mỗi hộp được hỏi tới <strong>PollRetries</strong> lần (mặc định 3), mỗi lần chờ trả lời <strong>PollReplyTimeout</strong> (mặc định 400&nbsp;ms). Trả lời ở lần nào thì dừng ngay.</li>
+<li>Hộp không trả lời sau tất cả các lần → đặt <strong>Offline</strong> (ô giữ màu xanh dương mặc định, không phải xám), và dải cảnh báo vàng ngay dưới hàng ô hộp hiện số hộp kèm lời nhắc kiểm tra nguồn điện (xem <a href="07_giao_dien.html">User Interface</a>).</li>
+<li>Sau đó, mỗi <strong>AskAgainSec</strong> giây (mặc định 300; 0 = không), các hộp đang Offline/Unknown được hỏi lại; hộp nào đáp thì "back online".</li>
+</ul>
+<p>Chỉ <strong>một query trên không tại một thời điểm</strong> (<code>_radioLock</code>): lượt hỏi lúc khởi động và cú click vào ô hộp thay nhau dùng sóng.</p>
+
+<h2 id="khop">Khớp hỏi với trả lời</h2>
+<p>Mỗi hộp có một "người chờ" (<code>TaskCompletionSource</code>). Gửi query xong, vòng hỏi chờ <em>hoặc</em> hộp trả lời (parser gọi <code>NotifyBoxAnswered</code> khi khung CRC đúng) <em>hoặc</em> hết timeout. Khung trạng thái bình thường của hộp cũng được tính là "đã trả lời".</p>
+
+<h2 id="click">Click để hỏi ngay</h2>
+<p>Click (không kéo) vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay. Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
+<div class="callout warn"><p class="label">Phụ thuộc firmware</p>
+<p>Query cần firmware v2 ở cả gateway (chuyển tiếp PC→LoRa) và hộp (đáp <code>'?'</code>, sau 20&nbsp;ms) — đều có trong <code>Firmware_LoRA/</code>. Hộp chạy firmware cũ không trả lời nên sẽ hiện <strong>Offline</strong> cho tới khi nó tự gửi một thay đổi trạng thái. Xem <a href="08_gioi_han.html">Limits &amp; Open Work</a>.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Status Polling</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

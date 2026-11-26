@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layers & File Map · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="kien_truc/02_phan_tang.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../kien_truc/kien_truc.html">Kiến trúc</a></div>
+    <h1>Layers & File Map</h1>
+    <p class="summary">Bản đồ file: Device/, Monitoring/, cửa sổ chính; mỗi file làm gì, và quy ước Fody/PropertyChanged.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../kien_truc/kien_truc.html">Kiến trúc</a></dd>
+  <dt>Liên quan</dt><dd><a href="../so_do/01_lop.html">Class Overview</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Thư mục project <code>ESDCMS/</code>; ba nhóm file: thiết bị &amp; logic (Device/), bản đồ băng tải (Monitoring/), và cửa sổ chính.</em></p>
+<div class="table-wrap"><table>
+<thead><tr><th class="mono">File</th><th>Vai trò</th></tr></thead>
+<tbody>
+<tr><td class="mono">ESDCMS.csproj / ESDCMS.slnx</td><td>Project .NET Framework 4.8 · WPF · x64, ra <code>ESDCMS.exe</code>; mở solution bằng Visual Studio 2022 hoặc <code>dotnet build</code>.</td></tr>
+<tr><td class="mono">App.xaml.cs</td><td>Khởi động: tên hiển thị <code>AppDisplayName</code>, single-instance mutex, bắt lỗi toàn cục → <code>.esdcms\crash.log</code>, watchdog thoát.</td></tr>
+<tr><td class="mono">MainWindow.xaml(.cs)</td><td>Cửa sổ: nút ngôn ngữ, khung trang giám sát, console log, thanh dưới (group RF Gateway / Control Box / Motors; chọn COM là kết nối), Lock, auto refresh COM khi cắm/rút USB.</td></tr>
+<tr><td class="mono">Lang/Strings.{en,ko,th}.xaml, Lang/Lang.cs</td><td>Chữ giao diện cho English / 한국어 / ไทย (cùng bộ khóa) và lớp đổi ngôn ngữ lúc chạy.</td></tr>
+<tr><td class="mono">Device/PortNames.cs</td><td>Giá trị của combo COM: tên cổng thật thì mở, <code>Close</code> (và giá trị cũ <code>Unused</code>/<code>Unset</code>) thì không.</td></tr>
+<tr><td class="mono">Images/icon/</td><td>Icon ESD dạng vector <code>esd.svg</code>, file <code>esd.ico</code> và script <code>make_esd_icon.ps1</code> sinh ra <code>app.ico</code>.</td></tr>
+<tr><td class="mono">UnlockDialog.cs</td><td>Hộp nhập mật khẩu khi mở khóa; nhập đúng một lần thì nhớ trong bộ nhớ tới khi tắt app (<code>EnteredThisSession</code>). Exe chỉ giữ mã băm SHA-256 (có salt) của mật khẩu; đổi mật khẩu = thay hằng <code>PasswordHash</code>. Chống lỡ tay, không phải bảo mật mạnh.</td></tr>
+<tr><td class="mono">Device/ViewModel.cs</td><td>Trái tim: parser khung LoRa, 20 <code>ESDBox</code>, vòng polling, timer + luật dừng băng tải.</td></tr>
+<tr><td class="mono">Device/ControlBox.cs</td><td>Cổng Control Box: dựng khung lệnh, ghi, chờ echo, kiểm ACK.</td></tr>
+<tr><td class="mono">Device/RFGateway.cs</td><td>Cổng RF Gateway: mở/đóng, gửi khung query, phát sự kiện nhận.</td></tr>
+<tr><td class="mono">Device/DeviceManagerPage.xaml.cs</td><td>Giữ <code>ControlBox</code> + <code>RFGateway</code>; áp/ngắt kết nối, refresh danh sách COM, xung SWON lúc mở.</td></tr>
+<tr><td class="mono">Device/SerialPortSafe.cs</td><td>Mở/đóng cổng an toàn chống treo (xem trang Connections).</td></tr>
+<tr><td class="mono">Device/Config.cs, AppConfig.cs</td><td>Các khóa cấu hình + giá trị hiệu lực (clamp). Xem <a href="06_cau_hinh.html">Config</a>.</td></tr>
+<tr><td class="mono">Device/ConfigStore.cs</td><td>Đọc/ghi <code>%USERPROFILE%\.esdcms\config.json</code> (lần đầu chép config cũ cạnh exe sang), an toàn với mất điện giữa chừng.</td></tr>
+<tr><td class="mono">Device/ESDBox.cs, DeviceStatus.cs</td><td>Một hộp và enum trạng thái; màu theo trạng thái.</td></tr>
+<tr><td class="mono">Device/AutoStart.cs</td><td>Bật/tắt chạy cùng Windows (giá trị <code>ESDCMS</code> trong HKCU\…\Run); xóa giá trị cũ <code>ESDKitSystem</code>.</td></tr>
+<tr><td class="mono">Device/UiLogWriter.cs</td><td>Chuyển <code>Console.WriteLine</code> thành dòng trong panel log.</td></tr>
+<tr><td class="mono">Monitoring/MornitorPage.xaml(.cs)</td><td>Trang giám sát: tạo <code>RootCanvas</code>, nối click ô → query hộp; đặt dải cảnh báo Offline ngay dưới hàng ô, rộng bằng dải băng tải.</td></tr>
+<tr><td class="mono">Monitoring/RootCanvas.cs</td><td>Vẽ băng tải: 20 ô vị trí + 20 ô hộp, nạp layout từ config.</td></tr>
+<tr><td class="mono">Monitoring/BlockDevice.cs</td><td>Một ô hộp: kéo đổi vị trí, phải-chuột bật/tắt dùng, click để hỏi.</td></tr>
+<tr><td class="mono">HexByteConverter.cs</td><td>Hiển thị/nhập Network ID dạng hex hai chữ số.</td></tr>
+</tbody>
+</table></div>
+<div class="callout note"><p class="label">Fody / PropertyChanged</p>
+<p>Project dùng <strong>Fody + PropertyChanged.Fody</strong>: các auto-property trong <code>ViewModel</code>, <code>ESDBox</code> tự được dệt <code>OnPropertyChanged</code> lúc build. Không tự viết <code>OnPropertyChanged</code> trong setter. Mã nguồn là bản <strong>dịch ngược</strong> từ exe rồi dọn lại để build, tên biến cục bộ lấy từ PDB nên khá sát bản gốc.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Layers & File Map</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

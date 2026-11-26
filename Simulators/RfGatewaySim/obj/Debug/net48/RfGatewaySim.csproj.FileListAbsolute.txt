@@ -1,0 +1,15 @@
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\bin\Debug\net48\RfGatewaySim.exe.config
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\bin\Debug\net48\RfGatewaySim.exe
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\bin\Debug\net48\RfGatewaySim.pdb
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.csproj.AssemblyReference.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\MainWindow.baml
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\MainWindow.g.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\App.g.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim_MarkupCompile.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.g.resources
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.GeneratedMSBuildEditorConfig.editorconfig
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.AssemblyInfoInputs.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.AssemblyInfo.cs
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.csproj.CoreCompileInputs.cache
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.exe
+D:\tng\projects\ESD_MINHNHAT_final\Simulators\RfGatewaySim\obj\Debug\net48\RfGatewaySim.pdb

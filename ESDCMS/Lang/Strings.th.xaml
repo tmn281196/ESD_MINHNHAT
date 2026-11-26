@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <!-- UI strings, Thai (ไทย). Keys must match Strings.en.xaml. -->
+  <sys:String x:Key="S.LangCode">th</sys:String>
+  <sys:String x:Key="S.LangName">ไทย</sys:String>
+
+  <sys:String x:Key="S.RfGateway">RF เกตเวย์</sys:String>
+  <sys:String x:Key="S.ControlBox">กล่องควบคุม</sys:String>
+  <sys:String x:Key="S.Motors">มอเตอร์</sys:String>
+  <sys:String x:Key="S.NetId">รหัสเครือข่าย</sys:String>
+  <sys:String x:Key="S.AskAgain">ถามซ้ำ</sys:String>
+  <sys:String x:Key="S.TxGap">ช่วงส่ง</sys:String>
+  <sys:String x:Key="S.RxTimeout">รอตอบกลับ</sys:String>
+  <sys:String x:Key="S.Retry">ลองใหม่</sys:String>
+  <sys:String x:Key="S.RetryGap">ช่วงลองใหม่</sys:String>
+  <sys:String x:Key="S.StartAll">เริ่มทั้งหมด</sys:String>
+  <sys:String x:Key="S.Stop1">หยุด 1</sys:String>
+  <sys:String x:Key="S.Stop2">หยุด 2</sys:String>
+  <sys:String x:Key="S.Stop3">หยุด 3</sys:String>
+  <sys:String x:Key="S.Stop4">หยุด 4</sys:String>
+  <sys:String x:Key="S.RefreshConnection">เชื่อมต่อใหม่</sys:String>
+  <sys:String x:Key="S.StartWithWindows">เปิดพร้อม Windows</sys:String>
+
+
+  <sys:String x:Key="S.Inactive">ไม่ทำงาน</sys:String>
+  <sys:String x:Key="S.Warning">เตือน</sys:String>
+  <sys:String x:Key="S.Active">ทำงาน</sys:String>
+  <sys:String x:Key="S.Offline">ออฟไลน์</sys:String>
+  <sys:String x:Key="S.NotInUse">ไม่ได้ใช้</sys:String>
+
+  <sys:String x:Key="S.Alert.Offline">กล่อง {0} ออฟไลน์ — โปรดตรวจสอบแหล่งจ่ายไฟ</sys:String>
+
+  <sys:String x:Key="S.Unlock.Title">ปลดล็อก</sys:String>
+  <sys:String x:Key="S.Unlock.Prompt">ป้อนรหัสผ่านเพื่อปลดล็อกการควบคุม:</sys:String>
+  <sys:String x:Key="S.Unlock.Wrong">รหัสผ่านไม่ถูกต้อง</sys:String>
+  <sys:String x:Key="S.Unlock.Ok">ปลดล็อก</sys:String>
+  <sys:String x:Key="S.Cancel">ยกเลิก</sys:String>
+
+  <sys:String x:Key="S.Tip.Language">ภาษาที่แสดง - คลิกเพื่อสลับ (English → 한국어 → ไทย)</sys:String>
+  <sys:String x:Key="S.Tip.Refresh">เชื่อมต่อพอร์ต COM ทั้งหมดใหม่ (ใช้ได้แม้ล็อกอยู่)</sys:String>
+  <sys:String x:Key="S.Tip.Lock">ล็อก / ปลดล็อกการควบคุม (ปลดล็อกต้องใช้รหัสผ่าน และต้องปลดล็อกจึงแก้การตั้งค่าได้)</sys:String>
+  <sys:String x:Key="S.Tip.AutoStart">เปิดโปรแกรมนี้อัตโนมัติเมื่อ Windows เริ่มทำงาน</sys:String>
+  <sys:String x:Key="S.Tip.RfStatus">สีเขียว = เชื่อมต่อ RF เกตเวย์แล้ว</sys:String>
+  <sys:String x:Key="S.Tip.CbStatus">สีเขียว = เชื่อมต่อกล่องควบคุมแล้ว</sys:String>
+  <sys:String x:Key="S.Tip.RfPort">พอร์ต COM ของ RF เกตเวย์ - เลือกพอร์ตแล้วเชื่อมต่อทันที เลือก Close เพื่อตัดการเชื่อมต่อ</sys:String>
+  <sys:String x:Key="S.Tip.CbPort">พอร์ต COM ของกล่องควบคุม - เลือกพอร์ตแล้วเชื่อมต่อทันที เลือก Close เพื่อตัดการเชื่อมต่อ</sys:String>
+  <sys:String x:Key="S.Tip.NetId">LoRa Network ID (ไลน์) ที่รับจาก RF เกตเวย์</sys:String>
+  <sys:String x:Key="S.Tip.AskAgain">ถามกล่องที่ไม่ตอบ (สีน้ำเงิน, ออฟไลน์) ซ้ำทุก ๆ จำนวนวินาทีนี้ (ขั้นต่ำ 5) 0 = ไม่ถาม</sys:String>
+  <sys:String x:Key="S.Tip.TxGap">ช่วงหน่วงระหว่างคำสั่งที่ส่งไปกล่องควบคุมติดกัน (ms)</sys:String>
+  <sys:String x:Key="S.Tip.RxTimeout">เวลารอ echo จากกล่องควบคุมก่อนถือว่าคำสั่งล้มเหลว (ms)</sys:String>
+  <sys:String x:Key="S.Tip.Retry">จำนวนครั้งที่ส่งคำสั่งไปกล่องควบคุมก่อนเลิก (นับครั้งแรกด้วย)</sys:String>
+  <sys:String x:Key="S.Tip.RetryGap">ช่วงหน่วงระหว่างการส่งคำสั่งเดิมไปกล่องควบคุมซ้ำ (ms)</sys:String>
+  <sys:String x:Key="S.Tip.LogToggle">แสดง / ซ่อนหน้าต่างบันทึก (ยังบันทึกต่อ)</sys:String>
+  <sys:String x:Key="S.Tip.LogClear">ล้างบันทึก</sys:String>
+  <sys:String x:Key="S.Tip.LogSave">บันทึก log เป็นไฟล์ .txt</sys:String>
+  <sys:String x:Key="S.Tip.Tile">คลิก: ถามสถานะของกล่องนี้</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Box Status Model · ESD Compliance Monitoring System</title>
+<link rel="stylesheet" href="../assets/noir.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/arch.css">
+</head>
+<body data-root="../" data-page="he_thong/02_trang_thai.html">
+<header class="top">
+  <div class="top-inner">
+    <div class="crumbs"><a href="../index.html">ESD Compliance Monitoring System</a><span class="sep">/</span><a href="../he_thong/he_thong.html">Hệ thống</a></div>
+    <h1>Box Status Model</h1>
+    <p class="summary">Sáu trạng thái Active / Warning / Inactive / Unknown / Error / Offline: màu, ý nghĩa, và cách hộp suy ra A/W/I từ hai chân IN1/IN2.</p>
+    <div class="facts">
+      <span class="fact"><b>Updated</b> 2026-11-26</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="side"></aside>
+<main>
+
+<dl class="kv">
+  <dt>Thuộc</dt><dd><a href="../he_thong/he_thong.html">Hệ thống</a></dd>
+  <dt>Liên quan</dt><dd><a href="../giao_thuc/01_lora.html">LoRa Status Protocol</a> · <a href="../kien_truc/05_conveyor.html">Conveyor Control</a></dd>
+</dl>
+<h2 id="tong-quan">Tổng quan</h2>
+<p class="lede"><em>Sáu trạng thái; ba do hộp báo, ba do PC tự đặt.</em></p>
+<p>Mỗi hộp trên PC là một đối tượng <code>ESDBox</code> mang một <code>DeviceStatus</code>. Ba trạng thái đầu đến thẳng từ hộp qua LoRa;
+ba trạng thái sau do phía PC đặt khi khung lỗi hoặc hộp im lặng.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Trạng thái</th><th>Màu ô</th><th>Nghĩa</th><th>Ai đặt</th></tr></thead>
+<tbody>
+<tr><td class="nowrap"><strong>Active</strong></td><td class="nowrap">xanh lá <code>#45F248</code></td><td>Vị trí đạt: cả hai đầu vào tốt</td><td>hộp (<code>'A'</code>)</td></tr>
+<tr><td class="nowrap"><strong>Warning</strong></td><td class="nowrap">đỏ cam (OrangeRed)</td><td>Hở tĩnh điện — <strong>kích hoạt dừng băng tải</strong></td><td>hộp (<code>'W'</code>)</td></tr>
+<tr><td class="nowrap"><strong>Inactive</strong></td><td class="nowrap">vàng</td><td>Không có người / chưa nối</td><td>hộp (<code>'I'</code>)</td></tr>
+<tr><td class="nowrap"><strong>Unknown</strong></td><td class="nowrap">xanh dương <code>#037EF3</code></td><td>Chưa nghe gì từ hộp (lúc mới mở / reset)</td><td>PC</td></tr>
+<tr><td class="nowrap"><strong>Offline</strong></td><td class="nowrap">xanh dương <code>#037EF3</code></td><td>Hộp không trả lời query (mất điện, ngoài vùng, firmware cũ) — giữ màu xanh mặc định, <em>không</em> phải xám</td><td>PC</td></tr>
+<tr><td class="nowrap"><strong>Error</strong></td><td class="nowrap">(giữ màu cũ)</td><td>Khung nhận được sai CRC; chỉ tăng bộ đếm lỗi, không đổi ô</td><td>PC</td></tr>
+</tbody>
+</table></div>
+<p>Ô "không dùng" (vị trí trống trên băng tải) luôn vẽ màu xám bất kể trạng thái, xem <a href="../kien_truc/07_giao_dien.html">User Interface</a>.</p>
+
+<h2 id="hop-suy-ra">Hộp suy ra A/W/I thế nào</h2>
+<p>Firmware hộp (<code>lora_node.ino</code>) đọc hai chân số <code>IN1</code>, <code>IN2</code> và rút ra trạng thái theo đúng bảng này:</p>
+<div class="table-wrap"><table>
+<thead><tr><th class="mono">IN1</th><th class="mono">IN2</th><th>Trạng thái</th><th>Đèn</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="num">1</td><td><code>'A'</code> Active</td><td>xanh</td></tr>
+<tr><td class="num">1</td><td class="num">0</td><td><code>'W'</code> Warning</td><td>đỏ</td></tr>
+<tr><td class="num">0</td><td class="num">—</td><td><code>'I'</code> Inactive</td><td>vàng</td></tr>
+</tbody>
+</table></div>
+<p>Đầu vào được chống dội 200&nbsp;ms (phải giữ nguyên 200&nbsp;ms mới nhận; không dùng <code>delay()</code> nên hộp vẫn nghe được LoRa). Hộp gửi khung <strong>khi trạng thái đổi</strong> — gửi rồi lặp thêm 5 lần cách 100, 200, 400, 800, 1600&nbsp;ms (+ ngẫu nhiên tới 50&nbsp;ms) vì PC không gửi ACK; <strong>lúc bật nguồn</strong> — đợi <code>NODE_ID × 60&nbsp;ms</code> để các hộp không cùng phát sau khi mất điện; và <strong>khi PC hỏi</strong> (xem <a href="../giao_thuc/01_lora.html#query">query</a>).
+Việc <strong>bất kỳ</strong> hộp đang dùng ở Warning sẽ làm băng tải dừng được xử lý ở phía PC, xem <a href="../kien_truc/05_conveyor.html">Conveyor Control</a>.</p>
+<div class="callout note"><p class="label">Error ≠ Offline</p>
+<p><strong>Error</strong> là có nghe thấy khung nhưng CRC sai (nhiễu đường truyền) — PC chỉ đếm, không đổi màu, vì khung kế thường lại đúng.
+<strong>Offline</strong> là hỏi mà <em>không</em> nghe thấy gì sau vài lần query — ô giữ màu <strong>xanh dương mặc định</strong> (như lúc mới mở, Unknown). Màu xám chỉ dành cho ô <em>không dùng</em>.</p></div>
+
+<nav class="pager" aria-label="Pages"></nav>
+<footer>Box Status Model</footer>
+</main>
+</div>
+<script src="../assets/site.js"></script>
+<script src="../assets/noir.js"></script>
+<script src="../assets/diagram-view.js"></script>
+</body>
+</html>

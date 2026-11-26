@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="ESDCMS.Monitoring.MonitorPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:ESDCMS.Monitoring" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" Title="LineMonitor">
+  <FrameworkElement.Resources>
+    <ResourceDictionary>
+      <Style x:Key="CtrlButton" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="34.5" />
+        <Setter Property="Height" Value="34.5" />
+        <Setter Property="FontSize" Value="16.5" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="#4D4D4D" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="8 0 0 0" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Name="border" CornerRadius="0" Background="{TemplateBinding Control.Background}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                  <Setter TargetName="border" Property="UIElement.Opacity" Value="0.85" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                  <Setter TargetName="border" Property="UIElement.Opacity" Value="0.6" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </ResourceDictionary>
+  </FrameworkElement.Resources>
+  <Grid Name="MainGrid">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 50 0 ">
+        <Border Width="20" Height="20" Background="#FFFFFF00" />
+        <Label FontSize="20" Content="{DynamicResource S.Inactive}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 50 0 ">
+        <Border Width="20" Height="20" Background="#ff4500" />
+        <Label FontSize="20" Content="{DynamicResource S.Warning}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 50 0 ">
+        <Border Width="20" Height="20" Background="#45f248" />
+        <Label FontSize="20" Content="{DynamicResource S.Active}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 50 0 ">
+        <Border Width="20" Height="20" Background="#037EF3" />
+        <Label FontSize="20" Content="{DynamicResource S.Offline}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+        <Border Width="20" Height="20" Background="#9E9E9E" />
+        <Label FontSize="20" Content="{DynamicResource S.NotInUse}" />
+      </StackPanel>
+    </StackPanel>
+    <Canvas Name="MainCanvas" Grid.Row="2" Grid.Column="0" Background="#f1f1f1" Height="500">
+      <!-- Offline alert: a soft but large warning strip on the map, just below the box row and as wide as the conveyor
+           (placed in MonitorPage's constructor). Shown while a box in use is Offline (ViewModel.UpdateOfflineAlert). -->
+      <Border Name="OfflineAlertBar" Panel.ZIndex="10" Background="#FFF4E0" BorderBrush="#F0B429" BorderThickness="2" CornerRadius="4" Padding="16 8" Visibility="{Binding HasOfflineAlert, Converter={StaticResource BoolToVis}}">
+        <DockPanel LastChildFill="True" MinHeight="30">
+          <fa:IconImage DockPanel.Dock="Left" Icon="TriangleExclamation" Height="26" Foreground="#D97706" VerticalAlignment="Center" Margin="0 0 12 0">
+            <fa:IconImage.Triggers>
+              <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                  <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.35" Duration="0:0:0.9" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </EventTrigger>
+            </fa:IconImage.Triggers>
+          </fa:IconImage>
+          <TextBlock Name="OfflineAlertText" Text="{Binding OfflineAlertText}" Foreground="#7C4A03" FontSize="21" FontWeight="Bold" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+      </Border>
+    </Canvas>
+  </Grid>
+</Page>
