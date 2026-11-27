@@ -56,7 +56,6 @@
   <sys:String x:Key="S.Tip.Tile">클릭: 이 박스의 상태를 질의</sys:String>
   <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
   <sys:String x:Key="S.Wifi.Title">RF 게이트웨이 클라우드</sys:String>
-  <sys:String x:Key="S.Wifi.Intro">ENABLE_CLOUD 1로 빌드한 펌웨어에서는 RF 게이트웨이가 WiFi로 박스 상태를 클라우드(Firebase)에 보냅니다. WiFi 이름과 비밀번호, Firebase 계정은 펌웨어(secrets.h)에 설정되어 있으며, 여기서는 상태만 볼 수 있습니다.</sys:String>
   <sys:String x:Key="S.Wifi.Close">닫기</sys:String>
   <sys:String x:Key="S.Wifi.NotConnected">RF 게이트웨이가 연결되어 있지 않습니다.</sys:String>
   <sys:String x:Key="S.Wifi.NoAnswer">게이트웨이 응답 없음: 펌웨어가 ENABLE_CLOUD 없이 빌드되었을 수 있습니다.</sys:String>
@@ -73,27 +72,5 @@
   <sys:String x:Key="S.Cloud.Now">진행 중: {0}.</sys:String>
   <sys:String x:Key="S.Cloud.LastTry">마지막 시도: {0}.</sys:String>
   <sys:String x:Key="S.Cloud.FailedAt">{0} 실패: {1}.</sys:String>
-  <sys:String x:Key="S.Cloud.Why">원인: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.WifiNoAp">WiFi 이름(SSID)을 찾을 수 없음</sys:String>
-  <sys:String x:Key="S.Cloud.WifiPassword">WiFi 비밀번호가 틀림</sys:String>
-  <sys:String x:Key="S.Cloud.WifiLost">WiFi 신호 끊김</sys:String>
-  <sys:String x:Key="S.Cloud.WifiTimeout">WiFi 응답 없음</sys:String>
-  <sys:String x:Key="S.Cloud.WifiReason">WiFi 연결 거부 (원인 코드 {0})</sys:String>
-  <sys:String x:Key="S.Cloud.NoInternet">인터넷 없음 (이름 조회 실패)</sys:String>
-  <sys:String x:Key="S.Cloud.NoTime">인터넷에서 시간을 받지 못함 (NTP 차단?)</sys:String>
-  <sys:String x:Key="S.Cloud.Dns">서버 이름을 찾을 수 없음 (인터넷 없음 또는 URL 오류)</sys:String>
-  <sys:String x:Key="S.Cloud.Tcp">서버에 연결할 수 없음</sys:String>
-  <sys:String x:Key="S.Cloud.Tls">보안 연결(TLS) 실패</sys:String>
-  <sys:String x:Key="S.Cloud.Cert">서버 인증서를 신뢰할 수 없음</sys:String>
-  <sys:String x:Key="S.Cloud.NoAnswer">서버 응답 없음</sys:String>
-  <sys:String x:Key="S.Cloud.NetError">연결 오류 {0}</sys:String>
-  <sys:String x:Key="S.Cloud.Login">Firebase 이메일 또는 비밀번호가 틀림</sys:String>
-  <sys:String x:Key="S.Cloud.ApiKey">Firebase API 키가 유효하지 않음</sys:String>
-  <sys:String x:Key="S.Cloud.LoginOff">Firebase에서 이메일/비밀번호 로그인이 사용 설정되지 않음</sys:String>
-  <sys:String x:Key="S.Cloud.UserOff">Firebase 사용자가 사용 중지됨</sys:String>
-  <sys:String x:Key="S.Cloud.TooMany">시도 횟수 초과, Firebase가 잠시 기다리라고 함</sys:String>
-  <sys:String x:Key="S.Cloud.BadEmail">Firebase 이메일 형식이 잘못됨</sys:String>
-  <sys:String x:Key="S.Cloud.NoToken">응답에 로그인 토큰이 없음</sys:String>
-  <sys:String x:Key="S.Cloud.Denied">권한 거부 (데이터베이스 규칙, gateways/&lt;UID&gt;)</sys:String>
-  <sys:String x:Key="S.Cloud.NoDb">데이터베이스를 찾을 수 없음 (FIREBASE_DB_URL)</sys:String>
+  <sys:String x:Key="S.Cloud.Why">오류: {0}.</sys:String>
 </ResourceDictionary>

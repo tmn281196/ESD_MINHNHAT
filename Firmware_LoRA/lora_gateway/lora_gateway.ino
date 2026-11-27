@@ -42,8 +42,8 @@
  *                                3 cloud OK, 4 cloud error, 5 WiFi error   (0 is not used)
  *                         step:  what it is doing (state 1/2) or where it failed (state 4/5):
  *                                1 WiFi, 2 clock (NTP), 3 Firebase sign-in, 4 database write
- *                         code:  step 1 = WiFi disconnect reason of the last try (201 SSID not found,
- *                                15/202/204 wrong password...); steps 3/4 = HTTP status, or < 0 =
+ *                         code:  step 1 = WiFi disconnect reason (ESP-IDF wifi_err_reason_t) of the last try,
+ *                                0 = none yet; steps 3/4 = HTTP status, or < 0 =
  *                                HTTPClient error (-1 no connection, -11 no answer)
  *                         detail: see CloudDetail (DNS / TCP / TLS / certificate, sign-in refusals)
  *                         Sent as the answer to 'S', and also by itself each time one of
@@ -598,7 +598,9 @@ bool cloudWrite(int &code, uint8_t &detail) {
 // WiFi event (WiFi task): keep why the last connection attempt ended.
 void onWifiDisconnected(arduino_event_id_t, arduino_event_info_t info) {
   uint8_t r = info.wifi_sta_disconnected.reason;
-  if (r != WIFI_REASON_ASSOC_LEAVE) cWifiReason = r;     // 8 = left on purpose (WiFi.disconnect before a new try)
+  // 8 ASSOC_LEAVE / 36 STA_LEAVING = the gateway itself left (WiFi.disconnect before each new try): keep the real
+  // reason of the failed try instead.
+  if (r != WIFI_REASON_ASSOC_LEAVE && r != WIFI_REASON_STA_LEAVING) cWifiReason = r;
 }
 
 // Cloud task (core 0): WiFi, clock, sign-in, writes. Never blocks loop().

@@ -61,7 +61,6 @@
   <sys:String x:Key="S.Tip.Tile">Click: ask this box for its status</sys:String>
   <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
   <sys:String x:Key="S.Wifi.Title">RF Gateway cloud</sys:String>
-  <sys:String x:Key="S.Wifi.Intro">With gateway firmware built with ENABLE_CLOUD 1, the RF gateway sends the box states to the cloud (Firebase) over WiFi. The WiFi name and password and the Firebase account are set in the firmware (secrets.h); here you can only see its state.</sys:String>
   <sys:String x:Key="S.Wifi.Close">Close</sys:String>
   <sys:String x:Key="S.Wifi.NotConnected">The RF Gateway is not connected.</sys:String>
   <sys:String x:Key="S.Wifi.NoAnswer">No answer from the gateway: its firmware may be built without ENABLE_CLOUD.</sys:String>
@@ -78,27 +77,5 @@
   <sys:String x:Key="S.Cloud.Now">Now: {0}.</sys:String>
   <sys:String x:Key="S.Cloud.LastTry">Last try: {0}.</sys:String>
   <sys:String x:Key="S.Cloud.FailedAt">Failed at {0}: {1}.</sys:String>
-  <sys:String x:Key="S.Cloud.Why">Reason: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.WifiNoAp">WiFi name (SSID) not found</sys:String>
-  <sys:String x:Key="S.Cloud.WifiPassword">wrong WiFi password</sys:String>
-  <sys:String x:Key="S.Cloud.WifiLost">WiFi signal lost</sys:String>
-  <sys:String x:Key="S.Cloud.WifiTimeout">no answer from the WiFi</sys:String>
-  <sys:String x:Key="S.Cloud.WifiReason">WiFi refused (reason {0})</sys:String>
-  <sys:String x:Key="S.Cloud.NoInternet">no internet (name lookup fails)</sys:String>
-  <sys:String x:Key="S.Cloud.NoTime">no time from the internet (NTP blocked?)</sys:String>
-  <sys:String x:Key="S.Cloud.Dns">server name not found (no internet, or a wrong URL)</sys:String>
-  <sys:String x:Key="S.Cloud.Tcp">cannot connect to the server</sys:String>
-  <sys:String x:Key="S.Cloud.Tls">secure connection (TLS) failed</sys:String>
-  <sys:String x:Key="S.Cloud.Cert">server certificate not trusted</sys:String>
-  <sys:String x:Key="S.Cloud.NoAnswer">no answer from the server</sys:String>
-  <sys:String x:Key="S.Cloud.NetError">connection error {0}</sys:String>
-  <sys:String x:Key="S.Cloud.Login">wrong Firebase email or password</sys:String>
-  <sys:String x:Key="S.Cloud.ApiKey">Firebase API key not valid</sys:String>
-  <sys:String x:Key="S.Cloud.LoginOff">Email/Password sign-in is not enabled in Firebase</sys:String>
-  <sys:String x:Key="S.Cloud.UserOff">Firebase user disabled</sys:String>
-  <sys:String x:Key="S.Cloud.TooMany">too many attempts, Firebase asks to wait</sys:String>
-  <sys:String x:Key="S.Cloud.BadEmail">Firebase email not valid</sys:String>
-  <sys:String x:Key="S.Cloud.NoToken">no sign-in token in the answer</sys:String>
-  <sys:String x:Key="S.Cloud.Denied">permission denied (database rules, gateways/&lt;UID&gt;)</sys:String>
-  <sys:String x:Key="S.Cloud.NoDb">database not found (FIREBASE_DB_URL)</sys:String>
+  <sys:String x:Key="S.Cloud.Why">Error: {0}.</sys:String>
 </ResourceDictionary>

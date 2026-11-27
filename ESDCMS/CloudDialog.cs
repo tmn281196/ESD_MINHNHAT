@@ -49,14 +49,6 @@ internal static class CloudDialog
 		};
 
 		StackPanel panel = new StackPanel { Margin = new Thickness(20.0) };
-		panel.Children.Add(new TextBlock
-		{
-			Text = Lang.T("S.Wifi.Intro"),
-			Width = 340.0,
-			TextWrapping = TextWrapping.Wrap,
-			Foreground = Brushes.DimGray,
-			Margin = new Thickness(0.0, 0.0, 0.0, 14.0)
-		});
 		panel.Children.Add(statusRow);
 		panel.Children.Add(closeButton);
 

@@ -23,11 +23,11 @@ internal static class GatewayCloudText
 			_ => t("S.Wifi.State1")                 // 1 connecting to WiFi (0 is not sent any more)
 		};
 		string step = StepName(s.Step, t);
-		string reason = Reason(s.Step, s.Code, s.Detail, t);
+		string reason = Reason(s.Step, s.Code, s.Detail);
 		switch (s.State)
 		{
 		case 1:
-			if (reason != null)
+			if (s.Step == 1 && s.Code != 0)                 // why the last try ended, while trying again
 			{
 				text += " " + string.Format(t("S.Cloud.LastTry"), reason);
 			}
@@ -45,7 +45,7 @@ internal static class GatewayCloudText
 			}
 			break;
 		case 5:
-			text += " " + string.Format(t("S.Cloud.Why"), reason ?? t("S.Cloud.WifiTimeout"));
+			text += " " + string.Format(t("S.Cloud.Why"), reason ?? "?");
 			break;
 		}
 		if ((s.State == 2 || s.State == 3 || s.State == 4) && s.SecondsSinceWrite >= 0)
@@ -63,7 +63,7 @@ internal static class GatewayCloudText
 		{
 			return r.Ok
 				? "Gateway -> Firebase: sign-in OK (" + took + ")"
-				: "Gateway -> Firebase: sign-in FAILED (" + took + "): " + (Reason(3, r.Code, r.Detail, Lang.En) ?? "?");
+				: "Gateway -> Firebase: sign-in FAILED (" + took + "): " + (Reason(3, r.Code, r.Detail) ?? "?");
 		}
 		if (r.What != GatewayCloudReport.Write)
 		{
@@ -78,7 +78,7 @@ internal static class GatewayCloudText
 		content += ", " + Plural(r.Events, "status change", "status changes") + ", " + r.BytesSent + " bytes";
 		string line = r.Ok
 			? "Gateway -> Firebase: wrote " + content + " (" + took + ")"
-			: "Gateway -> Firebase: write FAILED (" + took + "): " + (Reason(4, r.Code, r.Detail, Lang.En) ?? "?") + "; tried " + content;
+			: "Gateway -> Firebase: write FAILED (" + took + "): " + (Reason(4, r.Code, r.Detail) ?? "?") + "; tried " + content;
 		if (r.EventsWaiting > 0)
 		{
 			line += "; " + (r.EventsWaiting >= 127 ? "127+" : r.EventsWaiting.ToString()) + " status changes still waiting";
@@ -96,74 +96,27 @@ internal static class GatewayCloudText
 		return (step >= 1 && step <= 4) ? t("S.Cloud.Step" + step) : null;
 	}
 
-	/// <summary>Why a step failed (or the last WiFi try ended), from its code and detail; null when nothing is known.</summary>
-	public static string Reason(int step, int code, int detail, Func<string, string> t)
+	/// <summary>
+	/// Code and name of what made a step fail (or the last WiFi try end): "201 NO_AP_FOUND", "0 CONNECT_TIMEOUT",
+	/// "NTP_TIMEOUT", "HTTP 400 Bad Request, INVALID_LOGIN_CREDENTIALS", "-1 CONNECTION_REFUSED, DNS_FAILED".
+	/// Names only, the same in every language; what each code means is in the docs (LoRa Status Protocol, error codes).
+	/// </summary>
+	public static string Reason(int step, int code, int detail)
 	{
 		switch (step)
 		{
 		case 1:
-			switch (code)
-			{
-			case 0:
-				return null;
-			case 201:
-			case 210:
-			case 211:
-				return t("S.Cloud.WifiNoAp") + " (" + code + ")";
-			case 15:
-			case 202:
-			case 204:
-				return t("S.Cloud.WifiPassword") + " (" + code + ")";
-			case 200:
-				return t("S.Cloud.WifiLost") + " (" + code + ")";
-			default:
-				return string.Format(t("S.Cloud.WifiReason"), code);
-			}
+			return GatewayErrorNames.Wifi(code);
 		case 2:
-			return t((detail == 1) ? "S.Cloud.NoInternet" : "S.Cloud.NoTime");
+			return (detail == 1) ? "DNS_FAILED" : "NTP_TIMEOUT";
 		case 3:
 		case 4:
-			if (code < 0)
-			{
-				switch (detail)
-				{
-				case 1:
-					return t("S.Cloud.Dns");
-				case 2:
-					return t("S.Cloud.Tcp");
-				case 3:
-					return t("S.Cloud.Tls");
-				case 4:
-					return t("S.Cloud.Cert");
-				}
-				return (code == -11) ? t("S.Cloud.NoAnswer") : string.Format(t("S.Cloud.NetError"), code);
-			}
 			if (code == 0)
 			{
 				return null;
 			}
-			string why = detail switch
-			{
-				10 => t("S.Cloud.Login"),
-				11 => t("S.Cloud.ApiKey"),
-				12 => t("S.Cloud.LoginOff"),
-				13 => t("S.Cloud.UserOff"),
-				14 => t("S.Cloud.TooMany"),
-				15 => t("S.Cloud.BadEmail"),
-				16 => t("S.Cloud.NoToken"),
-				_ => null
-			};
-			if (why == null && step == 4)
-			{
-				why = code switch
-				{
-					401 => t("S.Cloud.Denied"),
-					403 => t("S.Cloud.Denied"),
-					404 => t("S.Cloud.NoDb"),
-					_ => null
-				};
-			}
-			return (why == null) ? ("HTTP " + code) : (why + " (HTTP " + code + ")");
+			string name = GatewayErrorNames.Detail(detail);
+			return GatewayErrorNames.Http(code) + ((name != null) ? (", " + name) : "");
 		default:
 			return null;
 		}
