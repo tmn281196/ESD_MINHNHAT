@@ -298,6 +298,8 @@ def gioi_han():
 <ul>
 <li><strong>Line2 cùng logic với Line1:</strong> <code>Firmware_ControBox/Line2/L2</code> (header "Line2 / L2PC1") chạy đúng code của <code>Line1/L1</code>, và <code>Pin.h</code> trùng chân. Nếu line 2 khác chân thì phải sửa riêng.</li>
 <li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
+<li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
+<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Muốn đo phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
 </ul>
 
 <h2 id="khac">Chỗ khác cần biết</h2>

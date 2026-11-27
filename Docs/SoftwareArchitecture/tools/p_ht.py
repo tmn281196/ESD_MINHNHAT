@@ -90,13 +90,19 @@ def thiet_bi():
 <div class="table-wrap"><table>
 <thead><tr><th>File</th><th>Chạy trên</th><th>Nội dung</th></tr></thead>
 <tbody>
-<tr><td class="mono">Firmware_LoRA/lora_node</td><td class="nowrap">Hộp ESD</td><td>Đọc IN1/IN2 → <code>A</code>/<code>W</code>/<code>I</code>, bật đèn; gửi khi đổi (lặp 5 lần, giãn dần), lúc bật nguồn, và khi được hỏi <code>'?'</code>. <code>NODE_ID</code> đặt riêng cho từng hộp trước khi nạp (trong code đang là <code>0x04</code>), <code>NETWORK_ID 0x03</code>. Bật thêm vai trò repeater (phát lại giúp hộp ngoài tầm gateway) bằng <code>#define ENABLE_REPEATER 1</code>, mặc định 0.</td></tr>
-<tr><td class="mono">Firmware_LoRA/lora_gateway</td><td class="nowrap">RF Gateway</td><td>Hai chiều: LoRa→USB (lọc Network ID + CRC, đẩy khung <code>AA…BB</code> lên PC) và USB→LoRa (kiểm khung của PC rồi phát ra LoRa).</td></tr>
+<tr><td class="mono">Firmware_LoRA/lora_node</td><td class="nowrap">Hộp ESD</td><td>Đọc IN1/IN2 → <code>A</code>/<code>W</code>/<code>I</code>, bật đèn; gửi khi đổi (lặp 5 lần, giãn dần), lúc bật nguồn, và khi được hỏi <code>'?'</code>. <code>NODE_ID</code> đặt riêng cho từng hộp trước khi nạp (trong code đang là <code>0x04</code>), <code>NETWORK_ID 0x03</code>. Bật thêm vai trò repeater (phát lại giúp hộp ngoài tầm gateway) bằng <code>#define ENABLE_REPEATER 1</code>, mặc định 0. Phát <strong>17&nbsp;dBm</strong> (<code>TX_POWER_DBM</code>), cả lúc bật nguồn lẫn sau khi tự reset module LoRa (gửi không xong trong 500&nbsp;ms hoặc module báo bận).</td></tr>
+<tr><td class="mono">Firmware_LoRA/lora_gateway</td><td class="nowrap">RF Gateway</td><td>Hai chiều: LoRa→USB (lọc Network ID + CRC, đẩy khung <code>AA…BB</code> lên PC) và USB→LoRa (kiểm khung của PC rồi phát ra LoRa). Phát 17&nbsp;dBm (mặc định thư viện).</td></tr>
 <tr><td class="mono">Firmware_ControBox/Line1, Line2</td><td class="nowrap">Control Box</td><td>Nhận khung lệnh USB, set chân relay, echo làm ACK. <code>Line2</code> hiện là bản sao của <code>Line1</code>.</td></tr>
 </tbody>
 </table></div>
 <div class="callout warn"><p class="label">Lưu ý ghép đôi</p>
 <p>Hộp (<code>lora_node</code>) và Gateway (<code>lora_gateway</code>) phải cùng <strong>Network ID</strong> (hiện <code>0x03</code>) và cùng tần số (433&nbsp;MHz) thì mới nói chuyện được; Network ID trên PC phải khớp để khung không bị bỏ. Mỗi hộp mang một <strong>TxID</strong> riêng (1..20) chính là số thứ tự hộp trên PC — sửa <code>#define NODE_ID</code> trong <code>lora_node.ino</code> trước khi nạp cho từng hộp; hai hộp trùng ID sẽ đè trạng thái của nhau.</p></div>
+
+<h2 id="radio">Thông số radio và build</h2>
+<p>Hộp và gateway dùng thư viện <code>LoRa</code> 0.8.0 (Sandeep Mistry). <code>LoRa.begin(433E6)</code> reset cứng chip SX1278 rồi đặt tần số, LNA boost, AGC tự động và công suất 17&nbsp;dBm; các thông số còn lại giữ mặc định của chip:</p>
+<div class="meta"><span><b>Tần số</b> 433&nbsp;MHz</span><span><b>SF</b> 7</span><span><b>BW</b> 125&nbsp;kHz</span><span><b>CR</b> 4/5</span><span><b>Sync word</b> 0x12</span><span><b>CRC LoRa</b> tắt (khung tự có CRC8)</span><span><b>Công suất</b> 17&nbsp;dBm</span></div>
+<p class="tnote">Đổi SF hoặc BW phải nạp lại gateway và mọi hộp cùng lúc, và phải tính lại các khe thời gian (<code>SLOT_MS</code>, <code>REPLY_DELAY_MS</code>), vì thời gian phát một khung tăng theo SF.</p>
+<p>Build bằng Arduino IDE hoặc <code>arduino-cli</code>. <code>lora_node</code> đã biên dịch thử với board <code>arduino:avr:uno</code> (khoảng 6,9&nbsp;KB flash; 7,3&nbsp;KB khi bật repeater), <code>lora_gateway</code> với <code>esp32:esp32:esp32</code>. Thư mục <code>libraries/LoRa/src</code> chỉ được có <code>LoRa.cpp</code> và <code>LoRa.h</code>: một bản sao kiểu <em>"LoRa - Copy.cpp"</em> nằm cạnh sẽ làm build lỗi "multiple definition".</p>
 '''
     write("he_thong/01_thiet_bi.html", body=body)
 

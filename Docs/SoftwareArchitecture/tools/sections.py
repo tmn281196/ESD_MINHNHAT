@@ -4,7 +4,7 @@ names), pages with English titles and a Vietnamese summary. assets/site.js is
 generated from this file by tools/build.py."""
 
 SITE = "ESD Compliance Monitoring System"
-UPDATED = "2026-11-26"
+UPDATED = "2026-11-27"
 
 # path -> (English title, Vietnamese summary)
 PAGES = {
