@@ -32,7 +32,7 @@
   <sys:String x:Key="S.NotInUse">Not in use</sys:String>
 
   <!-- Offline alert on the map, just below the box row; {0} = box numbers -->
-  <sys:String x:Key="S.Alert.Offline">Box {0} offline — please check the power supply.</sys:String>
+  <sys:String x:Key="S.Alert.Offline">Box {0} offline — please check the power supply and the wireless connection.</sys:String>
 
   <!-- Dialogs -->
   <sys:String x:Key="S.Unlock.Title">Unlock</sys:String>

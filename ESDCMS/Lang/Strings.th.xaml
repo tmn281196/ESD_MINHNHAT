@@ -29,7 +29,7 @@
   <sys:String x:Key="S.Offline">ออฟไลน์</sys:String>
   <sys:String x:Key="S.NotInUse">ไม่ได้ใช้</sys:String>
 
-  <sys:String x:Key="S.Alert.Offline">กล่อง {0} ออฟไลน์ — โปรดตรวจสอบแหล่งจ่ายไฟ</sys:String>
+  <sys:String x:Key="S.Alert.Offline">กล่อง {0} ออฟไลน์ — โปรดตรวจสอบแหล่งจ่ายไฟและการเชื่อมต่อไร้สาย</sys:String>
 
   <sys:String x:Key="S.Unlock.Title">ปลดล็อก</sys:String>
   <sys:String x:Key="S.Unlock.Prompt">ป้อนรหัสผ่านเพื่อปลดล็อกการควบคุม:</sys:String>
