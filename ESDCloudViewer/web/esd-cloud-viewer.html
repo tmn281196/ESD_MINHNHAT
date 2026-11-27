@@ -75,6 +75,7 @@
   dialog .row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
   dialog .row button { min-width: 90px; height: 30px; background: #E1E1E1; border: 1px solid #ADADAD; }
   dialog .err { color: red; margin-top: 8px; }
+  dialog .row .left { margin-right: auto; }
   dialog .keybtn { width: 100%; height: 34px; background: var(--bar); color: #fff; font-weight: 600; margin-bottom: 4px; }
   dialog .keybtn:hover { background: var(--bar2); }
   body.drop main { outline: 3px dashed #4CAF50; outline-offset: -6px; }
@@ -118,7 +119,7 @@
     <label for="iPass" data-t="password"></label><input type="password" id="iPass">
     <label for="iLines" data-t="lines"></label><input type="text" id="iLines" spellcheck="false" placeholder="03, 02">
     <div class="err" id="dErr" hidden></div>
-    <div class="row"><button value="ok" id="dOk" data-t="ok"></button><button value="cancel" formnovalidate data-t="cancel"></button></div>
+    <div class="row"><button type="button" class="left" id="dClear" data-t="clearKey"></button><button value="ok" id="dOk" data-t="ok"></button><button value="cancel" formnovalidate data-t="cancel"></button></div>
   </form>
 </dialog>
 
@@ -135,7 +136,7 @@ const TEXT = {
         off: "Not watching", signingIn: "Signing in to Firebase…", connecting: "Connecting to Firebase…", live: "Live · lines {0} · data {1}",
         signInFailed: "Sign-in to Firebase failed (see the console log).", readErr: "Cannot read lines/{0}: the rules do not allow it, or the database URL is wrong.",
         lost: "Connection to Firebase lost, retrying…", url: "Database URL", key: "Web API key", email: "Email", password: "Password",
-        lines: "Lines (Net ID, e.g. 03, 02; empty = all)", ok: "OK", cancel: "Cancel", allLines: "all", noLines: "No line in the database yet.", loadKey: "Load key.json", logHide: "Hide the log window (logging continues)", logShow: "Show the log window", logClear: "Clear log", missing: "Fill in every field; lines: 2 hex digits separated by commas (e.g. 03, 02), empty = all." },
+        lines: "Lines (Net ID, e.g. 03, 02; empty = all)", ok: "OK", cancel: "Cancel", clearKey: "Clear key", allLines: "all", noLines: "No line in the database yet.", loadKey: "Load key.json", logHide: "Hide the log window (logging continues)", logShow: "Show the log window", logClear: "Clear log", missing: "Fill in every field; lines: 2 hex digits separated by commas (e.g. 03, 02), empty = all." },
   ko: { name: "한국어", inactive: "비활성", warning: "경고", active: "활성", offline: "오프라인", notInUse: "미사용", unknown: "아직 응답 없음",
         notWatching: "보기 중이 아닙니다. Firebase 설정(설정)을 입력한 뒤 보기를 누르세요.", line: "라인", lineT: "라인 {0}", db: "데이터베이스",
         settings: "설정", watch: "보기", stop: "중지", events: "최근 상태 변경", time: "시각", box: "박스", status: "새 상태",
@@ -145,7 +146,7 @@ const TEXT = {
         off: "보기 중 아님", signingIn: "Firebase 로그인 중…", connecting: "Firebase에 연결 중…", live: "실시간 · 라인 {0} · 데이터 {1}",
         signInFailed: "Firebase 로그인 실패 (콘솔 로그 참고).", readErr: "lines/{0}을(를) 읽을 수 없음: 규칙이 허용하지 않거나 데이터베이스 URL이 틀림.",
         lost: "Firebase 연결 끊김, 다시 시도 중…", url: "데이터베이스 URL", key: "웹 API 키", email: "이메일", password: "비밀번호",
-        lines: "라인 (Net ID, 예: 03, 02; 비우면 전체)", ok: "확인", cancel: "취소", allLines: "전체", noLines: "아직 데이터베이스에 라인이 없습니다.", loadKey: "key.json 불러오기", logHide: "로그 창 숨기기 (기록은 계속됨)", logShow: "로그 창 표시", logClear: "로그 지우기", missing: "모든 칸을 입력하세요. 라인은 16진수 2자리를 쉼표로 구분 (예: 03, 02), 비우면 전체." },
+        lines: "라인 (Net ID, 예: 03, 02; 비우면 전체)", ok: "확인", cancel: "취소", clearKey: "키 지우기", allLines: "전체", noLines: "아직 데이터베이스에 라인이 없습니다.", loadKey: "key.json 불러오기", logHide: "로그 창 숨기기 (기록은 계속됨)", logShow: "로그 창 표시", logClear: "로그 지우기", missing: "모든 칸을 입력하세요. 라인은 16진수 2자리를 쉼표로 구분 (예: 03, 02), 비우면 전체." },
   th: { name: "ไทย", inactive: "ไม่ทำงาน", warning: "เตือน", active: "ทำงาน", offline: "ออฟไลน์", notInUse: "ไม่ได้ใช้", unknown: "ยังไม่ได้ยิน",
         notWatching: "ยังไม่ได้ดู ใส่การตั้งค่า Firebase (ตั้งค่า) แล้วกด ดู", line: "ไลน์", lineT: "ไลน์ {0}", db: "ฐานข้อมูล",
         settings: "ตั้งค่า", watch: "ดู", stop: "หยุด", events: "การเปลี่ยนสถานะล่าสุด", time: "เวลา", box: "กล่อง", status: "สถานะใหม่",
@@ -155,15 +156,17 @@ const TEXT = {
         off: "ไม่ได้ดู", signingIn: "กำลังลงชื่อเข้าใช้ Firebase…", connecting: "กำลังเชื่อมต่อ Firebase…", live: "สด · ไลน์ {0} · ข้อมูล {1}",
         signInFailed: "ลงชื่อเข้าใช้ Firebase ไม่สำเร็จ (ดู Console Log)", readErr: "อ่าน lines/{0} ไม่ได้: กฎไม่อนุญาต หรือ URL ฐานข้อมูลผิด",
         lost: "การเชื่อมต่อ Firebase หลุด กำลังลองใหม่…", url: "URL ฐานข้อมูล", key: "Web API key", email: "อีเมล", password: "รหัสผ่าน",
-        lines: "ไลน์ (Net ID เช่น 03, 02; เว้นว่าง = ทั้งหมด)", ok: "ตกลง", cancel: "ยกเลิก", allLines: "ทั้งหมด", noLines: "ยังไม่มีไลน์ในฐานข้อมูล", loadKey: "โหลด key.json", logHide: "ซ่อนหน้าต่างบันทึก (ยังบันทึกต่อ)", logShow: "แสดงหน้าต่างบันทึก", logClear: "ล้างบันทึก", missing: "กรอกให้ครบทุกช่อง ไลน์เป็นเลขฐานสิบหก 2 หลัก คั่นด้วยจุลภาค (เช่น 03, 02) เว้นว่าง = ทั้งหมด" }
+        lines: "ไลน์ (Net ID เช่น 03, 02; เว้นว่าง = ทั้งหมด)", ok: "ตกลง", cancel: "ยกเลิก", clearKey: "ล้างคีย์", allLines: "ทั้งหมด", noLines: "ยังไม่มีไลน์ในฐานข้อมูล", loadKey: "โหลด key.json", logHide: "ซ่อนหน้าต่างบันทึก (ยังบันทึกต่อ)", logShow: "แสดงหน้าต่างบันทึก", logClear: "ล้างบันทึก", missing: "กรอกให้ครบทุกช่อง ไลน์เป็นเลขฐานสิบหก 2 หลัก คั่นด้วยจุลภาค (เช่น 03, 02) เว้นว่าง = ทั้งหมด" }
 };
 const LANGS = ["en", "ko", "th"];
 const $ = (id) => document.getElementById(id);
 const store = { get(k, d) { try { const v = localStorage.getItem("esdcv." + k); return v === null ? d : v; } catch (_) { return d; } },
-                set(k, v) { try { localStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } } };
+                set(k, v) { try { localStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } },
+                del(k) { try { localStorage.removeItem("esdcv." + k); } catch (_) { /* private mode */ } } };
 // The password stays only in this tab (sessionStorage: kept on reload, gone when the tab is closed), never in localStorage.
 const session = { get(k) { try { return sessionStorage.getItem("esdcv." + k) || ""; } catch (_) { return ""; } },
-                  set(k, v) { try { sessionStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } } };
+                  set(k, v) { try { sessionStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } },
+                  del(k) { try { sessionStorage.removeItem("esdcv." + k); } catch (_) { /* private mode */ } } };
 let lang = LANGS.includes(store.get("lang", "en")) ? store.get("lang", "en") : "en";
 const T = (k, ...a) => (TEXT[lang][k] || k).replace(/\{(\d)\}/g, (_, i) => a[+i]);
 
@@ -496,6 +499,9 @@ async function idbGet(k) {
 async function idbSet(k, v) {
   try { const db = await idb(); db.transaction("files", "readwrite").objectStore("files").put(v, k); } catch (_) { /* not remembered */ }
 }
+async function idbDel(k) {
+  try { const db = await idb(); db.transaction("files", "readwrite").objectStore("files").delete(k); } catch (_) { /* nothing kept */ }
+}
 
 function applyKey(text, from) {
   let j;
@@ -548,6 +554,21 @@ $("dKey").addEventListener("click", async () => {
   }
   idbSet("key", keyHandle);
   if (await readHandle(keyHandle, true)) keyLoaded();
+});
+// Clear key: forget the account (database URL, API key, email, password) and the remembered key.json in this browser.
+// The lines and the language stay.
+$("dClear").addEventListener("click", async () => {
+  stopWatch();
+  cfg.url = cfg.key = cfg.email = cfg.pass = "";
+  ["url", "key", "email"].forEach((k) => store.del(k));
+  session.del("pass");
+  keyHandle = null;
+  await idbDel("key");
+  $("iUrl").value = $("iKey").value = $("iEmail").value = $("iPass").value = "";
+  $("dErr").hidden = true;
+  log("Settings: account and key.json cleared from this browser");
+  render();
+  $("dKey").focus();
 });
 $("keyFile").addEventListener("change", async () => { await useKeyFile($("keyFile").files[0]); $("keyFile").value = ""; });
 

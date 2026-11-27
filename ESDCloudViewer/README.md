@@ -42,6 +42,8 @@ database (dò lại mỗi 60 s).
   F5 vẫn xem tiếp, đóng tab là mất). Mở trang là tự xem; thiếu gì thì hộp Settings tự hiện.
 - Chrome / Edge nhớ file `key.json` đã chọn bằng nút: lần sau mở trang chỉ cần bấm nút một lần (chọn *Allow on every
   visit* thì tự đọc, không cần bấm). Trang chạy trên web server thì cũng tự đọc `key.json` nằm cạnh nó.
+- Nút **Clear key** trong Settings xóa tài khoản (URL, API key, email, mật khẩu) và file `key.json` đã nhớ khỏi trình
+  duyệt, ngừng xem; danh sách line và ngôn ngữ giữ lại. Dùng khi mở trang trên máy người khác.
 - `web/.gitignore` chặn `key.json` trong thư mục này: không bao giờ commit file có mật khẩu (repo đang public).
 - **GitHub Pages**: workflow `.github/workflows/cloud-viewer-pages.yml` đăng riêng file HTML này (thành `index.html`)
   mỗi khi nó đổi trên `main`. Làm một lần: repo Settings → Pages → Source: *GitHub Actions*. Trang:
