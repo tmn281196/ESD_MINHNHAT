@@ -238,14 +238,15 @@
          While locked the device controls and motor buttons do not react and the settings are read-only (ApplyLock). -->
     <Grid Row="3" Background="#323F4E">
       <DockPanel Name="pnlBottomBar" Margin="8 6" LastChildFill="True">
-        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 12 0">
+        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 10 0">
           <ToggleButton Name="LockToggle" IsChecked="True" Style="{StaticResource LockButton}" VerticalAlignment="Center" ToolTip="{DynamicResource S.Tip.Lock}" Click="LockToggle_Click">
             <fa:IconImage Name="LockIcon" Icon="Lock" Foreground="#FFFFFFFF" Height="16" />
           </ToggleButton>
           <CheckBox Name="AutoStartBox" Margin="14 0 6 0" Foreground="#FFFFFFFF" FontWeight="Bold" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="{DynamicResource S.StartWithWindows}" ToolTip="{DynamicResource S.Tip.AutoStart}" IsChecked="{Binding Config.AutoStart}" Click="AutoStartBox_Click" />
           <Button Style="{StaticResource MotorButton}" Margin="0" Content="{DynamicResource S.RefreshConnection}" ToolTip="{DynamicResource S.Tip.Refresh}" Click="ButtonReconnect_Click" />
         </StackPanel>
-        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+        <!-- Device groups start right after Refresh Connection (same 10 px gap as between the groups) -->
+        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
           <GroupBox Style="{StaticResource BarGroupBox}">
             <GroupBox.Header>
               <StackPanel Orientation="Horizontal" ToolTip="{DynamicResource S.Tip.RfStatus}">
