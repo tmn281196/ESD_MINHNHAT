@@ -96,6 +96,27 @@ public class ViewModel : INotifyPropertyChanged
 	public string OfflineAlertText { get; set; } = string.Empty;
 
 	/// <summary>
+	/// A tile was switched in / out of use (right-click while unlocked, UI thread). Switched in: its last status is old
+	/// (a box not in use is not asked), so the box starts again as Unknown (blue) until it answers; that answer is then
+	/// a change and paints the tile.
+	/// </summary>
+	public void BoxUseChanged(int index)
+	{
+		BlockDevice tile = RootCanvas.DynamicDevicesList[index];
+		if (tile.IsUsed)
+		{
+			ESDBox box = ESDBoxes[index];
+			if (box.Status != DeviceStatus.Unknown)
+			{
+				box.Status = DeviceStatus.Unknown;
+			}
+			tile.Status = DeviceStatus.Unknown;
+			tile.ApplyBaseColor();
+		}
+		UpdateOfflineAlert();
+	}
+
+	/// <summary>
 	/// Recomputes the offline alert on the UI thread: the boxes in use that are Offline, e.g.
 	/// "Box 03, 07 offline - please check the power supply." (text in the current UI language).
 	/// </summary>
@@ -451,17 +472,6 @@ public class ViewModel : INotifyPropertyChanged
 		return ok;
 	}
 
-	private static SolidColorBrush TextColorForStatus(DeviceStatus status)
-	{
-		return status switch
-		{
-			DeviceStatus.Active => Brushes.Black, 
-			DeviceStatus.Inactive => Brushes.Black,
-			DeviceStatus.Warning => Brushes.White,
-			_ => Brushes.White, 
-		};
-	}
-
 	public async void StatusChangeActionFunc(ESDBox esdBox)
 	{
 		await Application.Current.Dispatcher.BeginInvoke((Action)delegate
@@ -470,16 +480,7 @@ public class ViewModel : INotifyPropertyChanged
 			{
 				BlockDevice blockDevice = RootCanvas.DynamicDevicesList[esdBox.ID - 1];
 				blockDevice.Status = esdBox.Status;
-				if (blockDevice.IsUsed)
-				{
-					blockDevice.NewRectangle.Fill = esdBox.ColorState;
-					blockDevice.TextBlock.Foreground = TextColorForStatus(esdBox.Status);
-				}
-				else
-				{
-					blockDevice.ApplyBaseColor();
-					blockDevice.TextBlock.Foreground = Brushes.White;
-				}
+				blockDevice.ApplyBaseColor();
 			}
 			catch (Exception ex)
 			{
@@ -1094,7 +1095,19 @@ public class ViewModel : INotifyPropertyChanged
 			}
 			if (silent.Count == 0)
 			{
-				Console.WriteLine($"Status: Box {id:D2} answered");
+				// After the status frame has been applied (Background: behind the UI update it queued), paint the tile
+				// from it even when the status did not change, and say what the box answered.
+				await Application.Current.Dispatcher.InvokeAsync(delegate
+				{
+					ESDBox box = ESDBoxes[id - 1];
+					BlockDevice tile = RootCanvas.DynamicDevicesList[id - 1];
+					if (box.Status != DeviceStatus.Error)
+					{
+						tile.Status = box.Status;
+					}
+					tile.ApplyBaseColor();
+					Console.WriteLine($"Status: Box {id:D2} answered: {box.Status}");
+				}, DispatcherPriority.Background);
 				return;
 			}
 			MarkOffline(gateway, silent);

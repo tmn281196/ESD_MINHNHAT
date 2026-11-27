@@ -54,8 +54,8 @@
 <div class="table-wrap"><table>
 <thead><tr><th>Thao tác</th><th>Tác dụng</th><th>Điều kiện</th></tr></thead>
 <tbody>
-<tr><td class="nowrap">Click</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
-<tr><td class="nowrap">Phải-chuột</td><td>Bật/tắt "đang dùng" ô (vào/ra khỏi line)</td><td>chỉ khi mở khóa</td></tr>
+<tr><td class="nowrap">Click</td><td>Hỏi trạng thái hộp đó ngay; hộp trả lời thì ô tô lại theo câu trả lời và Console Log ghi <code>Box NN answered: Active</code> (hoặc Warning / Inactive)</td><td>luôn được</td></tr>
+<tr><td class="nowrap">Phải-chuột</td><td>Bật/tắt "đang dùng" ô (vào/ra khỏi line). Bật lại: hộp về Unknown (xanh dương) cho tới khi nó trả lời, vì lúc không dùng nó không được hỏi</td><td>chỉ khi mở khóa</td></tr>
 </tbody>
 </table></div>
 <p>Ô "không dùng" luôn màu xám. Ô hộp không kéo-thả được: hộp nằm ở ô ghi trong <code>config.json</code> (mục Monitoring, <code>DevicePosition</code>; mặc định hộp N ở ô thứ N), muốn đổi thì sửa file khi app đã tắt. Trạng thái dùng được lưu vào <code>config.json</code> khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>

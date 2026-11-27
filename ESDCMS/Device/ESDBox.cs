@@ -49,6 +49,24 @@ public class ESDBox : INotifyPropertyChanged
 		}
 	}
 
+	/// <summary>Tile colour of a status (Offline and Unknown: blue; gray is only for tiles not in use).</summary>
+	public static Brush BrushFor(DeviceStatus status)
+	{
+		return status switch
+		{
+			DeviceStatus.Active => BrushActive,
+			DeviceStatus.Warning => BrushWarning,
+			DeviceStatus.Inactive => BrushInactive,
+			_ => BrushUnknown,
+		};
+	}
+
+	/// <summary>Text colour on a tile of that status (black on green and yellow).</summary>
+	public static Brush TextBrushFor(DeviceStatus status)
+	{
+		return (status == DeviceStatus.Active || status == DeviceStatus.Inactive) ? Brushes.Black : Brushes.White;
+	}
+
 	private void OnStatusChanged()
 	{
 		StateChangeCounter++;

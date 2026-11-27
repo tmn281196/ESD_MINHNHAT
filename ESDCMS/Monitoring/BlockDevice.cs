@@ -15,8 +15,6 @@ public class BlockDevice : BlockCanvas
 
 	public static readonly Brush NotInUseBrush = new SolidColorBrush(Color.FromRgb(158, 158, 158));
 
-	public Brush InUseColor;
-
 	public BlockDevice(RootCanvas parentCanvas, int index, int position, bool isUsed, int x, int y, Brush fillColor, string text)
 		: base(parentCanvas, index, position, x, y, fillColor, text)
 	{
@@ -26,7 +24,6 @@ public class BlockDevice : BlockCanvas
 		base.x = x;
 		base.y = y;
 		base.fillColor = fillColor;
-		InUseColor = fillColor;
 		rootCanvas = parentCanvas;
 		width = parentCanvas.WidthStaticRectangle;
 		height = parentCanvas.HeightStaticRectangle;
@@ -73,11 +70,16 @@ public class BlockDevice : BlockCanvas
 
 	private Point _pressPoint;
 
+	/// <summary>
+	/// Paints the tile: gray when not in use, otherwise the colour of the box's current status (<see cref="Status"/>),
+	/// so a tile switched back into use shows its real status, not the start-up blue.
+	/// </summary>
 	public void ApplyBaseColor()
 	{
 		if (base.IsUsed)
 		{
-			NewRectangle.Fill = InUseColor;
+			NewRectangle.Fill = ESDBox.BrushFor(Status);
+			TextBlock.Foreground = ESDBox.TextBrushFor(Status);
 			return;
 		}
 		NewRectangle.Fill = NotInUseBrush;
@@ -91,7 +93,7 @@ public class BlockDevice : BlockCanvas
 			base.IsUsed = !base.IsUsed;
 			rootCanvas.ConfigData.DevicesIsActive[base.Index] = base.IsUsed;
 			ApplyBaseColor();
-			rootCanvas.UsedChanged?.Invoke();
+			rootCanvas.UsedChanged?.Invoke(base.Index);
 			e.Handled = true;
 		}
 	}

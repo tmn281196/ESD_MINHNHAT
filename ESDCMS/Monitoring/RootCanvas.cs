@@ -37,8 +37,8 @@ public class RootCanvas
 	/// <summary>Raised with the device index (0-based) when a box tile is clicked (not dragged).</summary>
 	public System.Action<int> BoxClicked;
 
-	/// <summary>Raised when a box tile is switched in / out of use (right-click while unlocked).</summary>
-	public System.Action UsedChanged;
+	/// <summary>Raised when a box tile is switched in / out of use (right-click while unlocked); the index of the box.</summary>
+	public System.Action<int> UsedChanged;
 
 	public List<BlockDevice> DynamicDevicesList = new List<BlockDevice>();
 

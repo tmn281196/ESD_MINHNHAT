@@ -19,7 +19,7 @@ public partial class MonitorPage : Page
 		RootCanvas = new RootCanvas(MainCanvas);
 		ViewModel.RootCanvas = RootCanvas;
 		RootCanvas.BoxClicked = ViewModel.RequestBoxStatus;
-		RootCanvas.UsedChanged = ViewModel.UpdateOfflineAlert;
+		RootCanvas.UsedChanged = ViewModel.BoxUseChanged;
 		// Offline alert: just below the box row, as wide as the conveyor strip (bound to HasOfflineAlert / OfflineAlertText).
 		OfflineAlertBar.DataContext = viewModel;
 		Canvas.SetLeft(OfflineAlertBar, RootCanvas.LeftSlot);
