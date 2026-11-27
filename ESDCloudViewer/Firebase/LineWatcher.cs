@@ -10,8 +10,8 @@ namespace ESDCloudViewer.Firebase;
 /// <summary>What the viewer shows, copied out of the watcher (safe to read on the UI thread).</summary>
 public sealed class LineSnapshot
 {
-	/// <summary>lines/&lt;line&gt;/gateway; null until loaded or when nothing was written yet.</summary>
-	public JObject Gateway;
+	/// <summary>lines/&lt;line&gt;/pcs: one entry per PC (ESDCMS) writing this line; null until loaded or when none wrote yet.</summary>
+	public JObject Pcs;
 
 	/// <summary>lines/&lt;line&gt;/boxes, keyed "01".."20".</summary>
 	public JObject Boxes;
@@ -19,7 +19,7 @@ public sealed class LineSnapshot
 	/// <summary>The latest lines/&lt;line&gt;/events, keyed "&lt;t&gt;_&lt;n&gt;".</summary>
 	public JObject Events;
 
-	public bool GatewayLoaded;
+	public bool PcsLoaded;
 
 	public bool BoxesLoaded;
 
@@ -32,10 +32,10 @@ public sealed class LineSnapshot
 }
 
 /// <summary>
-/// Watches one line live: a database stream for lines/&lt;line&gt;/gateway and one for .../boxes (Server-Sent Events: put /
+/// Watches one line live: a database stream for lines/&lt;line&gt;/pcs and one for .../boxes (Server-Sent Events: put /
 /// patch with a path relative to the streamed location), and the latest 30 events every 10 s. Reconnects by itself;
 /// the ID token lasts 60 min, so it signs in again every 50 min (and on "auth_revoked") and reopens the streams.
-/// Box status changes and gateway writes are reported to <see cref="Log"/> (English).
+/// Box status changes and PC writes are reported to <see cref="Log"/> (English). ESDCMS writes the data (CloudUploader).
 /// </summary>
 public sealed class LineWatcher : IDisposable
 {
@@ -59,13 +59,13 @@ public sealed class LineWatcher : IDisposable
 
 	private string _token;
 
-	private JToken _gateway;
+	private JToken _pcs;
 
 	private JToken _boxes;
 
 	private JObject _events;
 
-	private bool _gatewayLoaded;
+	private bool _pcsLoaded;
 
 	private bool _boxesLoaded;
 
@@ -95,7 +95,7 @@ public sealed class LineWatcher : IDisposable
 	public void Start()
 	{
 		Log?.Invoke("Watch: lines/" + _s.Line + " on " + _s.DbHost);
-		_ = RunStreamAsync("gateway");
+		_ = RunStreamAsync("pcs");
 		_ = RunStreamAsync("boxes");
 		_ = PollEventsAsync();
 		_ = RenewTokenLoopAsync();
@@ -117,10 +117,10 @@ public sealed class LineWatcher : IDisposable
 		{
 			return new LineSnapshot
 			{
-				Gateway = _gateway?.DeepClone() as JObject,
+				Pcs = _pcs?.DeepClone() as JObject,
 				Boxes = AsObject(_boxes)?.DeepClone() as JObject,
 				Events = _events?.DeepClone() as JObject,
-				GatewayLoaded = _gatewayLoaded,
+				PcsLoaded = _pcsLoaded,
 				BoxesLoaded = _boxesLoaded,
 				EventsLoaded = _eventsLoaded,
 				ErrorKey = _errorKey,
@@ -222,10 +222,10 @@ public sealed class LineWatcher : IDisposable
 		List<string> logs = new List<string>();
 		lock (_lock)
 		{
-			JToken root = (child == "gateway") ? _gateway : _boxes;
-			bool firstLoad = (child == "gateway") ? !_gatewayLoaded : !_boxesLoaded;
+			JToken root = (child == "pcs") ? _pcs : _boxes;
+			bool firstLoad = (child == "pcs") ? !_pcsLoaded : !_boxesLoaded;
 			Dictionary<string, string> before = Statuses(root);
-			long seenBefore = (long?)(root as JObject)?["lastSeen"] ?? 0;
+			Dictionary<string, long> writesBefore = LastWrites(root);
 			if (patch && data is JObject changes)
 			{
 				foreach (JProperty p in changes.Properties())
@@ -237,19 +237,26 @@ public sealed class LineWatcher : IDisposable
 			{
 				root = Put(root, path, data);
 			}
-			if (child == "gateway")
+			if (child == "pcs")
 			{
-				_gateway = root;
-				_gatewayLoaded = true;
-				JObject g = root as JObject;
-				long seen = (long?)g?["lastSeen"] ?? 0;
+				_pcs = root;
+				_pcsLoaded = true;
+				Dictionary<string, long> writes = LastWrites(root);
 				if (firstLoad)
 				{
-					logs.Add(g == null ? "Gateway: nothing written to the cloud yet" : "Gateway: last write " + Ago(seen) + ", WiFi " + (int?)g["wifiRssi"] + " dBm, fw " + (string)g["fw"]);
+					logs.Add(writes.Count == 0 ? "PCs: none wrote to the cloud yet"
+						: "PCs: " + string.Join(", ", writes.OrderBy(kv => kv.Key).Select(kv => kv.Key + " last write " + Ago(kv.Value))));
 				}
-				else if (seen != seenBefore && seen != 0)
+				else
 				{
-					logs.Add("Gateway: wrote to the cloud (WiFi " + (int?)g?["wifiRssi"] + " dBm)");
+					foreach (KeyValuePair<string, long> kv in writes.OrderBy(kv => kv.Key))
+					{
+						writesBefore.TryGetValue(kv.Key, out long old);
+						if (kv.Value != old && kv.Value != 0)
+						{
+							logs.Add("PC " + kv.Key + ": wrote to the cloud");
+						}
+					}
 				}
 			}
 			else
@@ -283,7 +290,21 @@ public sealed class LineWatcher : IDisposable
 		Changed?.Invoke();
 	}
 
-	/// <summary>Status letter (A/W/I) per box ID.</summary>
+	/// <summary>lastSeen (epoch ms) per PC.</summary>
+	private static Dictionary<string, long> LastWrites(JToken pcs)
+	{
+		Dictionary<string, long> d = new Dictionary<string, long>();
+		if (pcs is JObject o)
+		{
+			foreach (JProperty p in o.Properties())
+			{
+				d[p.Name] = (long?)(p.Value as JObject)?["lastSeen"] ?? 0;
+			}
+		}
+		return d;
+	}
+
+	/// <summary>Status letter (A/W/I/O) per box ID.</summary>
 	private static Dictionary<string, string> Statuses(JToken boxes)
 	{
 		Dictionary<string, string> d = new Dictionary<string, string>();
@@ -305,6 +326,7 @@ public sealed class LineWatcher : IDisposable
 			"A" => "Active",
 			"W" => "Warning",
 			"I" => "Inactive",
+			"O" => "Offline",
 			null => "(new)",
 			_ => s
 		};

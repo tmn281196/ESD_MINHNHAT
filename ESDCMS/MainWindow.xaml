@@ -90,11 +90,6 @@
           </Setter.Value>
         </Setter>
       </Style>
-      <Style x:Key="BarUnit" TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="#9AA5B1" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="2 0" />
-      </Style>
       <!-- Bottom bar group: a frame with the device name (icon + name) at its left, then its controls, all on one line -->
       <Style x:Key="BarGroupBox" TargetType="{x:Type GroupBox}">
         <Setter Property="Foreground" Value="#FFFFFFFF" />
@@ -117,17 +112,6 @@
             </ControlTemplate>
           </Setter.Value>
         </Setter>
-      </Style>
-      <Style x:Key="BarField" TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="#C8D2DC" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="8 0 4 0" />
-      </Style>
-      <Style x:Key="BarBox" TargetType="{x:Type TextBox}">
-        <Setter Property="Height" Value="22" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="TextAlignment" Value="Center" />
       </Style>
       <!-- Console log header buttons (collapse / clear / save): flat, they keep their colour on hover, on press
            and while the collapse toggle is checked (the default WPF template turns them light blue).
@@ -233,9 +217,10 @@
         </ItemsControl>
       </ScrollViewer>
     </Grid>
-    <!-- Bottom bar, one line: one framed group per device (status icon + name at its left, COM port, OPEN/CLOSE, its settings),
-         the manual motor buttons. Lock / Start with Windows at the left edge; Refresh Connection and the groups at the right edge.
-         While locked the device controls and motor buttons do not react and the settings are read-only (ApplyLock). -->
+    <!-- Bottom bar, one line. Lock / Start with Windows at the left edge; Refresh Connection and the groups at the right edge.
+         RF Gateway, Control Box and Cloud only show their state (icon colour) and a Settings button that opens their dialog
+         (gear button -> SettingsForm: COM port, Net ID, timings, Firebase); Motors shows the manual buttons and their state.
+         While locked the Settings buttons, Start with Windows and the motor buttons do not react (ApplyLock). -->
     <Grid Row="3" Background="#323F4E">
       <DockPanel Name="pnlBottomBar" Margin="8 6" LastChildFill="True">
         <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 10 0">
@@ -244,7 +229,7 @@
           </ToggleButton>
           <CheckBox Name="AutoStartBox" Margin="14 0 0 0" Foreground="#FFFFFFFF" FontWeight="Bold" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="{DynamicResource S.StartWithWindows}" ToolTip="{DynamicResource S.Tip.AutoStart}" IsChecked="{Binding Config.AutoStart}" Click="AutoStartBox_Click" />
         </StackPanel>
-        <!-- Right edge: Refresh Connection, then the device groups right after it (same 10 px gap as between the groups) -->
+        <!-- Right edge: Refresh Connection, then the groups right after it (same 10 px gap as between the groups) -->
         <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
           <Button Style="{StaticResource MotorButton}" Margin="0 0 10 0" VerticalAlignment="Center" Content="{DynamicResource S.RefreshConnection}" ToolTip="{DynamicResource S.Tip.Refresh}" Click="ButtonReconnect_Click" />
           <GroupBox Style="{StaticResource BarGroupBox}">
@@ -254,20 +239,9 @@
                 <TextBlock Text="{DynamicResource S.RfGateway}" VerticalAlignment="Center" />
               </StackPanel>
             </GroupBox.Header>
-            <StackPanel Orientation="Horizontal">
-              <ComboBox Name="RFComboBoxPorts" Margin="8 0 0 0" SelectionChanged="ComPort_SelectionChanged" Width="70" Height="24" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="{DynamicResource S.Tip.RfPort}" ItemsSource="{Binding SerialPorts}" SelectedValue="{Binding Config.RFGatewayCOM}" />
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.NetId}" />
-              <Label Style="{StaticResource BarUnit}" Padding="0 0 2 0">0x</Label>
-              <TextBox Name="NetworkIdBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="34" ToolTip="{DynamicResource S.Tip.NetId}" Text="{Binding Config.NetworkID, Converter={StaticResource HexByte}, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.AskAgain}" />
-              <TextBox Name="AskAgainBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="40" ToolTip="{DynamicResource S.Tip.AskAgain}" Text="{Binding Config.AskAgainSec, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarUnit}">s</Label>
-              <!-- Cloud option of the gateway (ENABLE_CLOUD): its state, read only (CloudDialog); works while locked too -->
-              <!-- Icon colour from the gateway: green = writing to Firebase OK, amber = connecting, gray = error, no answer or RF not connected -->
-              <Button Name="CloudButton" Style="{StaticResource LogBarButton}" Width="26" Height="22" Margin="8 0 0 0" VerticalAlignment="Center" Cursor="Hand" Background="#3E4C5E" ToolTip="{Binding CloudStatusText}" Click="CloudButton_Click">
-                <fa:IconImage Icon="Cloud" Height="12" Foreground="{Binding CloudIconBrush}" />
-              </Button>
-            </StackPanel>
+            <Button Name="RfSettingsButton" Style="{StaticResource MotorButton}" Margin="8 0 0 0" Width="26" Padding="0" ToolTip="…" ToolTipOpening="RfSettings_ToolTipOpening" Click="RfSettings_Click">
+              <fa:IconImage Icon="Gear" Height="14" Foreground="#FFFFFF" VerticalAlignment="Center" />
+            </Button>
           </GroupBox>
           <GroupBox Style="{StaticResource BarGroupBox}">
             <GroupBox.Header>
@@ -276,21 +250,22 @@
                 <TextBlock Text="{DynamicResource S.ControlBox}" VerticalAlignment="Center" />
               </StackPanel>
             </GroupBox.Header>
-            <StackPanel Orientation="Horizontal">
-              <ComboBox Name="ControlBoxComboBoxPorts" Margin="8 0 0 0" SelectionChanged="ComPort_SelectionChanged" Width="70" Height="24" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="{DynamicResource S.Tip.CbPort}" ItemsSource="{Binding SerialPorts}" SelectedValue="{Binding Config.ControlBoxCOM}" />
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.TxGap}" />
-              <TextBox Name="TxGapBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="46" ToolTip="{DynamicResource S.Tip.TxGap}" Text="{Binding Config.TxGapMs, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarUnit}">ms</Label>
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.RxTimeout}" />
-              <TextBox Name="TxTimeoutBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="46" ToolTip="{DynamicResource S.Tip.RxTimeout}" Text="{Binding Config.TxTimeoutMs, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarUnit}">ms</Label>
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.Retry}" />
-              <TextBox Name="TxRetriesBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="30" ToolTip="{DynamicResource S.Tip.Retry}" Text="{Binding Config.TxRetries, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarUnit}">x</Label>
-              <Label Style="{StaticResource BarField}" Content="{DynamicResource S.RetryGap}" />
-              <TextBox Name="TxRetryDelayBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="40" ToolTip="{DynamicResource S.Tip.RetryGap}" Text="{Binding Config.TxRetryDelayMs, UpdateSourceTrigger=PropertyChanged}" />
-              <Label Style="{StaticResource BarUnit}">ms</Label>
-            </StackPanel>
+            <Button Name="CbSettingsButton" Style="{StaticResource MotorButton}" Margin="8 0 0 0" Width="26" Padding="0" ToolTip="…" ToolTipOpening="CbSettings_ToolTipOpening" Click="CbSettings_Click">
+              <fa:IconImage Icon="Gear" Height="14" Foreground="#FFFFFF" VerticalAlignment="Center" />
+            </Button>
+          </GroupBox>
+          <!-- Cloud: the PC sends the line to Firebase (CloudUploader). Icon: green = last write OK, amber = connecting,
+               gray = off / settings missing / error (tooltip: state, error code and name). -->
+          <GroupBox Style="{StaticResource BarGroupBox}">
+            <GroupBox.Header>
+              <StackPanel Orientation="Horizontal" ToolTip="{Binding CloudStatusText}">
+                <fa:IconImage Icon="Cloud" Height="11" Foreground="{Binding CloudIconBrush}" VerticalAlignment="Center" Margin="0 0 5 0" />
+                <TextBlock Text="{DynamicResource S.Cloud}" VerticalAlignment="Center" />
+              </StackPanel>
+            </GroupBox.Header>
+            <Button Name="CloudSettingsButton" Style="{StaticResource MotorButton}" Margin="8 0 0 0" Width="26" Padding="0" ToolTip="{Binding CloudStatusText}" Click="CloudSettings_Click">
+              <fa:IconImage Icon="Gear" Height="14" Foreground="#FFFFFF" VerticalAlignment="Center" />
+            </Button>
           </GroupBox>
           <GroupBox Style="{StaticResource BarGroupBox}">
             <GroupBox.Header>

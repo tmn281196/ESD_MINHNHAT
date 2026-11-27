@@ -7,8 +7,8 @@ using System.Windows.Media;
 namespace ESDCloudViewer;
 
 /// <summary>
-/// Firebase settings (built in code, same look as the ESDCMS dialogs): paste the 4 #define lines of the gateway's
-/// secrets.h and the fields fill in by themselves, or type them. Returns the edited copy, or null when cancelled.
+/// Firebase settings (built in code, same look as the ESDCMS dialogs): database URL, Web API key, email, password and
+/// the line (the same values as ESDCMS, Cloud settings). Returns the edited copy, or null when cancelled.
 /// </summary>
 internal static class SettingsDialog
 {
@@ -17,16 +17,6 @@ internal static class SettingsDialog
 		ViewerSettings result = null;
 		FontFamily mono = Application.Current?.TryFindResource("MonoFont") as FontFamily ?? new FontFamily("Consolas");
 
-		TextBox paste = new TextBox
-		{
-			AcceptsReturn = true,
-			Height = 92.0,
-			FontFamily = mono,
-			FontSize = 12.0,
-			TextWrapping = TextWrapping.NoWrap,
-			VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-			HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
-		};
 		TextBox url = Field(current.DbUrl, mono);
 		TextBox key = Field(current.ApiKey, mono);
 		TextBox email = Field(current.Email, mono);
@@ -44,25 +34,6 @@ internal static class SettingsDialog
 		};
 		TextBlock message = new TextBlock { Foreground = Brushes.Red, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0.0, 10.0, 0.0, 0.0), Visibility = Visibility.Collapsed };
 
-		// "#define NAME "value"" lines -> fields
-		paste.TextChanged += delegate
-		{
-			string text = paste.Text;
-			string Get(string name)
-			{
-				Match m = Regex.Match(text, "#define\\s+" + name + "\\s+\"([^\"]*)\"");
-				return m.Success ? m.Groups[1].Value : null;
-			}
-			url.Text = Get("FIREBASE_DB_URL") ?? url.Text;
-			key.Text = Get("FIREBASE_API_KEY") ?? key.Text;
-			email.Text = Get("FIREBASE_EMAIL") ?? email.Text;
-			string p = Get("FIREBASE_PASSWORD");
-			if (p != null)
-			{
-				pass.Password = p;
-			}
-		};
-
 		Button save = new Button { Content = Lang.T("S.Set.Save"), MinWidth = 100.0, Height = 28.0, IsDefault = true, Margin = new Thickness(0.0, 0.0, 8.0, 0.0) };
 		Button cancel = new Button { Content = Lang.T("S.Set.Cancel"), MinWidth = 90.0, Height = 28.0, IsCancel = true };
 		StackPanel buttons = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0.0, 16.0, 0.0, 0.0) };
@@ -70,8 +41,6 @@ internal static class SettingsDialog
 		buttons.Children.Add(cancel);
 
 		StackPanel panel = new StackPanel { Margin = new Thickness(20.0), Width = 480.0 };
-		panel.Children.Add(new TextBlock { Text = Lang.T("S.Set.Intro"), TextWrapping = TextWrapping.Wrap, Foreground = Brushes.Black, Margin = new Thickness(0.0, 0.0, 0.0, 6.0) });
-		AddRow(panel, "S.Set.Paste", paste);
 		AddRow(panel, "S.Set.Url", url);
 		AddRow(panel, "S.Set.Key", key);
 		AddRow(panel, "S.Set.Email", email);
@@ -118,7 +87,7 @@ internal static class SettingsDialog
 		};
 		win.Loaded += delegate
 		{
-			paste.Focus();
+			url.Focus();
 		};
 		win.ShowDialog();
 		return result;

@@ -59,23 +59,25 @@
   <sys:String x:Key="S.Tip.LogClear">Clear log</sys:String>
   <sys:String x:Key="S.Tip.LogSave">Save log to a .txt file</sys:String>
   <sys:String x:Key="S.Tip.Tile">Click: ask this box for its status</sys:String>
-  <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
-  <sys:String x:Key="S.Wifi.Title">RF Gateway cloud</sys:String>
-  <sys:String x:Key="S.Wifi.Close">Close</sys:String>
-  <sys:String x:Key="S.Wifi.NotConnected">The RF Gateway is not connected.</sys:String>
-  <sys:String x:Key="S.Wifi.NoAnswer">No answer from the gateway: its firmware may be built without ENABLE_CLOUD.</sys:String>
-  <sys:String x:Key="S.Wifi.State1">Gateway: connecting to WiFi…</sys:String>
-  <sys:String x:Key="S.Wifi.State2">Gateway: on WiFi ({0} dBm), connecting to the cloud…</sys:String>
-  <sys:String x:Key="S.Wifi.State3">Gateway: WiFi OK ({0} dBm), cloud OK.</sys:String>
-  <sys:String x:Key="S.Wifi.State4">Gateway: on WiFi ({0} dBm), cloud error.</sys:String>
-  <sys:String x:Key="S.Wifi.State5">Gateway: cannot join the WiFi.</sys:String>
-  <sys:String x:Key="S.Wifi.LastWrite">Last good write {0} ago.</sys:String>
-  <sys:String x:Key="S.Cloud.Step1">joining the WiFi</sys:String>
-  <sys:String x:Key="S.Cloud.Step2">setting the clock from the internet</sys:String>
-  <sys:String x:Key="S.Cloud.Step3">signing in to Firebase</sys:String>
-  <sys:String x:Key="S.Cloud.Step4">writing to the database</sys:String>
-  <sys:String x:Key="S.Cloud.Now">Now: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.LastTry">Last try: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.FailedAt">Failed at {0}: {1}.</sys:String>
-  <sys:String x:Key="S.Cloud.Why">Error: {0}.</sys:String>
+  <!-- Settings dialogs of the bottom bar (SettingsForm.cs) and the cloud upload of the PC (Device/CloudUploader.cs) -->
+  <sys:String x:Key="S.Settings">Settings</sys:String>
+  <sys:String x:Key="S.ComPort">COM port</sys:String>
+  <sys:String x:Key="S.Set.Ok">OK</sys:String>
+  <sys:String x:Key="S.Set.Cancel">Cancel</sys:String>
+  <sys:String x:Key="S.Set.BadNumber">{0}: enter a whole number.</sys:String>
+  <sys:String x:Key="S.Set.BadNetId">Net ID: 2 hex digits, 00-FF.</sys:String>
+  <sys:String x:Key="S.Cloud">Cloud</sys:String>
+  <sys:String x:Key="S.Cloud.Enable">Send the line to the cloud (Firebase)</sys:String>
+  <sys:String x:Key="S.Cloud.Paste">#define lines</sys:String>
+  <sys:String x:Key="S.Cloud.Url">Database URL</sys:String>
+  <sys:String x:Key="S.Cloud.Key">Web API key</sys:String>
+  <sys:String x:Key="S.Cloud.Email">Email</sys:String>
+  <sys:String x:Key="S.Cloud.Password">Password</sys:String>
+  <sys:String x:Key="S.Cloud.Line">Written to</sys:String>
+  <sys:String x:Key="S.Cloud.Missing">Fill in the database URL, API key, email and password.</sys:String>
+  <sys:String x:Key="S.Cloud.Off">Cloud: off</sys:String>
+  <sys:String x:Key="S.Cloud.NotSet">Cloud: settings missing</sys:String>
+  <sys:String x:Key="S.Cloud.Connecting">Cloud: connecting…</sys:String>
+  <sys:String x:Key="S.Cloud.Ok">Cloud: OK, last write {0} ago</sys:String>
+  <sys:String x:Key="S.Cloud.Error">Cloud: error {0}</sys:String>
 </ResourceDictionary>

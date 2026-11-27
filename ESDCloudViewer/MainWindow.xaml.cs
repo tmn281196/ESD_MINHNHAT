@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 namespace ESDCloudViewer;
 
 /// <summary>
-/// Main window: the live view of one line (gateway, boxes, latest status changes), rebuilt every second from the
+/// Main window: the live view of one line (the PCs writing it, boxes, latest status changes), rebuilt every second from the
 /// watcher's snapshot, the console log (English) and the Firebase group with Settings / Check settings / Watch / Stop.
 /// With saved settings it signs in and starts watching by itself.
 /// </summary>
@@ -22,14 +22,8 @@ public partial class MainWindow : Window
 {
 	private const int LogMax = 1000;
 
-	/// <summary>The gateway writes every 60 s (UPLOAD_INTERVAL_S): later than this = not writing.</summary>
-	private const double GatewayLateS = 150;
-
-	/// <summary>The PC app asks every box every 120 s: a PC frame newer than this = the PC app is running.</summary>
-	private const double PcRunningS = 300;
-
-	/// <summary>While the PC app runs, a box not heard for this long is shown Offline.</summary>
-	private const double BoxSilentS = 300;
+	/// <summary>ESDCMS writes at least every 60 s (CloudUploader): later than this = the PC is not writing.</summary>
+	private const double PcLateS = 150;
 
 	private static readonly SolidColorBrush ActiveBrush = Frozen(0x45, 0xF2, 0x48);
 
@@ -100,7 +94,7 @@ public partial class MainWindow : Window
 		}
 		else
 		{
-			Log("Settings: not complete yet - press Settings and paste the 4 #define lines of secrets.h");
+			Log("Settings: not complete yet - press Settings");
 		}
 	}
 
@@ -173,7 +167,7 @@ public partial class MainWindow : Window
 			};
 			Log(tag + title + ((detail != null) ? (" - " + detail) : ""));
 		});
-		Log(allOk ? "[ OK ] All right: with these 4 values in secrets.h the gateway can write to the cloud."
+		Log(allOk ? "[ OK ] All right: with these settings ESDCMS can write this line to the cloud."
 		          : "[FAIL] Something to fix: see the [FAIL] / [WARN] lines above.");
 		SetBusy(null);
 		if (signIn?.Token != null)
@@ -323,43 +317,53 @@ public partial class MainWindow : Window
 		{
 			return;
 		}
-		bool pcRunning = RenderGateway(snap);
-		RenderBoxes(snap, pcRunning);
+		RenderPcs(snap);
+		RenderBoxes(snap);
 		RenderEvents(snap);
 	}
 
-	/// <summary>Gateway cards; returns whether the PC app is running (pcLastFrame recent).</summary>
-	private bool RenderGateway(LineSnapshot snap)
+	/// <summary>One row of cards per PC (ESDCMS) writing the line.</summary>
+	private void RenderPcs(LineSnapshot snap)
 	{
-		GatewayPanel.Children.Clear();
-		JObject g = snap.Gateway;
-		if (!snap.GatewayLoaded)
+		PcPanel.Children.Clear();
+		if (!snap.PcsLoaded || snap.Pcs == null || !snap.Pcs.HasValues)
 		{
-			GatewayPanel.Children.Add(Card(Lang.T("S.Sec.Gateway"), Lang.T("S.Loading"), Ink));
-			return false;
+			WrapPanel empty = new WrapPanel();
+			empty.Children.Add(Card(Lang.T("S.Sec.Gateway"), Lang.T(snap.PcsLoaded ? "S.Pc.NoData" : "S.Loading"), snap.PcsLoaded ? WarnInk : Ink));
+			PcPanel.Children.Add(empty);
+			return;
 		}
-		if (g == null)
+		foreach (JProperty p in snap.Pcs.Properties().OrderBy((JProperty x) => x.Name, StringComparer.Ordinal))
 		{
-			GatewayPanel.Children.Add(Card(Lang.T("S.Sec.Gateway"), Lang.T("S.Gw.NoData"), WarnInk));
-			return false;
+			if (!(p.Value is JObject pc))
+			{
+				continue;
+			}
+			WrapPanel row = new WrapPanel();
+			long lastSeen = (long?)pc["lastSeen"] ?? 0;
+			double lateS = (lastSeen > 0) ? SecondsSince(lastSeen) : double.MaxValue;
+			row.Children.Add(Card(p.Name, (lastSeen > 0) ? Lang.F("S.Pc.LastWrite", Ago(lastSeen)) : Lang.T("S.Never"), (lateS <= PcLateS) ? OkInk : BadInk));
+			bool rf = (bool?)pc["rf"] == true;
+			bool cb = (bool?)pc["controlBox"] == true;
+			row.Children.Add(Card(Lang.T("S.Pc.Rf"), Lang.T(rf ? "S.Connected" : "S.NotConnected"), rf ? OkInk : BadInk));
+			row.Children.Add(Card(Lang.T("S.Pc.Cb"), Lang.T(cb ? "S.Connected" : "S.NotConnected"), cb ? OkInk : BadInk));
+			string conveyor = (string)pc["conveyor"];
+			row.Children.Add(Card(Lang.T("S.Pc.Conveyor"), (conveyor == "RUN") ? Lang.T("S.Conveyor.Run") : (conveyor == "STOP") ? Lang.T("S.Conveyor.Stop") : "—",
+				(conveyor == "RUN") ? OkInk : (conveyor == "STOP") ? BadInk : Ink));
+			row.Children.Add(Card(Lang.T("S.Pc.Boxes"), ((int?)pc["boxesInUse"])?.ToString() ?? "—", Ink));
+			long started = (long?)pc["startedAt"] ?? 0;
+			row.Children.Add(Card(Lang.T("S.Pc.Since"), (started > 0) ? Clock(started) : "—", Ink));
+			row.Children.Add(Card(Lang.T("S.Pc.App"), (string)pc["app"] ?? "—", Ink));
+			long dropped = (long?)pc["droppedEvents"] ?? 0;
+			if (dropped > 0)
+			{
+				row.Children.Add(Card(Lang.T("S.Pc.Dropped"), dropped.ToString(), WarnInk));
+			}
+			PcPanel.Children.Add(row);
 		}
-		long lastSeen = (long?)g["lastSeen"] ?? 0;
-		double lateS = (lastSeen > 0) ? SecondsSince(lastSeen) : double.MaxValue;
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.LastWrite"), (lastSeen > 0) ? Ago(lastSeen) : Lang.T("S.Never"), (lateS <= GatewayLateS) ? OkInk : BadInk));
-		int? rssi = (int?)g["wifiRssi"];
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.Wifi"), rssi.HasValue ? (rssi + " dBm") : "—",
-			!rssi.HasValue ? Ink : (rssi >= -67) ? OkInk : (rssi >= -80) ? WarnInk : BadInk));
-		long pc = (long?)g["pcLastFrame"] ?? 0;
-		bool pcRunning = pc > 0 && SecondsSince(pc) < PcRunningS;
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.Pc"), (pc == 0) ? Lang.T("S.Pc.Never") : pcRunning ? Lang.T("S.Pc.Running") : Lang.F("S.Pc.NotSeen", Ago(pc)), pcRunning ? OkInk : WarnInk));
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.Uptime"), Uptime((long?)g["uptimeS"]), Ink));
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.Fw"), (string)g["fw"] ?? "—", Ink));
-		long dropped = (long?)g["droppedEvents"] ?? 0;
-		GatewayPanel.Children.Add(Card(Lang.T("S.Gw.Dropped"), dropped.ToString(), (dropped > 0) ? WarnInk : Ink));
-		return pcRunning;
 	}
 
-	private void RenderBoxes(LineSnapshot snap, bool pcRunning)
+	private void RenderBoxes(LineSnapshot snap)
 	{
 		BoxPanel.Children.Clear();
 		if (!snap.BoxesLoaded || snap.Boxes == null || !snap.Boxes.HasValues)
@@ -376,8 +380,7 @@ public partial class MainWindow : Window
 			string s = (string)b["s"];
 			long seen = (long?)b["seen"] ?? 0;
 			long since = (long?)b["t"] ?? 0;
-			bool silent = pcRunning && seen > 0 && SecondsSince(seen) > BoxSilentS;
-			(Brush back, Brush fore, string name) = silent ? (OfflineBrush, Brushes.White, Lang.T("S.Offline")) : Look(s);
+			(Brush back, Brush fore, string name) = Look(s);
 
 			StackPanel content = new StackPanel();
 			DockPanel top = new DockPanel { LastChildFill = true };
@@ -398,10 +401,6 @@ public partial class MainWindow : Window
 			top.Children.Add(new TextBlock { Text = p.Name, FontSize = 28.0, FontWeight = FontWeights.Bold, Foreground = fore });
 			content.Children.Add(top);
 			string status = name;
-			if (silent)
-			{
-				status += "  (" + Lang.F("S.Box.Last", Look(s).name) + ")";
-			}
 			content.Children.Add(new TextBlock { Text = status, FontSize = 16.0, FontWeight = FontWeights.Bold, Foreground = fore, TextWrapping = TextWrapping.Wrap });
 			content.Children.Add(Small(Lang.F("S.Box.Since", Clock(since)), fore));
 			content.Children.Add(Small(Lang.F("S.Box.Heard", (seen > 0) ? Ago(seen) : Lang.T("S.Never")), fore));
@@ -480,6 +479,7 @@ public partial class MainWindow : Window
 			"A" => (ActiveBrush, Brushes.Black, Lang.T("S.Active")),
 			"W" => (Brushes.OrangeRed, Brushes.White, Lang.T("S.Warning")),
 			"I" => (Brushes.Yellow, Brushes.Black, Lang.T("S.Inactive")),
+			"O" => (OfflineBrush, Brushes.White, Lang.T("S.Offline")),       // the box did not answer the PC's status query
 			_ => (UnknownBrush, Brushes.White, s ?? "?")
 		};
 	}

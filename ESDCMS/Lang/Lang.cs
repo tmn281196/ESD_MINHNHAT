@@ -57,6 +57,12 @@ public static class Lang
 		return Application.Current?.TryFindResource(key) as string ?? key;
 	}
 
+	/// <summary>The string for a key in the current language, formatted with the arguments.</summary>
+	public static string F(string key, params object[] args)
+	{
+		return string.Format(T(key), args);
+	}
+
 	private static ResourceDictionary _english;
 
 	/// <summary>The English string for a key, for the console log (the key itself if it is missing). UI thread.</summary>

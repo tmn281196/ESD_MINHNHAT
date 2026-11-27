@@ -5,10 +5,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -254,7 +256,6 @@ public partial class MainWindow : Window
 		_cbWanted = PortNames.IsPort(GlobalViewModel.Config.ControlBoxCOM);
 		await DeviceManagerPage.ApplyRFConnection(open: true);
 		await DeviceManagerPage.ApplyControlBoxConnection(open: true);
-		_portsReady = true;   // from now on, picking a port in a box connects it
 		await RetryStartupConnectionsAsync();
 	}
 
@@ -347,7 +348,6 @@ public partial class MainWindow : Window
 	}
 
 	/// <summary>Port boxes: set until the startup connection is done; while false a selection does not connect.</summary>
-	private bool _portsReady;
 
 	private async void ButtonReconnect_Click(object sender, RoutedEventArgs e)
 	{
@@ -462,6 +462,7 @@ public partial class MainWindow : Window
 			{ "Control Box RX timeout", c.TxTimeoutMs + " ms" },
 			{ "Control Box retry", c.TxRetries + "x" },
 			{ "Control Box retry gap", c.TxRetryDelayMs + " ms" },
+			{ "Cloud", c.CloudEnabled ? ("on, " + (Uri.TryCreate(c.CloudDbUrl, UriKind.Absolute, out Uri u) ? u.Host : "?") + ", " + c.CloudEmail) : "off" },
 			{ "Language", c.Language ?? "en" },
 			{ "Start with Windows", c.AutoStart ? "on" : "off" },
 			{ "Console log", c.LogCollapsed ? "hidden" : "shown" }
@@ -509,37 +510,26 @@ public partial class MainWindow : Window
 		SaveConfigIfChanged();
 	}
 
-	private void SettingsBox_LostFocus(object sender, RoutedEventArgs e)
-	{
-		SaveConfigIfChanged();
-	}
-
 	/// <summary>
-	/// Picking a port in the RF Gateway / Control Box box connects that device at once (there is no OPEN button);
-	/// picking "Close" disconnects it. Only a choice made by the user does this - not the port list being refreshed
-	/// (USB plugged / unplugged) or the binding setting the saved value.
+	/// A port picked in a Settings dialog connects that device at once ("Close" disconnects it), like picking it in the
+	/// old port box did. The config already holds the new port.
 	/// </summary>
-	private async void ComPort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	private async Task ApplyPortChoiceAsync(bool rf, bool use)
 	{
-		if (e.AddedItems.Count == 0)
+		if (_portRecoveryBusy)
 		{
+			Console.WriteLine("COM: busy reconnecting, the new port is used at the next connect");
 			return;
 		}
-		SaveConfigIfChanged();
-		if (!(sender is ComboBox box) || !_portsReady || _portRecoveryBusy || !(box.IsDropDownOpen || box.IsKeyboardFocusWithin))
-		{
-			return;
-		}
-		bool use = PortNames.IsPort(e.AddedItems[0] as string);
 		_portRecoveryBusy = true;
 		try
 		{
-			if (box == RFComboBoxPorts)
+			if (rf)
 			{
 				_rfWanted = use;
 				await DeviceManagerPage.ApplyRFConnection(use);
 			}
-			else if (box == ControlBoxComboBoxPorts)
+			else
 			{
 				_cbWanted = use;
 				await DeviceManagerPage.ApplyControlBoxConnection(use);
@@ -555,32 +545,168 @@ public partial class MainWindow : Window
 		}
 	}
 
+	private static string NumberError(string labelKey)
+	{
+		return Lang.F("S.Set.BadNumber", Lang.T(labelKey));
+	}
+
+	/// <summary>RF Gateway settings: COM port, Net ID (hex), Ask again (s).</summary>
+	private async void RfSettings_Click(object sender, RoutedEventArgs e)
+	{
+		Config c = GlobalViewModel.Config;
+		SettingsForm form = new SettingsForm(this, Lang.T("S.RfGateway") + " · " + Lang.T("S.Settings"));
+		ComboBox port = form.AddCombo("S.ComPort", "S.Tip.RfPort", GlobalViewModel.SerialPorts, c.RFGatewayCOM);
+		TextBox net = form.AddText("S.NetId", "S.Tip.NetId", c.NetworkID.ToString("X2"), "hex", 60.0, mono: true);
+		TextBox ask = form.AddText("S.AskAgain", "S.Tip.AskAgain", c.AskAgainSec.ToString(), "s");
+		byte netId = 0;
+		int askSec = 0;
+		bool ok = form.Show(delegate
+		{
+			string hex = net.Text.Trim();
+			if (hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+			{
+				hex = hex.Substring(2);
+			}
+			if (!byte.TryParse(hex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out netId))
+			{
+				return Lang.T("S.Set.BadNetId");
+			}
+			return (!int.TryParse(ask.Text.Trim(), out askSec) || askSec < 0) ? NumberError("S.AskAgain") : null;
+		});
+		if (!ok)
+		{
+			return;
+		}
+		string newPort = (port.SelectedItem as string) ?? c.RFGatewayCOM;
+		bool portChanged = !string.Equals(newPort, c.RFGatewayCOM, StringComparison.OrdinalIgnoreCase);
+		c.RFGatewayCOM = newPort;
+		c.NetworkID = netId;
+		c.AskAgainSec = askSec;
+		SaveConfigIfChanged();
+		if (portChanged)
+		{
+			await ApplyPortChoiceAsync(rf: true, PortNames.IsPort(newPort));
+		}
+	}
+
+	/// <summary>Control Box settings: COM port, TX gap, RX timeout, Retry, Retry gap.</summary>
+	private async void CbSettings_Click(object sender, RoutedEventArgs e)
+	{
+		Config c = GlobalViewModel.Config;
+		SettingsForm form = new SettingsForm(this, Lang.T("S.ControlBox") + " · " + Lang.T("S.Settings"));
+		ComboBox port = form.AddCombo("S.ComPort", "S.Tip.CbPort", GlobalViewModel.SerialPorts, c.ControlBoxCOM);
+		TextBox gap = form.AddText("S.TxGap", "S.Tip.TxGap", c.TxGapMs.ToString(), "ms");
+		TextBox timeout = form.AddText("S.RxTimeout", "S.Tip.RxTimeout", c.TxTimeoutMs.ToString(), "ms");
+		TextBox retries = form.AddText("S.Retry", "S.Tip.Retry", c.TxRetries.ToString(), "x");
+		TextBox retryGap = form.AddText("S.RetryGap", "S.Tip.RetryGap", c.TxRetryDelayMs.ToString(), "ms");
+		int vGap = 0, vTimeout = 0, vRetries = 0, vRetryGap = 0;
+		bool ok = form.Show(delegate
+		{
+			if (!int.TryParse(gap.Text.Trim(), out vGap) || vGap < 0)
+			{
+				return NumberError("S.TxGap");
+			}
+			if (!int.TryParse(timeout.Text.Trim(), out vTimeout) || vTimeout < 0)
+			{
+				return NumberError("S.RxTimeout");
+			}
+			if (!int.TryParse(retries.Text.Trim(), out vRetries) || vRetries < 1)
+			{
+				return NumberError("S.Retry");
+			}
+			return (!int.TryParse(retryGap.Text.Trim(), out vRetryGap) || vRetryGap < 0) ? NumberError("S.RetryGap") : null;
+		});
+		if (!ok)
+		{
+			return;
+		}
+		string newPort = (port.SelectedItem as string) ?? c.ControlBoxCOM;
+		bool portChanged = !string.Equals(newPort, c.ControlBoxCOM, StringComparison.OrdinalIgnoreCase);
+		c.ControlBoxCOM = newPort;
+		c.TxGapMs = vGap;
+		c.TxTimeoutMs = vTimeout;
+		c.TxRetries = vRetries;
+		c.TxRetryDelayMs = vRetryGap;
+		SaveConfigIfChanged();
+		if (portChanged)
+		{
+			await ApplyPortChoiceAsync(rf: false, PortNames.IsPort(newPort));
+		}
+	}
+
 	/// <summary>
-	/// The bottom bar is always shown. While locked: the COM port boxes, OPEN/CLOSE and motor buttons do not react,
-	/// the settings boxes are read-only (they look the same and can still be selected/copied) and
-	/// "Start with Windows" cannot be toggled. Refresh Connection and the language switch always work.
+	/// Cloud settings: on/off and the Firebase project and account (database URL, Web API key, email, password).
+	/// The line written is the Net ID of the RF Gateway settings.
+	/// </summary>
+	private void CloudSettings_Click(object sender, RoutedEventArgs e)
+	{
+		Config c = GlobalViewModel.Config;
+		SettingsForm form = new SettingsForm(this, Lang.T("S.Cloud") + " · " + Lang.T("S.Settings"));
+		CheckBox enabled = form.AddCheck("S.Cloud.Enable", c.CloudEnabled);
+		TextBox url = form.AddText("S.Cloud.Url", null, c.CloudDbUrl, null, 320.0, mono: true);
+		TextBox key = form.AddText("S.Cloud.Key", null, c.CloudApiKey, null, 320.0, mono: true);
+		TextBox email = form.AddText("S.Cloud.Email", null, c.CloudEmail, null, 320.0, mono: true);
+		PasswordBox pass = form.AddPassword("S.Cloud.Password", c.GetCloudPassword());
+		form.AddInfo("S.Cloud.Line", "lines/" + c.NetworkID.ToString("X2") + "  (Net ID 0x" + c.NetworkID.ToString("X2") + ")");
+		form.AddStatus(GlobalViewModel, "CloudIconBrush", "CloudStatusText");
+		bool ok = form.Show(delegate
+		{
+			bool complete = url.Text.Trim().Length > 0 && key.Text.Trim().Length > 0 && email.Text.Trim().Length > 0 && pass.Password.Length > 0;
+			return (enabled.IsChecked == true && !complete) ? Lang.T("S.Cloud.Missing") : null;
+		});
+		if (!ok)
+		{
+			return;
+		}
+		c.CloudEnabled = enabled.IsChecked == true;
+		c.CloudDbUrl = url.Text.Trim().TrimEnd('/');
+		c.CloudApiKey = key.Text.Trim();
+		c.CloudEmail = email.Text.Trim();
+		c.SetCloudPassword(pass.Password);
+		SaveConfigIfChanged();
+		try
+		{
+			DeviceManagerPage.SaveConfig();                     // also when only the password changed (not in the log)
+			_cfgSnapshot = SnapshotConfig();
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine("Config: save failed - " + ex.Message);
+		}
+		GlobalViewModel.Cloud?.SettingsChanged();
+	}
+
+	/// <summary>Tooltip of a Settings button: the current settings in one line.</summary>
+	private void RfSettings_ToolTipOpening(object sender, ToolTipEventArgs e)
+	{
+		Config c = GlobalViewModel.Config;
+		RfSettingsButton.ToolTip = (c.RFGatewayCOM ?? "-") + " · " + Lang.T("S.NetId") + " 0x" + c.NetworkID.ToString("X2")
+			+ " · " + Lang.T("S.AskAgain") + " " + c.AskAgainSec + " s";
+	}
+
+	private void CbSettings_ToolTipOpening(object sender, ToolTipEventArgs e)
+	{
+		Config c = GlobalViewModel.Config;
+		CbSettingsButton.ToolTip = (c.ControlBoxCOM ?? "-") + " · " + Lang.T("S.TxGap") + " " + c.TxGapMs + " ms · " + Lang.T("S.RxTimeout") + " "
+			+ c.TxTimeoutMs + " ms · " + Lang.T("S.Retry") + " " + c.TxRetries + "x · " + Lang.T("S.RetryGap") + " " + c.TxRetryDelayMs + " ms";
+	}
+
+	/// <summary>
+	/// The bottom bar is always shown. While locked: the Settings buttons, "Start with Windows" and the motor buttons
+	/// do not react (their tooltips still show the settings and states). Refresh Connection and the language switch
+	/// always work.
 	/// </summary>
 	private void ApplyLock(bool locked)
 	{
-		foreach (TextBox box in new[] { NetworkIdBox, AskAgainBox, TxGapBox, TxTimeoutBox, TxRetriesBox, TxRetryDelayBox })
-		{
-			box.IsReadOnly = locked;
-		}
 		foreach (Control c in new Control[]
 		{
-			RFComboBoxPorts, ControlBoxComboBoxPorts, AutoStartBox,
+			RfSettingsButton, CbSettingsButton, CloudSettingsButton, AutoStartBox,
 			StartAllButton, ToggleableButton0, ToggleableButton1, ToggleableButton2
 		})
 		{
 			c.IsHitTestVisible = !locked;
 			c.Focusable = !locked;
 		}
-	}
-
-	/// <summary>Cloud button (RF Gateway group, also while locked): cloud state of the gateway, read only.</summary>
-	private void CloudButton_Click(object sender, RoutedEventArgs e)
-	{
-		CloudDialog.Show(this, GlobalViewModel);
 	}
 
 	/// <summary>Language button: English → 한국어 → ไทย → English. Works while locked too.</summary>

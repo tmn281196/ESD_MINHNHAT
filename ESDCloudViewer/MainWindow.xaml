@@ -131,7 +131,7 @@
         <Button Name="LangButton" Style="{StaticResource LangButton}" Content="{DynamicResource S.LangName}" ToolTip="{DynamicResource S.Tip.Language}" Click="LangButton_Click" />
       </StackPanel>
     </Grid>
-    <!-- Main area: legend, gateway, boxes, latest status changes (built in code, MainWindow.Render) -->
+    <!-- Main area: legend, PCs (ESDCMS), boxes, latest status changes (built in code, MainWindow.Render) -->
     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
       <StackPanel Margin="15 10 15 15">
         <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
@@ -155,7 +155,7 @@
         <TextBlock Name="NotWatchingText" Text="{DynamicResource S.Empty.NotWatching}" FontSize="16" Foreground="#5B6B7C" Margin="0 14 0 0" TextWrapping="Wrap" />
         <StackPanel Name="LivePanel">
           <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Gateway}" />
-          <WrapPanel Name="GatewayPanel" />
+          <StackPanel Name="PcPanel" />
           <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Boxes}" />
           <WrapPanel Name="BoxPanel" />
           <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Events}" />

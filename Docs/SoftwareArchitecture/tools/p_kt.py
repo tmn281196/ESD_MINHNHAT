@@ -44,7 +44,9 @@ def phan_tang():
 <tbody>
 <tr><td class="mono">ESDCMS.csproj / ESDCMS.slnx</td><td>Project .NET Framework 4.8 · WPF · x64, ra <code>ESDCMS.exe</code>; mở solution bằng Visual Studio 2022 hoặc <code>dotnet build</code>.</td></tr>
 <tr><td class="mono">App.xaml.cs</td><td>Khởi động: tên hiển thị <code>AppDisplayName</code>, single-instance mutex, bắt lỗi toàn cục → <code>.esdcms\\crash.log</code>, watchdog thoát.</td></tr>
-<tr><td class="mono">MainWindow.xaml(.cs)</td><td>Cửa sổ: nút ngôn ngữ, khung trang giám sát, console log, thanh dưới (group RF Gateway / Control Box / Motors; chọn COM là kết nối), Lock, auto refresh COM khi cắm/rút USB.</td></tr>
+<tr><td class="mono">MainWindow.xaml(.cs)</td><td>Cửa sổ: nút ngôn ngữ, khung trang giám sát, console log, thanh dưới (group RF Gateway / Control Box / Cloud với nút cài đặt ⚙, group Motors), Lock, auto refresh COM khi cắm/rút USB.</td></tr>
+<tr><td class="mono">SettingsForm.cs</td><td>Hộp thoại cài đặt dựng bằng code cho các nút ⚙ của thanh dưới (COM, Net ID, các thời gian, Firebase).</td></tr>
+<tr><td class="mono">Device/CloudUploader.cs, Device/FirebaseRest.cs</td><td>Ghi line lên Firebase (đăng nhập, PATCH, gửi bù khi mất mạng) và tên lỗi kiểu mã + tên, xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>.</td></tr>
 <tr><td class="mono">Lang/Strings.{en,ko,th}.xaml, Lang/Lang.cs</td><td>Chữ giao diện cho English / 한국어 / ไทย (cùng bộ khóa) và lớp đổi ngôn ngữ lúc chạy.</td></tr>
 <tr><td class="mono">Device/PortNames.cs</td><td>Giá trị của combo COM: tên cổng thật thì mở, <code>Close</code> (và giá trị cũ <code>Unused</code>/<code>Unset</code>) thì không.</td></tr>
 <tr><td class="mono">Images/icon/</td><td>Icon ESD dạng vector <code>esd.svg</code>, file <code>esd.ico</code> và script <code>make_esd_icon.ps1</code> sinh ra <code>app.ico</code>.</td></tr>
@@ -95,18 +97,18 @@ def ket_noi():
 </ul>
 
 <h2 id="chon-cong">Chọn cổng = kết nối</h2>
-<p>Không có nút OPEN/CLOSE. Chọn một cổng trong combo của group RF Gateway hay Control Box là app mở cổng đó ngay (đang nối cổng khác thì đóng cổng cũ trước); chọn <strong>Close</strong> là đóng và lưu lại. Chỉ lựa chọn của người dùng (combo đang mở hoặc đang có focus) mới gây kết nối — việc làm tươi danh sách khi cắm/rút USB hay binding gán lại giá trị đã lưu thì không. Trạng thái kết nối hiện ở màu icon ở đầu group.</p>
+<p>Không có nút OPEN/CLOSE. Chọn cổng trong hộp thoại cài đặt (nút ⚙) của group RF Gateway hay Control Box rồi bấm <strong>OK</strong> là app mở cổng đó ngay (đang nối cổng khác thì đóng cổng cũ trước); chọn <strong>Close</strong> là đóng và lưu lại. Việc làm tươi danh sách khi cắm/rút USB không tự đổi cổng. Trạng thái kết nối hiện ở màu icon ở đầu group.</p>
 
 <h2 id="startup">Thử lại lúc khởi động</h2>
 <p>Khi chạy cùng Windows, driver USB-serial thường chưa sẵn sàng và lần mở đầu thất bại. App thử lại <strong>12 lần, mỗi 5&nbsp;s</strong> (khoảng một phút) thay vì nằm im mất kết nối. Nút <strong>Refresh Connection</strong> trên thanh điều khiển ép đóng rồi mở lại cả hai cổng, hoạt động cả khi đang khóa.</p>
 <h2 id="sim">Thử không cần phần cứng</h2>
 <p>Thư mục <code>Simulators/</code> có hai app WPF giả lập phần cứng theo đúng giao thức: <code>ControlBoxSim</code> (nhận khung Control Box, echo làm ACK, có thể tắt/làm chậm echo) và <code>RfGatewaySim</code> (gateway + 20 hộp: bấm A/W/I để đổi trạng thái, bỏ Online để hộp im lặng, trả lời query <code>'?'</code>). Nối với ESDCMS bằng cặp cổng ảo com0com, ví dụ ESDCMS mở <code>COM15</code>/<code>COM16</code>, simulator mở <code>COM18</code>/<code>COM17</code>. Hướng dẫn ở <code>Simulators/README.md</code>.</p>
 <h2 id="viewer">ESDCloudViewer: xem cloud từ xa</h2>
-<p>Thư mục <code>ESDCloudViewer/</code> (cạnh <code>ESDCMS/</code>, cùng trong <code>ESDCMS.slnx</code>) là app WPF .NET Framework 4.8 thứ hai, đọc những gì gateway bật <code>ENABLE_CLOUD</code> ghi lên Firebase. Giao diện theo đúng template ESDCMS: thanh tiêu đề có nút ngôn ngữ (en/ko/th), chú thích màu như trang Monitor, Console Log nền xanh (tiếng Anh), thanh dưới có group <strong>Firebase</strong> với <em>Settings</em>, <em>Check settings</em>, <em>Watch</em>, <em>Stop</em>. Font và icon link thẳng từ <code>ESDCMS/</code>.</p>
+<p>Thư mục <code>ESDCloudViewer/</code> (cạnh <code>ESDCMS/</code>, cùng trong <code>ESDCMS.slnx</code>) là app WPF .NET Framework 4.8 thứ hai, đọc những gì ESDCMS ghi lên Firebase. Giao diện theo đúng template ESDCMS: thanh tiêu đề có nút ngôn ngữ (en/ko/th), chú thích màu như trang Monitor, Console Log nền xanh (tiếng Anh), thanh dưới có group <strong>Firebase</strong> với <em>Settings</em>, <em>Check settings</em>, <em>Watch</em>, <em>Stop</em>. Font và icon link thẳng từ <code>ESDCMS/</code>.</p>
 <ul>
-<li><strong>Cài đặt:</strong> dán 4 dòng <code>#define</code> Firebase của <code>secrets.h</code> và chọn line; lưu ở <code>%USERPROFILE%\.esdcms\cloudviewer.json</code>, mật khẩu Firebase mã hóa DPAPI theo user Windows. Mở app mà đã lưu thì tự đăng nhập và xem.</li>
-<li><strong>Xem trực tiếp:</strong> stream REST của Realtime Database (<code>lines/&lt;line&gt;/gateway</code> và <code>.../boxes</code>, sự kiện <code>put</code>/<code>patch</code>) cộng 30 lần đổi trạng thái cuối, hỏi lại mỗi 10&nbsp;s. Hộp đổi màu ngay khi gateway ghi; PC đang chạy mà 5 phút không nghe thấy hộp thì hiện Offline. Tự nối lại khi mất mạng, 50 phút đăng nhập lại một lần (token sống 60 phút).</li>
-<li><strong>Kiểm tra cấu hình:</strong> giống trang web <code>firebase_test.html</code> trước đây; kết quả <code>[ OK ]</code>/<code>[WARN]</code>/<code>[FAIL]</code> ở Console Log.</li>
+<li><strong>Cài đặt:</strong> nhập Database URL, Web API key, email, mật khẩu (như cài đặt Cloud của ESDCMS) và chọn line; lưu ở <code>%USERPROFILE%\.esdcms\cloudviewer.json</code>, mật khẩu Firebase mã hóa DPAPI theo user Windows. Mở app mà đã lưu thì tự đăng nhập và xem.</li>
+<li><strong>Xem trực tiếp:</strong> stream REST của Realtime Database (<code>lines/&lt;line&gt;/pcs</code> và <code>.../boxes</code>, sự kiện <code>put</code>/<code>patch</code>) cộng 30 lần đổi trạng thái cuối, hỏi lại mỗi 10&nbsp;s. Hộp đổi màu ngay khi gateway ghi; hộp PC báo <code>O</code> hiện Offline. Tự nối lại khi mất mạng, 50 phút đăng nhập lại một lần (token sống 60 phút).</li>
+<li><strong>Kiểm tra cấu hình:</strong> đăng nhập, <code>gateways/&lt;UID&gt;</code>, ghi thử vào <code>pcs/</code> rồi xóa, rules chặn line khác; kết quả <code>[ OK ]</code>/<code>[WARN]</code>/<code>[FAIL]</code> ở Console Log.</li>
 </ul>
 <div class="callout note"><p class="label">OpenGeneration</p>
 <p>Mỗi lần cổng RF mở thành công, <code>OpenGeneration</code> tăng một. Vòng polling thấy số này đổi là biết cổng vừa (re)mở và sẽ hỏi lại trạng thái tất cả hộp — xem <a href="04_poll.html">Status Polling</a>.</p></div>
@@ -186,6 +188,11 @@ def cau_hinh():
   "Com": {
     "RFGatewayCOM": "COM5",
     "ControlBoxCOM": "COM6",
+    "CloudEnabled": false,
+    "CloudDbUrl": "",
+    "CloudApiKey": "",
+    "CloudEmail": "",
+    "CloudPasswordProtected": "",
     "AutoStart": true,
     "LogCollapsed": false,
     "Language": "en",
@@ -209,17 +216,20 @@ def cau_hinh():
 <div class="table-wrap"><table>
 <thead><tr><th>Khóa</th><th>Mặc định</th><th>Hiệu lực (clamp)</th><th>Ý nghĩa</th></tr></thead>
 <tbody>
-<tr><td class="mono">RFGatewayCOM / ControlBoxCOM</td><td class="nowrap">—</td><td>—</td><td>Tên cổng COM, chọn ở combo của group (chọn là kết nối); <code>Close</code> = không mở. Giá trị cũ <code>Unused</code>/<code>Unset</code> cũng được hiểu là Close.</td></tr>
+<tr><td class="mono">RFGatewayCOM / ControlBoxCOM</td><td class="nowrap">—</td><td>—</td><td>Tên cổng COM, chọn trong cài đặt ⚙ của group (OK là kết nối); <code>Close</code> = không mở. Giá trị cũ <code>Unused</code>/<code>Unset</code> cũng được hiểu là Close.</td></tr>
+<tr><td class="mono">CloudEnabled</td><td class="nowrap">false</td><td>—</td><td>Ghi line lên Firebase (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>) — tick trong cài đặt ⚙ của group Cloud</td></tr>
+<tr><td class="mono">CloudDbUrl / CloudApiKey / CloudEmail</td><td class="nowrap">—</td><td>—</td><td>Database URL, Web API key và email của tài khoản Firebase — cài đặt ⚙ của group Cloud</td></tr>
+<tr><td class="mono">CloudPasswordProtected</td><td class="nowrap">—</td><td>—</td><td>Mật khẩu Firebase, mã hóa DPAPI theo user Windows (user hoặc PC khác không giải mã được, phải nhập lại)</td></tr>
 <tr><td class="mono">Language</td><td class="num">en</td><td>en / ko / th</td><td>Ngôn ngữ giao diện, đổi bằng nút ngôn ngữ trên thanh tiêu đề; console log vẫn tiếng Anh</td></tr>
-<tr><td class="mono">NetworkID</td><td class="num">3 (0x03)</td><td>—</td><td>Line ID chấp nhận từ RF Gateway; khung ID khác bị bỏ — ô <em>Net ID</em>, group RF Gateway</td></tr>
+<tr><td class="mono">NetworkID</td><td class="num">3 (0x03)</td><td>—</td><td>Line ID chấp nhận từ RF Gateway; khung ID khác bị bỏ — ô <em>Net ID</em> trong cài đặt ⚙ của group RF Gateway</td></tr>
 <tr><td class="mono">PollReplyTimeoutMs</td><td class="num">400</td><td>≥ 100</td><td>Thời gian nghe trả lời sau một query, trước khi gửi query kế</td></tr>
 <tr><td class="mono">PollRoundWaitMs</td><td class="num">5000</td><td>≥ 1000</td><td>Một vòng hỏi kéo dài ít nhất chừng này (trừ khi mọi hộp đã trả lời) rồi mới hỏi lại các hộp còn im. Không có ô trên giao diện, chỉ sửa trong file. Từ v2.1</td></tr>
 <tr><td class="mono">PollRetries</td><td class="num">3</td><td>≥ 1</td><td>Số vòng hỏi trước khi cho Offline (gồm vòng đầu)</td></tr>
-<tr><td class="mono">AskAgainSec</td><td class="num">120</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại mọi hộp đang dùng; 0 = không — ô <em>Ask again</em>, group RF Gateway. Trước v2.1 mặc định là 300; giá trị đã lưu trong file được giữ nguyên nên khi cập nhật phải tự đặt lại</td></tr>
-<tr><td class="mono">TxGapMs</td><td class="num">500</td><td>≥ 0</td><td>Khoảng cách giữa hai lệnh Control Box liên tiếp — ô <em>TX gap</em>, group Control Box</td></tr>
-<tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
-<tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>
-<tr><td class="mono">TxRetryDelayMs</td><td class="num">100</td><td>≥ 0</td><td>Khoảng cách giữa hai lần gửi cùng một lệnh Control Box — ô <em>Retry gap</em>, group Control Box</td></tr>
+<tr><td class="mono">AskAgainSec</td><td class="num">120</td><td>0, hoặc ≥ 5</td><td>Chu kỳ hỏi lại mọi hộp đang dùng; 0 = không — ô <em>Ask again</em> trong cài đặt ⚙ của group RF Gateway. Trước v2.1 mặc định là 300; giá trị đã lưu trong file được giữ nguyên nên khi cập nhật phải tự đặt lại</td></tr>
+<tr><td class="mono">TxGapMs</td><td class="num">500</td><td>≥ 0</td><td>Khoảng cách giữa hai lệnh Control Box liên tiếp — ô <em>TX gap</em> trong cài đặt ⚙ của group Control Box</td></tr>
+<tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em> trong cài đặt ⚙ của group Control Box</td></tr>
+<tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em> trong cài đặt ⚙ của group Control Box</td></tr>
+<tr><td class="mono">TxRetryDelayMs</td><td class="num">100</td><td>≥ 0</td><td>Khoảng cách giữa hai lần gửi cùng một lệnh Control Box — ô <em>Retry gap</em> trong cài đặt ⚙ của group Control Box</td></tr>
 <tr><td class="mono">AutoStart / LogCollapsed</td><td class="nowrap">true / false</td><td>—</td><td>Chạy cùng Windows; ẩn panel log</td></tr>
 </tbody>
 </table></div>
@@ -249,10 +259,9 @@ def giao_dien():
 <tr><td class="nowrap">Bản đồ băng tải</td><td>Một dải (băng tải) với 20 ô vị trí; mỗi hộp là một ô mang số 01..20, tô màu theo trạng thái. Chú thích màu (theo ngôn ngữ): Inactive (vàng), Warning (đỏ cam), Active (xanh lá), <strong>Offline (xanh dương)</strong>, Not in use (xám).</td></tr>
 <tr><td class="nowrap">Cảnh báo Offline</td><td>Dải vàng nhạt nằm trên bản đồ, <strong>ngay dưới hàng ô hộp</strong> và rộng bằng dải băng tải (vị trí cố định), chữ lớn đậm, icon ⚠ nhấp nháy nhẹ, <strong>chỉ hiện khi có hộp đang dùng ở Offline</strong>: "Box 03, 07 offline — please check the power supply and the wireless connection." (theo ngôn ngữ). Tự ẩn khi các hộp trả lời lại. Hộp Unknown lúc mới mở (chưa hỏi tới) không tính.</td></tr>
 <tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ JetBrains Mono trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
-<tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Sát lề trái: nút 🔒 và <strong>Start with Windows</strong>. Sát lề phải: <strong>Refresh Connection</strong>, rồi liền ngay sau là ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
-<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s, nút ☁ trạng thái cloud của gateway: xanh khi ghi cloud OK, vàng khi đang kết nối, xám khi lỗi; bấm được cả khi khóa) ·
-<strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·
-<strong>Motors</strong> (Start All, Stop 1..3).</td></tr>
+<tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Sát lề trái: nút 🔒 và <strong>Start with Windows</strong>. Sát lề phải: <strong>Refresh Connection</strong>, rồi liền ngay sau là bốn group có khung, tên (kèm icon trạng thái) ở đầu mỗi group:
+<strong>RF Gateway</strong>, <strong>Control Box</strong> và <strong>Cloud</strong> chỉ có icon (màu = đã kết nối / trạng thái ghi cloud) và một nút vuông ⚙ mở hộp thoại cài đặt (COM, Net ID, Ask again / COM, TX gap, RX timeout, Retry, Retry gap / Firebase); rê chuột lên ⚙ để xem cài đặt hiện tại ·
+<strong>Motors</strong> (Start All, Stop 1..3, nút xanh = đang bật).</td></tr>
 </tbody>
 </table></div>
 
@@ -307,8 +316,8 @@ def gioi_han():
 <li><strong>Chân Line 3 chưa kiểm:</strong> <code>Line3/L3/Pin.h</code> lấy từ firmware cũ (Start All = 24, Motor 1..3 = cùng chân 22) vì chưa có sơ đồ dây; phải đối chiếu hộp thật trước khi nạp.</li>
 <li><strong>Chỉ còn 3 motor:</strong> Motor 4 (opcode 4) đã bỏ ở firmware, app và simulator vì không line nào nối nó. Cần thêm motor thì phải thêm lại cả ba nơi.</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
-<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
-<li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase bằng app <code>ESDCloudViewer</code>: mỗi lần một line, đăng nhập bằng chính tài khoản của gateway (tài khoản này cũng ghi được line đó); chưa có tài khoản chỉ-đọc riêng.</li>
+<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Muốn đo thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
+<li><strong>Cloud cần PC có internet:</strong> ESDCMS ghi lên Firebase; PC không có mạng thì app giữ tối đa 500 lần đổi trạng thái để gửi bù, quá thì bỏ cái cũ nhất (đếm ở <code>droppedEvents</code>). Các PC của cùng một line dùng chung một tài khoản Firebase; chưa có tài khoản chỉ-đọc riêng cho người xem.</li>
 </ul>
 
 <h2 id="khac">Chỗ khác cần biết</h2>

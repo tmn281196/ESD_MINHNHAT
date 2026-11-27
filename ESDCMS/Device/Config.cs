@@ -1,3 +1,6 @@
+using System;
+using System.Security.Cryptography;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace ESDCMS.Device;
@@ -16,6 +19,51 @@ public class Config
 
 	/// <summary>UI language: "en", "ko" or "th" (anything else = English).</summary>
 	public string Language { get; set; } = "en";
+
+	/// <summary>Send the line to the cloud (Firebase Realtime Database, see Device/CloudUploader.cs).</summary>
+	public bool CloudEnabled { get; set; }
+
+	/// <summary>Firebase Realtime Database URL, e.g. https://name-default-rtdb.region.firebasedatabase.app (no '/' at the end).</summary>
+	public string CloudDbUrl { get; set; } = string.Empty;
+
+	/// <summary>Web API key of the Firebase project.</summary>
+	public string CloudApiKey { get; set; } = string.Empty;
+
+	/// <summary>Firebase Authentication account (Email/Password) allowed to write this line (gateways/&lt;UID&gt; in the rules).</summary>
+	public string CloudEmail { get; set; } = string.Empty;
+
+	/// <summary>Its password, encrypted with Windows DPAPI for the current user (another user or PC cannot read it).</summary>
+	public string CloudPasswordProtected { get; set; } = string.Empty;
+
+	private static readonly byte[] CloudEntropy = Encoding.UTF8.GetBytes("ESDCMS:cloud");
+
+	public string GetCloudPassword()
+	{
+		if (string.IsNullOrEmpty(CloudPasswordProtected))
+		{
+			return string.Empty;
+		}
+		try
+		{
+			byte[] data = ProtectedData.Unprotect(Convert.FromBase64String(CloudPasswordProtected), CloudEntropy, DataProtectionScope.CurrentUser);
+			return Encoding.UTF8.GetString(data);
+		}
+		catch (Exception)
+		{
+			return string.Empty;     // another PC or Windows user: enter the password again
+		}
+	}
+
+	public void SetCloudPassword(string password)
+	{
+		CloudPasswordProtected = string.IsNullOrEmpty(password)
+			? string.Empty
+			: Convert.ToBase64String(ProtectedData.Protect(Encoding.UTF8.GetBytes(password), CloudEntropy, DataProtectionScope.CurrentUser));
+	}
+
+	[JsonIgnore]
+	public bool CloudSettingsComplete => !string.IsNullOrWhiteSpace(CloudDbUrl) && !string.IsNullOrWhiteSpace(CloudApiKey)
+		&& !string.IsNullOrWhiteSpace(CloudEmail) && !string.IsNullOrEmpty(CloudPasswordProtected);
 
 	/// <summary>How long (ms) to listen for a box's answer after one status query, before the next query is sent.</summary>
 	public int PollReplyTimeoutMs { get; set; } = DefaultPollReplyTimeoutMs;

@@ -82,9 +82,6 @@ public class ViewModel : INotifyPropertyChanged
 
 	public ObservableCollection<ESDBox> ESDBoxes { get; set; } = new ObservableCollection<ESDBox>();
 
-	/// <summary>Config frames (0xA5) with the RF gateway's cloud option: WiFi settings and cloud status.</summary>
-	public GatewayCloudLink GatewayCloud { get; } = new GatewayCloudLink();
-
 	public SolidColorBrush ConnectionStatusControlBoxColor { get; set; } = Brushes.White;
 
 	public SolidColorBrush ConnectionStatusRFColor { get; set; } = Brushes.White;
@@ -308,7 +305,6 @@ public class ViewModel : INotifyPropertyChanged
 				for (int i = 0; i < read; i++)
 				{
 					FeedByte(buf[i]);
-					GatewayCloud.Feed(buf[i]);
 				}
 			}
 		}
@@ -509,17 +505,11 @@ public class ViewModel : INotifyPropertyChanged
 			esbBox.StatusChangeAction = StatusChangeActionFunc;
 		}
 		StartConveyorTimer();
-		// The gateway's cloud option sends its state by itself on every change: update the cloud icon at once.
-		GatewayCloud.StatusReceived += OnGatewayCloudStatus;
-		// ... and a report of every request it sends to the cloud (sign-in, database write): console log.
-		GatewayCloud.ReportReceived += OnGatewayCloudReport;
-		// ... and what it knows about the WiFi it joins (its MAC, the access point): console log.
-		GatewayCloud.InfoReceived += OnGatewayWifiInfo;
 		// Run the poller on the UI dispatcher: box status and the monitor layout are UI objects.
 		Application.Current?.Dispatcher.BeginInvoke((Action)delegate
 		{
 			_ = StatusPollLoopAsync(_pollCts.Token);
-			_ = CloudStatusLoopAsync(_pollCts.Token);
+			StartCloud();
 		});
 	}
 
@@ -662,10 +652,6 @@ public class ViewModel : INotifyPropertyChanged
 					await Task.Delay(StartupQueryDelayMs, ct);
 					if (gateway.IsOpen)
 					{
-						_cloudLogKey = null;             // log the gateway's cloud state again after a (re)connect
-						_wifiInfoLogKey = null;
-						await RefreshCloudStatusAsync();
-						await GatewayCloud.RequestInfoAsync(gateway);
 						await QueryAllBoxesAsync(gateway, ct);
 					}
 					lastRound = DateTime.Now;
@@ -720,13 +706,9 @@ public class ViewModel : INotifyPropertyChanged
 	}
 
 	// ---------------------------------------------------------------------------------------------
-	// Cloud icon of the RF Gateway group: yellow = connecting (to the WiFi, then to Firebase), green = writing to
-	// Firebase OK, gray = any error (WiFi or Firebase), no answer (firmware without ENABLE_CLOUD) or RF not connected.
-	// The gateway sends its state by itself on every change; the app also asks every CloudStatusPollMs. Read only: the
-	// gateway's WiFi is set in its firmware (secrets.h) and ENABLE_CLOUD is its only on/off.
+	// Cloud: the PC sends the line to Firebase (Device/CloudUploader.cs). Icon of the Cloud group on the bottom bar:
+	// green = last write OK, amber = connecting, gray = off, settings missing or an error (tooltip: code and name).
 	// ---------------------------------------------------------------------------------------------
-
-	private const int CloudStatusPollMs = 5000;
 
 	private static readonly SolidColorBrush CloudGray = FrozenBrush(0x9A, 0xA5, 0xB1);
 
@@ -734,18 +716,14 @@ public class ViewModel : INotifyPropertyChanged
 
 	private static readonly SolidColorBrush CloudGreen = FrozenBrush(117, 247, 17);
 
-	private bool _cloudRefreshBusy;
+	private DispatcherTimer _cloudTextTimer;
 
-	/// <summary>State/step/code/detail of the last cloud status written to the console (logged only on a change).</summary>
-	private string _cloudLogKey;
-
-	/// <summary>Last WiFi info written to the console (logged only on a change, the RSSI aside).</summary>
-	private string _wifiInfoLogKey;
+	public CloudUploader Cloud { get; private set; }
 
 	/// <summary>Colour of the cloud icon (see above).</summary>
 	public SolidColorBrush CloudIconBrush { get; set; } = CloudGray;
 
-	/// <summary>Tooltip of the cloud icon, also the status line of the WiFi dialog.</summary>
+	/// <summary>Tooltip of the Cloud group, also the status line of the cloud settings dialog.</summary>
 	public string CloudStatusText { get; set; } = string.Empty;
 
 	private static SolidColorBrush FrozenBrush(byte r, byte g, byte b)
@@ -755,133 +733,111 @@ public class ViewModel : INotifyPropertyChanged
 		return brush;
 	}
 
-	/// <summary>Updates the cloud icon by asking the gateway. UI thread.</summary>
-	public async Task RefreshCloudStatusAsync()
+	/// <summary>Starts the cloud upload (it reads the settings every second, so it waits while they are off). UI thread.</summary>
+	private void StartCloud()
 	{
-		if (_cloudRefreshBusy)
+		Cloud = new CloudUploader(() => Config, BuildCloudSnapshotAsync);
+		Cloud.Log += (string line) => Console.WriteLine(line);
+		Cloud.Changed += delegate
 		{
-			return;
-		}
-		_cloudRefreshBusy = true;
-		try
-		{
-			RFGateway gateway = DeviceManagerPage?.RFGateway;
-			if (gateway == null || !gateway.IsOpen)
+			Dispatcher dispatcher = Application.Current?.Dispatcher;
+			if (dispatcher != null && !dispatcher.HasShutdownStarted)
 			{
-				SetCloudIcon(CloudGray, Lang.T("S.Wifi.NotConnected"));
-				return;
+				dispatcher.BeginInvoke((Action)UpdateCloudIcon);
 			}
-			GatewayCloudStatus s = await GatewayCloud.RequestStatusAsync(gateway);
-			if (s == null)
-			{
-				SetCloudIcon(CloudGray, Lang.T("S.Wifi.NoAnswer"));
-				return;
-			}
-			ShowCloudStatus(s);
-		}
-		finally
-		{
-			_cloudRefreshBusy = false;
-		}
-	}
-
-	/// <summary>A status frame from the gateway, also the ones it sends by itself on a change (serial thread).</summary>
-	private void OnGatewayCloudStatus(GatewayCloudStatus s)
-	{
-		Dispatcher dispatcher = Application.Current?.Dispatcher;
-		if (dispatcher == null || dispatcher.HasShutdownStarted)
-		{
-			return;
-		}
-		dispatcher.BeginInvoke((Action)delegate
-		{
-			string key = s.State + "/" + s.Step + "/" + s.Code + "/" + s.Detail;
-			if (key != _cloudLogKey)
-			{
-				_cloudLogKey = key;
-				Console.WriteLine("Gateway cloud: " + GatewayCloudText.Status(s, Lang.En));
-			}
-			ShowCloudStatus(s);
-		});
-	}
-
-	/// <summary>WiFi info of the gateway (serial thread): one console line when it changed.</summary>
-	private void OnGatewayWifiInfo(GatewayWifiInfo i)
-	{
-		Dispatcher dispatcher = Application.Current?.Dispatcher;
-		if (dispatcher == null || dispatcher.HasShutdownStarted)
-		{
-			return;
-		}
-		dispatcher.BeginInvoke((Action)delegate
-		{
-			string key = i.Mac + "/" + i.Bssid + "/" + i.Channel + "/" + i.AuthMode + "/" + i.Associated + "/" + i.GotIp;
-			if (key != _wifiInfoLogKey)
-			{
-				_wifiInfoLogKey = key;
-				Console.WriteLine(GatewayCloudText.Info(i));
-			}
-		});
-	}
-
-	/// <summary>A request the gateway sent to the cloud (serial thread): one console line with what was sent and the answer.</summary>
-	private void OnGatewayCloudReport(GatewayCloudReport r)
-	{
-		Dispatcher dispatcher = Application.Current?.Dispatcher;
-		if (dispatcher == null || dispatcher.HasShutdownStarted)
-		{
-			return;
-		}
-		dispatcher.BeginInvoke((Action)delegate
-		{
-			Console.WriteLine(GatewayCloudText.Report(r));
-		});
-	}
-
-	private void ShowCloudStatus(GatewayCloudStatus s)
-	{
-		SolidColorBrush brush = s.State switch
-		{
-			3 => CloudGreen,
-			1 => CloudAmber,
-			2 => CloudAmber,
-			_ => CloudGray
 		};
-		SetCloudIcon(brush, GatewayCloudText.Status(s, Lang.T));
-	}
-
-	private void SetCloudIcon(SolidColorBrush brush, string text)
-	{
-		CloudIconBrush = brush;
-		CloudStatusText = text;
-	}
-
-	private async Task CloudStatusLoopAsync(CancellationToken ct)
-	{
-		while (!ct.IsCancellationRequested)
+		Cloud.Start(_pollCts.Token);
+		_cloudTextTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+		_cloudTextTimer.Tick += delegate
 		{
-			try
-			{
-				await RefreshCloudStatusAsync();
-				await Task.Delay(CloudStatusPollMs, ct);
-			}
-			catch (OperationCanceledException)
-			{
-				break;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Gateway: cloud status error - " + ex.Message);
-				try
-				{
-					await Task.Delay(CloudStatusPollMs, ct);
-				}
-				catch (OperationCanceledException)
-				{
-					break;
-				}
-			}
+			UpdateCloudIcon();                                   // "last write .. ago"
+		};
+		_cloudTextTimer.Start();
+		UpdateCloudIcon();
+	}
+
+	/// <summary>Icon colour and tooltip from the upload state. UI thread.</summary>
+	public void UpdateCloudIcon()
+	{
+		CloudUploader c = Cloud;
+		if (c == null)
+		{
+			return;
 		}
+		switch (c.State)
+		{
+		case CloudState.Ok:
+			CloudIconBrush = CloudGreen;
+			CloudStatusText = Lang.F("S.Cloud.Ok", FormatAge(DateTime.UtcNow - c.LastOkUtc));
+			break;
+		case CloudState.Connecting:
+			CloudIconBrush = CloudAmber;
+			CloudStatusText = Lang.T("S.Cloud.Connecting");
+			break;
+		case CloudState.Error:
+			CloudIconBrush = CloudGray;
+			CloudStatusText = Lang.F("S.Cloud.Error", c.ErrorName);
+			break;
+		case CloudState.NotSet:
+			CloudIconBrush = CloudGray;
+			CloudStatusText = Lang.T("S.Cloud.NotSet");
+			break;
+		default:
+			CloudIconBrush = CloudGray;
+			CloudStatusText = Lang.T("S.Cloud.Off");
+			break;
+		}
+	}
+
+	private static string FormatAge(TimeSpan age)
+	{
+		double s = Math.Max(0.0, age.TotalSeconds);
+		if (s < 120.0)
+		{
+			return (int)s + " s";
+		}
+		return (s < 7200.0) ? ((int)(s / 60.0) + " min") : ((int)(s / 3600.0) + " h");
+	}
+
+	/// <summary>What the cloud upload needs, read on the UI thread (the monitor layout and box states live there).</summary>
+	private Task<CloudSnapshot> BuildCloudSnapshotAsync()
+	{
+		Dispatcher dispatcher = Application.Current?.Dispatcher;
+		if (dispatcher == null || dispatcher.HasShutdownStarted)
+		{
+			return Task.FromResult<CloudSnapshot>(null);
+		}
+		return dispatcher.InvokeAsync(delegate
+		{
+			if (Config == null || RootCanvas?.DynamicDevicesList == null)
+			{
+				return null;
+			}
+			CloudSnapshot snap = new CloudSnapshot { Line = Config.NetworkID.ToString("X2") };
+			foreach (byte id in UsedBoxIds())
+			{
+				char status = ESDBoxes[id - 1].Status switch
+				{
+					DeviceStatus.Active => 'A',
+					DeviceStatus.Warning => 'W',
+					DeviceStatus.Inactive => 'I',
+					DeviceStatus.Offline => 'O',
+					_ => '\0'                                    // Unknown (not heard yet), Error (bad frame): nothing new
+				};
+				long ticks = Interlocked.Read(ref _lastAnswerTicks[id]);
+				long seen = (ticks > 0) ? new DateTimeOffset(new DateTime(ticks, DateTimeKind.Utc)).ToUnixTimeMilliseconds() : 0;
+				snap.Boxes.Add((id, status, seen));
+			}
+			snap.RfOpen = DeviceManagerPage?.RFGateway?.IsOpen == true;
+			snap.ControlBoxOpen = DeviceManagerPage?.ControlBox?.SerialPort?.IsOpen == true;
+			bool? warning;
+			lock (_conveyorQueueLock)
+			{
+				warning = _desiredConveyorWarning;
+			}
+			snap.Conveyor = (warning == null) ? null : (warning.Value ? "STOP" : "RUN");
+			return snap;
+		}).Task;
 	}
 
 	/// <summary>RF port opened: asks every used box for its first status (in rounds) and logs who answered.</summary>

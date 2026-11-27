@@ -16,11 +16,10 @@ tên hiển thị là **ESD Compliance Monitoring System**.
   `STAT`** (còn STAT thì WPF đọc SemiBold thành weight 1 và vẽ bằng bản Bold); JetBrains Mono chỉ đổi woff2 → ttf. Chữ Hàn/Thái
   không có trong font tự fallback sang font hệ thống. `Frame` (trang Monitor) và cửa sổ tạo bằng code (`UnlockDialog`) không
   kế thừa font của Window nên được gắn `AppFont` riêng.
-- Tùy chọn cloud của gateway (`lora_gateway.ino`, `ENABLE_CLOUD 1`): WiFi và tài khoản Firebase nằm trong `secrets.h` của
-  firmware, `ENABLE_CLOUD` là công tắc duy nhất; app chỉ **đọc** trạng thái. `Device/GatewayCloudLink.cs` hỏi `0xA5 'S'` (trạng thái) và `'I'` (MAC, router đang thử)
-  qua cổng COM; gateway tự gửi khung `'s'` khi trạng thái đổi (bước đang làm, mã lỗi) và khung `'r'` cho mỗi lần gửi lên
-  cloud. `Device/GatewayCloudText.cs` dựng tooltip của ☁ (xanh OK, vàng đang kết nối, xám lỗi) và dòng console (tiếng
-  Anh, qua `Lang.En`); bấm ☁ (cả khi đang khóa) mở `CloudDialog.cs`, chỉ xem.
+- Cloud: `Device/CloudUploader.cs` ghi line lên Firebase Realtime Database (REST, `Device/FirebaseRest.cs`, không dùng SDK):
+  `lines/<Net ID>/pcs/<tên PC>`, `boxes/<ID>` (A/W/I/O), `events/...`. Cài đặt ở nút ⚙ của group Cloud (`Config.Cloud*`, mật
+  khẩu DPAPI). Icon ☁: xanh ghi OK, vàng đang kết nối, xám tắt/lỗi (tooltip: mã + tên lỗi). Rules: `../Firebase/firebase.rules.json`.
+- Thanh dưới gọn: RF Gateway / Control Box / Cloud chỉ có icon trạng thái và nút vuông ⚙ mở hộp thoại cài đặt (`SettingsForm.cs`).
 - Tên biến cục bộ lấy từ PDB nên khá sát bản gốc; tên tham số lambda và một số cấu trúc `async` có thể khác nguyên bản.
 - `Monitoring/MornitorPage.xaml` giữ nguyên tên file gốc (resource `monitoring/mornitorpage.baml`).
 - `config.json` (COM port, vị trí thiết bị) và `crash.log` nằm ở `%USERPROFILE%\.esdcms\`. Lần chạy đầu, nếu chưa có

@@ -54,23 +54,25 @@
   <sys:String x:Key="S.Tip.LogClear">ล้างบันทึก</sys:String>
   <sys:String x:Key="S.Tip.LogSave">บันทึก log เป็นไฟล์ .txt</sys:String>
   <sys:String x:Key="S.Tip.Tile">คลิก: ถามสถานะของกล่องนี้</sys:String>
-  <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
-  <sys:String x:Key="S.Wifi.Title">คลาวด์ของ RF เกตเวย์</sys:String>
-  <sys:String x:Key="S.Wifi.Close">ปิด</sys:String>
-  <sys:String x:Key="S.Wifi.NotConnected">ยังไม่ได้เชื่อมต่อ RF เกตเวย์</sys:String>
-  <sys:String x:Key="S.Wifi.NoAnswer">เกตเวย์ไม่ตอบ: เฟิร์มแวร์อาจคอมไพล์โดยไม่มี ENABLE_CLOUD</sys:String>
-  <sys:String x:Key="S.Wifi.State1">เกตเวย์: กำลังเชื่อมต่อ WiFi…</sys:String>
-  <sys:String x:Key="S.Wifi.State2">เกตเวย์: เชื่อมต่อ WiFi แล้ว ({0} dBm) กำลังเชื่อมต่อคลาวด์…</sys:String>
-  <sys:String x:Key="S.Wifi.State3">เกตเวย์: WiFi ปกติ ({0} dBm) คลาวด์ปกติ</sys:String>
-  <sys:String x:Key="S.Wifi.State4">เกตเวย์: เชื่อมต่อ WiFi แล้ว ({0} dBm) คลาวด์ผิดพลาด</sys:String>
-  <sys:String x:Key="S.Wifi.State5">เกตเวย์: เชื่อมต่อ WiFi ไม่ได้</sys:String>
-  <sys:String x:Key="S.Wifi.LastWrite">ส่งข้อมูลสำเร็จล่าสุด {0} ที่แล้ว</sys:String>
-  <sys:String x:Key="S.Cloud.Step1">เชื่อมต่อ WiFi</sys:String>
-  <sys:String x:Key="S.Cloud.Step2">ตั้งเวลาจากอินเทอร์เน็ต</sys:String>
-  <sys:String x:Key="S.Cloud.Step3">ลงชื่อเข้าใช้ Firebase</sys:String>
-  <sys:String x:Key="S.Cloud.Step4">เขียนลงฐานข้อมูล</sys:String>
-  <sys:String x:Key="S.Cloud.Now">กำลัง: {0}</sys:String>
-  <sys:String x:Key="S.Cloud.LastTry">ครั้งล่าสุด: {0}</sys:String>
-  <sys:String x:Key="S.Cloud.FailedAt">{0} ล้มเหลว: {1}</sys:String>
-  <sys:String x:Key="S.Cloud.Why">ข้อผิดพลาด: {0}</sys:String>
+  <!-- Settings dialogs of the bottom bar (SettingsForm.cs) and the cloud upload of the PC (Device/CloudUploader.cs) -->
+  <sys:String x:Key="S.Settings">ตั้งค่า</sys:String>
+  <sys:String x:Key="S.ComPort">พอร์ต COM</sys:String>
+  <sys:String x:Key="S.Set.Ok">ตกลง</sys:String>
+  <sys:String x:Key="S.Set.Cancel">ยกเลิก</sys:String>
+  <sys:String x:Key="S.Set.BadNumber">{0}: ใส่ตัวเลขจำนวนเต็ม</sys:String>
+  <sys:String x:Key="S.Set.BadNetId">Net ID: เลขฐานสิบหก 2 หลัก, 00-FF</sys:String>
+  <sys:String x:Key="S.Cloud">คลาวด์</sys:String>
+  <sys:String x:Key="S.Cloud.Enable">ส่งข้อมูลไลน์ขึ้นคลาวด์ (Firebase)</sys:String>
+  <sys:String x:Key="S.Cloud.Paste">บรรทัด #define</sys:String>
+  <sys:String x:Key="S.Cloud.Url">URL ฐานข้อมูล</sys:String>
+  <sys:String x:Key="S.Cloud.Key">Web API key</sys:String>
+  <sys:String x:Key="S.Cloud.Email">อีเมล</sys:String>
+  <sys:String x:Key="S.Cloud.Password">รหัสผ่าน</sys:String>
+  <sys:String x:Key="S.Cloud.Line">เขียนไปที่</sys:String>
+  <sys:String x:Key="S.Cloud.Missing">กรอก URL ฐานข้อมูล, API key, อีเมล และรหัสผ่าน</sys:String>
+  <sys:String x:Key="S.Cloud.Off">คลาวด์: ปิด</sys:String>
+  <sys:String x:Key="S.Cloud.NotSet">คลาวด์: ยังไม่ได้ตั้งค่า</sys:String>
+  <sys:String x:Key="S.Cloud.Connecting">คลาวด์: กำลังเชื่อมต่อ…</sys:String>
+  <sys:String x:Key="S.Cloud.Ok">คลาวด์: ปกติ เขียนล่าสุด {0} ที่แล้ว</sys:String>
+  <sys:String x:Key="S.Cloud.Error">คลาวด์: ข้อผิดพลาด {0}</sys:String>
 </ResourceDictionary>

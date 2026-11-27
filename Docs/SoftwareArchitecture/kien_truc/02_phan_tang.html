@@ -35,7 +35,9 @@
 <tbody>
 <tr><td class="mono">ESDCMS.csproj / ESDCMS.slnx</td><td>Project .NET Framework 4.8 · WPF · x64, ra <code>ESDCMS.exe</code>; mở solution bằng Visual Studio 2022 hoặc <code>dotnet build</code>.</td></tr>
 <tr><td class="mono">App.xaml.cs</td><td>Khởi động: tên hiển thị <code>AppDisplayName</code>, single-instance mutex, bắt lỗi toàn cục → <code>.esdcms\crash.log</code>, watchdog thoát.</td></tr>
-<tr><td class="mono">MainWindow.xaml(.cs)</td><td>Cửa sổ: nút ngôn ngữ, khung trang giám sát, console log, thanh dưới (group RF Gateway / Control Box / Motors; chọn COM là kết nối), Lock, auto refresh COM khi cắm/rút USB.</td></tr>
+<tr><td class="mono">MainWindow.xaml(.cs)</td><td>Cửa sổ: nút ngôn ngữ, khung trang giám sát, console log, thanh dưới (group RF Gateway / Control Box / Cloud với nút cài đặt ⚙, group Motors), Lock, auto refresh COM khi cắm/rút USB.</td></tr>
+<tr><td class="mono">SettingsForm.cs</td><td>Hộp thoại cài đặt dựng bằng code cho các nút ⚙ của thanh dưới (COM, Net ID, các thời gian, Firebase).</td></tr>
+<tr><td class="mono">Device/CloudUploader.cs, Device/FirebaseRest.cs</td><td>Ghi line lên Firebase (đăng nhập, PATCH, gửi bù khi mất mạng) và tên lỗi kiểu mã + tên, xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>.</td></tr>
 <tr><td class="mono">Lang/Strings.{en,ko,th}.xaml, Lang/Lang.cs</td><td>Chữ giao diện cho English / 한국어 / ไทย (cùng bộ khóa) và lớp đổi ngôn ngữ lúc chạy.</td></tr>
 <tr><td class="mono">Device/PortNames.cs</td><td>Giá trị của combo COM: tên cổng thật thì mở, <code>Close</code> (và giá trị cũ <code>Unused</code>/<code>Unset</code>) thì không.</td></tr>
 <tr><td class="mono">Images/icon/</td><td>Icon ESD dạng vector <code>esd.svg</code>, file <code>esd.ico</code> và script <code>make_esd_icon.ps1</code> sinh ra <code>app.ico</code>.</td></tr>

@@ -54,23 +54,25 @@
   <sys:String x:Key="S.Tip.LogClear">로그 지우기</sys:String>
   <sys:String x:Key="S.Tip.LogSave">로그를 .txt 파일로 저장</sys:String>
   <sys:String x:Key="S.Tip.Tile">클릭: 이 박스의 상태를 질의</sys:String>
-  <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
-  <sys:String x:Key="S.Wifi.Title">RF 게이트웨이 클라우드</sys:String>
-  <sys:String x:Key="S.Wifi.Close">닫기</sys:String>
-  <sys:String x:Key="S.Wifi.NotConnected">RF 게이트웨이가 연결되어 있지 않습니다.</sys:String>
-  <sys:String x:Key="S.Wifi.NoAnswer">게이트웨이 응답 없음: 펌웨어가 ENABLE_CLOUD 없이 빌드되었을 수 있습니다.</sys:String>
-  <sys:String x:Key="S.Wifi.State1">게이트웨이: WiFi 연결 중…</sys:String>
-  <sys:String x:Key="S.Wifi.State2">게이트웨이: WiFi 연결됨 ({0} dBm), 클라우드 연결 중…</sys:String>
-  <sys:String x:Key="S.Wifi.State3">게이트웨이: WiFi 정상 ({0} dBm), 클라우드 정상.</sys:String>
-  <sys:String x:Key="S.Wifi.State4">게이트웨이: WiFi 연결됨 ({0} dBm), 클라우드 오류.</sys:String>
-  <sys:String x:Key="S.Wifi.State5">게이트웨이: WiFi에 연결할 수 없습니다.</sys:String>
-  <sys:String x:Key="S.Wifi.LastWrite">마지막 전송: {0} 전.</sys:String>
-  <sys:String x:Key="S.Cloud.Step1">WiFi 연결</sys:String>
-  <sys:String x:Key="S.Cloud.Step2">인터넷에서 시간 맞추기</sys:String>
-  <sys:String x:Key="S.Cloud.Step3">Firebase 로그인</sys:String>
-  <sys:String x:Key="S.Cloud.Step4">데이터베이스 쓰기</sys:String>
-  <sys:String x:Key="S.Cloud.Now">진행 중: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.LastTry">마지막 시도: {0}.</sys:String>
-  <sys:String x:Key="S.Cloud.FailedAt">{0} 실패: {1}.</sys:String>
-  <sys:String x:Key="S.Cloud.Why">오류: {0}.</sys:String>
+  <!-- Settings dialogs of the bottom bar (SettingsForm.cs) and the cloud upload of the PC (Device/CloudUploader.cs) -->
+  <sys:String x:Key="S.Settings">설정</sys:String>
+  <sys:String x:Key="S.ComPort">COM 포트</sys:String>
+  <sys:String x:Key="S.Set.Ok">확인</sys:String>
+  <sys:String x:Key="S.Set.Cancel">취소</sys:String>
+  <sys:String x:Key="S.Set.BadNumber">{0}: 정수를 입력하세요.</sys:String>
+  <sys:String x:Key="S.Set.BadNetId">Net ID: 16진수 2자리, 00-FF.</sys:String>
+  <sys:String x:Key="S.Cloud">클라우드</sys:String>
+  <sys:String x:Key="S.Cloud.Enable">라인 상태를 클라우드(Firebase)로 전송</sys:String>
+  <sys:String x:Key="S.Cloud.Paste">#define 줄</sys:String>
+  <sys:String x:Key="S.Cloud.Url">데이터베이스 URL</sys:String>
+  <sys:String x:Key="S.Cloud.Key">웹 API 키</sys:String>
+  <sys:String x:Key="S.Cloud.Email">이메일</sys:String>
+  <sys:String x:Key="S.Cloud.Password">비밀번호</sys:String>
+  <sys:String x:Key="S.Cloud.Line">기록 위치</sys:String>
+  <sys:String x:Key="S.Cloud.Missing">데이터베이스 URL, API 키, 이메일, 비밀번호를 입력하세요.</sys:String>
+  <sys:String x:Key="S.Cloud.Off">클라우드: 꺼짐</sys:String>
+  <sys:String x:Key="S.Cloud.NotSet">클라우드: 설정 없음</sys:String>
+  <sys:String x:Key="S.Cloud.Connecting">클라우드: 연결 중…</sys:String>
+  <sys:String x:Key="S.Cloud.Ok">클라우드: 정상, 마지막 기록 {0} 전</sys:String>
+  <sys:String x:Key="S.Cloud.Error">클라우드: 오류 {0}</sys:String>
 </ResourceDictionary>

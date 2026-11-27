@@ -13,7 +13,7 @@ public enum CheckKind
 }
 
 /// <summary>
-/// Checks the Firebase settings exactly as the gateway will use them (secrets.h): format, sign-in, the gateways/&lt;UID&gt;
+/// Checks the Firebase settings exactly as ESDCMS uses them (its Cloud settings): format, sign-in, the gateways/&lt;UID&gt;
 /// entry the rules need, a test write to lines/&lt;line&gt; (removed again) and that another line is refused.
 /// Each result goes to <c>report</c> (English, for the console log).
 /// </summary>
@@ -60,7 +60,7 @@ public static class ConfigCheck
 		}
 		report(CheckKind.Ok, "The 4 values have the right format", null);
 
-		// 2. Sign in (same call as cloudSignIn() in lora_gateway.ino)
+		// 2. Sign in (same call as ESDCMS CloudUploader)
 		SignInResult signIn = await FirebaseRest.SignInAsync(s);
 		if (signIn.Error != null)
 		{
@@ -112,18 +112,18 @@ public static class ConfigCheck
 			else
 			{
 				report(CheckKind.Warn, "gateways/<UID> = [" + v + "], not the line checked (" + line + ")",
-					"this gateway can write only lines/" + v + ". If NETWORK_ID is " + line + ", set the value to " + line + " (type string, WITHOUT quotes)");
+					"this account can write only lines/" + v + ". If the Net ID is " + line + ", set the value to " + line + " (type string, WITHOUT quotes)");
 				ok = false;
 			}
 		}
 
-		// 4. Write to lines/<line> like the gateway (multi-path PATCH), then remove the test value
-		JObject testValue = new JObject { ["gateway/webTest"] = new JObject { [".sv"] = "timestamp" } };
+		// 4. Write to lines/<line> like ESDCMS (multi-path PATCH), then remove the test value
+		JObject testValue = new JObject { ["pcs/viewer-check/lastSeen"] = new JObject { [".sv"] = "timestamp" } };
 		HttpResult w = await FirebaseRest.CallAsync(FirebaseRest.Patch, s.DbUrl + "/lines/" + line + ".json" + auth, testValue);
 		if (w.Status == 200)
 		{
-			report(CheckKind.Ok, "Can write to lines/" + line, "the same way as the gateway; the test value (gateway/webTest) was removed again");
-			await FirebaseRest.CallAsync(System.Net.Http.HttpMethod.Delete, s.DbUrl + "/lines/" + line + "/gateway/webTest.json" + auth);
+			report(CheckKind.Ok, "Can write to lines/" + line, "the same way as ESDCMS; the test value (pcs/viewer-check) was removed again");
+			await FirebaseRest.CallAsync(System.Net.Http.HttpMethod.Delete, s.DbUrl + "/lines/" + line + "/pcs/viewer-check.json" + auth);
 		}
 		else
 		{
@@ -131,7 +131,7 @@ public static class ConfigCheck
 				"usually the rules are not published or gateways/<UID> is not " + line + ". Firebase says: " + (w.Net ? w.Text : w.ErrorMessage));
 		}
 
-		// 5. Another line must be refused (the rules keep each gateway to its own line)
+		// 5. Another line must be refused (the rules keep each account to its own line)
 		string other = line == "99" ? "98" : "99";
 		HttpResult n = await FirebaseRest.CallAsync(FirebaseRest.Patch, s.DbUrl + "/lines/" + other + ".json" + auth,
 			new JObject { ["webTest"] = new JObject { [".sv"] = "timestamp" } });

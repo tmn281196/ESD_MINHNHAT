@@ -1,2 +1,2 @@
-# Firebase credentials for ENABLE_CLOUD (copy of secrets.example.h): never commit
+# secrets.h was used by the old cloud option of the gateway (removed): keep it out of git if it is still here.
 secrets.h

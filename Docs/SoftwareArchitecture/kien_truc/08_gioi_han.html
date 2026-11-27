@@ -47,8 +47,8 @@
 <li><strong>Chân Line 3 chưa kiểm:</strong> <code>Line3/L3/Pin.h</code> lấy từ firmware cũ (Start All = 24, Motor 1..3 = cùng chân 22) vì chưa có sơ đồ dây; phải đối chiếu hộp thật trước khi nạp.</li>
 <li><strong>Chỉ còn 3 motor:</strong> Motor 4 (opcode 4) đã bỏ ở firmware, app và simulator vì không line nào nối nó. Cần thêm motor thì phải thêm lại cả ba nơi.</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
-<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
-<li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase bằng app <code>ESDCloudViewer</code>: mỗi lần một line, đăng nhập bằng chính tài khoản của gateway (tài khoản này cũng ghi được line đó); chưa có tài khoản chỉ-đọc riêng.</li>
+<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Muốn đo thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
+<li><strong>Cloud cần PC có internet:</strong> ESDCMS ghi lên Firebase; PC không có mạng thì app giữ tối đa 500 lần đổi trạng thái để gửi bù, quá thì bỏ cái cũ nhất (đếm ở <code>droppedEvents</code>). Các PC của cùng một line dùng chung một tài khoản Firebase; chưa có tài khoản chỉ-đọc riêng cho người xem.</li>
 </ul>
 
 <h2 id="khac">Chỗ khác cần biết</h2>
