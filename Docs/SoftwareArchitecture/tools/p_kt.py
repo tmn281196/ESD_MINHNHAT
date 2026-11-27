@@ -179,6 +179,9 @@ def cau_hinh():
   "Com": {
     "RFGatewayCOM": "COM5",
     "ControlBoxCOM": "COM6",
+    "WifiEnabled": false,
+    "WifiSsid": "",
+    "WifiPasswordProtected": "",
     "AutoStart": true,
     "LogCollapsed": false,
     "Language": "en",
@@ -213,6 +216,8 @@ def cau_hinh():
 <tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetryDelayMs</td><td class="num">100</td><td>≥ 0</td><td>Khoảng cách giữa hai lần gửi cùng một lệnh Control Box — ô <em>Retry gap</em>, group Control Box</td></tr>
+<tr><td class="mono">WifiEnabled / WifiSsid</td><td class="nowrap">false / —</td><td>—</td><td>Tùy chọn cloud của gateway: có cho gateway vào WiFi không, và tên WiFi — đặt ở hộp thoại ☁, group RF Gateway (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>)</td></tr>
+<tr><td class="mono">WifiPasswordProtected</td><td class="nowrap">—</td><td>—</td><td>Mật khẩu WiFi, mã hóa bằng DPAPI của Windows theo user (user hoặc PC khác không giải mã được, phải nhập lại)</td></tr>
 <tr><td class="mono">AutoStart / LogCollapsed</td><td class="nowrap">true / false</td><td>—</td><td>Chạy cùng Windows; ẩn panel log</td></tr>
 </tbody>
 </table></div>
@@ -243,7 +248,7 @@ def giao_dien():
 <tr><td class="nowrap">Cảnh báo Offline</td><td>Dải vàng nhạt nằm trên bản đồ, <strong>ngay dưới hàng ô hộp</strong> và rộng bằng dải băng tải (vị trí cố định), chữ lớn đậm, icon ⚠ nhấp nháy nhẹ, <strong>chỉ hiện khi có hộp đang dùng ở Offline</strong>: "Box 03, 07 offline — please check the power supply and the wireless connection." (theo ngôn ngữ). Tự ẩn khi các hộp trả lời lại. Hộp Unknown lúc mới mở (chưa hỏi tới) không tính.</td></tr>
 <tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ JetBrains Mono trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
 <tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Bên trái: <strong>Refresh Connection</strong>, <strong>Start with Windows</strong>, nút 🔒. Bên phải, sát lề, ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
-<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s) ·
+<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s, nút ☁ WiFi/cloud của gateway: xanh khi gateway đã vào WiFi) ·
 <strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·
 <strong>Motors</strong> (Start All, Stop 1..4).</td></tr>
 </tbody>
@@ -299,7 +304,8 @@ def gioi_han():
 <li><strong>Line2 cùng logic với Line1:</strong> <code>Firmware_ControBox/Line2/L2</code> (header "Line2 / L2PC1") chạy đúng code của <code>Line1/L1</code>, và <code>Pin.h</code> trùng chân. Nếu line 2 khác chân thì phải sửa riêng.</li>
 <li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
-<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Muốn đo phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
+<li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
+<li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC; chưa có dashboard đọc dữ liệu Firebase.</li>
 </ul>
 
 <h2 id="khac">Chỗ khác cần biết</h2>

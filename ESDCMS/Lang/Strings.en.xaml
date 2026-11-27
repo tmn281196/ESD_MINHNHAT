@@ -60,4 +60,29 @@
   <sys:String x:Key="S.Tip.LogClear">Clear log</sys:String>
   <sys:String x:Key="S.Tip.LogSave">Save log to a .txt file</sys:String>
   <sys:String x:Key="S.Tip.Tile">Click: ask this box for its status</sys:String>
+  <!-- Cloud option of the RF gateway: WiFi dialog (WifiDialog.cs) -->
+  <sys:String x:Key="S.Tip.Cloud">Cloud (RF gateway WiFi): send the box states to Firebase</sys:String>
+  <sys:String x:Key="S.Wifi.Title">RF Gateway WiFi (cloud)</sys:String>
+  <sys:String x:Key="S.Wifi.Intro">The RF gateway can send the box states to the cloud (Firebase) over WiFi. This needs gateway firmware built with ENABLE_CLOUD 1.</sys:String>
+  <sys:String x:Key="S.Wifi.Enable">Gateway joins WiFi (cloud)</sys:String>
+  <sys:String x:Key="S.Wifi.Off">WiFi off</sys:String>
+  <sys:String x:Key="S.Wifi.OffSent">WiFi turned off on the gateway.</sys:String>
+  <sys:String x:Key="S.Wifi.OffNotSent">Saved; the gateway's WiFi is turned off when the RF Gateway is connected.</sys:String>
+  <sys:String x:Key="S.Wifi.Ssid">WiFi name (SSID)</sys:String>
+  <sys:String x:Key="S.Wifi.Password">Password</sys:String>
+  <sys:String x:Key="S.Wifi.Save">Save &amp; send</sys:String>
+  <sys:String x:Key="S.Wifi.Close">Close</sys:String>
+  <sys:String x:Key="S.Wifi.BadSsid">SSID: 1–32 bytes.</sys:String>
+  <sys:String x:Key="S.Wifi.BadPassword">Password: empty (open network) or 8–63 characters.</sys:String>
+  <sys:String x:Key="S.Wifi.Saved">WiFi settings saved and sent to the gateway.</sys:String>
+  <sys:String x:Key="S.Wifi.Unchanged">WiFi settings saved; the gateway already had them.</sys:String>
+  <sys:String x:Key="S.Wifi.Refused">The gateway refused the settings (SSID 1–32 bytes, password up to 63).</sys:String>
+  <sys:String x:Key="S.Wifi.SavedNotSent">WiFi settings saved; they are sent when the RF Gateway is connected.</sys:String>
+  <sys:String x:Key="S.Wifi.NotConnected">The RF Gateway is not connected.</sys:String>
+  <sys:String x:Key="S.Wifi.NoAnswer">No answer from the gateway: its firmware may be built without ENABLE_CLOUD.</sys:String>
+  <sys:String x:Key="S.Wifi.State0">Gateway: no WiFi set yet.</sys:String>
+  <sys:String x:Key="S.Wifi.State1">Gateway: connecting to WiFi…</sys:String>
+  <sys:String x:Key="S.Wifi.State2">Gateway: WiFi OK ({0} dBm), cloud not reached yet.</sys:String>
+  <sys:String x:Key="S.Wifi.State3">Gateway: WiFi OK ({0} dBm), cloud OK.</sys:String>
+  <sys:String x:Key="S.Wifi.LastWrite"> Last good write {0} ago.</sys:String>
 </ResourceDictionary>

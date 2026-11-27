@@ -46,7 +46,7 @@
 <thead><tr><th>File</th><th>Chạy trên</th><th>Nội dung</th></tr></thead>
 <tbody>
 <tr><td class="mono">Firmware_LoRA/lora_node</td><td class="nowrap">Hộp ESD</td><td>Đọc IN1/IN2 → <code>A</code>/<code>W</code>/<code>I</code>, bật đèn; gửi khi đổi (lặp 5 lần, giãn dần), lúc bật nguồn, và khi được hỏi <code>'?'</code>. <code>NODE_ID</code> đặt riêng cho từng hộp trước khi nạp (trong code đang là <code>0x04</code>), <code>NETWORK_ID 0x03</code>. Bật thêm vai trò repeater (phát lại giúp hộp ngoài tầm gateway) bằng <code>#define ENABLE_REPEATER 1</code>, mặc định 0. Phát <strong>17&nbsp;dBm</strong> (<code>TX_POWER_DBM</code>), cả lúc bật nguồn lẫn sau khi tự reset module LoRa (gửi không xong trong 500&nbsp;ms hoặc module báo bận).</td></tr>
-<tr><td class="mono">Firmware_LoRA/lora_gateway</td><td class="nowrap">RF Gateway</td><td>Hai chiều: LoRa→USB (lọc Network ID + CRC, đẩy khung <code>AA…BB</code> lên PC) và USB→LoRa (kiểm khung của PC rồi phát ra LoRa). Phát 17&nbsp;dBm (mặc định thư viện).</td></tr>
+<tr><td class="mono">Firmware_LoRA/lora_gateway</td><td class="nowrap">RF Gateway</td><td>Hai chiều: LoRa→USB (lọc Network ID + CRC, đẩy khung <code>AA…BB</code> lên PC) và USB→LoRa (kiểm khung của PC rồi phát ra LoRa). Phát 17&nbsp;dBm (mặc định thư viện). Tùy chọn <code>#define ENABLE_CLOUD 1</code>: ghi thêm trạng thái hộp lên Firebase qua WiFi (xem <a href="#cloud">dưới</a>), mặc định 0.</td></tr>
 <tr><td class="mono">Firmware_ControBox/Line1, Line2</td><td class="nowrap">Control Box</td><td>Nhận khung lệnh USB, set chân relay, echo làm ACK. <code>Line2</code> hiện là bản sao của <code>Line1</code>.</td></tr>
 </tbody>
 </table></div>
@@ -58,6 +58,19 @@
 <div class="meta"><span><b>Tần số</b> 433&nbsp;MHz</span><span><b>SF</b> 7</span><span><b>BW</b> 125&nbsp;kHz</span><span><b>CR</b> 4/5</span><span><b>Sync word</b> 0x12</span><span><b>CRC LoRa</b> tắt (khung tự có CRC8)</span><span><b>Công suất</b> 17&nbsp;dBm</span></div>
 <p class="tnote">Đổi SF hoặc BW phải nạp lại gateway và mọi hộp cùng lúc, và phải tính lại các khe thời gian (<code>SLOT_MS</code>, <code>REPLY_DELAY_MS</code>), vì thời gian phát một khung tăng theo SF.</p>
 <p>Build bằng Arduino IDE hoặc <code>arduino-cli</code>. <code>lora_node</code> đã biên dịch thử với board <code>arduino:avr:uno</code> (khoảng 6,9&nbsp;KB flash; 7,3&nbsp;KB khi bật repeater), <code>lora_gateway</code> với <code>esp32:esp32:esp32</code>. Thư mục <code>libraries/LoRa/src</code> chỉ được có <code>LoRa.cpp</code> và <code>LoRa.h</code>: một bản sao kiểu <em>"LoRa - Copy.cpp"</em> nằm cạnh sẽ làm build lỗi "multiple definition".</p>
+
+<h2 id="cloud">Tùy chọn cloud của gateway</h2>
+<p>Gateway nạp với <code>#define ENABLE_CLOUD 1</code> ghi thêm trạng thái hộp lên <strong>Firebase Realtime Database</strong> qua WiFi của chính ESP32, nên PC không cần có mạng. Phần cloud chạy ở một task riêng trên core 0, không bao giờ làm chậm việc chuyển tiếp LoRa↔USB. Mất WiFi thì dây chuyền vẫn chạy bình thường: gateway giữ trạng thái mới nhất của từng hộp và tối đa 200 lần đổi trạng thái, rồi gửi bù khi có mạng lại. Mặc định <code>0</code> thì build ra y hệt gateway thường (cùng kích thước).</p>
+<ul>
+<li><strong>WiFi nhập trên app:</strong> khi đã mở khóa, bấm nút ☁ ở group RF Gateway, tick <em>"Gateway kết nối WiFi (cloud)"</em>, nhập SSID và mật khẩu rồi <em>Lưu &amp; gửi</em>. App gửi qua cổng COM bằng khung <code>0xA5</code> (xem <a href="../giao_thuc/01_lora.html#cfg">LoRa Status Protocol</a>), gateway lưu vào flash nên giữ được khi mất điện. Bỏ tick thì gateway tắt WiFi. App tự gửi lại mỗi khi mở cổng RF.</li>
+<li><strong>Biểu tượng ☁ trên thanh dưới</strong> (app hỏi gateway mỗi 5&nbsp;s, chỉ khi đã tick): <strong>xanh</strong> = gateway đã vào WiFi và đang ghi Firebase; vàng = đang vào WiFi; đỏ = gateway không trả lời (firmware chưa bật cloud); xám = WiFi tắt hoặc chưa nối cổng RF. Rê chuột lên để xem chi tiết.</li>
+<li><strong>Firebase:</strong> URL database, Web API key và tài khoản Email/Password của gateway nằm trong <code>Firmware_LoRA/lora_gateway/secrets.h</code> (chép từ <code>secrets.example.h</code>; file này đã có trong <code>.gitignore</code>). Security rules mẫu ở <code>firebase.rules.json</code>: mỗi gateway chỉ ghi được nhánh line của mình, khai báo bằng <code>gateways/&lt;uid&gt; = "03"</code>.</li>
+<li><strong>HTTPS:</strong> kiểm tra chứng chỉ bằng GTS Root R1/R4 trong <code>gts_root_ca.h</code> (hạn 2036); gateway lấy giờ qua NTP trước khi kết nối.</li>
+</ul>
+<div class="code"><div class="code-bar">Realtime Database · một line = một NETWORK_ID</div><pre><code>lines/03/gateway          lastSeen, uptimeS, wifiRssi, fw, pcLastFrame, droppedEvents
+lines/03/boxes/09         s (A/W/I), t (từ lúc), seen (nghe lần cuối), rssi, snr, via
+lines/03/events/&lt;t&gt;_&lt;n&gt;   { box, s, t }   mỗi lần đổi trạng thái</code></pre></div>
+<p class="tnote">Thời gian là Unix epoch tính bằng ms. Gateway chỉ thấy khung trạng thái hộp, không biết hộp nào bị PC coi là Offline hay băng tải đang dừng. Dashboard có thể coi một hộp là "im" khi <code>seen</code> đã cũ trong lúc <code>pcLastFrame</code> còn mới, vì PC hỏi mọi hộp mỗi 120&nbsp;s. Bật cloud thì firmware khoảng 1&nbsp;MB (79% vùng app của ESP32).</p>
 
 <nav class="pager" aria-label="Pages"></nav>
 <footer>Devices & Roles</footer>

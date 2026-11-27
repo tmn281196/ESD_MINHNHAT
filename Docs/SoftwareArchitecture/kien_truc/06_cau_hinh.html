@@ -40,6 +40,9 @@
   "Com": {
     "RFGatewayCOM": "COM5",
     "ControlBoxCOM": "COM6",
+    "WifiEnabled": false,
+    "WifiSsid": "",
+    "WifiPasswordProtected": "",
     "AutoStart": true,
     "LogCollapsed": false,
     "Language": "en",
@@ -74,6 +77,8 @@
 <tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetryDelayMs</td><td class="num">100</td><td>≥ 0</td><td>Khoảng cách giữa hai lần gửi cùng một lệnh Control Box — ô <em>Retry gap</em>, group Control Box</td></tr>
+<tr><td class="mono">WifiEnabled / WifiSsid</td><td class="nowrap">false / —</td><td>—</td><td>Tùy chọn cloud của gateway: có cho gateway vào WiFi không, và tên WiFi — đặt ở hộp thoại ☁, group RF Gateway (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>)</td></tr>
+<tr><td class="mono">WifiPasswordProtected</td><td class="nowrap">—</td><td>—</td><td>Mật khẩu WiFi, mã hóa bằng DPAPI của Windows theo user (user hoặc PC khác không giải mã được, phải nhập lại)</td></tr>
 <tr><td class="mono">AutoStart / LogCollapsed</td><td class="nowrap">true / false</td><td>—</td><td>Chạy cùng Windows; ẩn panel log</td></tr>
 </tbody>
 </table></div>
