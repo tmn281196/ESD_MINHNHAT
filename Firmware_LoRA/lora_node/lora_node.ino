@@ -43,6 +43,11 @@ const int irqPin = 2;
 #define NETWORK_ID 0x03
 #define NODE_ID 0x04          // ID of this box (1..20) - set for each box before flashing
 
+// LoRa transmit power (dBm), used at power-up AND after a soft reset of the radio (softResetLoRa).
+// Before, a soft reset set 10 dBm while power-up used the library default 17, so after one TX hiccup
+// the box sent ~7 dB weaker (about half the range) until it was switched off.
+#define TX_POWER_DBM 17
+
 #define CMD_QUERY      '?'
 #define BROADCAST_ID   0xFF
 #define REPLY_DELAY_MS 20     // direct query: give the gateway time to switch back to receive
@@ -105,7 +110,7 @@ void softResetLoRa() {
   if (!LoRa.begin(433E6)) {
     Serial.println("[LoRa] soft reset FAIL");
   }
-  LoRa.setTxPower(10);
+  LoRa.setTxPower(TX_POWER_DBM);
 }
 
 uint8_t getStatus(bool in1, bool in2) {
@@ -349,6 +354,7 @@ void setup() {
     while (1)
       ;
   }
+  LoRa.setTxPower(TX_POWER_DBM);   // same power as after a soft reset
   Serial.print("LoRa node ready, box ID ");
   Serial.print(NODE_ID);
 #if ENABLE_REPEATER
