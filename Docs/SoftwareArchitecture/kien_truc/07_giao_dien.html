@@ -54,14 +54,13 @@
 <div class="table-wrap"><table>
 <thead><tr><th>Thao tác</th><th>Tác dụng</th><th>Điều kiện</th></tr></thead>
 <tbody>
-<tr><td class="nowrap">Click (không kéo)</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
-<tr><td class="nowrap">Kéo</td><td>Đổi vị trí ô (hoán đổi với ô đích)</td><td>chỉ khi mở khóa</td></tr>
+<tr><td class="nowrap">Click</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
 <tr><td class="nowrap">Phải-chuột</td><td>Bật/tắt "đang dùng" ô (vào/ra khỏi line)</td><td>chỉ khi mở khóa</td></tr>
 </tbody>
 </table></div>
-<p>Ô "không dùng" luôn màu xám. Vị trí và trạng thái dùng được lưu vào <code>config.json</code> (mục Monitoring) khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>
+<p>Ô "không dùng" luôn màu xám. Ô hộp không kéo-thả được: hộp nằm ở ô ghi trong <code>config.json</code> (mục Monitoring, <code>DevicePosition</code>; mặc định hộp N ở ô thứ N), muốn đổi thì sửa file khi app đã tắt. Trạng thái dùng được lưu vào <code>config.json</code> khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>
 <h2 id="lock">Khóa</h2>
-<p>Để phòng lỡ tay, mặc định cửa sổ <strong>khóa</strong>. Khi khóa: combo COM, các nút Motors và ô Start with Windows không bấm được; các ô cài đặt chỉ đọc (nhìn như thường, vẫn chọn/copy được); không kéo/đổi ô hộp. <strong>Refresh Connection</strong> và <strong>nút ngôn ngữ</strong> thì luôn dùng được.</p>
+<p>Để phòng lỡ tay, mặc định cửa sổ <strong>khóa</strong>. Khi khóa: combo COM, các nút Motors và ô Start with Windows không bấm được; các ô cài đặt chỉ đọc (nhìn như thường, vẫn chọn/copy được); không bật/tắt dùng ô hộp. <strong>Refresh Connection</strong> và <strong>nút ngôn ngữ</strong> thì luôn dùng được.</p>
 <p>Mở khóa (biểu tượng ổ khóa) phải <strong>nhập mật khẩu</strong>; đúng thì mới sửa được, đồng thời bật chế độ điều khiển motor bằng tay và tắt tự-động dừng băng tải cho tới khi khóa lại. Nhập sai thì hộp báo "Wrong password" và cho nhập lại; Cancel thì vẫn khóa. Khóa lại không cần mật khẩu. Mật khẩu nhập đúng một lần thì được nhớ <strong>tới khi tắt chương trình</strong> (khóa rồi mở lại không hỏi nữa); tắt app mở lại thì phải nhập lại. Không ghi mật khẩu ra đâu cả.</p>
 
 <h2 id="ngon-ngu">Ngôn ngữ</h2>

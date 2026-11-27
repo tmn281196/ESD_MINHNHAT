@@ -76,7 +76,7 @@ lines/03/events/&lt;t&gt;_&lt;PC&gt;_&lt;n&gt;  { box, s, t, pc }   mỗi lần 
 Cloud -&gt; Firebase: sign-in OK (0.6 s)
 Cloud -&gt; Firebase: wrote pc info, 3 boxes [01 A, 02 W, 05 O], 2 status changes, 752 bytes (0.4 s)
 Cloud -&gt; Firebase: write FAILED (0.3 s): HTTP 401 Unauthorized, Permission denied; tried pc info, 3 boxes [01 A, 02 A, 05 O], 1 status change, 698 bytes</code></pre></div>
-<p class="tnote">Thời gian là Unix epoch tính bằng ms theo đồng hồ PC (riêng <code>lastSeen</code> theo giờ server). <code>O</code> = Offline: hộp không trả lời PC sau các vòng hỏi; <code>U</code> = chưa nghe lần nào từ khi app mở; <code>N</code> = không dùng (tắt trên trang Monitor). <code>pos</code> là ô của hộp trên bản đồ băng tải (kéo đổi chỗ ở trang Monitor). Tên PC là tên máy Windows. Firmware gateway không còn tùy chọn cloud/WiFi.</p>
+<p class="tnote">Thời gian là Unix epoch tính bằng ms theo đồng hồ PC (riêng <code>lastSeen</code> theo giờ server). <code>O</code> = Offline: hộp không trả lời PC sau các vòng hỏi; <code>U</code> = chưa nghe lần nào từ khi app mở; <code>N</code> = không dùng (tắt trên trang Monitor). <code>pos</code> là ô của hộp trên bản đồ băng tải (<code>DevicePosition</code> trong <code>config.json</code>). Tên PC là tên máy Windows. Firmware gateway không còn tùy chọn cloud/WiFi.</p>
 
 <h3 id="cloud-loi">Mã lỗi</h3>
 <p>Tooltip của icon ☁ và Console Log chỉ hiện mã và tên lỗi; ý nghĩa ở bảng dưới.</p>

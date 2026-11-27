@@ -50,7 +50,7 @@
 <p>Mỗi hộp có một "người chờ" (<code>TaskCompletionSource</code>). Gửi query xong, vòng hỏi chờ <em>hoặc</em> hộp trả lời (parser gọi <code>NotifyBoxAnswered</code> khi khung CRC đúng) <em>hoặc</em> hết timeout. Khung trạng thái bình thường của hộp cũng được tính là "đã trả lời". Ngoài ra mỗi hộp lưu thời điểm được nghe thấy gần nhất (<code>_lastAnswerTicks</code>); hỏi theo vòng dựa vào đó để biết hộp nào đã trả lời kể từ đầu lượt, kể cả khi câu trả lời tới sau thời gian nghe.</p>
 
 <h2 id="click">Click để hỏi ngay</h2>
-<p>Click (không kéo) vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay, cũng theo vòng như trên (nên một hộp im phải tới khoảng 15&nbsp;s mới thành Offline). Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
+<p>Click vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay, cũng theo vòng như trên (nên một hộp im phải tới khoảng 15&nbsp;s mới thành Offline). Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
 <div class="callout warn"><p class="label">Phụ thuộc firmware</p>
 <p>Query cần firmware v2 ở cả gateway (chuyển tiếp PC→LoRa) và hộp (đáp <code>'?'</code>, sau 20&nbsp;ms) — đều có trong <code>Firmware_LoRA/</code>. Hộp chạy firmware cũ không trả lời nên sẽ hiện <strong>Offline</strong> cho tới khi nó tự gửi một thay đổi trạng thái. Xem <a href="08_gioi_han.html">Limits &amp; Open Work</a>.</p></div>
 

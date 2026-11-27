@@ -63,7 +63,7 @@ def phan_tang():
 <tr><td class="mono">Device/UiLogWriter.cs</td><td>Chuyển <code>Console.WriteLine</code> thành dòng trong panel log.</td></tr>
 <tr><td class="mono">Monitoring/MornitorPage.xaml(.cs)</td><td>Trang giám sát: tạo <code>RootCanvas</code>, nối click ô → query hộp; đặt dải cảnh báo Offline ngay dưới hàng ô, rộng bằng dải băng tải.</td></tr>
 <tr><td class="mono">Monitoring/RootCanvas.cs</td><td>Vẽ băng tải: 20 ô vị trí + 20 ô hộp, nạp layout từ config.</td></tr>
-<tr><td class="mono">Monitoring/BlockDevice.cs</td><td>Một ô hộp: kéo đổi vị trí, phải-chuột bật/tắt dùng, click để hỏi.</td></tr>
+<tr><td class="mono">Monitoring/BlockDevice.cs</td><td>Một ô hộp: click để hỏi, phải-chuột bật/tắt dùng (ô không kéo được).</td></tr>
 <tr><td class="mono">HexByteConverter.cs</td><td>Hiển thị/nhập Network ID dạng hex hai chữ số.</td></tr>
 </tbody>
 </table></div>
@@ -142,7 +142,7 @@ def poll():
 <p>Mỗi hộp có một "người chờ" (<code>TaskCompletionSource</code>). Gửi query xong, vòng hỏi chờ <em>hoặc</em> hộp trả lời (parser gọi <code>NotifyBoxAnswered</code> khi khung CRC đúng) <em>hoặc</em> hết timeout. Khung trạng thái bình thường của hộp cũng được tính là "đã trả lời". Ngoài ra mỗi hộp lưu thời điểm được nghe thấy gần nhất (<code>_lastAnswerTicks</code>); hỏi theo vòng dựa vào đó để biết hộp nào đã trả lời kể từ đầu lượt, kể cả khi câu trả lời tới sau thời gian nghe.</p>
 
 <h2 id="click">Click để hỏi ngay</h2>
-<p>Click (không kéo) vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay, cũng theo vòng như trên (nên một hộp im phải tới khoảng 15&nbsp;s mới thành Offline). Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
+<p>Click vào một ô hộp trên bản đồ gọi <code>RequestBoxStatus</code>: hỏi riêng hộp đó ngay, cũng theo vòng như trên (nên một hộp im phải tới khoảng 15&nbsp;s mới thành Offline). Nếu hộp không trong danh sách dùng, hoặc cổng RF chưa nối, chỉ ghi log. Một hộp đang có query dở thì click thêm bị bỏ qua (không xếp hàng).</p>
 <div class="callout warn"><p class="label">Phụ thuộc firmware</p>
 <p>Query cần firmware v2 ở cả gateway (chuyển tiếp PC→LoRa) và hộp (đáp <code>'?'</code>, sau 20&nbsp;ms) — đều có trong <code>Firmware_LoRA/</code>. Hộp chạy firmware cũ không trả lời nên sẽ hiện <strong>Offline</strong> cho tới khi nó tự gửi một thay đổi trạng thái. Xem <a href="08_gioi_han.html">Limits &amp; Open Work</a>.</p></div>
 '''
@@ -171,7 +171,7 @@ def conveyor():
 <p>Khi mở cổng Control Box (<code>OpenControlBoxCore</code>), app đưa Motor 1..3 về <strong>RUN</strong> (cách nhau TX gap) rồi phát một xung <strong>Start All</strong> (opcode 5): HIGH, đợi 500&nbsp;ms, LOW. Toàn bộ chạy dưới khóa <code>_controlBoxGate</code> nên không đụng timer băng tải.</p>
 
 <h2 id="lock">Lock / manual</h2>
-<p>Mở khóa bằng nút <strong>Lock</strong> (phải nhập mật khẩu) sẽ bật chế độ manual: timer băng tải <em>ngừng</em> tự điều khiển (<code>_controlsUnlocked</code>), người vận hành tự bấm các nút Start All / Stop 1..3 (group Motors), và sửa được các ô cài đặt. Khóa lại thì tự động hoạt động trở lại. Bản đồ hộp cũng chỉ cho kéo/đổi khi mở khóa (xem <a href="07_giao_dien.html">User Interface</a>).</p>
+<p>Mở khóa bằng nút <strong>Lock</strong> (phải nhập mật khẩu) sẽ bật chế độ manual: timer băng tải <em>ngừng</em> tự điều khiển (<code>_controlsUnlocked</code>), người vận hành tự bấm các nút Start All / Stop 1..3 (group Motors), và sửa được các ô cài đặt. Khóa lại thì tự động hoạt động trở lại. Bản đồ hộp cũng chỉ cho bật/tắt dùng khi mở khóa (xem <a href="07_giao_dien.html">User Interface</a>).</p>
 '''
     write("kien_truc/05_conveyor.html", body=body)
 
@@ -278,14 +278,13 @@ def giao_dien():
 <div class="table-wrap"><table>
 <thead><tr><th>Thao tác</th><th>Tác dụng</th><th>Điều kiện</th></tr></thead>
 <tbody>
-<tr><td class="nowrap">Click (không kéo)</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
-<tr><td class="nowrap">Kéo</td><td>Đổi vị trí ô (hoán đổi với ô đích)</td><td>chỉ khi mở khóa</td></tr>
+<tr><td class="nowrap">Click</td><td>Hỏi trạng thái hộp đó ngay</td><td>luôn được</td></tr>
 <tr><td class="nowrap">Phải-chuột</td><td>Bật/tắt "đang dùng" ô (vào/ra khỏi line)</td><td>chỉ khi mở khóa</td></tr>
 </tbody>
 </table></div>
-<p>Ô "không dùng" luôn màu xám. Vị trí và trạng thái dùng được lưu vào <code>config.json</code> (mục Monitoring) khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>
+<p>Ô "không dùng" luôn màu xám. Ô hộp không kéo-thả được: hộp nằm ở ô ghi trong <code>config.json</code> (mục Monitoring, <code>DevicePosition</code>; mặc định hộp N ở ô thứ N), muốn đổi thì sửa file khi app đã tắt. Trạng thái dùng được lưu vào <code>config.json</code> khi đóng cửa sổ. Màu trạng thái lấy từ <code>ESDBox</code> (xem <a href="../he_thong/02_trang_thai.html">Box Status Model</a>).</p>
 <h2 id="lock">Khóa</h2>
-<p>Để phòng lỡ tay, mặc định cửa sổ <strong>khóa</strong>. Khi khóa: combo COM, các nút Motors và ô Start with Windows không bấm được; các ô cài đặt chỉ đọc (nhìn như thường, vẫn chọn/copy được); không kéo/đổi ô hộp. <strong>Refresh Connection</strong> và <strong>nút ngôn ngữ</strong> thì luôn dùng được.</p>
+<p>Để phòng lỡ tay, mặc định cửa sổ <strong>khóa</strong>. Khi khóa: combo COM, các nút Motors và ô Start with Windows không bấm được; các ô cài đặt chỉ đọc (nhìn như thường, vẫn chọn/copy được); không bật/tắt dùng ô hộp. <strong>Refresh Connection</strong> và <strong>nút ngôn ngữ</strong> thì luôn dùng được.</p>
 <p>Mở khóa (biểu tượng ổ khóa) phải <strong>nhập mật khẩu</strong>; đúng thì mới sửa được, đồng thời bật chế độ điều khiển motor bằng tay và tắt tự-động dừng băng tải cho tới khi khóa lại. Nhập sai thì hộp báo "Wrong password" và cho nhập lại; Cancel thì vẫn khóa. Khóa lại không cần mật khẩu. Mật khẩu nhập đúng một lần thì được nhớ <strong>tới khi tắt chương trình</strong> (khóa rồi mở lại không hỏi nữa); tắt app mở lại thì phải nhập lại. Không ghi mật khẩu ra đâu cả.</p>
 
 <h2 id="ngon-ngu">Ngôn ngữ</h2>

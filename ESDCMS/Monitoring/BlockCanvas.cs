@@ -25,12 +25,6 @@ public class BlockCanvas
 
 	protected Brush fillColor;
 
-	protected bool _isDragging = false;
-
-	protected UIElement _draggingElement;
-
-	protected Point _startPoint;
-
 	public double Left = 0.0;
 
 	public double Top = 0.0;

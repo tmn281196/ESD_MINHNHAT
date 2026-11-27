@@ -59,7 +59,6 @@ public class BlockDevice : BlockCanvas
 		Canvas.SetLeft(CanvasContent, x);
 		Canvas.SetTop(CanvasContent, y);
 		CanvasContent.MouseDown += Element_MouseDown;
-		CanvasContent.MouseMove += Element_MouseMove;
 		CanvasContent.MouseUp += Element_MouseUp;
 		CanvasContent.MouseRightButtonUp += Element_RightClick;
 		CanvasContent.Cursor = Cursors.Hand;
@@ -67,7 +66,7 @@ public class BlockDevice : BlockCanvas
 		CanvasContent.SetResourceReference(FrameworkElement.ToolTipProperty, "S.Tip.Tile");
 	}
 
-	/// <summary>A press that moves less than this (px) is a click, not a drag.</summary>
+	/// <summary>A press that moves less than this (px) before the release is a click.</summary>
 	private const double ClickSlop = 4.0;
 
 	private bool _leftPressed;
@@ -97,35 +96,13 @@ public class BlockDevice : BlockCanvas
 		}
 	}
 
+	// The tiles do not move (no drag): each box stays on the slot from config.json (ConfigMonitoring.DevicePosition).
 	private void Element_MouseDown(object sender, MouseButtonEventArgs e)
 	{
 		if (e.ChangedButton == MouseButton.Left)
 		{
 			_leftPressed = true;
 			_pressPoint = e.GetPosition(rootCanvas.Canvas);
-		}
-		if (!rootCanvas.Locked && e.ChangedButton == MouseButton.Left && sender is UIElement element)
-		{
-			_isDragging = true;
-			_draggingElement = element;
-			_startPoint = e.GetPosition(rootCanvas.Canvas);
-			Panel.SetZIndex(CanvasContent, 1000);
-			element.CaptureMouse();
-		}
-	}
-
-	private void Element_MouseMove(object sender, MouseEventArgs e)
-	{
-		if (_isDragging && _draggingElement != null)
-		{
-			Point currentPosition = e.GetPosition(rootCanvas.Canvas);
-			double offsetX = currentPosition.X - _startPoint.X;
-			double offsetY = currentPosition.Y - _startPoint.Y;
-			Left = Canvas.GetLeft(_draggingElement) + offsetX;
-			Top = Canvas.GetTop(_draggingElement) + offsetY;
-			Canvas.SetLeft(_draggingElement, Left);
-			Canvas.SetTop(_draggingElement, Top);
-			_startPoint = currentPosition;
 		}
 	}
 
@@ -140,30 +117,6 @@ public class BlockDevice : BlockCanvas
 				rootCanvas.BoxClicked?.Invoke(base.Index);
 			}
 		}
-		if (_draggingElement == null)
-		{
-			return;
-		}
-		if (Top >= (double)(rootCanvas.TopSlot - 40) && Top <= (double)(rootCanvas.TopSlot + rootCanvas.HeightSlot + 40) && Left >= (double)(rootCanvas.LeftSlot - 40) && Left <= (double)(rootCanvas.LeftSlot + rootCanvas.WidthSlot + 40))
-		{
-			int target = (int)Math.Round((Left - (double)(rootCanvas.LeftSlot + rootCanvas.OffsetXStaticRectangle)) / (double)(rootCanvas.WidthStaticRectangle + rootCanvas.SpaceStaticRectangle));
-			target = Math.Max(0, Math.Min(rootCanvas.BlockItemCount - 1, target));
-			BlockDevice other = rootCanvas.DynamicDevicesList.FirstOrDefault((BlockDevice d) => d != this && d.Position == target);
-			int oldPosition = base.Position;
-			if (other != null)
-			{
-				other.Position = oldPosition;
-				rootCanvas.ConfigData.DevicePosition[other.Index] = other.Position;
-				other.SnapToCurrentPosition();
-			}
-			base.Position = target;
-			rootCanvas.ConfigData.DevicePosition[base.Index] = base.Position;
-		}
-		SnapToCurrentPosition();
-		Panel.SetZIndex(CanvasContent, 0);
-		_isDragging = false;
-		_draggingElement.ReleaseMouseCapture();
-		_draggingElement = null;
 	}
 
 	public void SnapToCurrentPosition()
