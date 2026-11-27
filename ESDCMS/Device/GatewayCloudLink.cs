@@ -32,6 +32,31 @@ public sealed class GatewayCloudStatus
 	public int Detail;
 }
 
+/// <summary>What the gateway knows about the WiFi it tries to join ('i' frame).</summary>
+public sealed class GatewayWifiInfo
+{
+	/// <summary>The gateway's own MAC, "24:6F:28:12:34:56" (to allow it on the router).</summary>
+	public string Mac;
+
+	/// <summary>Access point of the last try; null = none yet.</summary>
+	public string Bssid;
+
+	/// <summary>Its channel; 0 = not known.</summary>
+	public int Channel;
+
+	/// <summary>Its signal in dBm (negative); 0 = not known.</summary>
+	public int Rssi;
+
+	/// <summary>ESP-IDF wifi_auth_mode_t of the access point; -1 = not known.</summary>
+	public int AuthMode;
+
+	/// <summary>Associated with the access point in the current try.</summary>
+	public bool Associated;
+
+	/// <summary>Got an IP address in the current try.</summary>
+	public bool GotIp;
+}
+
 /// <summary>One box in a write report: the status the gateway sent to the database for it.</summary>
 public struct GatewayCloudBox
 {
@@ -83,7 +108,10 @@ public sealed class GatewayCloudReport
 /// are never sent over LoRa, and a gateway built without the option ignores them (no answer).
 ///   0xA5  TYPE  LEN  DATA...  CRC8  0xBB       CRC8 (poly 0x31) over TYPE, LEN, DATA
 ///   PC -> gateway  'S'  (no data) = status request
-///   gateway -> PC  's'  state, -RSSI (dBm), seconds since the last good write (2 bytes, 16383 = never), step,
+///                  'I'  (no data) = WiFi info request
+///   gateway -> PC  'i'  own MAC, access point of the last try (BSSID, channel, -RSSI, auth mode + 1), flags
+///                       (associated, got IP); MAC / BSSID bytes as 2 nibbles; on 'I' and by itself on a change
+///                  's'  state, -RSSI (dBm), seconds since the last good write (2 bytes, 16383 = never), step,
 ///                       code (2 bytes), detail; sent as the answer to 'S' and also by itself on every change
 ///                  'r'  one report per request the gateway sends to the cloud (sign-in, database write)
 /// Numbers of 2 bytes are 14 bits, low 7 bits first; a code is signed (8192..16383 = negative). Every DATA byte of a
@@ -110,11 +138,15 @@ public sealed class GatewayCloudLink
 	/// <summary>Every request the gateway sent to the cloud (raised on the serial thread).</summary>
 	public event Action<GatewayCloudReport> ReportReceived;
 
+	/// <summary>Every WiFi info frame, asked for or sent by itself (raised on the serial thread).</summary>
+	public event Action<GatewayWifiInfo> InfoReceived;
+
 	/// <summary>Feeds one byte received from the gateway (serial thread). Bytes of 0xAA frames are skipped.</summary>
 	public void Feed(byte b)
 	{
 		GatewayCloudStatus status = null;
 		GatewayCloudReport report = null;
+		GatewayWifiInfo info = null;
 		lock (_lock)
 		{
 			if (_rx.Count == 0)
@@ -126,9 +158,9 @@ public sealed class GatewayCloudLink
 				return;
 			}
 			_rx.Add(b);
-			if ((_rx.Count == 2 && b != (byte)'s' && b != (byte)'r') || (_rx.Count == 3 && b > MaxReplyData))
+			if ((_rx.Count == 2 && b != (byte)'s' && b != (byte)'r' && b != (byte)'i') || (_rx.Count == 3 && b > MaxReplyData))
 			{
-				// Not a frame of the gateway (only 's' / 'r', up to MaxReplyData bytes): start over.
+				// Not a frame of the gateway (only 's' / 'r' / 'i', up to MaxReplyData bytes): start over.
 				_rx.Clear();
 				if (b == Stx)
 				{
@@ -169,6 +201,10 @@ public sealed class GatewayCloudLink
 			{
 				report = ParseReport(f, len);
 			}
+			else if (f[1] == (byte)'i' && len >= 28)
+			{
+				info = ParseInfo(f);
+			}
 		}
 		if (status != null)
 		{
@@ -178,6 +214,35 @@ public sealed class GatewayCloudLink
 		{
 			ReportReceived?.Invoke(report);
 		}
+		if (info != null)
+		{
+			InfoReceived?.Invoke(info);
+		}
+	}
+
+	/// <summary>DATA of an 'i' frame (28 bytes, from f[3]).</summary>
+	private static GatewayWifiInfo ParseInfo(byte[] f)
+	{
+		string Hex(int start)
+		{
+			byte[] b = new byte[6];
+			for (int i = 0; i < 6; i++)
+			{
+				b[i] = (byte)(((f[start + i * 2] & 0x0F) << 4) | (f[start + i * 2 + 1] & 0x0F));
+			}
+			return string.Join(":", Array.ConvertAll(b, (byte x) => x.ToString("X2")));
+		}
+		string bssid = Hex(15);
+		return new GatewayWifiInfo
+		{
+			Mac = Hex(3),
+			Bssid = (bssid == "00:00:00:00:00:00") ? null : bssid,
+			Channel = f[27],
+			Rssi = -f[28],
+			AuthMode = f[29] - 1,
+			Associated = (f[30] & 1) != 0,
+			GotIp = (f[30] & 2) != 0
+		};
 	}
 
 	/// <summary>DATA of an 'r' frame: header (9 bytes), then for a write 4 counts and 2 bytes per box.</summary>
@@ -222,6 +287,16 @@ public sealed class GatewayCloudLink
 	{
 		int v = U14(f, i);
 		return (v >= 8192) ? (v - 16384) : v;
+	}
+
+	/// <summary>Asks the gateway for its WiFi info; the answer comes as <see cref="InfoReceived"/> (no wait).</summary>
+	public async Task RequestInfoAsync(RFGateway gateway)
+	{
+		if (gateway != null && gateway.IsOpen)
+		{
+			byte[] frame = BuildFrame((byte)'I', new byte[0]);
+			await Task.Run(() => gateway.Send(frame));
+		}
 	}
 
 	/// <summary>Asks the gateway for its cloud status; null when it did not answer.</summary>

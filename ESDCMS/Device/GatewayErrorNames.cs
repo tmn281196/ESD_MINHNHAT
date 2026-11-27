@@ -123,6 +123,24 @@ internal static class GatewayErrorNames
 		{ 16, "NO_ID_TOKEN" },
 	};
 
+	/// <summary>ESP-IDF wifi_auth_mode_t (esp_wifi_types_generic.h, ESP32 core 3.3.12).</summary>
+	private static readonly string[] AuthModes =
+	{
+		"OPEN", "WEP", "WPA_PSK", "WPA2_PSK", "WPA_WPA2_PSK", "WPA2_ENTERPRISE", "WPA3_PSK", "WPA2_WPA3_PSK", "WAPI_PSK",
+		"OWE", "WPA3_ENT_192", "WPA3_EXT_PSK", "WPA3_EXT_PSK_MIXED_MODE", "DPP", "WPA3_ENTERPRISE", "WPA2_WPA3_ENTERPRISE",
+		"WPA_ENTERPRISE"
+	};
+
+	/// <summary>"WPA2_PSK"; null when not known.</summary>
+	public static string AuthMode(int mode)
+	{
+		if (mode < 0)
+		{
+			return null;
+		}
+		return (mode < AuthModes.Length) ? AuthModes[mode] : ("AUTH_" + mode);
+	}
+
 	/// <summary>"201 NO_AP_FOUND"; 0 = no reason from the WiFi driver (the 30 s try ran out).</summary>
 	public static string Wifi(int code)
 	{

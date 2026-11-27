@@ -57,7 +57,7 @@ def lora():
 <p>Chỉ dùng khi gateway nạp với <code>ENABLE_CLOUD 1</code> (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>). Đi trên cùng cổng USB nhưng bắt đầu bằng <code>0xA5</code> thay cho <code>0xAA</code> và <strong>không bao giờ phát ra LoRa</strong>; gateway thường và bản app cũ đều bỏ qua loại khung này. PC chỉ <strong>đọc</strong> trạng thái: WiFi và tài khoản Firebase nằm trong firmware, và <code>ENABLE_CLOUD</code> là công tắc duy nhất.</p>
 <div class="bytes">
   <span class="v hdr">A5<small>STX</small></span>
-  <span class="v typ">TYPE<small>S · s · r</small></span>
+  <span class="v typ">TYPE<small>S · I · s · r · i</small></span>
   <span class="v dat">LEN<small>số byte DATA</small></span>
   <span class="v dat">DATA…<small>LEN byte</small></span>
   <span class="v typ">CRC8<small>TYPE+LEN+DATA</small></span>
@@ -67,6 +67,8 @@ def lora():
 <thead><tr><th>Chiều</th><th>TYPE</th><th>DATA</th><th>Ý nghĩa</th></tr></thead>
 <tbody>
 <tr><td class="nowrap">PC → gateway</td><td class="mono">'S'</td><td>(trống)</td><td>Hỏi trạng thái cloud.</td></tr>
+<tr><td class="nowrap">PC → gateway</td><td class="mono">'I'</td><td>(trống)</td><td>Hỏi thông tin WiFi (<code>'i'</code>). App hỏi mỗi khi mở cổng RF.</td></tr>
+<tr><td class="nowrap">gateway → PC</td><td class="mono">'i'</td><td>MAC (6 byte), BSSID (6 byte), channel, −RSSI, auth + 1, cờ</td><td>Thông tin WiFi, 28 byte: <b>MAC</b> của chính gateway (để đăng ký trên router), router (AP) của lần thử gần nhất (<b>BSSID</b>, toàn 0 = chưa có; <b>channel</b>; <b>RSSI</b>; <b>kiểu bảo mật</b> ESP-IDF <code>wifi_auth_mode_t</code> + 1, 0 = chưa biết), <b>cờ</b> bit 0 = đã liên kết với AP trong lần thử này, bit 1 = đã có IP. Mỗi byte của MAC/BSSID gửi thành 2 nibble (cao trước). Gửi khi PC hỏi <code>'I'</code>, và tự gửi khi AP, channel, kiểu bảo mật hoặc cờ đổi. App in một dòng console, ví dụ <code>Gateway WiFi: MAC 24:6F:28:A1:B2:C3, access point 3C:84:6A:F0:0D:9E channel 6 -71 dBm WPA2_PSK, associated, no IP</code>.</td></tr>
 <tr><td class="nowrap">gateway → PC</td><td class="mono">'s'</td><td>state, −RSSI, tuổi (2 byte), step, code (2 byte), detail</td><td><b>state</b> 1 đang vào WiFi, 2 đã vào WiFi và đang nối cloud, 3 cloud OK, 4 lỗi cloud, 5 lỗi WiFi (0 không dùng). <b>Tuổi</b> = số giây từ lần ghi cloud thành công gần nhất (16383 = chưa bao giờ). <b>step</b> = đang làm bước nào (state 1/2) hoặc hỏng ở bước nào (state 4/5): 1 vào WiFi, 2 lấy giờ NTP, 3 đăng nhập Firebase, 4 ghi database. <b>code</b>: bước 1 là mã lý do ngắt WiFi của lần thử gần nhất (201 không thấy SSID, 15/202/204 sai mật khẩu, 200 mất sóng); bước 3/4 là mã HTTP, số âm là lỗi HTTPClient (−1 không kết nối được, −11 server không trả lời). <b>detail</b>: 1 không tìm thấy tên server (DNS), 2 không kết nối TCP, 3 lỗi TLS, 4 chứng chỉ không tin cậy; 10 sai email/mật khẩu Firebase, 11 API key sai, 12 chưa bật đăng nhập Email/Password, 13 user bị khóa, 14 thử sai quá nhiều, 15 email sai dạng, 16 trả lời không có token. Gửi khi PC hỏi <code>'S'</code>, và gateway <b>tự gửi</b> mỗi khi state/step/code/detail đổi. Ý nghĩa từng mã: <a href="#loi">Mã lỗi cloud</a>.</td></tr>
 <tr><td class="nowrap">gateway → PC</td><td class="mono">'r'</td><td>what, kết quả, code (2 byte), detail, số byte (2 byte), thời gian (2 byte) [, …]</td><td>Báo cáo <b>mỗi lần gateway gửi lên cloud</b>: what 1 đăng nhập, 2 ghi database; kết quả 0 OK / 1 lỗi; code và detail như khung <code>'s'</code>; thời gian tính bằng 10&nbsp;ms. Lần ghi database có thêm: số hộp, số lần đổi trạng thái đã ghi, số còn chờ, số bị bỏ (đầy bộ nhớ), rồi 2 byte cho mỗi hộp đã ghi: ID (+<code>0x40</code> nếu qua repeater) và trạng thái A/W/I. App in một dòng console cho mỗi báo cáo.</td></tr>
 </tbody></table></div>
@@ -95,7 +97,7 @@ def lora():
 <tr><td class="num">4</td><td class="mono">DISASSOC_DUE_TO_INACTIVITY</td><td>AP ngắt vì gateway không hoạt động.</td></tr>
 <tr><td class="num">5</td><td class="mono">ASSOC_TOOMANY</td><td>AP đầy: quá nhiều thiết bị đang kết nối.</td></tr>
 <tr><td class="num">6</td><td class="mono">CLASS2_FRAME_FROM_NONAUTH_STA</td><td><span style="color:var(--muted)">Class 2 frame received from nonauthenticated STA</span></td></tr>
-<tr><td class="num">7</td><td class="mono">CLASS3_FRAME_FROM_NONASSOC_STA</td><td><span style="color:var(--muted)">Class 3 frame received from nonassociated STA</span></td></tr>
+<tr><td class="num">7</td><td class="mono">CLASS3_FRAME_FROM_NONASSOC_STA</td><td>Router nhận gói dữ liệu từ gateway nhưng coi gateway là chưa liên kết: router đã cho vào rồi tự xóa khỏi danh sách. Thường do lọc MAC, band steering/mesh, WPA2/WPA3 trộn hoặc PMF bắt buộc, giới hạn số thiết bị. Xem dòng <code>Gateway WiFi:</code> trong console (MAC, AP, channel, kiểu bảo mật).</td></tr>
 <tr><td class="num">8</td><td class="mono">ASSOC_LEAVE</td><td>Gateway tự rời mạng (firmware gọi <code>WiFi.disconnect</code> trước mỗi lần thử lại). Firmware không ghi mã này.</td></tr>
 <tr><td class="num">9</td><td class="mono">ASSOC_NOT_AUTHED</td><td><span style="color:var(--muted)">Association but not authenticated</span></td></tr>
 <tr><td class="num">10</td><td class="mono">DISASSOC_PWRCAP_BAD</td><td><span style="color:var(--muted)">Disassociated due to poor power capability</span></td></tr>

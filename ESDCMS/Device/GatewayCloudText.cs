@@ -90,6 +90,31 @@ internal static class GatewayCloudText
 		return line;
 	}
 
+	/// <summary>Console line for a WiFi info frame (English): MAC of the gateway, access point of the last try.</summary>
+	public static string Info(GatewayWifiInfo i)
+	{
+		string line = "Gateway WiFi: MAC " + i.Mac;
+		if (i.Bssid == null)
+		{
+			return line + ", no access point yet";
+		}
+		line += ", access point " + i.Bssid;
+		if (i.Channel > 0)
+		{
+			line += " channel " + i.Channel;
+		}
+		if (i.Rssi < 0)
+		{
+			line += " " + i.Rssi + " dBm";
+		}
+		string auth = GatewayErrorNames.AuthMode(i.AuthMode);
+		if (auth != null)
+		{
+			line += " " + auth;
+		}
+		return line + ", " + (i.GotIp ? "got IP" : i.Associated ? "associated, no IP" : "not associated");
+	}
+
 	/// <summary>Name of a step (state 2 "now: ...", state 4 "failed at: ..."); null for none.</summary>
 	private static string StepName(int step, Func<string, string> t)
 	{

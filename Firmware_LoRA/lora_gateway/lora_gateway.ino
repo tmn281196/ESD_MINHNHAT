@@ -36,7 +36,14 @@
  *     [0]   [1]   [2]  [3 .. 3+N-1]  [3+N]  [3+N+1]
  *     0xA5  TYPE  LEN  DATA...       CRC8   0xBB          CRC8 (poly 0x31) over TYPE, LEN, DATA
  *     PC -> gateway  'S'  no DATA                           ask for the cloud status
- *     gateway -> PC  's'  DATA = state, WiFi RSSI (-dBm, 0..127), seconds since the last good
+ *                    'I'  no DATA                           ask for the WiFi info ('i')
+ *     gateway -> PC  'i'  DATA = the gateway's MAC (6 bytes), the access point of the last try: BSSID
+ *                         (6 bytes, 0 = none yet), channel (0 = not known), -RSSI (0 = not known),
+ *                         auth mode + 1 (ESP-IDF wifi_auth_mode_t, 0 = not known), flags (bit 0 associated
+ *                         in this try, bit 1 got an IP); each MAC/BSSID byte as 2 nibbles, high first (28 bytes).
+ *                         Sent as the answer to 'I', and also by itself when the access point, channel,
+ *                         auth mode or flags change.
+ *                    's'  DATA = state, WiFi RSSI (-dBm, 0..127), seconds since the last good
  *                         write (2 bytes), step, code (2 bytes), detail                  (8 bytes)
  *                         state: 1 connecting to WiFi, 2 on WiFi, connecting to the cloud,
  *                                3 cloud OK, 4 cloud error, 5 WiFi error   (0 is not used)
@@ -232,6 +239,22 @@ volatile uint32_t cLastOkMs = 0;
 volatile bool cEverOk = false;
 volatile uint8_t cWifiReason = 0;   // reason of the last WiFi disconnect (WiFi event)
 
+// What the gateway knows about the WiFi it tries to join, for the PC ('i' frame): written by the WiFi event task and
+// the cloud task, read by loop(), always under cInfoMux.
+struct WifiInfo {
+  uint8_t mac[6];     // the gateway's own MAC (to allow it on the router)
+  uint8_t bssid[6];   // access point of the last try (all 0 = none yet)
+  uint8_t channel;    // its channel (0 = not known)
+  int8_t rssi;        // its signal in dBm (0 = not known)
+  uint8_t auth;       // wifi_auth_mode_t + 1 (0 = not known)
+  uint8_t flags;      // WI_ASSOCIATED / WI_GOT_IP, for the current try
+};
+#define WI_ASSOCIATED 0x01
+#define WI_GOT_IP     0x02
+WifiInfo cInfo;
+portMUX_TYPE cInfoMux = portMUX_INITIALIZER_UNLOCKED;
+volatile uint32_t cInfoVer = 0;     // bumped when an 'i' frame should be sent (not for a new RSSI only)
+
 // Used by the cloud task only.
 String cIdToken;
 uint32_t cTokenMs = 0;
@@ -386,6 +409,7 @@ void handleCfgFrame(uint8_t *f, uint8_t len) {
   uint8_t dlen = f[2];
   if (crc8(f + 1, dlen + 2) != f[len - 2]) return;
   if (type == 'S') sendCloudStatus(cStatus);              // anything else (e.g. 'W' of an older app) is ignored
+  else if (type == 'I') sendWifiInfo();
 }
 
 String u64str(uint64_t v) {
@@ -595,19 +619,83 @@ bool cloudWrite(int &code, uint8_t &detail) {
   return code == 200;
 }
 
-// WiFi event (WiFi task): keep why the last connection attempt ended.
-void onWifiDisconnected(arduino_event_id_t, arduino_event_info_t info) {
-  uint8_t r = info.wifi_sta_disconnected.reason;
-  // 8 ASSOC_LEAVE / 36 STA_LEAVING = the gateway itself left (WiFi.disconnect before each new try): keep the real
-  // reason of the failed try instead.
-  if (r != WIFI_REASON_ASSOC_LEAVE && r != WIFI_REASON_STA_LEAVING) cWifiReason = r;
+// WiFi events (WiFi task): why the last connection attempt ended, and which access point it went to.
+void onWifiEvent(arduino_event_id_t event, arduino_event_info_t info) {
+  switch (event) {
+    case ARDUINO_EVENT_WIFI_STA_CONNECTED: {              // associated with an access point (no IP yet)
+      const wifi_event_sta_connected_t &c = info.wifi_sta_connected;
+      portENTER_CRITICAL(&cInfoMux);
+      bool changed = memcmp(cInfo.bssid, c.bssid, 6) != 0 || cInfo.channel != c.channel ||
+                     cInfo.auth != (uint8_t)(c.authmode + 1) || !(cInfo.flags & WI_ASSOCIATED);
+      memcpy(cInfo.bssid, c.bssid, 6);
+      cInfo.channel = c.channel;
+      cInfo.auth = (uint8_t)(c.authmode + 1);
+      cInfo.flags |= WI_ASSOCIATED;
+      portEXIT_CRITICAL(&cInfoMux);
+      if (changed) cInfoVer++;
+      break;
+    }
+    case ARDUINO_EVENT_WIFI_STA_GOT_IP: {
+      portENTER_CRITICAL(&cInfoMux);
+      bool changed = !(cInfo.flags & WI_GOT_IP);
+      cInfo.flags |= WI_GOT_IP;
+      portEXIT_CRITICAL(&cInfoMux);
+      if (changed) cInfoVer++;
+      break;
+    }
+    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED: {
+      const wifi_event_sta_disconnected_t &d = info.wifi_sta_disconnected;
+      uint8_t r = d.reason;
+      // 8 ASSOC_LEAVE / 36 STA_LEAVING = the gateway itself left (WiFi.disconnect before each new try): keep the
+      // real reason of the failed try instead.
+      if (r == WIFI_REASON_ASSOC_LEAVE || r == WIFI_REASON_STA_LEAVING) break;
+      cWifiReason = r;
+      static const uint8_t none[6] = { 0 };
+      if (memcmp(d.bssid, none, 6) != 0) {
+        portENTER_CRITICAL(&cInfoMux);
+        bool changed = memcmp(cInfo.bssid, d.bssid, 6) != 0;
+        memcpy(cInfo.bssid, d.bssid, 6);
+        if (d.rssi) cInfo.rssi = d.rssi;
+        portEXIT_CRITICAL(&cInfoMux);
+        if (changed) cInfoVer++;
+      }
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+// 'i' frame (loop only): see the header. Bytes of the MAC / BSSID as 2 nibbles, so every DATA byte is < 0x80.
+void sendWifiInfo() {
+  WifiInfo w;
+  portENTER_CRITICAL(&cInfoMux);
+  w = cInfo;
+  portEXIT_CRITICAL(&cInfoMux);
+  uint8_t d[28];
+  for (int i = 0; i < 6; i++) {
+    d[i * 2] = w.mac[i] >> 4;
+    d[i * 2 + 1] = w.mac[i] & 0x0F;
+    d[12 + i * 2] = w.bssid[i] >> 4;
+    d[12 + i * 2 + 1] = w.bssid[i] & 0x0F;
+  }
+  d[24] = w.channel & 0x7F;
+  d[25] = w.rssi < 0 ? (uint8_t)(w.rssi < -127 ? 127 : -w.rssi) : 0;
+  d[26] = w.auth & 0x7F;
+  d[27] = w.flags & 0x7F;
+  sendCfgFrame('i', d, sizeof d);
 }
 
 // Cloud task (core 0): WiFi, clock, sign-in, writes. Never blocks loop().
 void cloudTask(void *) {
   WiFi.mode(WIFI_STA);
+  WiFi.setSleep(false);                                   // no WiFi power save: some routers drop a sleeping client
   WiFi.setAutoReconnect(true);
-  WiFi.onEvent(onWifiDisconnected, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
+  WiFi.onEvent(onWifiEvent);                              // all events, sorted out in onWifiEvent
+  portENTER_CRITICAL(&cInfoMux);
+  WiFi.macAddress(cInfo.mac);
+  portEXIT_CRITICAL(&cInfoMux);
+  cInfoVer++;
   bool wifiUp = false, wifiFailed = false;
   bool clockChecked = false, clockNoDns = false;
   uint32_t wifiUpSince = 0;
@@ -632,6 +720,9 @@ void cloudTask(void *) {
       if (lastWifiTry == 0 || millis() - lastWifiTry >= WIFI_RETRY_MS) {
         if (lastWifiTry != 0) wifiFailed = true;          // the last try did not get in
         lastWifiTry = millis();
+        portENTER_CRITICAL(&cInfoMux);
+        cInfo.flags = 0;                                  // new try: not associated, no IP (no frame for this alone)
+        portEXIT_CRITICAL(&cInfoMux);
         WiFi.disconnect();
         WiFi.begin(WIFI_SSID, WIFI_PASSWORD);             // from secrets.h
       }
@@ -796,6 +887,11 @@ void loop() {
   if (st != sentStatus) {
     sentStatus = st;
     sendCloudStatus(st);
+  }
+  static uint32_t sentInfo = 0;
+  if (cInfoVer != sentInfo) {
+    sentInfo = cInfoVer;
+    sendWifiInfo();
   }
   if (cRepCount) {
     CloudReport rep;

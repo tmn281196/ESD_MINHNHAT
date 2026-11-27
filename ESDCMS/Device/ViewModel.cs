@@ -513,6 +513,8 @@ public class ViewModel : INotifyPropertyChanged
 		GatewayCloud.StatusReceived += OnGatewayCloudStatus;
 		// ... and a report of every request it sends to the cloud (sign-in, database write): console log.
 		GatewayCloud.ReportReceived += OnGatewayCloudReport;
+		// ... and what it knows about the WiFi it joins (its MAC, the access point): console log.
+		GatewayCloud.InfoReceived += OnGatewayWifiInfo;
 		// Run the poller on the UI dispatcher: box status and the monitor layout are UI objects.
 		Application.Current?.Dispatcher.BeginInvoke((Action)delegate
 		{
@@ -661,7 +663,9 @@ public class ViewModel : INotifyPropertyChanged
 					if (gateway.IsOpen)
 					{
 						_cloudLogKey = null;             // log the gateway's cloud state again after a (re)connect
+						_wifiInfoLogKey = null;
 						await RefreshCloudStatusAsync();
+						await GatewayCloud.RequestInfoAsync(gateway);
 						await QueryAllBoxesAsync(gateway, ct);
 					}
 					lastRound = DateTime.Now;
@@ -735,6 +739,9 @@ public class ViewModel : INotifyPropertyChanged
 	/// <summary>State/step/code/detail of the last cloud status written to the console (logged only on a change).</summary>
 	private string _cloudLogKey;
 
+	/// <summary>Last WiFi info written to the console (logged only on a change, the RSSI aside).</summary>
+	private string _wifiInfoLogKey;
+
 	/// <summary>Colour of the cloud icon (see above).</summary>
 	public SolidColorBrush CloudIconBrush { get; set; } = CloudGray;
 
@@ -795,6 +802,25 @@ public class ViewModel : INotifyPropertyChanged
 				Console.WriteLine("Gateway cloud: " + GatewayCloudText.Status(s, Lang.En));
 			}
 			ShowCloudStatus(s);
+		});
+	}
+
+	/// <summary>WiFi info of the gateway (serial thread): one console line when it changed.</summary>
+	private void OnGatewayWifiInfo(GatewayWifiInfo i)
+	{
+		Dispatcher dispatcher = Application.Current?.Dispatcher;
+		if (dispatcher == null || dispatcher.HasShutdownStarted)
+		{
+			return;
+		}
+		dispatcher.BeginInvoke((Action)delegate
+		{
+			string key = i.Mac + "/" + i.Bssid + "/" + i.Channel + "/" + i.AuthMode + "/" + i.Associated + "/" + i.GotIp;
+			if (key != _wifiInfoLogKey)
+			{
+				_wifiInfoLogKey = key;
+				Console.WriteLine(GatewayCloudText.Info(i));
+			}
 		});
 	}
 

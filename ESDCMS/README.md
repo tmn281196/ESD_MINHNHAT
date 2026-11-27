@@ -17,7 +17,7 @@ tên hiển thị là **ESD Compliance Monitoring System**.
   không có trong font tự fallback sang font hệ thống. `Frame` (trang Monitor) và cửa sổ tạo bằng code (`UnlockDialog`) không
   kế thừa font của Window nên được gắn `AppFont` riêng.
 - Tùy chọn cloud của gateway (`lora_gateway.ino`, `ENABLE_CLOUD 1`): WiFi và tài khoản Firebase nằm trong `secrets.h` của
-  firmware, `ENABLE_CLOUD` là công tắc duy nhất; app chỉ **đọc** trạng thái. `Device/GatewayCloudLink.cs` hỏi `0xA5 'S'`
+  firmware, `ENABLE_CLOUD` là công tắc duy nhất; app chỉ **đọc** trạng thái. `Device/GatewayCloudLink.cs` hỏi `0xA5 'S'` (trạng thái) và `'I'` (MAC, router đang thử)
   qua cổng COM; gateway tự gửi khung `'s'` khi trạng thái đổi (bước đang làm, mã lỗi) và khung `'r'` cho mỗi lần gửi lên
   cloud. `Device/GatewayCloudText.cs` dựng tooltip của ☁ (xanh OK, vàng đang kết nối, xám lỗi) và dòng console (tiếng
   Anh, qua `Lang.En`); bấm ☁ (cả khi đang khóa) mở `CloudDialog.cs`, chỉ xem.
