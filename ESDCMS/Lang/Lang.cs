@@ -56,4 +56,23 @@ public static class Lang
 	{
 		return Application.Current?.TryFindResource(key) as string ?? key;
 	}
+
+	private static ResourceDictionary _english;
+
+	/// <summary>The English string for a key, for the console log (the key itself if it is missing). UI thread.</summary>
+	public static string En(string key)
+	{
+		try
+		{
+			_english ??= new ResourceDictionary
+			{
+				Source = new Uri("pack://application:,,,/Lang/Strings.en.xaml", UriKind.Absolute)
+			};
+			return _english[key] as string ?? key;
+		}
+		catch (Exception)
+		{
+			return key;
+		}
+	}
 }

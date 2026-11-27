@@ -26,22 +26,38 @@
  *   When WiFi or the internet is down it keeps the latest state of every box (and up to
  *   EVENT_BUFFER status changes) and catches up when the connection is back.
  *
- *   WiFi SSID/password come from the PC app (ESDCMS, RF Gateway > WiFi) over USB and are kept
- *   in flash (NVS), so they survive a power cut. Firebase settings come from secrets.h (copy
- *   secrets.example.h). The USB port is the PC protocol link: the cloud part never prints to it.
+ *   WiFi SSID/password and the Firebase settings come from secrets.h (copy secrets.example.h).
+ *   The gateway joins that WiFi by itself at power-up. The PC app (ESDCMS, RF Gateway > cloud
+ *   button) can only turn the WiFi on/off; that choice is kept in flash (NVS), default on.
+ *   The USB port is the PC protocol link: the cloud part never prints to it.
  *
  *   Config frames (USB only, never sent over LoRa). They start with 0xA5 instead of 0xAA, so a
  *   gateway built without the option and an older PC app both ignore them:
  *     [0]   [1]   [2]  [3 .. 3+N-1]  [3+N]  [3+N+1]
  *     0xA5  TYPE  LEN  DATA...       CRC8   0xBB          CRC8 (poly 0x31) over TYPE, LEN, DATA
- *     PC -> gateway  'W'  DATA = SSID, 0x00, password      set WiFi (saved only if it changed)
- *                    'W'  no DATA                           WiFi off (forget the SSID, radio off)
+ *     PC -> gateway  'W'  DATA = 1                           WiFi on (the default)
+ *                    'W'  DATA = 0, or no DATA              WiFi off (radio off) until turned on again
  *                    'S'  no DATA                           ask for the cloud status
- *     gateway -> PC  'w'  DATA = 0 saved / 1 unchanged / 2 bad format
+ *                    (An older app sends 'W' SSID 0x00 password: taken as "WiFi on".)
+ *     gateway -> PC  'w'  DATA = 0 changed (saved in flash) / 1 already so
  *                    's'  DATA = state, WiFi RSSI (-dBm, 0..127), seconds since the last good
- *                         write in two 7-bit bytes (low, high; 16383 = never)
- *                         state: 0 no WiFi set, 1 connecting to WiFi,
- *                                2 WiFi OK but cloud not reached yet / last write failed, 3 cloud OK
+ *                         write (2 bytes), step, code (2 bytes), detail                  (8 bytes)
+ *                         state: 0 WiFi off, 1 connecting to WiFi, 2 on WiFi, connecting to the cloud,
+ *                                3 cloud OK, 4 cloud error, 5 WiFi error
+ *                         step:  what it is doing (state 1/2) or where it failed (state 4/5):
+ *                                1 WiFi, 2 clock (NTP), 3 Firebase sign-in, 4 database write
+ *                         code:  step 1 = WiFi disconnect reason of the last try (201 SSID not found,
+ *                                15/202/204 wrong password...); steps 3/4 = HTTP status, or < 0 =
+ *                                HTTPClient error (-1 no connection, -11 no answer)
+ *                         detail: see CloudDetail (DNS / TCP / TLS / certificate, sign-in refusals)
+ *                         Sent as the answer to 'S', and also by itself each time one of
+ *                         state / step / code / detail changes.
+ *                    'r'  DATA = one report per request the gateway sends to the cloud:
+ *                         what (1 sign-in, 2 database write), 0 OK / 1 failed, code (2 bytes),
+ *                         detail, bytes sent (2 bytes), time taken in 10 ms (2 bytes); a write adds
+ *                         boxes written, events written, events still waiting, events dropped,
+ *                         then 2 bytes per box written: ID (+0x40 = via a repeater), status A/W/I.
+ *     Numbers of 2 bytes are 14 bits, low 7 bits first; a code is signed (8192..16383 = negative).
  *     (Every DATA byte of a reply is < 0x80, so a reply can never look like the start of an
  *      0xAA status frame to the PC.)
  *
@@ -79,7 +95,10 @@ const int dio0 = 2;
 #if __has_include("secrets.h")
 #include "secrets.h"
 #else
-#error "ENABLE_CLOUD 1 needs secrets.h: copy secrets.example.h to secrets.h and fill in the Firebase settings"
+#error "ENABLE_CLOUD 1 needs secrets.h: copy secrets.example.h to secrets.h and fill in the Firebase and WiFi settings"
+#endif
+#if !defined(WIFI_SSID) || !defined(WIFI_PASSWORD)
+#error "secrets.h needs WIFI_SSID and WIFI_PASSWORD (see secrets.example.h)"
 #endif
 
 #define CFG_STX               0xA5
@@ -132,7 +151,47 @@ void forwardFrame(uint8_t networkID, uint8_t txID, uint8_t *data, uint8_t dataLe
 #if ENABLE_CLOUD
 // =============================== Cloud option ===============================
 
-enum CloudState : uint8_t { CS_NO_WIFI = 0, CS_CONNECTING = 1, CS_WIFI = 2, CS_OK = 3 };
+// Reported to the PC ('s' frame). The app shows 1/2 yellow, 3 green, 0/4/5 gray.
+enum CloudState : uint8_t {
+  CS_NO_WIFI = 0,     // WiFi off (turned off from the PC app)
+  CS_CONNECTING = 1,  // joining the WiFi
+  CS_WIFI = 2,        // on WiFi, connecting to the cloud (clock, sign-in, first write)
+  CS_OK = 3,          // last write to Firebase OK
+  CS_CLOUD_ERR = 4,   // on WiFi but Firebase not reached (no internet, sign-in or write refused)
+  CS_WIFI_ERR = 5     // cannot join the WiFi (wrong password, SSID not found, 30 s without success)
+};
+#define CLOUD_TIMEOUT_MS 30000   // on WiFi but no clock from the internet after this long = cloud error
+
+// What the gateway is doing (state 1/2) or where it failed (state 4/5): 's' frame, step byte.
+enum CloudStep : uint8_t {
+  CST_NONE = 0,
+  CST_WIFI = 1,       // joining the WiFi (code = WiFi disconnect reason of the last try)
+  CST_CLOCK = 2,      // setting the clock from the internet (NTP), needed for HTTPS
+  CST_SIGNIN = 3,     // signing in to Firebase Auth (code = HTTP status or HTTPClient error)
+  CST_WRITE = 4       // writing to the database (code = HTTP status or HTTPClient error)
+};
+
+// More about a failure: detail byte of the 's' and 'r' frames.
+enum CloudDetail : uint8_t {
+  CD_NONE = 0,
+  CD_DNS = 1,         // server name not found (no internet, or a wrong URL)
+  CD_TCP = 2,         // server found but no connection
+  CD_TLS = 3,         // secure connection (TLS) failed
+  CD_CERT = 4,        // server certificate not trusted (gts_root_ca.h, or the clock)
+  CD_LOGIN = 10,      // Firebase: wrong email or password
+  CD_API_KEY = 11,    // Firebase: API key not valid or blocked
+  CD_LOGIN_OFF = 12,  // Firebase: Email/Password sign-in not enabled
+  CD_USER_OFF = 13,   // Firebase: the user is disabled
+  CD_TOO_MANY = 14,   // Firebase: too many attempts, try later
+  CD_BAD_EMAIL = 15,  // Firebase: the email is not valid
+  CD_NO_TOKEN = 16    // Firebase: answer 200 without an ID token
+};
+
+#define REQ_SIGNIN     1         // 'r' frame, what byte
+#define REQ_WRITE      2
+#define CFG_REPLY_MAX  64        // DATA bytes of a reply to the PC
+#define REPORT_QUEUE   4         // 'r' reports waiting for loop() to send them
+#define TLS_CERT_VERIFY_FAILED (-0x2700)   // MBEDTLS_ERR_X509_CERT_VERIFY_FAILED
 
 struct CloudBox {
   char status;        // 'A' / 'W' / 'I', 0 = not heard yet
@@ -160,16 +219,27 @@ uint32_t cEvSeq = 0, cDropped = 0;
 uint32_t cPcMs = 0;                 // millis() of the last valid frame from the PC (0 = none yet)
 bool cUploadSoon = false;           // a status changed: write without waiting for the interval
 uint32_t cSoonSinceMs = 0;
-String cWifiSsid, cWifiPass;        // from the PC, kept in NVS
+bool cWifiOn = true;                // WiFi on/off set by the PC app, kept in NVS (default on)
 bool cWifiChanged = false;
 SemaphoreHandle_t cLock;
 Preferences cPrefs;
 
-// Written by the cloud task, read by loop() for the status frame.
-volatile uint8_t cState = CS_NO_WIFI;
+// What the gateway sent to the cloud, for the PC ('r' frames): filled by the cloud task, sent by loop().
+struct CloudReport {
+  uint8_t len;
+  uint8_t d[CFG_REPLY_MAX];
+};
+CloudReport cReports[REPORT_QUEUE];  // under cLock
+uint8_t cRepHead = 0;
+volatile uint8_t cRepCount = 0;
+
+// Written by the cloud task, read by loop() for the status frame. The status is one 32-bit word,
+// state | step << 4 | detail << 8 | code (14 bits) << 16, so loop() never sees half an update.
+volatile uint32_t cStatus = CS_NO_WIFI;
 volatile int8_t cWifiRssi = 0;
 volatile uint32_t cLastOkMs = 0;
 volatile bool cEverOk = false;
+volatile uint8_t cWifiReason = 0;   // reason of the last WiFi disconnect (WiFi event)
 
 // Used by the cloud task only.
 String cIdToken;
@@ -177,6 +247,18 @@ uint32_t cTokenMs = 0;
 
 static inline void cloudLock()   { xSemaphoreTake(cLock, portMAX_DELAY); }
 static inline void cloudUnlock() { xSemaphoreGive(cLock); }
+
+static inline void setCloudStatus(uint8_t state, uint8_t step, int code = 0, uint8_t detail = CD_NONE) {
+  cStatus = (uint32_t)state | ((uint32_t)step << 4) | ((uint32_t)detail << 8) | ((uint32_t)(code & 0x3FFF) << 16);
+}
+
+static inline uint8_t cloudState() { return (uint8_t)(cStatus & 0x0F); }
+
+// A number in two 7-bit bytes (low first); a negative code becomes 8192..16383.
+static inline void put14(uint8_t *p, int v) {
+  p[0] = (uint8_t)(v & 0x7F);
+  p[1] = (uint8_t)((v >> 7) & 0x7F);
+}
 
 // A valid frame heard on LoRa (loop, core 1). Only box status frames are kept.
 void cloudOnLoRaFrame(uint8_t id, const uint8_t *data, uint8_t dataLen, int rssi, float snr) {
@@ -225,8 +307,8 @@ void cloudOnPcFrame() {
 
 // Reply to the PC over USB (loop only, so it never mixes with forwardFrame()).
 void sendCfgFrame(uint8_t type, const uint8_t *data, uint8_t len) {
-  uint8_t crcBuf[2 + 8];
-  if (len > 8) return;
+  uint8_t crcBuf[2 + CFG_REPLY_MAX];
+  if (len > CFG_REPLY_MAX) return;
   crcBuf[0] = type;
   crcBuf[1] = len;
   memcpy(crcBuf + 2, data, len);
@@ -238,7 +320,7 @@ void sendCfgFrame(uint8_t type, const uint8_t *data, uint8_t len) {
   Serial.write(ETX);
 }
 
-void sendCloudStatus() {
+void sendCloudStatus(uint32_t st) {
   uint8_t rssiMag = cWifiRssi < 0 ? (uint8_t)(-cWifiRssi) : 0;
   if (rssiMag > 127) rssiMag = 127;
   uint32_t age = 16383;                                   // never
@@ -246,8 +328,64 @@ void sendCloudStatus() {
     age = (millis() - cLastOkMs) / 1000;
     if (age > 16382) age = 16382;
   }
-  uint8_t d[4] = { (uint8_t)cState, rssiMag, (uint8_t)(age & 0x7F), (uint8_t)((age >> 7) & 0x7F) };
-  sendCfgFrame('s', d, 4);
+  uint8_t d[8];
+  d[0] = (uint8_t)(st & 0x0F);                            // state
+  d[1] = rssiMag;
+  put14(d + 2, (int)age);
+  d[4] = (uint8_t)((st >> 4) & 0x0F);                     // step
+  put14(d + 5, (int)((st >> 16) & 0x3FFF));               // code
+  d[7] = (uint8_t)((st >> 8) & 0x7F);                     // detail
+  sendCfgFrame('s', d, sizeof d);
+}
+
+// A report for the PC (cloud task): loop() sends it as an 'r' frame.
+void cloudQueueReport(const uint8_t *d, uint8_t len) {
+  if (len > CFG_REPLY_MAX) len = CFG_REPLY_MAX;
+  cloudLock();
+  if (cRepCount == REPORT_QUEUE) {                        // the PC side is not keeping up: drop the oldest
+    cRepHead = (cRepHead + 1) % REPORT_QUEUE;
+    cRepCount--;
+  }
+  CloudReport &r = cReports[(cRepHead + cRepCount) % REPORT_QUEUE];
+  r.len = len;
+  memcpy(r.d, d, len);
+  cRepCount++;
+  cloudUnlock();
+}
+
+// Start of an 'r' report: what, OK/failed, code, detail, bytes sent, time taken (10 ms). Returns its length.
+uint8_t reportHeader(uint8_t *d, uint8_t what, bool ok, int code, uint8_t detail, size_t bytes, uint32_t ms) {
+  d[0] = what;
+  d[1] = ok ? 0 : 1;
+  put14(d + 2, code);
+  d[4] = detail;
+  put14(d + 5, bytes > 16383 ? 16383 : (int)bytes);
+  uint32_t t = ms / 10;
+  put14(d + 7, t > 16383 ? 16383 : (int)t);
+  return 9;
+}
+
+// Why an HTTPS request got no HTTP answer at all (code < 0).
+uint8_t connectFailDetail(WiFiClientSecure &client, int code) {
+  if (code != HTTPC_ERROR_CONNECTION_REFUSED) return CD_NONE;   // connected, then lost or no answer: the code says it
+  char buf[8];
+  int e = client.lastError(buf, sizeof buf);
+  if (e == 0) return CD_DNS;                              // the name lookup failed: no TCP / TLS was tried
+  if (e == -1) return CD_TCP;
+  return e == TLS_CERT_VERIFY_FAILED ? CD_CERT : CD_TLS;
+}
+
+// Why Firebase Auth refused the sign-in (error message in its JSON answer).
+uint8_t signInDetail(const String &resp) {
+  if (resp.indexOf("INVALID_LOGIN_CREDENTIALS") >= 0 || resp.indexOf("INVALID_PASSWORD") >= 0 ||
+      resp.indexOf("EMAIL_NOT_FOUND") >= 0 || resp.indexOf("MISSING_PASSWORD") >= 0) return CD_LOGIN;
+  if (resp.indexOf("API key") >= 0 || resp.indexOf("API_KEY") >= 0) return CD_API_KEY;
+  if (resp.indexOf("PASSWORD_LOGIN_DISABLED") >= 0 || resp.indexOf("OPERATION_NOT_ALLOWED") >= 0 ||
+      resp.indexOf("CONFIGURATION_NOT_FOUND") >= 0) return CD_LOGIN_OFF;
+  if (resp.indexOf("USER_DISABLED") >= 0) return CD_USER_OFF;
+  if (resp.indexOf("TOO_MANY_ATTEMPTS") >= 0) return CD_TOO_MANY;
+  if (resp.indexOf("INVALID_EMAIL") >= 0) return CD_BAD_EMAIL;
+  return CD_NONE;
 }
 
 // A complete 0xA5 frame from the PC.
@@ -259,57 +397,22 @@ void handleCfgFrame(uint8_t *f, uint8_t len) {
   const uint8_t *d = f + 3;
 
   if (type == 'S') {
-    sendCloudStatus();
+    sendCloudStatus(cStatus);
     return;
   }
   if (type != 'W') return;
 
-  if (dlen == 0) {                                        // WiFi off (unticked in the PC app)
-    cloudLock();
-    bool changed = cWifiSsid.length() > 0 || cWifiPass.length() > 0;
-    if (changed) {
-      cWifiSsid = String();
-      cWifiPass = String();
-      cWifiChanged = true;
-    }
-    cloudUnlock();
-    if (changed) {
-      cPrefs.remove("ssid");
-      cPrefs.remove("pass");
-    }
-    uint8_t off = changed ? 0 : 1;
-    sendCfgFrame('w', &off, 1);
-    return;
+  // DATA = 1 on / 0 or nothing off. An older app sends "SSID 0x00 password" (2+ bytes): taken as on.
+  bool on = dlen >= 2 || (dlen == 1 && d[0] != 0);
+  cloudLock();
+  bool changed = on != cWifiOn;
+  if (changed) {
+    cWifiOn = on;
+    cWifiChanged = true;
   }
-
-  // DATA = SSID 0x00 password
-  int sep = -1;
-  for (int i = 0; i < dlen; i++) {
-    if (d[i] == 0) { sep = i; break; }
-  }
-  int passLen = dlen - sep - 1;
-  uint8_t result = 2;                                     // bad format
-  if (sep >= 1 && sep <= 32 && passLen >= 0 && passLen <= 63) {
-    char ssid[33];
-    char pass[64];
-    memcpy(ssid, d, sep);
-    ssid[sep] = 0;
-    memcpy(pass, d + sep + 1, passLen);
-    pass[passLen] = 0;
-    cloudLock();
-    bool changed = cWifiSsid != ssid || cWifiPass != pass;
-    if (changed) {
-      cWifiSsid = ssid;
-      cWifiPass = pass;
-      cWifiChanged = true;
-    }
-    cloudUnlock();
-    if (changed) {                                        // flash is written only on a real change
-      cPrefs.putString("ssid", ssid);
-      cPrefs.putString("pass", pass);
-    }
-    result = changed ? 0 : 1;
-  }
+  cloudUnlock();
+  if (changed) cPrefs.putBool("wifiOn", on);              // flash is written only on a real change
+  uint8_t result = changed ? 0 : 1;
   sendCfgFrame('w', &result, 1);
 }
 
@@ -361,33 +464,52 @@ String jsonField(const String &body, const char *key) {
   return body.substring(i + 1, j);
 }
 
-// Firebase Auth (email/password) -> ID token for the database (?auth=...).
-bool cloudSignIn() {
+// Firebase Auth (email/password) -> ID token for the database (?auth=...). Reported to the PC ('r').
+bool cloudSignIn(int &code, uint8_t &detail) {
+  uint32_t t0 = millis();
   WiFiClientSecure client;
   client.setCACert(GTS_ROOT_CA);
   HTTPClient http;
   http.setConnectTimeout(10000);
   http.setTimeout(15000);
   String url = String("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=") + FIREBASE_API_KEY;
-  if (!http.begin(client, url)) return false;
-  http.addHeader("Content-Type", "application/json");
   String body = String("{\"email\":\"") + jsonEscape(FIREBASE_EMAIL) + "\",\"password\":\"" +
                 jsonEscape(FIREBASE_PASSWORD) + "\",\"returnSecureToken\":true}";
-  int code = http.POST(body);
-  String resp = code > 0 ? http.getString() : String();
-  http.end();
-  if (code != 200) return false;
-  String token = jsonField(resp, "idToken");
-  if (token.length() == 0) return false;
-  cIdToken = token;
-  cTokenMs = millis();
-  return true;
+  String resp;
+  code = HTTPC_ERROR_CONNECTION_REFUSED;
+  detail = CD_NONE;
+  if (http.begin(client, url)) {
+    http.addHeader("Content-Type", "application/json");
+    code = http.POST(body);
+    if (code > 0) resp = http.getString();
+    http.end();
+  }
+  bool ok = false;
+  if (code == 200) {
+    String token = jsonField(resp, "idToken");
+    if (token.length() > 0) {
+      cIdToken = token;
+      cTokenMs = millis();
+      ok = true;
+    } else {
+      detail = CD_NO_TOKEN;
+    }
+  } else if (code > 0) {
+    detail = signInDetail(resp);
+  } else {
+    detail = connectFailDetail(client, code);
+  }
+  uint8_t d[CFG_REPLY_MAX];
+  cloudQueueReport(d, reportHeader(d, REQ_SIGNIN, ok, code, detail, body.length(), millis() - t0));
+  return ok;
 }
 
 // One PATCH to lines/<NN>.json with everything that changed (multi-path update). True if written.
-bool cloudWrite() {
+// Reported to the PC ('r'): what was sent (boxes, events, bytes) and the answer.
+bool cloudWrite(int &code, uint8_t &detail) {
   static CloudBox snap[MAX_BOX + 1];
   static CloudEvent evs[MAX_EVENTS_PER_WRITE];
+  uint32_t t0 = millis();
   uint16_t nEv;
   uint32_t pcMs, dropped;
 
@@ -418,9 +540,11 @@ bool cloudWrite() {
     b += ",\"gateway/pcLastFrame\":";
     b += u64str(epochOf(pcMs));
   }
+  uint8_t nBoxes = 0;
   for (int id = 1; id <= MAX_BOX; id++) {
     const CloudBox &x = snap[id];
     if (!x.dirty || !x.status) continue;
+    nBoxes++;
     char p[16];
     snprintf(p, sizeof p, ",\"boxes/%02d/", id);
     b += p; b += "s\":\""; b += x.status; b += "\"";
@@ -449,14 +573,16 @@ bool cloudWrite() {
   HTTPClient http;
   http.setConnectTimeout(10000);
   http.setTimeout(15000);
-  int code = -1;
+  code = HTTPC_ERROR_CONNECTION_REFUSED;
   if (http.begin(client, url)) {
     http.addHeader("Content-Type", "application/json");
     code = http.PATCH(b);
     http.end();
   }
+  detail = code < 0 ? connectFailDetail(client, code) : CD_NONE;
   if (code == 401 || code == 403) cIdToken = String();   // token expired or refused: sign in again
 
+  uint16_t waiting;
   cloudLock();
   if (code == 200) {
     for (int id = 1; id <= MAX_BOX; id++) {
@@ -477,17 +603,42 @@ bool cloudWrite() {
     cUploadSoon = true;
     cSoonSinceMs = 0;
   }
+  waiting = cEvCount;
   cloudUnlock();
+
+  // Report: header, boxes, events written, events still waiting, events dropped, then ID + status per box.
+  uint8_t d[CFG_REPLY_MAX];
+  uint8_t n = reportHeader(d, REQ_WRITE, code == 200, code, detail, b.length(), millis() - t0);
+  d[n++] = nBoxes;
+  d[n++] = nEv > 127 ? 127 : (uint8_t)nEv;
+  d[n++] = waiting > 127 ? 127 : (uint8_t)waiting;
+  d[n++] = dropped > 127 ? 127 : (uint8_t)dropped;
+  for (int id = 1; id <= MAX_BOX && n + 2 <= CFG_REPLY_MAX; id++) {
+    const CloudBox &x = snap[id];
+    if (!x.dirty || !x.status) continue;
+    d[n++] = (uint8_t)(id | (x.viaRepeater ? 0x40 : 0));
+    d[n++] = (uint8_t)x.status;
+  }
+  cloudQueueReport(d, n);
   return code == 200;
+}
+
+// WiFi event (WiFi task): keep why the last connection attempt ended.
+void onWifiDisconnected(arduino_event_id_t, arduino_event_info_t info) {
+  uint8_t r = info.wifi_sta_disconnected.reason;
+  if (r != WIFI_REASON_ASSOC_LEAVE) cWifiReason = r;     // 8 = left on purpose (WiFi.disconnect before a new try)
 }
 
 // Cloud task (core 0): WiFi, clock, sign-in, writes. Never blocks loop().
 void cloudTask(void *) {
   WiFi.mode(WIFI_STA);
   WiFi.setAutoReconnect(true);
-  String ssid, pass;
+  WiFi.onEvent(onWifiDisconnected, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
+  bool on = false, wifiUp = false, wifiFailed = false;
+  bool clockChecked = false, clockNoDns = false;
+  uint32_t wifiUpSince = 0;
   uint32_t lastWifiTry = 0, lastWrite = 0, lastTry = 0, backoffMs = 0;
-  bool wroteOnce = false, sntpStarted = false;
+  bool wroteOnce = false, sntpStarted = false, writeNow = false;
 
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(200));
@@ -495,8 +646,7 @@ void cloudTask(void *) {
     cloudLock();
     bool changed = cWifiChanged;
     if (changed) {
-      ssid = cWifiSsid;
-      pass = cWifiPass;
+      on = cWifiOn;
       cWifiChanged = false;
     }
     bool soon = cUploadSoon;
@@ -504,51 +654,95 @@ void cloudTask(void *) {
     cloudUnlock();
 
     if (changed) {
-      WiFi.disconnect(ssid.length() == 0);                // no SSID = WiFi off: radio off too
+      WiFi.disconnect(!on);                               // WiFi off: radio off too
       lastWifiTry = 0;
+      wifiUp = false;
+      wifiFailed = false;
+      cWifiReason = 0;
     }
-    if (ssid.length() == 0) {
-      cState = CS_NO_WIFI;
+    if (!on) {
+      setCloudStatus(CS_NO_WIFI, CST_NONE);
       cWifiRssi = 0;
       continue;
     }
-    if (WiFi.status() != WL_CONNECTED) {
-      cState = CS_CONNECTING;
+    wl_status_t ws = WiFi.status();
+    if (ws != WL_CONNECTED) {
+      if (wifiUp) {                                       // just lost the WiFi: start over as "connecting"
+        wifiUp = false;
+        lastWifiTry = 0;
+      }
+      if (ws == WL_CONNECT_FAILED || ws == WL_NO_SSID_AVAIL) wifiFailed = true;   // wrong password / SSID not found
       if (lastWifiTry == 0 || millis() - lastWifiTry >= WIFI_RETRY_MS) {
+        if (lastWifiTry != 0) wifiFailed = true;          // the last try did not get in
         lastWifiTry = millis();
         WiFi.mode(WIFI_STA);                              // back on after a "WiFi off"
         WiFi.disconnect();
-        WiFi.begin(ssid.c_str(), pass.c_str());
+        WiFi.begin(WIFI_SSID, WIFI_PASSWORD);             // from secrets.h
       }
+      // The code is why the last try ended (0 = not known yet), also while still connecting.
+      setCloudStatus(wifiFailed ? CS_WIFI_ERR : CS_CONNECTING, CST_WIFI, cWifiReason);
       continue;
     }
+    if (!wifiUp) {                                        // just joined the WiFi: now connecting to the cloud
+      wifiUp = true;
+      wifiFailed = false;
+      wifiUpSince = millis();
+      cWifiReason = 0;
+      clockChecked = false;
+      writeNow = true;                                    // write at once, not at the next interval
+      setCloudStatus(CS_WIFI, CST_CLOCK);
+    }
     cWifiRssi = (int8_t)WiFi.RSSI();
-    if (cState < CS_WIFI) cState = CS_WIFI;
     if (!sntpStarted) {
       configTime(0, 0, "pool.ntp.org", "time.google.com");
       sntpStarted = true;
     }
-    if (!timeValid()) continue;                           // HTTPS needs the clock for the certificate dates
+    if (!timeValid()) {                                   // HTTPS needs the clock for the certificate dates
+      if (millis() - wifiUpSince >= CLOUD_TIMEOUT_MS) {   // WiFi but no time from the internet
+        if (!clockChecked) {                              // once: is there internet at all (name lookup)?
+          IPAddress ip;
+          clockNoDns = !WiFi.hostByName("pool.ntp.org", ip);
+          clockChecked = true;
+        }
+        setCloudStatus(CS_CLOUD_ERR, CST_CLOCK, 0, clockNoDns ? CD_DNS : CD_NONE);
+      }
+      continue;
+    }
 
     uint32_t now = millis();
-    bool due = !wroteOnce || now - lastWrite >= UPLOAD_INTERVAL_S * 1000UL ||
+    bool due = !wroteOnce || writeNow || now - lastWrite >= UPLOAD_INTERVAL_S * 1000UL ||
                (soon && now - soonSince >= UPLOAD_GATHER_MS);
     if (!due) continue;
     if (backoffMs && now - lastTry < backoffMs) continue;
     lastTry = now;
+    writeNow = false;
 
-    bool ok = (cIdToken.length() > 0 && now - cTokenMs < TOKEN_MAX_AGE_MS) || cloudSignIn();
-    if (ok) ok = cloudWrite();
+    // Each step is shown (yellow) only until the first answer since joining the WiFi; after that an OK or
+    // an error stays shown during the next tries, and every try is reported to the PC ('r') anyway.
+    bool firstTry = cloudState() == CS_WIFI;
+    int code = 0;
+    uint8_t detail = CD_NONE;
+    uint8_t step = CST_SIGNIN;
+    bool ok = cIdToken.length() > 0 && now - cTokenMs < TOKEN_MAX_AGE_MS;
+    if (!ok) {
+      if (firstTry) setCloudStatus(CS_WIFI, CST_SIGNIN);
+      ok = cloudSignIn(code, detail);
+    }
+    if (ok) {
+      step = CST_WRITE;
+      if (firstTry) setCloudStatus(CS_WIFI, CST_WRITE);
+      ok = cloudWrite(code, detail);
+    }
     if (ok) {
       wroteOnce = true;
       lastWrite = millis();
       backoffMs = 0;
       cLastOkMs = lastWrite;
       cEverOk = true;
-      cState = CS_OK;
+      setCloudStatus(CS_OK, CST_WRITE);
     } else {
       backoffMs = backoffMs == 0 ? 5000 : (backoffMs >= 150000 ? 300000 : backoffMs * 2);
-      cState = CS_WIFI;
+      setCloudStatus(CS_CLOUD_ERR, step, code, detail);
     }
   }
 }
@@ -631,9 +825,8 @@ void setup() {
 #if ENABLE_CLOUD
   cLock = xSemaphoreCreateMutex();
   cPrefs.begin("cloud", false);
-  if (cPrefs.isKey("ssid")) cWifiSsid = cPrefs.getString("ssid");   // isKey first: no "not found" log
-  if (cPrefs.isKey("pass")) cWifiPass = cPrefs.getString("pass");
-  cWifiChanged = cWifiSsid.length() > 0;
+  cWifiOn = cPrefs.isKey("wifiOn") ? cPrefs.getBool("wifiOn") : true;   // on unless the PC app turned it off
+  cWifiChanged = true;                                                  // the cloud task picks it up
   xTaskCreatePinnedToCore(cloudTask, "cloud", 16384, nullptr, 1, nullptr, 0);
 #endif
 }
@@ -641,6 +834,26 @@ void setup() {
 // ---- Loop ----
 void loop() {
   pollSerialFromPC();
+
+#if ENABLE_CLOUD
+  // Tell the PC each time the cloud status changes, and what was sent to the cloud (from loop() only,
+  // so these frames never split a box frame).
+  static uint32_t sentStatus = 0xFFFFFFFF;
+  uint32_t st = cStatus;
+  if (st != sentStatus) {
+    sentStatus = st;
+    sendCloudStatus(st);
+  }
+  if (cRepCount) {
+    CloudReport rep;
+    cloudLock();
+    rep = cReports[cRepHead];
+    cRepHead = (cRepHead + 1) % REPORT_QUEUE;
+    cRepCount--;
+    cloudUnlock();
+    sendCfgFrame('r', rep.d, rep.len);
+  }
+#endif
 
   int packetSize = LoRa.parsePacket();
   if (packetSize == 0) return;

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud ESD</title>
+<!--
+  Cloud of lora_gateway (ENABLE_CLOUD 1), two parts:
+   1. Check the Firebase settings BEFORE flashing: paste the 4 #define lines of secrets.h, press "Kiểm tra".
+      It calls the same REST endpoints as the ESP32 (sign in with email/password, then read/write the Realtime
+      Database) and says what is wrong if something is.
+   2. Watch the line live (what the gateway wrote): gateway heartbeat, every box, the latest status changes.
+      Realtime through the database REST stream (EventSource), no Firebase SDK.
+  Nothing is stored (closing the page forgets everything) or sent anywhere else than your Firebase project.
+  Open it from a local server or just double-click it.
+-->
+<style>
+  :root {
+    --bg: #101418; --panel: #182028; --line: #2a3644; --ink: #e8edf2; --muted: #9aa5b1;
+    --ok: #45f248; --bad: #ff6b5e; --warn: #ffc107; --accent: #4ea3ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  label { display: block; font-weight: 600; margin: 14px 0 6px; }
+  textarea, input { width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 6px; padding: 9px 10px; font: 13px/1.45 Consolas, "Cascadia Mono", monospace; }
+  textarea { min-height: 112px; resize: vertical; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .grid .full { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  button { margin-top: 18px; background: var(--accent); color: #fff; border: 0; border-radius: 6px;
+    padding: 10px 18px; font-weight: 600; font-size: 15px; cursor: pointer; }
+  button:disabled { opacity: .55; cursor: default; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  #log { margin-top: 22px; display: flex; flex-direction: column; gap: 8px; }
+  .row { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--muted);
+    border-radius: 6px; padding: 9px 12px; }
+  .row.ok { border-left-color: var(--ok); }
+  .row.bad { border-left-color: var(--bad); }
+  .row.warn { border-left-color: var(--warn); }
+  .row b { display: block; }
+  .row .d { color: var(--muted); font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+  .verdict { font-size: 17px; font-weight: 700; padding: 12px 14px; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  button.alt { background: var(--panel); border: 1px solid var(--line); color: var(--ink); }
+  h2 { font-size: 18px; margin: 34px 0 6px; padding-top: 18px; border-top: 1px solid var(--line); }
+  #view[hidden] { display: none; }
+  .live { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; margin: 6px 0 12px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: none; }
+  .dot.on { background: var(--ok); box-shadow: 0 0 6px var(--ok); }
+  .dot.bad { background: var(--bad); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .card .k { color: var(--muted); font-size: 12px; }
+  .card .v { font-size: 16px; font-weight: 600; word-break: break-word; }
+  .card .v.ok { color: var(--ok); } .card .v.bad { color: var(--bad); } .card .v.warn { color: var(--warn); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-size: 12px; margin: 14px 0 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px;
+    margin-right: 5px; vertical-align: -1px; background: var(--c); }
+  .boxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .box { border-radius: 8px; padding: 9px 11px; color: #111; background: var(--c); min-height: 96px; }
+  .box.light { color: #fff; }
+  .box .id { font-size: 20px; font-weight: 800; line-height: 1.1; }
+  .box .st { font-weight: 700; }
+  .box .m { font-size: 12px; opacity: .85; line-height: 1.35; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; border: 1px solid currentColor; border-radius: 4px;
+    padding: 0 4px; margin-left: 6px; vertical-align: 3px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  .chip { display: inline-block; min-width: 72px; text-align: center; border-radius: 4px; padding: 0 6px;
+    font-weight: 700; color: #111; background: var(--c); }
+  .chip.light { color: #fff; }
+  .empty { color: var(--muted); font-size: 13px; padding: 8px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Cloud ESD: kiểm tra cấu hình và xem trực tiếp</h1>
+  <p class="sub">Dán 4 dòng <code>#define</code> của <code>secrets.h</code>. <b>Kiểm tra</b> gọi đúng các API mà ESP32 sẽ gọi;
+    <b>Chỉ xem</b> đăng nhập rồi hiện dữ liệu gateway đang ghi lên cloud, tự cập nhật.</p>
+
+  <label for="paste">Dán 4 dòng #define (tự điền các ô bên dưới)</label>
+  <textarea id="paste" spellcheck="false" placeholder='#define FIREBASE_DB_URL   "https://....firebasedatabase.app"
+#define FIREBASE_API_KEY  "AIza..."
+#define FIREBASE_EMAIL    "..."
+#define FIREBASE_PASSWORD "..."'></textarea>
+
+  <div class="grid">
+    <div class="full"><label for="url">FIREBASE_DB_URL</label><input id="url" spellcheck="false"></div>
+    <div><label for="key">FIREBASE_API_KEY</label><input id="key" spellcheck="false"></div>
+    <div><label for="line">Line (NETWORK_ID, 2 số)</label><input id="line" value="03" spellcheck="false"></div>
+    <div><label for="email">FIREBASE_EMAIL</label><input id="email" spellcheck="false"></div>
+    <div><label for="pass">FIREBASE_PASSWORD</label><input id="pass" type="password" spellcheck="false"></div>
+  </div>
+  <div class="hint">Không lưu gì lại: đóng trang là mất. Chỉ gửi tới Firebase của bạn.</div>
+
+  <div class="btns">
+    <button id="run">Kiểm tra</button>
+    <button id="watch" class="alt">Chỉ xem</button>
+  </div>
+  <div id="log"></div>
+
+  <section id="view" hidden>
+    <h2>Xem trực tiếp <span id="vLine"></span></h2>
+    <div class="live"><span id="vDot" class="dot"></span><span id="vState">Đang kết nối…</span>
+      <button id="stop" class="alt" style="margin:0 0 0 auto;padding:4px 10px;font-size:13px">Dừng xem</button></div>
+    <div class="cards" id="gw"></div>
+    <div class="legend">
+      <span style="--c:#45F248">Active</span><span style="--c:#FF4500">Warning</span><span style="--c:#FFD400">Inactive</span>
+      <span style="--c:#037EF3">Offline (PC đang chạy mà lâu không nghe thấy box)</span>
+    </div>
+    <div class="boxes" id="boxes"></div>
+    <h2 style="border:0;margin-top:22px;padding-top:0">Đổi trạng thái gần nhất</h2>
+    <div id="events"></div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const logBox = $("log");
+
+function row(kind, title, detail) {
+  const d = document.createElement("div");
+  d.className = "row " + kind;
+  const b = document.createElement("b");
+  b.textContent = (kind === "ok" ? "✅ " : kind === "bad" ? "❌ " : kind === "warn" ? "⚠️ " : "• ") + title;
+  d.appendChild(b);
+  if (detail) {
+    const s = document.createElement("div");
+    s.className = "d";
+    s.textContent = detail;
+    d.appendChild(s);
+  }
+  logBox.appendChild(d);
+  return d;
+}
+
+// Fill the inputs from pasted "#define NAME "value"" lines.
+$("paste").addEventListener("input", () => {
+  const t = $("paste").value;
+  const get = (k) => { const m = t.match(new RegExp("#define\\s+" + k + "\\s+\"([^\"]*)\"")); return m ? m[1] : null; };
+  const map = { FIREBASE_DB_URL: "url", FIREBASE_API_KEY: "key", FIREBASE_EMAIL: "email", FIREBASE_PASSWORD: "pass" };
+  for (const [k, id] of Object.entries(map)) { const v = get(k); if (v !== null) $(id).value = v; }
+});
+
+async function call(method, url, body) {
+  let res;
+  try {
+    res = await fetch(url, {
+      method,
+      headers: body ? { "Content-Type": "application/json" } : undefined,
+      body: body ? JSON.stringify(body) : undefined
+    });
+  } catch (e) {
+    return { net: true, status: 0, json: null, text: String(e) };
+  }
+  const text = await res.text();
+  let json = null;
+  try { json = JSON.parse(text); } catch (_) { /* not JSON */ }
+  return { net: false, status: res.status, json, text };
+}
+
+function formatChecks(url, key, email, pass, line) {
+  let ok = true;
+  const bad = (t, d) => { row("bad", t, d); ok = false; };
+  if (!/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.(firebasedatabase\.app|firebaseio\.com)$/.test(url)) {
+    bad("FIREBASE_DB_URL sai dạng",
+        "Phải là https://<tên>.<vùng>.firebasedatabase.app (hoặc ...firebaseio.com), không có dấu / ở cuối, không khoảng trắng.");
+  }
+  if (!/^AIza[0-9A-Za-z_\-]{35}$/.test(key)) {
+    bad("FIREBASE_API_KEY sai dạng", "Key thường dài 39 ký tự và bắt đầu bằng AIza. Kiểm tra lại có thừa/thiếu ký tự hay khoảng trắng.");
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) bad("FIREBASE_EMAIL sai dạng", "Phải có dạng ten@ten-mien.com, không khoảng trắng.");
+  if (pass.length < 6) bad("FIREBASE_PASSWORD quá ngắn", "Firebase yêu cầu ít nhất 6 ký tự.");
+  if (/["\\]/.test(pass)) bad("FIREBASE_PASSWORD có dấu \" hoặc \\", "Hai ký tự này làm hỏng dòng #define trong secrets.h; đổi mật khẩu khác.");
+  if (!/^\d{2}$/.test(line)) bad("Line phải là 2 chữ số", "Ví dụ NETWORK_ID 0x03 thì line là 03.");
+  if (ok) row("ok", "Định dạng 4 thông tin đúng");
+  return ok;
+}
+
+function authError(msg) {
+  const m = msg || "";
+  if (/API key not valid|API_KEY_INVALID/i.test(m)) return "Sai FIREBASE_API_KEY (Firebase không nhận key này).";
+  if (/INVALID_LOGIN_CREDENTIALS|EMAIL_NOT_FOUND|INVALID_PASSWORD|INVALID_EMAIL/i.test(m))
+    return "Sai email hoặc mật khẩu: so lại với user trong Security → Authentication → Users (phải giống hệt).";
+  if (/OPERATION_NOT_ALLOWED|PASSWORD_LOGIN_DISABLED/i.test(m))
+    return "Chưa bật đăng nhập Email/Password: Security → Authentication → Sign-in method → Email/Password → Enable.";
+  if (/USER_DISABLED/i.test(m)) return "User này đang bị khóa (disabled) trong Authentication → Users.";
+  if (/TOO_MANY_ATTEMPTS/i.test(m)) return "Thử sai quá nhiều lần, Firebase tạm chặn. Đợi vài phút rồi thử lại.";
+  if (/CONFIGURATION_NOT_FOUND/i.test(m)) return "Project chưa bật Authentication: Security → Authentication → Get started.";
+  return "Firebase báo: " + m;
+}
+
+// Values of the form (password kept only in this page's memory).
+function formValues() {
+  return {
+    url: $("url").value.trim().replace(/\/+$/, ""),
+    key: $("key").value.trim(),
+    email: $("email").value.trim(),
+    pass: $("pass").value,
+    line: $("line").value.trim()
+  };
+}
+
+// Same call as cloudSignIn() in lora_gateway.ino. Returns { token, uid } or { error }.
+async function signIn(c) {
+  const s = await call("POST", "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + encodeURIComponent(c.key),
+                       { email: c.email, password: c.pass, returnSecureToken: true });
+  if (s.net) return { error: "Không gọi được Firebase Auth: kiểm tra mạng của máy này. " + s.text };
+  if (s.status !== 200 || !s.json || !s.json.idToken) return { error: authError(s.json && s.json.error && s.json.error.message) };
+  return { token: s.json.idToken, uid: s.json.localId };
+}
+
+$("run").addEventListener("click", async () => {
+  logBox.innerHTML = "";
+  const c = formValues();
+  const { url, key, email, pass, line } = c;
+  $("run").disabled = true;
+  let allOk = true;
+  let signedIn = null;
+  try {
+    // 1. Format
+    if (!formatChecks(url, key, email, pass, line)) {
+      allOk = false;
+      return;
+    }
+
+    // 2. Sign in (same call as cloudSignIn() in lora_gateway.ino)
+    const s = await signIn(c);
+    if (s.error) { row("bad", "Đăng nhập thất bại", s.error); allOk = false; return; }
+    const token = s.token;
+    const uid = s.uid;
+    signedIn = s;
+    row("ok", "Đăng nhập được (API key, email, mật khẩu đúng)", "UID của user này: " + uid);
+
+    // 3. gateways/<uid> must be the string "03"
+    const g = await call("GET", url + "/gateways/" + encodeURIComponent(uid) + ".json?auth=" + encodeURIComponent(token));
+    if (g.net) { row("bad", "Không gọi được Realtime Database", "Kiểm tra FIREBASE_DB_URL. " + g.text); allOk = false; return; }
+    if (g.status === 404 || (g.json && /Firebase error|ensure that you have the URL/i.test(g.json.error || ""))) {
+      row("bad", "FIREBASE_DB_URL không đúng database", "Lấy lại link ở Realtime Database → Data (dòng có biểu tượng 🔗).");
+      allOk = false; return;
+    }
+    if (g.status === 401 || g.status === 403) {
+      row("bad", "Chưa đọc được gateways/<UID>: chưa dán Rules",
+          "Realtime Database → Rules: dán nội dung firebase.rules.json rồi bấm Publish.");
+      allOk = false;
+    } else if (g.json === null) {
+      row("bad", "Chưa có gateways/" + uid,
+          "Thêm vào database: { \"gateways\": { \"" + uid + "\": \"" + line + "\" } } (Data → ⋮ → Import JSON khi database còn trống).");
+      allOk = false;
+    } else if (typeof g.json === "number") {
+      row("bad", "gateways/<UID> đang là SỐ " + g.json + ", phải là CHỮ \"" + line + "\"",
+          "Sửa giá trị trong tab Data thành \"" + line + "\" (có dấu ngoặc kép).");
+      allOk = false;
+    } else if (g.json !== line) {
+      row("warn", "gateways/<UID> = \"" + g.json + "\", khác line đang thử (" + line + ")",
+          "Gateway này chỉ ghi được lines/" + g.json + ". Nếu NETWORK_ID là " + line + " thì sửa giá trị thành \"" + line + "\".");
+      allOk = false;
+    } else {
+      row("ok", "gateways/<UID> = \"" + line + "\" (đúng kiểu chữ)");
+    }
+
+    // 4. Write to lines/<line> like the gateway (multi-path PATCH), then remove the test value
+    const auth = "?auth=" + encodeURIComponent(token);
+    const w = await call("PATCH", url + "/lines/" + line + ".json" + auth, { "gateway/webTest": { ".sv": "timestamp" } });
+    if (w.status === 200) {
+      row("ok", "Ghi được vào lines/" + line, "Giống hệt cách ESP32 sẽ ghi. Đã xóa lại dòng thử (gateway/webTest).");
+      await call("DELETE", url + "/lines/" + line + "/gateway/webTest.json" + auth);
+    } else {
+      row("bad", "Không ghi được vào lines/" + line + " (mã " + w.status + ")",
+          "Thường do Rules chưa Publish hoặc gateways/<UID> chưa đúng \"" + line + "\". Firebase báo: " + (w.json && w.json.error || w.text));
+      allOk = false;
+    }
+
+    // 5. Another line must be refused (rules keep each gateway to its own line)
+    const other = line === "99" ? "98" : "99";
+    const n = await call("PATCH", url + "/lines/" + other + ".json" + auth, { "webTest": { ".sv": "timestamp" } });
+    if (n.status === 401 || n.status === 403) {
+      row("ok", "Rules chặn đúng: không ghi được sang lines/" + other);
+    } else if (n.status === 200) {
+      row("warn", "Ghi được cả sang lines/" + other + ": Rules đang quá rộng",
+          "Dán đúng nội dung firebase.rules.json vào tab Rules rồi Publish.");
+      await call("DELETE", url + "/lines/" + other + "/webTest.json" + auth);
+      allOk = false;
+    } else {
+      row("warn", "Không rõ kết quả thử ghi sang lines/" + other + " (mã " + n.status + ")", n.text);
+    }
+  } finally {
+    const v = row(allOk ? "ok" : "bad",
+      allOk ? "Tất cả đúng: chép đúng 4 dòng này vào secrets.h là ESP32 ghi được."
+            : "Còn chỗ cần sửa (xem các dòng ❌ / ⚠️ ở trên).");
+    v.classList.add("verdict");
+    $("run").disabled = false;
+    if (signedIn) startView(c, signedIn.token);     // signed in: also show what the gateway wrote
+  }
+});
+
+$("watch").addEventListener("click", async () => {
+  const c = formValues();
+  logBox.innerHTML = "";
+  if (!c.url || !c.key || !c.email || !c.pass || !/^\d{2}$/.test(c.line)) {
+    row("bad", "Thiếu thông tin", "Dán 4 dòng #define (hoặc điền các ô) và line 2 chữ số.");
+    return;
+  }
+  $("watch").disabled = true;
+  const s = await signIn(c);
+  $("watch").disabled = false;
+  if (s.error) { row("bad", "Đăng nhập thất bại", s.error); return; }
+  startView(c, s.token);
+});
+
+// ------------------------------------------------------------------------------------------------
+// Live view of lines/<line>: two REST streams (gateway, boxes) + the latest events every 10 s.
+// A stream sends "put" / "patch" { path, data } relative to the streamed location. The ID token
+// lasts 60 min: the page signs in again every 50 min (and on "auth_revoked") and reopens the streams.
+// ------------------------------------------------------------------------------------------------
+const STATUS = {
+  A: { name: "Active", c: "#45F248", light: false },
+  W: { name: "Warning", c: "#FF4500", light: true },
+  I: { name: "Inactive", c: "#FFD400", light: false }
+};
+const OFFLINE = { name: "Offline", c: "#037EF3", light: true };
+const GATEWAY_LATE_S = 150;   // the gateway writes every 60 s (UPLOAD_INTERVAL_S): later than this = not writing
+const PC_RUNNING_S = 300;     // the PC app asks every box every 120 s: a PC frame newer than this = PC running
+const BOX_SILENT_S = 300;     // while the PC runs, a box not heard for this long = offline
+
+let view = null;
+
+function stopView() {
+  if (!view) return;
+  view.streams.forEach((es) => es.close());
+  view.timers.forEach((t) => clearInterval(t));
+  view = null;
+}
+
+$("stop").addEventListener("click", () => {
+  stopView();
+  setLive("bad", "Đã dừng xem.");
+});
+
+function setLive(kind, text) {
+  $("vDot").className = "dot " + kind;
+  $("vState").textContent = text;
+}
+
+function startView(c, token) {
+  stopView();
+  view = { c, token, data: { gateway: null, boxes: null }, events: null, streams: [], timers: [], err: null, lastMsg: 0 };
+  $("view").hidden = false;
+  $("vLine").textContent = "lines/" + c.line;
+  setLive("", "Đang kết nối…");
+  openStreams();
+  pollEvents();
+  view.timers.push(setInterval(pollEvents, 10000));
+  view.timers.push(setInterval(render, 1000));                          // ages ("… giây trước")
+  view.timers.push(setInterval(renewToken, 50 * 60 * 1000));
+  render();
+  $("view").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function openStreams() {
+  const v = view;
+  v.streams.forEach((es) => es.close());
+  v.streams = ["gateway", "boxes"].map((child) => {
+    const es = new EventSource(v.c.url + "/lines/" + v.c.line + "/" + child + ".json?auth=" + encodeURIComponent(v.token));
+    const onData = (patch) => (e) => {
+      if (view !== v) return;
+      const m = JSON.parse(e.data);
+      if (patch) {
+        for (const [k, val] of Object.entries(m.data || {})) put(child, m.path.replace(/\/$/, "") + "/" + k, val);
+      } else {
+        put(child, m.path, m.data);
+      }
+      v.err = null;
+      v.lastMsg = Date.now();
+      render();
+    };
+    es.addEventListener("put", onData(false));
+    es.addEventListener("patch", onData(true));
+    es.addEventListener("keep-alive", () => { v.lastMsg = Date.now(); });
+    es.addEventListener("auth_revoked", renewToken);
+    es.addEventListener("cancel", () => {
+      v.err = "Firebase từ chối đọc (Rules: lines cần \".read\": \"auth != null\").";
+      render();
+    });
+    es.onerror = () => {
+      if (view !== v) return;
+      v.err = es.readyState === EventSource.CLOSED
+        ? "Không đọc được lines/" + v.c.line + " (Rules chưa cho đọc, hoặc sai FIREBASE_DB_URL)."
+        : "Mất kết nối tới Firebase, đang thử lại…";
+      render();
+    };
+    return es;
+  });
+}
+
+async function renewToken() {
+  const v = view;
+  if (!v) return;
+  const s = await signIn(v.c);
+  if (view !== v) return;
+  if (s.error) { v.err = "Đăng nhập lại thất bại: " + s.error; render(); return; }
+  v.token = s.token;
+  openStreams();
+}
+
+// Writes data at a path (from a stream event) into view.data[child]; null deletes.
+function put(child, path, data) {
+  const segs = path.split("/").filter(Boolean);
+  if (segs.length === 0) { view.data[child] = data; return; }
+  if (typeof view.data[child] !== "object" || view.data[child] === null) view.data[child] = {};
+  let o = view.data[child];
+  for (let i = 0; i < segs.length - 1; i++) {
+    if (typeof o[segs[i]] !== "object" || o[segs[i]] === null) o[segs[i]] = {};
+    o = o[segs[i]];
+  }
+  const last = segs[segs.length - 1];
+  if (data === null) delete o[last]; else o[last] = data;
+}
+
+async function pollEvents() {
+  const v = view;
+  if (!v) return;
+  const q = "?orderBy=%22%24key%22&limitToLast=30&auth=" + encodeURIComponent(v.token);
+  const r = await call("GET", v.c.url + "/lines/" + v.c.line + "/events.json" + q);
+  if (view !== v) return;
+  if (r.status === 200) { v.events = r.json || {}; render(); }
+}
+
+function ago(ms) {
+  if (!ms) return "chưa có";
+  const s = Math.max(0, Math.round((Date.now() - ms) / 1000));
+  if (s < 90) return s + " giây trước";
+  if (s < 5400) return Math.round(s / 60) + " phút trước";
+  if (s < 172800) return Math.round(s / 3600) + " giờ trước";
+  return Math.round(s / 86400) + " ngày trước";
+}
+
+function clock(ms) {
+  if (!ms) return "—";
+  const d = new Date(ms);
+  return d.toDateString() === new Date().toDateString() ? d.toLocaleTimeString("vi-VN") : d.toLocaleString("vi-VN");
+}
+
+function uptime(s) {
+  if (s == null) return "—";
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  return (d ? d + " ngày " : "") + (d || h ? h + " giờ " : "") + m + " phút";
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function card(k, v, kind) {
+  const c = el("div", "card");
+  c.appendChild(el("div", "k", k));
+  c.appendChild(el("div", "v" + (kind ? " " + kind : ""), v));
+  return c;
+}
+
+function render() {
+  const v = view;
+  if (!v) return;
+  if (v.err) setLive("bad", v.err);
+  else if (v.lastMsg) setLive("on", "Đang xem trực tiếp, nhận dữ liệu " + ago(v.lastMsg));
+  else setLive("", "Đang kết nối…");
+
+  // Gateway
+  const g = v.data.gateway || {};
+  const gw = $("gw");
+  gw.innerHTML = "";
+  const lateS = g.lastSeen ? (Date.now() - g.lastSeen) / 1000 : Infinity;
+  const pcRunning = !!g.pcLastFrame && (Date.now() - g.pcLastFrame) / 1000 < PC_RUNNING_S;
+  if (v.data.gateway === null) {
+    gw.appendChild(card("Gateway", v.lastMsg ? "Chưa ghi gì lên cloud" : "Đang tải…", v.lastMsg ? "warn" : ""));
+  } else {
+    gw.appendChild(card("Gateway ghi lần cuối", g.lastSeen ? ago(g.lastSeen) : "chưa bao giờ",
+                        lateS <= GATEWAY_LATE_S ? "ok" : "bad"));
+    gw.appendChild(card("WiFi của gateway", g.wifiRssi != null ? g.wifiRssi + " dBm" : "—",
+                        g.wifiRssi == null ? "" : g.wifiRssi >= -67 ? "ok" : g.wifiRssi >= -80 ? "warn" : "bad"));
+    gw.appendChild(card("PC (app ESDCMS)", g.pcLastFrame ? (pcRunning ? "đang chạy" : "không thấy, " + ago(g.pcLastFrame)) : "chưa thấy",
+                        pcRunning ? "ok" : "warn"));
+    gw.appendChild(card("Gateway đã chạy", uptime(g.uptimeS)));
+    gw.appendChild(card("Firmware", g.fw || "—"));
+    gw.appendChild(card("Lần đổi trạng thái bị bỏ", g.droppedEvents != null ? String(g.droppedEvents) : "—",
+                        g.droppedEvents ? "warn" : ""));
+  }
+
+  // Boxes
+  const bx = $("boxes");
+  bx.innerHTML = "";
+  const boxes = v.data.boxes || {};
+  const ids = Object.keys(boxes).sort();
+  if (ids.length === 0) bx.appendChild(el("div", "empty", v.lastMsg ? "Chưa có box nào được ghi." : "Đang tải…"));
+  for (const id of ids) {
+    const b = boxes[id] || {};
+    const silent = pcRunning && !!b.seen && (Date.now() - b.seen) / 1000 > BOX_SILENT_S;
+    const st = silent ? OFFLINE : (STATUS[b.s] || { name: b.s || "?", c: "#9E9E9E", light: false });
+    const t = el("div", "box" + (st.light ? " light" : ""));
+    t.style.setProperty("--c", st.c);
+    const idLine = el("div", "id", id);
+    if (b.via === "repeater") idLine.appendChild(el("span", "tag", "repeater"));
+    t.appendChild(idLine);
+    t.appendChild(el("div", "st", st.name + (silent && STATUS[b.s] ? " (cuối: " + STATUS[b.s].name + ")" : "")));
+    t.appendChild(el("div", "m", "từ " + clock(b.t)));
+    t.appendChild(el("div", "m", "nghe " + ago(b.seen)));
+    if (b.rssi != null) t.appendChild(el("div", "m", b.rssi + " dBm, SNR " + b.snr));
+    bx.appendChild(t);
+  }
+
+  // Latest status changes, newest first
+  const evBox = $("events");
+  evBox.innerHTML = "";
+  const keys = Object.keys(v.events || {}).sort().reverse();
+  if (keys.length === 0) {
+    evBox.appendChild(el("div", "empty", v.events === null ? "Đang tải…" : "Chưa có lần đổi trạng thái nào."));
+    return;
+  }
+  const tbl = el("table");
+  const head = el("tr");
+  ["Lúc", "Box", "Trạng thái mới"].forEach((h) => head.appendChild(el("th", null, h)));
+  tbl.appendChild(head);
+  for (const k of keys) {
+    const e = v.events[k] || {};
+    const st = STATUS[e.s] || { name: e.s || "?", c: "#9E9E9E", light: false };
+    const tr = el("tr");
+    tr.appendChild(el("td", null, clock(e.t)));
+    tr.appendChild(el("td", null, String(e.box).padStart(2, "0")));
+    const td = el("td");
+    const chip = el("span", "chip" + (st.light ? " light" : ""), st.name);
+    chip.style.setProperty("--c", st.c);
+    td.appendChild(chip);
+    tr.appendChild(td);
+    tbl.appendChild(tr);
+  }
+  evBox.appendChild(tbl);
+}
+</script>
+</body>
+</html>

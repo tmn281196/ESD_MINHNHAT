@@ -509,6 +509,10 @@ public class ViewModel : INotifyPropertyChanged
 			esbBox.StatusChangeAction = StatusChangeActionFunc;
 		}
 		StartConveyorTimer();
+		// The gateway's cloud option sends its state by itself on every change: update the cloud icon at once.
+		GatewayCloud.StatusReceived += OnGatewayCloudStatus;
+		// ... and a report of every request it sends to the cloud (sign-in, database write): console log.
+		GatewayCloud.ReportReceived += OnGatewayCloudReport;
 		// Run the poller on the UI dispatcher: box status and the monitor layout are UI objects.
 		Application.Current?.Dispatcher.BeginInvoke((Action)delegate
 		{
@@ -711,50 +715,42 @@ public class ViewModel : INotifyPropertyChanged
 	}
 
 	/// <summary>
-	/// RF port opened: if WiFi settings are saved, send them to the gateway (cloud option), so a new or reflashed
-	/// gateway gets them without opening the WiFi dialog. The gateway writes its flash only if they changed.
+	/// RF port opened: send the WiFi on/off set in the cloud dialog to the gateway (its SSID/password are in its firmware),
+	/// so a new or reflashed gateway follows it. Nothing is sent if it was never set (the gateway's default is WiFi on).
 	/// </summary>
 	private async Task PushWifiToGatewayAsync(RFGateway gateway)
 	{
-		string ssid = Config?.WifiSsid;
-		if (string.IsNullOrEmpty(ssid))
+		_cloudLogKey = null;                     // log the gateway's cloud state again after a (re)connect
+		bool? enabled = Config?.WifiEnabled;
+		if (enabled == null)
 		{
-			return;   // never set up: a gateway without the cloud option is not bothered
+			return;
 		}
-		if (Config.WifiEnabled)
-		{
-			LogWifiResult(await GatewayCloud.SendWifiAsync(gateway, ssid, Config.GetWifiPassword()), off: false);
-		}
-		else
-		{
-			LogWifiResult(await GatewayCloud.SendWifiOffAsync(gateway), off: true);
-		}
+		LogWifiResult(await GatewayCloud.SendWifiStateAsync(gateway, enabled.Value), enabled.Value);
 		await RefreshCloudStatusAsync();
 	}
 
-	public static void LogWifiResult(int? result, bool off)
+	public static void LogWifiResult(int? result, bool on)
 	{
 		switch (result)
 		{
 		case 0:
-			Console.WriteLine(off ? "Gateway: WiFi turned off" : "Gateway: WiFi settings sent (saved)");
+			Console.WriteLine(on ? "Gateway: WiFi turned on" : "Gateway: WiFi turned off");
 			break;
 		case 1:
-			Console.WriteLine(off ? "Gateway: WiFi already off" : "Gateway: WiFi settings sent (unchanged)");
-			break;
-		case 2:
-			Console.WriteLine("Gateway: WiFi settings refused (SSID 1..32 bytes, password up to 63)");
+			Console.WriteLine(on ? "Gateway: WiFi already on" : "Gateway: WiFi already off");
 			break;
 		default:
-			Console.WriteLine("Gateway: no answer to the WiFi settings (firmware built without ENABLE_CLOUD?)");
+			Console.WriteLine("Gateway: no answer to WiFi on/off (firmware built without ENABLE_CLOUD?)");
 			break;
 		}
 	}
 
 	// ---------------------------------------------------------------------------------------------
-	// Cloud icon of the RF Gateway group. Only while "Gateway joins WiFi" is ticked, the gateway is asked for its
-	// WiFi/cloud state every CloudStatusPollMs: green = the gateway is on WiFi (it then writes to Firebase),
-	// amber = connecting / no WiFi set yet, red = no answer (firmware without ENABLE_CLOUD), gray = off / RF not connected.
+	// Cloud icon of the RF Gateway group: yellow = connecting (to the WiFi, then to Firebase), green = writing to
+	// Firebase OK, gray = any error (WiFi or Firebase), WiFi off, no answer (firmware without ENABLE_CLOUD) or RF not
+	// connected. The gateway sends its state by itself on every change; the app also asks every CloudStatusPollMs
+	// (except when WiFi was turned off in the dialog).
 	// ---------------------------------------------------------------------------------------------
 
 	private const int CloudStatusPollMs = 5000;
@@ -765,9 +761,10 @@ public class ViewModel : INotifyPropertyChanged
 
 	private static readonly SolidColorBrush CloudGreen = FrozenBrush(117, 247, 17);
 
-	private static readonly SolidColorBrush CloudRed = FrozenBrush(0xF4, 0x43, 0x36);
-
 	private bool _cloudRefreshBusy;
+
+	/// <summary>State/step/code/detail of the last cloud status written to the console (logged only on a change).</summary>
+	private string _cloudLogKey;
 
 	/// <summary>Colour of the cloud icon (see above).</summary>
 	public SolidColorBrush CloudIconBrush { get; set; } = CloudGray;
@@ -782,7 +779,7 @@ public class ViewModel : INotifyPropertyChanged
 		return brush;
 	}
 
-	/// <summary>Updates the cloud icon; asks the gateway only while "Gateway joins WiFi" is ticked. UI thread.</summary>
+	/// <summary>Updates the cloud icon by asking the gateway (not while WiFi was turned off in the dialog). UI thread.</summary>
 	public async Task RefreshCloudStatusAsync()
 	{
 		if (_cloudRefreshBusy)
@@ -793,7 +790,7 @@ public class ViewModel : INotifyPropertyChanged
 		try
 		{
 			RFGateway gateway = DeviceManagerPage?.RFGateway;
-			if (Config == null || !Config.WifiEnabled || string.IsNullOrEmpty(Config.WifiSsid))
+			if (Config?.WifiEnabled == false)
 			{
 				SetCloudIcon(CloudGray, Lang.T("S.Tip.Cloud") + " (" + Lang.T("S.Wifi.Off") + ")");
 				return;
@@ -806,10 +803,10 @@ public class ViewModel : INotifyPropertyChanged
 			GatewayCloudStatus s = await GatewayCloud.RequestStatusAsync(gateway);
 			if (s == null)
 			{
-				SetCloudIcon(CloudRed, Lang.T("S.Wifi.NoAnswer"));
+				SetCloudIcon(CloudGray, Lang.T("S.Wifi.NoAnswer"));
 				return;
 			}
-			SetCloudIcon((s.State >= 2) ? CloudGreen : CloudAmber, CloudStatusTextFor(s));
+			ShowCloudStatus(s);
 		}
 		finally
 		{
@@ -817,48 +814,59 @@ public class ViewModel : INotifyPropertyChanged
 		}
 	}
 
+	/// <summary>A status frame from the gateway, also the ones it sends by itself on a change (serial thread).</summary>
+	private void OnGatewayCloudStatus(GatewayCloudStatus s)
+	{
+		Dispatcher dispatcher = Application.Current?.Dispatcher;
+		if (dispatcher == null || dispatcher.HasShutdownStarted)
+		{
+			return;
+		}
+		dispatcher.BeginInvoke((Action)delegate
+		{
+			string key = s.State + "/" + s.Step + "/" + s.Code + "/" + s.Detail;
+			if (key != _cloudLogKey)
+			{
+				_cloudLogKey = key;
+				Console.WriteLine("Gateway cloud: " + GatewayCloudText.Status(s, Lang.En));
+			}
+			if (Config?.WifiEnabled != false || s.State == 0)
+			{
+				ShowCloudStatus(s);
+			}
+		});
+	}
+
+	/// <summary>A request the gateway sent to the cloud (serial thread): one console line with what was sent and the answer.</summary>
+	private void OnGatewayCloudReport(GatewayCloudReport r)
+	{
+		Dispatcher dispatcher = Application.Current?.Dispatcher;
+		if (dispatcher == null || dispatcher.HasShutdownStarted)
+		{
+			return;
+		}
+		dispatcher.BeginInvoke((Action)delegate
+		{
+			Console.WriteLine(GatewayCloudText.Report(r));
+		});
+	}
+
+	private void ShowCloudStatus(GatewayCloudStatus s)
+	{
+		SolidColorBrush brush = s.State switch
+		{
+			3 => CloudGreen,
+			1 => CloudAmber,
+			2 => CloudAmber,
+			_ => CloudGray
+		};
+		SetCloudIcon(brush, GatewayCloudText.Status(s, Lang.T));
+	}
+
 	private void SetCloudIcon(SolidColorBrush brush, string text)
 	{
 		CloudIconBrush = brush;
 		CloudStatusText = text;
-	}
-
-	private static string CloudStatusTextFor(GatewayCloudStatus s)
-	{
-		string text;
-		switch (s.State)
-		{
-		case 0:
-			text = Lang.T("S.Wifi.State0");
-			break;
-		case 1:
-			text = Lang.T("S.Wifi.State1");
-			break;
-		case 2:
-			text = string.Format(Lang.T("S.Wifi.State2"), s.WifiRssi);
-			break;
-		default:
-			text = string.Format(Lang.T("S.Wifi.State3"), s.WifiRssi);
-			break;
-		}
-		if (s.State >= 2 && s.SecondsSinceWrite >= 0)
-		{
-			text += string.Format(Lang.T("S.Wifi.LastWrite"), FormatAge(s.SecondsSinceWrite));
-		}
-		return text;
-	}
-
-	private static string FormatAge(int seconds)
-	{
-		if (seconds >= 16382)
-		{
-			return "> 4 h";
-		}
-		if (seconds < 120)
-		{
-			return seconds + " s";
-		}
-		return (seconds < 7200) ? (seconds / 60 + " min") : (seconds / 3600 + " h");
 	}
 
 	private async Task CloudStatusLoopAsync(CancellationToken ct)

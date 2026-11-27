@@ -459,7 +459,7 @@ public partial class MainWindow : Window
 			{ "RF Gateway Net ID", $"0x{c.NetworkID:X2}" },
 			{ "RF Gateway ask again", c.AskAgainSec > 0 ? c.EffectiveAskAgainSec + " s (all boxes)" : "off" },
 			{ "RF Gateway status query", c.EffectivePollRetries + " rounds x " + (c.EffectivePollRoundWaitMs / 1000.0).ToString("0.#") + " s before Offline" },
-			{ "RF Gateway WiFi", (c.WifiEnabled && !string.IsNullOrEmpty(c.WifiSsid)) ? c.WifiSsid : "off" },
+			{ "RF Gateway WiFi", (c.WifiEnabled == null) ? "(not set: gateway default, on)" : (c.WifiEnabled.Value ? "on" : "off") },
 			{ "Control Box TX gap", c.TxGapMs + " ms" },
 			{ "Control Box RX timeout", c.TxTimeoutMs + " ms" },
 			{ "Control Box retry", c.TxRetries + "x" },

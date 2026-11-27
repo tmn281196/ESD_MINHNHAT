@@ -18,8 +18,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Fody" Version="6.9.2" PrivateAssets="all" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="all" />
-    <!-- DPAPI (ProtectedData) for the gateway WiFi password in config.json -->
-    <Reference Include="System.Security" />
   </ItemGroup>
 
   <ItemGroup>

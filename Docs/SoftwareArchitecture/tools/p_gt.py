@@ -57,7 +57,7 @@ def lora():
 <p>Chỉ dùng khi gateway nạp với <code>ENABLE_CLOUD 1</code> (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>). Đi trên cùng cổng USB nhưng bắt đầu bằng <code>0xA5</code> thay cho <code>0xAA</code> và <strong>không bao giờ phát ra LoRa</strong>; gateway thường và bản app cũ đều bỏ qua loại khung này.</p>
 <div class="bytes">
   <span class="v hdr">A5<small>STX</small></span>
-  <span class="v typ">TYPE<small>W · S · w · s</small></span>
+  <span class="v typ">TYPE<small>W · S · w · s · r</small></span>
   <span class="v dat">LEN<small>số byte DATA</small></span>
   <span class="v dat">DATA…<small>LEN byte</small></span>
   <span class="v typ">CRC8<small>TYPE+LEN+DATA</small></span>
@@ -66,13 +66,14 @@ def lora():
 <div class="table-wrap"><table>
 <thead><tr><th>Chiều</th><th>TYPE</th><th>DATA</th><th>Ý nghĩa</th></tr></thead>
 <tbody>
-<tr><td class="nowrap">PC → gateway</td><td class="mono">'W'</td><td>SSID, <code>0x00</code>, mật khẩu</td><td>Vào WiFi này. Gateway lưu vào flash, chỉ ghi khi khác giá trị cũ.</td></tr>
-<tr><td class="nowrap">PC → gateway</td><td class="mono">'W'</td><td>(trống)</td><td>Tắt WiFi: quên SSID, tắt radio WiFi.</td></tr>
+<tr><td class="nowrap">PC → gateway</td><td class="mono">'W'</td><td><code>1</code></td><td>Bật WiFi (mặc định). Gateway lưu vào flash, chỉ ghi khi khác giá trị cũ. Tên và mật khẩu WiFi nằm trong <code>secrets.h</code> của firmware, không đi qua cổng COM.</td></tr>
+<tr><td class="nowrap">PC → gateway</td><td class="mono">'W'</td><td><code>0</code> hoặc trống</td><td>Tắt WiFi (tắt radio) cho tới khi bật lại. Bản app cũ gửi <code>SSID 0x00 mật khẩu</code>: gateway coi là bật.</td></tr>
 <tr><td class="nowrap">PC → gateway</td><td class="mono">'S'</td><td>(trống)</td><td>Hỏi trạng thái cloud.</td></tr>
-<tr><td class="nowrap">gateway → PC</td><td class="mono">'w'</td><td>0 / 1 / 2</td><td>Đã lưu / không đổi / sai định dạng (SSID 1–32 byte, mật khẩu tối đa 63).</td></tr>
-<tr><td class="nowrap">gateway → PC</td><td class="mono">'s'</td><td>state, −RSSI, tuổi (7 bit thấp), tuổi (7 bit cao)</td><td>state 0 chưa có WiFi, 1 đang vào WiFi, 2 đã vào WiFi nhưng chưa ghi được cloud, 3 cloud OK. Tuổi = số giây từ lần ghi cloud thành công gần nhất (16383 = chưa bao giờ).</td></tr>
+<tr><td class="nowrap">gateway → PC</td><td class="mono">'w'</td><td>0 / 1</td><td>Đã đổi (lưu flash) / vốn đã như vậy.</td></tr>
+<tr><td class="nowrap">gateway → PC</td><td class="mono">'s'</td><td>state, −RSSI, tuổi (2 byte), step, code (2 byte), detail</td><td><b>state</b> 0 WiFi tắt, 1 đang vào WiFi, 2 đã vào WiFi và đang nối cloud, 3 cloud OK, 4 lỗi cloud, 5 lỗi WiFi. <b>Tuổi</b> = số giây từ lần ghi cloud thành công gần nhất (16383 = chưa bao giờ). <b>step</b> = đang làm bước nào (state 1/2) hoặc hỏng ở bước nào (state 4/5): 1 vào WiFi, 2 lấy giờ NTP, 3 đăng nhập Firebase, 4 ghi database. <b>code</b>: bước 1 là mã lý do ngắt WiFi của lần thử gần nhất (201 không thấy SSID, 15/202/204 sai mật khẩu, 200 mất sóng); bước 3/4 là mã HTTP, số âm là lỗi HTTPClient (−1 không kết nối được, −11 server không trả lời). <b>detail</b>: 1 không tìm thấy tên server (DNS), 2 không kết nối TCP, 3 lỗi TLS, 4 chứng chỉ không tin cậy; 10 sai email/mật khẩu Firebase, 11 API key sai, 12 chưa bật đăng nhập Email/Password, 13 user bị khóa, 14 thử sai quá nhiều, 15 email sai dạng, 16 trả lời không có token. Gửi khi PC hỏi <code>'S'</code>, và gateway <b>tự gửi</b> mỗi khi state/step/code/detail đổi.</td></tr>
+<tr><td class="nowrap">gateway → PC</td><td class="mono">'r'</td><td>what, kết quả, code (2 byte), detail, số byte (2 byte), thời gian (2 byte) [, …]</td><td>Báo cáo <b>mỗi lần gateway gửi lên cloud</b>: what 1 đăng nhập, 2 ghi database; kết quả 0 OK / 1 lỗi; code và detail như khung <code>'s'</code>; thời gian tính bằng 10&nbsp;ms. Lần ghi database có thêm: số hộp, số lần đổi trạng thái đã ghi, số còn chờ, số bị bỏ (đầy bộ nhớ), rồi 2 byte cho mỗi hộp đã ghi: ID (+<code>0x40</code> nếu qua repeater) và trạng thái A/W/I. App in một dòng console cho mỗi báo cáo.</td></tr>
 </tbody></table></div>
-<p class="tnote">Mọi byte DATA của khung trả lời đều nhỏ hơn <code>0x80</code>, nên parser của PC không bao giờ nhầm nó với đầu một khung <code>0xAA</code>. Gateway không có tùy chọn cloud thì không trả lời: app báo "không trả lời" và biểu tượng ☁ chuyển đỏ.</p>
+<p class="tnote">Số 2 byte là 14 bit, 7 bit thấp trước; code có dấu (8192–16383 là số âm). DATA của khung trả lời dài tối đa 64 byte. Mọi byte DATA của khung trả lời đều nhỏ hơn <code>0x80</code>, nên parser của PC không bao giờ nhầm nó với đầu một khung <code>0xAA</code>. Gateway không có tùy chọn cloud thì không trả lời: app báo "không trả lời" và biểu tượng ☁ xám.</p>
 '''
     write("giao_thuc/01_lora.html", body=body)
 

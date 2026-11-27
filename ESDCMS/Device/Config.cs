@@ -1,6 +1,3 @@
-using System;
-using System.Security.Cryptography;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace ESDCMS.Device;
@@ -12,43 +9,12 @@ public class Config
 	public string ControlBoxCOM { get; set; }
 
 	/// <summary>
-	/// "Gateway joins WiFi" ticked in the WiFi dialog: the SSID/password are sent to the gateway (cloud option) and the
-	/// app shows its WiFi/cloud state. Unticked: the gateway is told to turn its WiFi off (the SSID stays saved here).
+	/// WiFi of the RF gateway's cloud option (the SSID/password are in the gateway firmware, secrets.h):
+	/// true = "Gateway joins WiFi" ticked in the cloud dialog: sent to the gateway as "WiFi on" each time the RF port
+	/// opens, and the cloud icon shows the gateway's state; false = sent as "WiFi off";
+	/// null = never set here: nothing is sent (the gateway keeps its own default, WiFi on).
 	/// </summary>
-	public bool WifiEnabled { get; set; }
-
-	/// <summary>WiFi network for the RF gateway's cloud option (sent to the gateway over USB).</summary>
-	public string WifiSsid { get; set; } = string.Empty;
-
-	/// <summary>WiFi password, encrypted with Windows DPAPI for this Windows user (base64). Use Get/SetWifiPassword.</summary>
-	public string WifiPasswordProtected { get; set; } = string.Empty;
-
-	private static readonly byte[] WifiEntropy = Encoding.UTF8.GetBytes("ESDCMS-gateway-wifi");
-
-	/// <summary>The WiFi password ("" if none, or if config.json comes from another Windows user / PC).</summary>
-	public string GetWifiPassword()
-	{
-		if (string.IsNullOrEmpty(WifiPasswordProtected))
-		{
-			return string.Empty;
-		}
-		try
-		{
-			byte[] plain = ProtectedData.Unprotect(Convert.FromBase64String(WifiPasswordProtected), WifiEntropy, DataProtectionScope.CurrentUser);
-			return Encoding.UTF8.GetString(plain);
-		}
-		catch (Exception)
-		{
-			return string.Empty;
-		}
-	}
-
-	public void SetWifiPassword(string password)
-	{
-		WifiPasswordProtected = string.IsNullOrEmpty(password)
-			? string.Empty
-			: Convert.ToBase64String(ProtectedData.Protect(Encoding.UTF8.GetBytes(password), WifiEntropy, DataProtectionScope.CurrentUser));
-	}
+	public bool? WifiEnabled { get; set; }
 
 	/// <summary>Start the program automatically when Windows starts (user logs in).</summary>
 	public bool AutoStart { get; set; } = true;

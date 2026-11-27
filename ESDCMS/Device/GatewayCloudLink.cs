@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ESDCMS.Device;
@@ -8,7 +7,10 @@ namespace ESDCMS.Device;
 /// <summary>Cloud status reported by the RF gateway (lora_gateway.ino built with ENABLE_CLOUD 1).</summary>
 public sealed class GatewayCloudStatus
 {
-	/// <summary>0 no WiFi set, 1 connecting to WiFi, 2 WiFi OK but cloud not reached yet / last write failed, 3 cloud OK.</summary>
+	/// <summary>
+	/// 0 WiFi off, 1 connecting to WiFi, 2 on WiFi and connecting to the cloud, 3 cloud OK (last write OK),
+	/// 4 cloud error (Firebase not reached), 5 WiFi error (cannot join the WiFi).
+	/// </summary>
 	public int State;
 
 	/// <summary>WiFi signal in dBm (negative), 0 = unknown.</summary>
@@ -16,19 +18,78 @@ public sealed class GatewayCloudStatus
 
 	/// <summary>Seconds since the last good write to the database, -1 = never (16382 means "that long or more").</summary>
 	public int SecondsSinceWrite;
+
+	/// <summary>
+	/// What the gateway is doing (state 1/2) or where it failed (state 4/5): 1 WiFi, 2 clock (NTP), 3 Firebase sign-in,
+	/// 4 database write; 0 = none (or an older firmware that does not send it).
+	/// </summary>
+	public int Step;
+
+	/// <summary>Step 1: WiFi disconnect reason of the last try (0 = none). Steps 3/4: HTTP status, or &lt; 0 = HTTPClient error.</summary>
+	public int Code;
+
+	/// <summary>More about a failure (lora_gateway.ino CloudDetail): 1 DNS, 2 TCP, 3 TLS, 4 certificate, 10.. sign-in refusals.</summary>
+	public int Detail;
+}
+
+/// <summary>One box in a write report: the status the gateway sent to the database for it.</summary>
+public struct GatewayCloudBox
+{
+	public int Id;
+
+	public char Status;
+
+	public bool ViaRepeater;
+}
+
+/// <summary>Report of one request the gateway sent to the cloud ('r' frame): what, the answer, and what was in it.</summary>
+public sealed class GatewayCloudReport
+{
+	public const int SignIn = 1;
+
+	public const int Write = 2;
+
+	/// <summary><see cref="SignIn"/> or <see cref="Write"/>.</summary>
+	public int What;
+
+	public bool Ok;
+
+	/// <summary>HTTP status, or &lt; 0 = HTTPClient error (-1 no connection, -11 no answer).</summary>
+	public int Code;
+
+	/// <summary>Same as <see cref="GatewayCloudStatus.Detail"/>.</summary>
+	public int Detail;
+
+	public int BytesSent;
+
+	public int Milliseconds;
+
+	/// <summary>Write only: boxes and status changes (events) in this write.</summary>
+	public int Boxes;
+
+	public int Events;
+
+	/// <summary>Write only: events still waiting after this write, and events dropped since power-up (127 = that many or more).</summary>
+	public int EventsWaiting;
+
+	public int EventsDropped;
+
+	public List<GatewayCloudBox> BoxList = new List<GatewayCloudBox>();
 }
 
 /// <summary>
-/// Talks to the cloud option of the RF gateway over its USB port: sends the WiFi SSID/password and asks for the
-/// cloud status. Config frames start with 0xA5 (box/query frames with 0xAA), are never sent over LoRa, and a
-/// gateway built without the option ignores them (no answer).
+/// Talks to the cloud option of the RF gateway over its USB port. The WiFi SSID/password are in the gateway firmware
+/// (secrets.h); the app only turns the WiFi on/off and reads the cloud state. Config frames start with 0xA5 (box/query
+/// frames with 0xAA), are never sent over LoRa, and a gateway built without the option ignores them (no answer).
 ///   0xA5  TYPE  LEN  DATA...  CRC8  0xBB       CRC8 (poly 0x31) over TYPE, LEN, DATA
-///   PC -> gateway  'W'  SSID 0x00 password     set WiFi (the gateway stores it only if it changed)
-///                  'W'  (no data)              WiFi off (the gateway forgets the SSID and turns its WiFi off)
-///                  'S'  (no data)              status request
-///   gateway -> PC  'w'  0 saved / 1 unchanged / 2 bad format
-///                  's'  state, -RSSI (dBm), seconds since the last good write in two 7-bit bytes (16383 = never)
-/// Every DATA byte of a reply is below 0x80, so a reply can never look like the start of a 0xAA status frame.
+///   PC -> gateway  'W'  1 = WiFi on / 0 = WiFi off (kept in the gateway's flash; default on)
+///                  'S'  (no data) = status request
+///   gateway -> PC  'w'  0 changed / 1 already so
+///                  's'  state, -RSSI (dBm), seconds since the last good write (2 bytes, 16383 = never), step,
+///                       code (2 bytes), detail; sent as the answer to 'S' and also by itself on every change
+///                  'r'  one report per request the gateway sends to the cloud (sign-in, database write)
+/// Numbers of 2 bytes are 14 bits, low 7 bits first; a code is signed (8192..16383 = negative). Every DATA byte of a
+/// reply is below 0x80, so a reply can never look like the start of a 0xAA status frame.
 /// </summary>
 public sealed class GatewayCloudLink
 {
@@ -36,9 +97,8 @@ public sealed class GatewayCloudLink
 
 	private const byte Etx = 0xBB;
 
-	public const int MaxSsidBytes = 32;
-
-	public const int MaxPasswordBytes = 63;
+	/// <summary>Longest DATA of a reply (lora_gateway.ino CFG_REPLY_MAX).</summary>
+	private const int MaxReplyData = 64;
 
 	private readonly List<byte> _rx = new List<byte>();
 
@@ -48,9 +108,17 @@ public sealed class GatewayCloudLink
 
 	private TaskCompletionSource<GatewayCloudStatus> _statusWaiter;
 
+	/// <summary>Every status frame from the gateway, asked for or sent by itself (raised on the serial thread).</summary>
+	public event Action<GatewayCloudStatus> StatusReceived;
+
+	/// <summary>Every request the gateway sent to the cloud (raised on the serial thread).</summary>
+	public event Action<GatewayCloudReport> ReportReceived;
+
 	/// <summary>Feeds one byte received from the gateway (serial thread). Bytes of 0xAA frames are skipped.</summary>
 	public void Feed(byte b)
 	{
+		GatewayCloudStatus status = null;
+		GatewayCloudReport report = null;
 		lock (_lock)
 		{
 			if (_rx.Count == 0)
@@ -62,9 +130,9 @@ public sealed class GatewayCloudLink
 				return;
 			}
 			_rx.Add(b);
-			if ((_rx.Count == 2 && b != (byte)'w' && b != (byte)'s') || (_rx.Count == 3 && b > 8))
+			if ((_rx.Count == 2 && b != (byte)'w' && b != (byte)'s' && b != (byte)'r') || (_rx.Count == 3 && b > MaxReplyData))
 			{
-				// Not a reply of the gateway (only 'w' / 's', a few bytes long): start over.
+				// Not a reply of the gateway (only 'w' / 's' / 'r', up to MaxReplyData bytes): start over.
 				_rx.Clear();
 				if (b == Stx)
 				{
@@ -90,50 +158,91 @@ public sealed class GatewayCloudLink
 			}
 			else if (f[1] == (byte)'s' && len >= 4)
 			{
-				int age = f[5] | (f[6] << 7);
-				_statusWaiter?.TrySetResult(new GatewayCloudStatus
+				int age = U14(f, 5);
+				status = new GatewayCloudStatus
 				{
 					State = f[3],
 					WifiRssi = -f[4],
 					SecondsSinceWrite = (age >= 16383) ? -1 : age
-				});
+				};
+				if (len >= 8)
+				{
+					status.Step = f[7];
+					status.Code = S14(f, 8);
+					status.Detail = f[10];
+				}
+				_statusWaiter?.TrySetResult(status);
 				_statusWaiter = null;
 			}
+			else if (f[1] == (byte)'r' && len >= 9)
+			{
+				report = ParseReport(f, len);
+			}
 		}
-	}
-
-	/// <summary>
-	/// Sends the WiFi settings. Returns 0 saved, 1 unchanged, 2 refused (bad length), or null when the gateway did not
-	/// answer (port closed, or firmware without the cloud option).
-	/// </summary>
-	public async Task<int?> SendWifiAsync(RFGateway gateway, string ssid, string password, int timeoutMs = 1500)
-	{
-		byte[] s = Encoding.UTF8.GetBytes(ssid ?? string.Empty);
-		byte[] p = Encoding.UTF8.GetBytes(password ?? string.Empty);
-		if (s.Length < 1 || s.Length > MaxSsidBytes || p.Length > MaxPasswordBytes)
+		if (status != null)
 		{
-			return 2;
+			StatusReceived?.Invoke(status);
 		}
-		byte[] data = new byte[s.Length + 1 + p.Length];
-		Array.Copy(s, 0, data, 0, s.Length);
-		Array.Copy(p, 0, data, s.Length + 1, p.Length);
-		return await SendWifiFrameAsync(gateway, data, timeoutMs);
+		if (report != null)
+		{
+			ReportReceived?.Invoke(report);
+		}
 	}
 
-	/// <summary>Turns the gateway's WiFi off (it forgets the SSID). Returns 0 done, 1 already off, or null when it did not answer.</summary>
-	public Task<int?> SendWifiOffAsync(RFGateway gateway, int timeoutMs = 1500)
+	/// <summary>DATA of an 'r' frame: header (9 bytes), then for a write 4 counts and 2 bytes per box.</summary>
+	private static GatewayCloudReport ParseReport(byte[] f, int len)
 	{
-		return SendWifiFrameAsync(gateway, new byte[0], timeoutMs);
+		GatewayCloudReport r = new GatewayCloudReport
+		{
+			What = f[3],
+			Ok = f[4] == 0,
+			Code = S14(f, 5),
+			Detail = f[7],
+			BytesSent = U14(f, 8),
+			Milliseconds = U14(f, 10) * 10
+		};
+		if (r.What == GatewayCloudReport.Write && len >= 13)
+		{
+			r.Boxes = f[12];
+			r.Events = f[13];
+			r.EventsWaiting = f[14];
+			r.EventsDropped = f[15];
+			for (int i = 16; i + 1 < 3 + len; i += 2)
+			{
+				r.BoxList.Add(new GatewayCloudBox
+				{
+					Id = f[i] & 0x3F,
+					ViaRepeater = (f[i] & 0x40) != 0,
+					Status = (char)f[i + 1]
+				});
+			}
+		}
+		return r;
 	}
 
-	private async Task<int?> SendWifiFrameAsync(RFGateway gateway, byte[] data, int timeoutMs)
+	/// <summary>Number in two 7-bit bytes, low first.</summary>
+	private static int U14(byte[] f, int i)
+	{
+		return f[i] | (f[i + 1] << 7);
+	}
+
+	/// <summary>Signed number in two 7-bit bytes (8192..16383 = negative).</summary>
+	private static int S14(byte[] f, int i)
+	{
+		int v = U14(f, i);
+		return (v >= 8192) ? (v - 16384) : v;
+	}
+
+	/// <summary>Turns the gateway's WiFi on or off. Returns 0 changed, 1 already so, or null when it did not answer.</summary>
+	public async Task<int?> SendWifiStateAsync(RFGateway gateway, bool on, int timeoutMs = 1500)
 	{
 		TaskCompletionSource<int> waiter = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
 		lock (_lock)
 		{
 			_ackWaiter = waiter;
 		}
-		bool answered = await SendAndWaitAsync(gateway, BuildFrame((byte)'W', data), waiter.Task, timeoutMs);
+		byte[] frame = BuildFrame((byte)'W', new byte[1] { (byte)(on ? 1 : 0) });
+		bool answered = await SendAndWaitAsync(gateway, frame, waiter.Task, timeoutMs);
 		lock (_lock)
 		{
 			if (_ackWaiter == waiter)

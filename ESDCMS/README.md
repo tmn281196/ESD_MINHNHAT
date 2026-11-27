@@ -16,10 +16,11 @@ tên hiển thị là **ESD Compliance Monitoring System**.
   `STAT`** (còn STAT thì WPF đọc SemiBold thành weight 1 và vẽ bằng bản Bold); JetBrains Mono chỉ đổi woff2 → ttf. Chữ Hàn/Thái
   không có trong font tự fallback sang font hệ thống. `Frame` (trang Monitor) và cửa sổ tạo bằng code (`UnlockDialog`) không
   kế thừa font của Window nên được gắn `AppFont` riêng.
-- WiFi cho tùy chọn cloud của gateway (`lora_gateway.ino`, `ENABLE_CLOUD 1`): nút ☁ ở group RF Gateway mở `WifiDialog.cs`;
-  SSID/mật khẩu gửi xuống gateway qua cổng COM bằng khung `0xA5` (`Device/GatewayCloudLink.cs`), mật khẩu trong
-  `config.json` mã hóa DPAPI theo user Windows (`Config.WifiPasswordProtected`, cần tham chiếu `System.Security`).
-  Biểu tượng ☁ xanh khi gateway báo đã vào WiFi (ViewModel hỏi mỗi 5 s, chỉ khi đã tick).
+- Tùy chọn cloud của gateway (`lora_gateway.ino`, `ENABLE_CLOUD 1`): tên/mật khẩu WiFi nằm trong `secrets.h` của firmware,
+  app chỉ bật/tắt WiFi của gateway (nút ☁ ở group RF Gateway mở `WifiDialog.cs`, lưu `Config.WifiEnabled`, gửi khung
+  `0xA5 'W'` qua cổng COM bằng `Device/GatewayCloudLink.cs`). Gateway tự gửi khung `'s'` khi trạng thái đổi (bước đang
+  làm, mã lỗi) và khung `'r'` cho mỗi lần gửi lên cloud; `Device/GatewayCloudText.cs` dựng tooltip của ☁ (xanh OK, vàng
+  đang kết nối, xám lỗi/tắt) và dòng console (tiếng Anh, qua `Lang.En`).
 - Tên biến cục bộ lấy từ PDB nên khá sát bản gốc; tên tham số lambda và một số cấu trúc `async` có thể khác nguyên bản.
 - `Monitoring/MornitorPage.xaml` giữ nguyên tên file gốc (resource `monitoring/mornitorpage.baml`).
 - `config.json` (COM port, vị trí thiết bị) và `crash.log` nằm ở `%USERPROFILE%\.esdcms\`. Lần chạy đầu, nếu chưa có
