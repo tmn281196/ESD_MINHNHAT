@@ -160,7 +160,7 @@ def _warning_svg():
         ("self", "vm", "Enqueue: a used box is Warning → desired = STOP"),
         ("frame", "conveyor timer 200 ms: desired != last", 1),
         ("call", "vm", "cb", "AssertMotorChannels(STOP)"),
-        ("frame", "each Motor 1..4: TX gap apart, retry up to 4x", 3),
+        ("frame", "each Motor 1..3: TX gap apart, retry up to 4x", 3),
         ("call", "cb", "ard", "44 45 03 01 01 02 56  (Motor 1 STOP)"),
         ("reply", "ard", "cb", "echo = ACK (byte-for-byte)"),
         ("self", "ard", "pin HIGH → relay ON → motor 1 stops"),
@@ -181,7 +181,7 @@ def _startup_svg():
         ("call", "dmp", "cb", "ApplyControlBoxConnection(open)"),
         ("self", "cb", "open COM"),
         ("frame", "SWON pulse, under _controlBoxGate", 2),
-        ("self", "cb", "Motor 1..4 = RUN, TX gap apart"),
+        ("self", "cb", "Motor 1..3 = RUN, TX gap apart"),
         ("self", "cb", "Start All = HIGH, wait 500 ms, = LOW"),
         ("self", "mw", "retry open up to 12x / 5 s if a port is missing"),
         ("self", "vm", "poll sees OpenGeneration changed · wait 2.5 s"),
@@ -250,7 +250,7 @@ def canh_bao():
 <li>Hộp đọc hai chân, suy ra <code>'W'</code>, gửi khung LoRa; gateway chuyển tiếp nguyên khung qua USB.</li>
 <li><code>ViewModel.FeedByte</code> ghép byte thành khung, CRC đúng thì đặt <code>box.Status = Warning</code> và tính lại "mong muốn": có hộp dùng nào Warning → cần STOP.</li>
 <li>Timer băng tải 200&nbsp;ms thấy "mong muốn" khác lần gửi trước nên gọi <code>AssertMotorChannels(STOP)</code>.</li>
-<li>Mỗi kênh Motor 1..4 gửi một khung lệnh, chờ echo; thử lại tới 4 lần, cách nhau TX gap giữa các kênh.</li>
+<li>Mỗi kênh Motor 1..3 gửi một khung lệnh, chờ echo; thử lại tới 4 lần, cách nhau TX gap giữa các kênh.</li>
 <li>Arduino echo khung (ACK) và kéo chân HIGH: relay đóng, động cơ dừng. Hết Warning thì lặp lại với STATE 0 (RUN).</li>
 </ol>
 '''
@@ -265,7 +265,7 @@ def khoi_dong():
 <h2 id="doc-hinh">Đọc hình</h2>
 <ul>
 <li>Khi cửa sổ <code>Loaded</code>, <code>InitComConnections</code> mở lần lượt RF Gateway rồi Control Box (đều trên luồng nền).</li>
-<li>Mở cổng RF thành công thì <code>OpenGeneration</code> tăng; mở Control Box thì chạy xung SWON (Motor 1..4 = RUN, rồi Start All HIGH 500&nbsp;ms → LOW) dưới khóa <code>_controlBoxGate</code>.</li>
+<li>Mở cổng RF thành công thì <code>OpenGeneration</code> tăng; mở Control Box thì chạy xung SWON (Motor 1..3 = RUN, rồi Start All HIGH 500&nbsp;ms → LOW) dưới khóa <code>_controlBoxGate</code>.</li>
 <li>Nếu một cổng chưa lên (driver USB chưa sẵn sàng lúc khởi động cùng Windows), <code>MainWindow</code> thử lại tới 12 lần, mỗi 5&nbsp;s.</li>
 <li>Vòng polling thấy <code>OpenGeneration</code> đổi, đợi 2,5&nbsp;s (gateway có thể reboot) rồi query mọi hộp đang dùng theo vòng (xem <a href="../kien_truc/04_poll.html">Status Polling</a>). Hộp chạy firmware v2 trả lời sau khoảng 20&nbsp;ms; hộp vẫn im sau <code>PollRetries</code> vòng (mỗi vòng ít nhất <code>PollRoundWaitMs</code> = 5&nbsp;s) thì hiện Offline.</li>
 </ul>

@@ -43,8 +43,9 @@
 
 <h2 id="firmware-khac">Khác biệt firmware khác</h2>
 <ul>
-<li><strong>Line2 cùng logic với Line1:</strong> <code>Firmware_ControBox/Line2/L2</code> (header "Line2 / L2PC1") chạy đúng code của <code>Line1/L1</code>, và <code>Pin.h</code> trùng chân. Nếu line 2 khác chân thì phải sửa riêng.</li>
-<li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
+<li><strong>Ba line cùng code, khác chân:</strong> <code>Firmware_ControBox/Line1/L1</code>, <code>Line2/L2</code>, <code>Line3/L3</code> chạy đúng một code đọc khung; chỉ <code>Pin.h</code> khác, theo dây của từng line (xem <a href="../giao_thuc/02_control_box.html#pin">Control Box Protocol</a>). Hai Control Box của Line 2 (PC1, PC2) dùng chung một firmware.</li>
+<li><strong>Chân Line 3 chưa kiểm:</strong> <code>Line3/L3/Pin.h</code> lấy từ firmware cũ (Start All = 24, Motor 1..3 = cùng chân 22) vì chưa có sơ đồ dây; phải đối chiếu hộp thật trước khi nạp.</li>
+<li><strong>Chỉ còn 3 motor:</strong> Motor 4 (opcode 4) đã bỏ ở firmware, app và simulator vì không line nào nối nó. Cần thêm motor thì phải thêm lại cả ba nơi.</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
 <li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
 <li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase bằng app <code>ESDCloudViewer</code>: mỗi lần một line, đăng nhập bằng chính tài khoản của gateway (tài khoản này cũng ghi được line đó); chưa có tài khoản chỉ-đọc riêng.</li>
@@ -52,7 +53,7 @@
 
 <h2 id="khac">Chỗ khác cần biết</h2>
 <ul>
-<li><strong>Dừng cả băng tải, không theo từng động cơ:</strong> luật hiện tại là "bất kỳ hộp Warning → đặt cả Motor 1..4 = STOP". Không có ánh xạ "hộp X dừng riêng động cơ Y".</li>
+<li><strong>Dừng cả băng tải, không theo từng động cơ:</strong> luật hiện tại là "bất kỳ hộp Warning → đặt cả Motor 1..3 = STOP". Không có ánh xạ "hộp X dừng riêng động cơ Y".</li>
 <li><strong>Danh sách MAC trong <code>App.xaml.cs</code>:</strong> có tính nhưng kết quả không dùng (một kiểu kiểm tra giấy phép còn ngủ).</li>
 <li><strong>Mã nguồn dịch ngược:</strong> tên tham số lambda và vài cấu trúc <code>async</code> có thể khác bản gốc; hành vi thì bám theo exe đã chạy.</li>
 <li><strong>Một PC, một line:</strong> Network ID phân biệt line, và cấu hình nằm theo user Windows (<code>%USERPROFILE%\.esdcms</code>), nên mọi bản ESDCMS của một user dùng chung cổng COM. Nhiều line trên một PC cần nhiều user Windows, hoặc mở rộng thêm (ví dụ tham số dòng lệnh chọn file config).</li>

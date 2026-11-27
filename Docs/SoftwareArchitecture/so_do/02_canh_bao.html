@@ -61,7 +61,7 @@
 <text x="38" y="265" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">conveyor timer 200 ms: desired != last</text>
 <rect x="30" y="306" width="830" height="126" fill="none" stroke="var(--rule-strong)" stroke-dasharray="4 3"/>
 <rect x="30" y="306" width="326.5" height="18" fill="var(--surface-2)" stroke="var(--rule-strong)"/>
-<text x="38" y="319" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">each Motor 1..4: TX gap apart, retry up to 4x</text>
+<text x="38" y="319" font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-2)">each Motor 1..3: TX gap apart, retry up to 4x</text>
 <line x1="105.0" y1="58" x2="105.0" y2="480" stroke="var(--rule-strong)" stroke-dasharray="3 4"/>
 <line x1="275.0" y1="58" x2="275.0" y2="480" stroke="var(--rule-strong)" stroke-dasharray="3 4"/>
 <line x1="445.0" y1="58" x2="445.0" y2="480" stroke="var(--rule-strong)" stroke-dasharray="3 4"/>
@@ -97,7 +97,7 @@
 <li>Hộp đọc hai chân, suy ra <code>'W'</code>, gửi khung LoRa; gateway chuyển tiếp nguyên khung qua USB.</li>
 <li><code>ViewModel.FeedByte</code> ghép byte thành khung, CRC đúng thì đặt <code>box.Status = Warning</code> và tính lại "mong muốn": có hộp dùng nào Warning → cần STOP.</li>
 <li>Timer băng tải 200&nbsp;ms thấy "mong muốn" khác lần gửi trước nên gọi <code>AssertMotorChannels(STOP)</code>.</li>
-<li>Mỗi kênh Motor 1..4 gửi một khung lệnh, chờ echo; thử lại tới 4 lần, cách nhau TX gap giữa các kênh.</li>
+<li>Mỗi kênh Motor 1..3 gửi một khung lệnh, chờ echo; thử lại tới 4 lần, cách nhau TX gap giữa các kênh.</li>
 <li>Arduino echo khung (ACK) và kéo chân HIGH: relay đóng, động cơ dừng. Hết Warning thì lặp lại với STATE 0 (RUN).</li>
 </ol>
 

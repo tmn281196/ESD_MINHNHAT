@@ -37,9 +37,9 @@ Truyền tên cổng làm tham số dòng lệnh thì simulator tự mở cổng
 1. Mở hai simulator, rồi ESDCMS; trong ESDCMS chọn `COM15` cho RF Gateway, `COM16` cho Control Box.
 2. Khoảng 2,5 s sau ESDCMS hỏi từng hộp đang dùng (`?`) → `RfGatewaySim` trả lời; hộp 1..8 lên màu theo trạng thái.
    Hộp nào bỏ tick **Online** thì không trả lời → ESDCMS cho Offline (xanh dương) và hiện dải cảnh báo vàng ngay dưới hàng ô hộp.
-3. Bấm **W** ở một hộp đang dùng → ESDCMS dừng băng tải: `ControlBoxSim` nhận lần lượt Motor 1..4 = HIGH (STOP),
-   dải dưới chuyển đỏ. Bấm **A** lại → Motor 1..4 = LOW (RUN).
-4. Lúc ESDCMS mở cổng Control Box, `ControlBoxSim` thấy Motor 1..4 = LOW rồi xung Start All HIGH → LOW.
+3. Bấm **W** ở một hộp đang dùng → ESDCMS dừng băng tải: `ControlBoxSim` nhận lần lượt Motor 1..3 = HIGH (STOP),
+   dải dưới chuyển đỏ. Bấm **A** lại → Motor 1..3 = LOW (RUN).
+4. Lúc ESDCMS mở cổng Control Box, `ControlBoxSim` thấy Motor 1..3 = LOW rồi xung Start All HIGH → LOW.
 5. Bỏ tick **Reply with echo** (hoặc đặt *Echo delay* > 500 ms) → ESDCMS hết RX timeout, thử lại, log `not acknowledged`.
 6. Bỏ tick **Boxes answer '?' queries** → giống hộp chạy firmware cũ: query không có trả lời.
 

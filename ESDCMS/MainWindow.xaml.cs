@@ -81,8 +81,7 @@ public partial class MainWindow : Window
 			{ 0, ToggleableButton0 },
 			{ 1, ToggleableButton1 },
 			{ 2, ToggleableButton2 },
-			{ 3, ToggleableButton3 },
-			{ 4, ToggleableButton4 }
+			{ ControlBox.SwOnChannel, StartAllButton }
 		};
 		DeviceManagerPage.ControlBox.Channels.CollectionChanged += Channels_CollectionChanged;
 		for (int i = 0; i < DeviceManagerPage.ControlBox.Channels.Count; i++)
@@ -570,7 +569,7 @@ public partial class MainWindow : Window
 		foreach (Control c in new Control[]
 		{
 			RFComboBoxPorts, ControlBoxComboBoxPorts, AutoStartBox,
-			ToggleableButton4, ToggleableButton0, ToggleableButton1, ToggleableButton2, ToggleableButton3
+			StartAllButton, ToggleableButton0, ToggleableButton1, ToggleableButton2
 		})
 		{
 			c.IsHitTestVisible = !locked;

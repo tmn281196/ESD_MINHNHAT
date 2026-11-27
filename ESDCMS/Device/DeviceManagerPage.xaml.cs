@@ -76,14 +76,14 @@ public partial class DeviceManagerPage : Page
 				return;
 			}
 			int gapMs = ViewModel.Config?.EffectiveTxGapMs ?? Config.DefaultTxGapMs;
-			for (int channel = 0; channel <= 3; channel++)
+			for (int channel = 0; channel < ControlBox.MotorCount; channel++)
 			{
 				int ch = channel;
 				ControlBox.Channels[ch] = false;
 				await Task.Run(() => ControlBox.SendChannel(ch, on: false));
 				await Task.Delay(gapMs);
 			}
-			int swOn = 4;
+			int swOn = ControlBox.SwOnChannel;
 			ControlBox.Channels[swOn] = true;
 			await Task.Run(() => ControlBox.SendChannel(swOn, on: true));
 			await Task.Delay(500);

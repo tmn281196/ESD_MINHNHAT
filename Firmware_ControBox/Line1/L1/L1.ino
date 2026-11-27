@@ -2,7 +2,7 @@
 //
 // ---------- Frame from PC (ESDCMS.Device.ControlBox.GetFrame) ----------
 //   0x44 0x45 LEN OPCODE STATE CS 0x56          (LEN = 3, total 7 bytes)
-//     OPCODE : 1..4 = Motor 1..4, 5 = Start All (SWON)
+//     OPCODE : 1..3 = Motor 1..3, 5 = Start All (SWON); 4 (Motor 4) removed, not answered
 //     STATE  : 0 = release (LOW), 1 = assert (HIGH)
 //     CS     : XOR of all bytes before it (0x44 ^ 0x45 ^ LEN ^ OPCODE ^ STATE)
 //   Bytes after LEN = LEN + 1  (payload, CS, 0x56)

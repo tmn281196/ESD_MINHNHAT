@@ -12,8 +12,8 @@ namespace ControlBoxSim;
 
 /// <summary>
 /// Simulates the ESDCMS Control Box (Arduino Mega running Firmware_ControBox/Line1).
-/// Serial 9600 8N1. Frame from the PC: 44 45 03 OP STATE XOR 56 (OP 1..4 = Motor 1..4, 5 = Start All;
-/// STATE 1 = pin HIGH = relay ON = motor STOP, 0 = LOW = RUN; XOR of the 5 bytes before it).
+/// Serial 9600 8N1. Frame from the PC: 44 45 03 OP STATE XOR 56 (OP 1..3 = Motor 1..3, 5 = Start All; 4 = Motor 4 was
+/// removed and is not answered; STATE 1 = pin HIGH = relay ON = motor STOP, 0 = LOW = RUN; XOR of the 5 bytes before it).
 /// A valid frame sets the channel and is echoed back unchanged as the ACK, like the firmware.
 /// Put it on one end of a com0com pair and ESDCMS's Control Box port on the other end.
 /// Command line: ControlBoxSim.exe COM17 [log.txt]  opens that port at start (and also writes the log to the file).
@@ -26,12 +26,15 @@ public partial class MainWindow : Window
 	private const int MaxFrame = 20;
 	private const int FrameTimeoutMs = 100;   // the firmware drops a half frame after 100 ms of silence
 
-	private static readonly string[] Names = { "Motor 1", "Motor 2", "Motor 3", "Motor 4", "Start All" };
-	private static readonly string[] Labels = { "MI · pin 28", "SOLDER · pin 24", "PACKING · pin 22", "FCT · pin 22", "SWON · pin 30" };
+	// One tile per opcode the firmware answers (Line 1 wiring: Firmware_ControBox/Line1/L1/Pin.h).
+	private static readonly byte[] Opcodes = { 1, 2, 3, 5 };
+	private static readonly string[] Names = { "Motor 1", "Motor 2", "Motor 3", "Start All" };
+	private static readonly string[] Labels = { "head of line · pin 28", "end of line · pin 22", "middle of line · pin 24", "SWON · pin 30" };
+	private const int StartAll = 3;   // tile index of Start All
 
-	private readonly bool[] _high = new bool[5];
-	private readonly Border[] _tiles = new Border[5];
-	private readonly TextBlock[] _tileState = new TextBlock[5];
+	private readonly bool[] _high = new bool[4];
+	private readonly Border[] _tiles = new Border[4];
+	private readonly TextBlock[] _tileState = new TextBlock[4];
 
 	private SerialPort _port;
 
@@ -66,7 +69,7 @@ public partial class MainWindow : Window
 
 	private void BuildTiles()
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < Names.Length; i++)
 		{
 			StackPanel sp = new StackPanel { Margin = new Thickness(8) };
 			sp.Children.Add(new TextBlock { Text = Names[i], FontWeight = FontWeights.Bold, FontSize = 14, Foreground = Brushes.White });
@@ -83,7 +86,7 @@ public partial class MainWindow : Window
 
 	private void UpdateTile(int i)
 	{
-		if (i == 4)
+		if (i == StartAll)
 		{
 			_tiles[i].Background = _high[i] ? Hex("#FFB300") : Hex("#9E9E9E");
 			_tileState[i].Text = _high[i] ? "HIGH (pulse)" : "LOW";
@@ -95,7 +98,7 @@ public partial class MainWindow : Window
 
 	private void UpdateConveyor()
 	{
-		bool stopped = _high.Take(4).Any(h => h);
+		bool stopped = _high.Take(StartAll).Any(h => h);
 		ConveyorBanner.Background = stopped ? Hex("#C62828") : Hex("#2E7D32");
 		ConveyorText.Text = stopped ? "Conveyor STOPPED  (a motor relay is ON)" : "Conveyor RUNNING  (all motor relays OFF)";
 	}
@@ -138,7 +141,7 @@ public partial class MainWindow : Window
 
 	private void Reset_Click(object sender, RoutedEventArgs e)
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < Names.Length; i++)
 		{
 			_high[i] = false;
 			UpdateTile(i);
@@ -305,18 +308,19 @@ public partial class MainWindow : Window
 		}
 		int op = f[3];
 		int state = f[4];
-		if (op < 1 || op > 5 || state > 1)
+		int tile = Array.IndexOf(Opcodes, (byte)op);
+		if (tile < 0 || state > 1)
 		{
-			Ui(() => Log("RX " + hex + "   bad opcode / state -> no echo"));
+			Ui(() => Log("RX " + hex + "   bad opcode (4 = Motor 4, removed) / state -> no echo"));
 			return;
 		}
 		Ui(delegate
 		{
-			_high[op - 1] = state == 1;
-			UpdateTile(op - 1);
+			_high[tile] = state == 1;
+			UpdateTile(tile);
 			UpdateConveyor();
-			string meaning = (op == 5) ? (state == 1 ? "HIGH" : "LOW") : (state == 1 ? "HIGH = STOP" : "LOW = RUN");
-			Log($"RX {hex}   {Names[op - 1]} {meaning}");
+			string meaning = (tile == StartAll) ? (state == 1 ? "HIGH" : "LOW") : (state == 1 ? "HIGH = STOP" : "LOW = RUN");
+			Log($"RX {hex}   {Names[tile]} {meaning}");
 			if (EchoBox.IsChecked == true)
 			{
 				SendEcho(f);

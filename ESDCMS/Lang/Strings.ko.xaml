@@ -18,7 +18,6 @@
   <sys:String x:Key="S.Stop1">정지 1</sys:String>
   <sys:String x:Key="S.Stop2">정지 2</sys:String>
   <sys:String x:Key="S.Stop3">정지 3</sys:String>
-  <sys:String x:Key="S.Stop4">정지 4</sys:String>
   <sys:String x:Key="S.RefreshConnection">연결 새로고침</sys:String>
   <sys:String x:Key="S.StartWithWindows">Windows 시작 시 실행</sys:String>
 

@@ -49,10 +49,11 @@
 <div class="table-wrap"><table>
 <thead><tr><th class="mono">OP</th><th>Kênh (app)</th><th class="mono">STATE=1</th><th class="mono">STATE=0</th></tr></thead>
 <tbody>
-<tr><td class="num">1..4</td><td>Motor 1..4</td><td>chân HIGH → relay ON → <b>motor STOP</b></td><td>chân LOW → relay OFF → <b>motor RUN</b></td></tr>
+<tr><td class="num">1..3</td><td>Motor 1..3</td><td>chân HIGH → relay ON → <b>motor STOP</b></td><td>chân LOW → relay OFF → <b>motor RUN</b></td></tr>
 <tr><td class="num">5</td><td>Start All (SWON)</td><td>chân SWON HIGH</td><td>chân SWON LOW</td></tr>
 </tbody>
 </table></div>
+<p class="tnote">Opcode <code>4</code> (Motor 4) đã bỏ: cả hai line đều không nối gì vào kênh này. Firmware không echo khung có opcode 4, và app không còn gửi nó; Start All vẫn là opcode <code>5</code> nên giao thức không đổi.</p>
 <p>Relay dùng tiếp điểm <strong>thường đóng (NC)</strong> nối tiếp mạch động cơ: cấp điện relay (chân HIGH) thì NC hở ra và động cơ dừng; thả (chân LOW) thì NC đóng lại và động cơ chạy. Vì vậy "cảnh báo" = đặt STATE 1.</p>
 <div class="ex"><span class="dir">TX</span> <b>44 45 03 01 01 02 56</b> &nbsp;— Motor 1 STOP</div>
 <div class="ex"><span class="dir">TX</span> <b>44 45 03 01 00 03 56</b> &nbsp;— Motor 1 RUN</div>
@@ -64,18 +65,19 @@
 <p class="tnote">Arduino cũng bỏ khung nhận dở nếu im lặng quá 100&nbsp;ms (chống dính nửa khung).</p>
 
 <h2 id="pin">Bản đồ chân (Arduino Mega)</h2>
+<p>Theo dây thật (<code>ControlBox_Wiring_EN.pdf</code> của dự án). Mỗi line có <code>Pin.h</code> riêng; code đọc khung giống nhau.</p>
 <div class="table-wrap"><table>
-<thead><tr><th>Kênh</th><th class="mono">OP</th><th class="mono">Chân</th><th>Nhãn</th></tr></thead>
+<thead><tr><th>Kênh</th><th class="mono">OP</th><th class="mono">Line 1 · chân</th><th>Line 1 · nối tới</th><th class="mono">Line 2 · chân</th><th>Line 2 · nối tới</th></tr></thead>
 <tbody>
-<tr><td>Motor 1</td><td class="num">1</td><td class="num">28</td><td>MI</td></tr>
-<tr><td>Motor 2</td><td class="num">2</td><td class="num">24</td><td>SOLDER</td></tr>
-<tr><td>Motor 3</td><td class="num">3</td><td class="num">22</td><td>PACKING</td></tr>
-<tr><td>Motor 4</td><td class="num">4</td><td class="num">22</td><td>FCT</td></tr>
-<tr><td>Start All</td><td class="num">5</td><td class="num">30</td><td>SWON</td></tr>
+<tr><td>Motor 1</td><td class="num">1</td><td class="num">28</td><td>Remote 71-071 UP4 → motor đầu line</td><td class="num">24</td><td>Remote 72-072 UP1 → đầu line (Control Box PC1)</td></tr>
+<tr><td>Motor 2</td><td class="num">2</td><td class="num">22</td><td>Remote 98-098 UP1 → motor cuối line</td><td class="num">26</td><td>Remote 67-067 UP2 → giữa line (PC1)</td></tr>
+<tr><td>Motor 3</td><td class="num">3</td><td class="num">24</td><td>Remote 03-003 UP2 → motor giữa line</td><td class="num">23</td><td>Remote 80-080 UP2 → cuối line (Control Box PC2)</td></tr>
+<tr><td>Start All</td><td class="num">5</td><td class="num">30</td><td>Relay 24&nbsp;VDC → START</td><td class="num">22</td><td>Relay → SW ON (cả PC1 và PC2)</td></tr>
 </tbody>
 </table></div>
-<div class="callout warn"><p class="label">Motor 3 và Motor 4 trùng chân</p>
-<p>Trong <code>Pin.h</code> hiện tại <code>MOTOR3</code> và <code>MOTOR4</code> đều là chân <code>22</code>, nên hai kênh này điều khiển cùng một relay. Nếu line cần 4 động cơ độc lập thì phải đổi <code>MOTOR4</code> sang chân khác. Xem <a href="../kien_truc/08_gioi_han.html">Limits</a>.</p></div>
+<p class="tnote">Line 2 có hai Control Box (PC1 ở đầu/giữa line, PC2 ở cuối line) chạy cùng một firmware; mỗi hộp chỉ nối một số chân, chân không nối thì xuất mức cũng không ảnh hưởng gì.</p>
+<div class="callout warn"><p class="label">Line 3: chân chưa kiểm</p>
+<p>Chưa ai ghi lại dây của Control Box Line 3 (hộp đang chạy firmware do người phát triển gốc nạp từ xa, không còn bản sao). <code>Firmware_ControBox/Line3/L3</code> lấy chân từ firmware cũ: <strong>Start All = chân 24</strong>, <strong>Motor 1..3 = cùng chân 22</strong> (một relay dừng cả line, nên lệnh Motor sau cùng quyết định). Trước khi nạp phải mở hộp đối chiếu dây, sửa <code>Pin.h</code> rồi đặt <code>L3_WIRING_CHECKED 1</code>; tới lúc đó trình biên dịch còn cảnh báo.</p></div>
 
 <nav class="pager" aria-label="Pages"></nav>
 <footer>Control Box Protocol</footer>

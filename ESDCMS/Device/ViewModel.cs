@@ -432,7 +432,7 @@ public class ViewModel : INotifyPropertyChanged
 	{
 		bool all = true;
 		int gapMs = Config?.EffectiveTxGapMs ?? Config.DefaultTxGapMs;
-		for (int channel = 0; channel <= 3; channel++)
+		for (int channel = 0; channel < ControlBox.MotorCount; channel++)
 		{
 			if (channel > 0 && gapMs > 0)
 			{
@@ -450,7 +450,7 @@ public class ViewModel : INotifyPropertyChanged
 		bool ok = await AssertMotorChannels(warning);
 		if (!ok)
 		{
-			Console.WriteLine("Conveyor: ch0..3 (" + (warning ? "STOP" : "MOVING") + ") - some channels not acknowledged");
+			Console.WriteLine("Conveyor: ch0.." + (ControlBox.MotorCount - 1) + " (" + (warning ? "STOP" : "MOVING") + ") - some channels not acknowledged");
 		}
 		return ok;
 	}

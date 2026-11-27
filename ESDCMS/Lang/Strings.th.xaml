@@ -18,7 +18,6 @@
   <sys:String x:Key="S.Stop1">หยุด 1</sys:String>
   <sys:String x:Key="S.Stop2">หยุด 2</sys:String>
   <sys:String x:Key="S.Stop3">หยุด 3</sys:String>
-  <sys:String x:Key="S.Stop4">หยุด 4</sys:String>
   <sys:String x:Key="S.RefreshConnection">เชื่อมต่อใหม่</sys:String>
   <sys:String x:Key="S.StartWithWindows">เปิดพร้อม Windows</sys:String>
 

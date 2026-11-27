@@ -75,7 +75,7 @@
 <path d="M706.0 218 L732.0 218 L732.0 232 L708.0 232" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#svg-start-ar)"/>
 <text x="738.0" y="226" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">open COM</text>
 <path d="M706.0 276 L732.0 276 L732.0 290 L708.0 290" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#svg-start-ar)"/>
-<text x="738.0" y="284" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">Motor 1..4 = RUN, TX gap apart</text>
+<text x="738.0" y="284" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">Motor 1..3 = RUN, TX gap apart</text>
 <path d="M706.0 312 L732.0 312 L732.0 326 L708.0 326" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#svg-start-ar)"/>
 <text x="738.0" y="320" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round">Start All = HIGH, wait 500 ms, = LOW</text>
 <path d="M118.0 348 L144.0 348 L144.0 362 L120.0 362" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#svg-start-ar)"/>
@@ -94,7 +94,7 @@
 <h2 id="doc-hinh">Đọc hình</h2>
 <ul>
 <li>Khi cửa sổ <code>Loaded</code>, <code>InitComConnections</code> mở lần lượt RF Gateway rồi Control Box (đều trên luồng nền).</li>
-<li>Mở cổng RF thành công thì <code>OpenGeneration</code> tăng; mở Control Box thì chạy xung SWON (Motor 1..4 = RUN, rồi Start All HIGH 500&nbsp;ms → LOW) dưới khóa <code>_controlBoxGate</code>.</li>
+<li>Mở cổng RF thành công thì <code>OpenGeneration</code> tăng; mở Control Box thì chạy xung SWON (Motor 1..3 = RUN, rồi Start All HIGH 500&nbsp;ms → LOW) dưới khóa <code>_controlBoxGate</code>.</li>
 <li>Nếu một cổng chưa lên (driver USB chưa sẵn sàng lúc khởi động cùng Windows), <code>MainWindow</code> thử lại tới 12 lần, mỗi 5&nbsp;s.</li>
 <li>Vòng polling thấy <code>OpenGeneration</code> đổi, đợi 2,5&nbsp;s (gateway có thể reboot) rồi query mọi hộp đang dùng theo vòng (xem <a href="../kien_truc/04_poll.html">Status Polling</a>). Hộp chạy firmware v2 trả lời sau khoảng 20&nbsp;ms; hộp vẫn im sau <code>PollRetries</code> vòng (mỗi vòng ít nhất <code>PollRoundWaitMs</code> = 5&nbsp;s) thì hiện Offline.</li>
 </ul>

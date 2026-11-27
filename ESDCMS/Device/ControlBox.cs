@@ -29,13 +29,16 @@ public class ControlBox
 
 	public const byte OpMotor3 = 3;
 
-	public const byte OpMotor4 = 4;
-
+	/// <summary>Start All (SWON). Opcode 4 (Motor 4) was removed: nothing is wired to it on either line.</summary>
 	public const byte OpSwOn = 5;
 
-	public static readonly byte[] ChannelOpcodes = new byte[5] { 1, 2, 3, 4, 5 };
+	/// <summary>Motor channels 0..MotorCount-1 (Motor 1..3); the channel after them is Start All.</summary>
+	public const int MotorCount = 3;
 
-	public const int SwOnChannel = 4;
+	/// <summary>Opcode of each channel index: Motor 1..3, then Start All.</summary>
+	public static readonly byte[] ChannelOpcodes = new byte[MotorCount + 1] { OpMotor1, OpMotor2, OpMotor3, OpSwOn };
+
+	public const int SwOnChannel = MotorCount;
 
 	private readonly object _txLock = new object();
 
@@ -55,7 +58,8 @@ public class ControlBox
 		Console.WriteLine("TX -> ControlBox: " + port + " is not open - command skipped (check USB cable / COM port)");
 	}
 
-	public ObservableCollection<bool> Channels { get; set; } = new ObservableCollection<bool> { false, false, false, false, false };
+	/// <summary>State of each channel (index as <see cref="ChannelOpcodes"/>): Motor 1..3, Start All.</summary>
+	public ObservableCollection<bool> Channels { get; set; } = new ObservableCollection<bool> { false, false, false, false };
 
 	public event EventHandler SerialReceiverHandler;
 
@@ -261,7 +265,7 @@ public class ControlBox
 
 	public static string ChannelName(int channelIndex)
 	{
-		return (channelIndex == 4) ? "Start All" : $"Motor {channelIndex + 1}";
+		return (channelIndex == SwOnChannel) ? "Start All" : $"Motor {channelIndex + 1}";
 	}
 
 	public bool SendChannel(int channelIndex, bool on, int timeOut = -1)

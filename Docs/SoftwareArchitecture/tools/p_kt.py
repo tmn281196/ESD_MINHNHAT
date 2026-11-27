@@ -155,19 +155,19 @@ def conveyor():
 <p>Một <strong>DispatcherTimer 200&nbsp;ms</strong> (<code>ConveyorTimer_Tick</code>) so "mong muốn" với trạng thái đã gửi lần trước; chỉ khi khác mới gửi lệnh, nên không spam Control Box. Gửi hụt (không đủ echo) thì giữ nguyên "lần trước" để lần tick sau <strong>thử lại</strong>.</p>
 
 <h2 id="gui">Gửi một trạng thái</h2>
-<p><code>AssertMotorChannels(on)</code> đặt bốn kênh Motor 1..4 về cùng mức, lần lượt, cách nhau <strong>TX gap</strong>:</p>
+<p><code>AssertMotorChannels(on)</code> đặt ba kênh Motor 1..3 (<code>ControlBox.MotorCount</code>) về cùng mức, lần lượt, cách nhau <strong>TX gap</strong>:</p>
 <ul>
 <li>Mỗi kênh: <code>AssertChannel</code> gửi tới <strong>Retry</strong> lần (mặc định 4), cách nhau <strong>Retry gap</strong> (100&nbsp;ms), dừng ngay khi có echo.</li>
 <li>Mỗi lần gửi: <code>SendChannel → SendTX</code> ghi khung rồi chờ echo trong <strong>RX timeout</strong> (mặc định 500&nbsp;ms), so từng byte.</li>
 <li>Giữa hai kênh liên tiếp chờ <strong>TX gap</strong> (mặc định 500&nbsp;ms).</li>
 </ul>
-<p class="tnote">Vì vậy thời gian phản ứng xấu nhất (hộp báo Warning → cả 4 kênh đã gửi) khi Control Box im lặng vào cỡ <code>4 × Retry × (RX timeout + Retry gap) + 3 × TX gap</code> — hàng giây; khi Control Box đáp bình thường thì gần như chỉ còn <code>3 × TX gap</code>.</p>
+<p class="tnote">Vì vậy thời gian phản ứng xấu nhất (hộp báo Warning → cả 3 kênh đã gửi) khi Control Box im lặng vào cỡ <code>3 × Retry × (RX timeout + Retry gap) + 2 × TX gap</code> — hàng giây; khi Control Box đáp bình thường thì gần như chỉ còn <code>2 × TX gap</code>.</p>
 
 <h2 id="ket-noi">Xung SWON lúc kết nối</h2>
-<p>Khi mở cổng Control Box (<code>OpenControlBoxCore</code>), app đưa Motor 1..4 về <strong>RUN</strong> (cách nhau TX gap) rồi phát một xung <strong>Start All</strong>: kênh 5 = HIGH, đợi 500&nbsp;ms, = LOW. Toàn bộ chạy dưới khóa <code>_controlBoxGate</code> nên không đụng timer băng tải.</p>
+<p>Khi mở cổng Control Box (<code>OpenControlBoxCore</code>), app đưa Motor 1..3 về <strong>RUN</strong> (cách nhau TX gap) rồi phát một xung <strong>Start All</strong> (opcode 5): HIGH, đợi 500&nbsp;ms, LOW. Toàn bộ chạy dưới khóa <code>_controlBoxGate</code> nên không đụng timer băng tải.</p>
 
 <h2 id="lock">Lock / manual</h2>
-<p>Mở khóa bằng nút <strong>Lock</strong> (phải nhập mật khẩu) sẽ bật chế độ manual: timer băng tải <em>ngừng</em> tự điều khiển (<code>_controlsUnlocked</code>), người vận hành tự bấm các nút Start All / Stop 1..4 (group Motors), và sửa được các ô cài đặt. Khóa lại thì tự động hoạt động trở lại. Bản đồ hộp cũng chỉ cho kéo/đổi khi mở khóa (xem <a href="07_giao_dien.html">User Interface</a>).</p>
+<p>Mở khóa bằng nút <strong>Lock</strong> (phải nhập mật khẩu) sẽ bật chế độ manual: timer băng tải <em>ngừng</em> tự điều khiển (<code>_controlsUnlocked</code>), người vận hành tự bấm các nút Start All / Stop 1..3 (group Motors), và sửa được các ô cài đặt. Khóa lại thì tự động hoạt động trở lại. Bản đồ hộp cũng chỉ cho kéo/đổi khi mở khóa (xem <a href="07_giao_dien.html">User Interface</a>).</p>
 '''
     write("kien_truc/05_conveyor.html", body=body)
 
@@ -252,7 +252,7 @@ def giao_dien():
 <tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Sát lề trái: nút 🔒 và <strong>Start with Windows</strong>. Sát lề phải: <strong>Refresh Connection</strong>, rồi liền ngay sau là ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
 <strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s, nút ☁ trạng thái cloud của gateway: xanh khi ghi cloud OK, vàng khi đang kết nối, xám khi lỗi; bấm được cả khi khóa) ·
 <strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·
-<strong>Motors</strong> (Start All, Stop 1..4).</td></tr>
+<strong>Motors</strong> (Start All, Stop 1..3).</td></tr>
 </tbody>
 </table></div>
 
@@ -303,8 +303,9 @@ def gioi_han():
 
 <h2 id="firmware-khac">Khác biệt firmware khác</h2>
 <ul>
-<li><strong>Line2 cùng logic với Line1:</strong> <code>Firmware_ControBox/Line2/L2</code> (header "Line2 / L2PC1") chạy đúng code của <code>Line1/L1</code>, và <code>Pin.h</code> trùng chân. Nếu line 2 khác chân thì phải sửa riêng.</li>
-<li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
+<li><strong>Ba line cùng code, khác chân:</strong> <code>Firmware_ControBox/Line1/L1</code>, <code>Line2/L2</code>, <code>Line3/L3</code> chạy đúng một code đọc khung; chỉ <code>Pin.h</code> khác, theo dây của từng line (xem <a href="../giao_thuc/02_control_box.html#pin">Control Box Protocol</a>). Hai Control Box của Line 2 (PC1, PC2) dùng chung một firmware.</li>
+<li><strong>Chân Line 3 chưa kiểm:</strong> <code>Line3/L3/Pin.h</code> lấy từ firmware cũ (Start All = 24, Motor 1..3 = cùng chân 22) vì chưa có sơ đồ dây; phải đối chiếu hộp thật trước khi nạp.</li>
+<li><strong>Chỉ còn 3 motor:</strong> Motor 4 (opcode 4) đã bỏ ở firmware, app và simulator vì không line nào nối nó. Cần thêm motor thì phải thêm lại cả ba nơi.</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
 <li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
 <li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase bằng app <code>ESDCloudViewer</code>: mỗi lần một line, đăng nhập bằng chính tài khoản của gateway (tài khoản này cũng ghi được line đó); chưa có tài khoản chỉ-đọc riêng.</li>
@@ -312,7 +313,7 @@ def gioi_han():
 
 <h2 id="khac">Chỗ khác cần biết</h2>
 <ul>
-<li><strong>Dừng cả băng tải, không theo từng động cơ:</strong> luật hiện tại là "bất kỳ hộp Warning → đặt cả Motor 1..4 = STOP". Không có ánh xạ "hộp X dừng riêng động cơ Y".</li>
+<li><strong>Dừng cả băng tải, không theo từng động cơ:</strong> luật hiện tại là "bất kỳ hộp Warning → đặt cả Motor 1..3 = STOP". Không có ánh xạ "hộp X dừng riêng động cơ Y".</li>
 <li><strong>Danh sách MAC trong <code>App.xaml.cs</code>:</strong> có tính nhưng kết quả không dùng (một kiểu kiểm tra giấy phép còn ngủ).</li>
 <li><strong>Mã nguồn dịch ngược:</strong> tên tham số lambda và vài cấu trúc <code>async</code> có thể khác bản gốc; hành vi thì bám theo exe đã chạy.</li>
 <li><strong>Một PC, một line:</strong> Network ID phân biệt line, và cấu hình nằm theo user Windows (<code>%USERPROFILE%\\.esdcms</code>), nên mọi bản ESDCMS của một user dùng chung cổng COM. Nhiều line trên một PC cần nhiều user Windows, hoặc mở rộng thêm (ví dụ tham số dòng lệnh chọn file config).</li>

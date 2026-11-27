@@ -92,7 +92,7 @@ def thiet_bi():
 <tbody>
 <tr><td class="mono">Firmware_LoRA/lora_node</td><td class="nowrap">Hộp ESD</td><td>Đọc IN1/IN2 → <code>A</code>/<code>W</code>/<code>I</code>, bật đèn; gửi khi đổi (lặp 5 lần, giãn dần), lúc bật nguồn, và khi được hỏi <code>'?'</code>. <code>NODE_ID</code> đặt riêng cho từng hộp trước khi nạp (trong code đang là <code>0x04</code>), <code>NETWORK_ID 0x03</code>. Bật thêm vai trò repeater (phát lại giúp hộp ngoài tầm gateway) bằng <code>#define ENABLE_REPEATER 1</code>, mặc định 0. Phát <strong>17&nbsp;dBm</strong> (<code>TX_POWER_DBM</code>), cả lúc bật nguồn lẫn sau khi tự reset module LoRa (gửi không xong trong 500&nbsp;ms hoặc module báo bận).</td></tr>
 <tr><td class="mono">Firmware_LoRA/lora_gateway</td><td class="nowrap">RF Gateway</td><td>Hai chiều: LoRa→USB (lọc Network ID + CRC, đẩy khung <code>AA…BB</code> lên PC) và USB→LoRa (kiểm khung của PC rồi phát ra LoRa). Phát 17&nbsp;dBm (mặc định thư viện). Tùy chọn <code>#define ENABLE_CLOUD 1</code>: ghi thêm trạng thái hộp lên Firebase qua WiFi (xem <a href="#cloud">dưới</a>), mặc định 0.</td></tr>
-<tr><td class="mono">Firmware_ControBox/Line1, Line2</td><td class="nowrap">Control Box</td><td>Nhận khung lệnh USB, set chân relay, echo làm ACK. <code>Line2</code> hiện là bản sao của <code>Line1</code>.</td></tr>
+<tr><td class="mono">Firmware_ControBox/Line1, Line2, Line3</td><td class="nowrap">Control Box</td><td>Nhận khung lệnh USB, set chân relay, echo làm ACK. Ba line cùng một code, chỉ khác <code>Pin.h</code> (chân theo dây của từng line). <code>Line3</code> mới lấy chân từ firmware cũ, chưa kiểm dây thật.</td></tr>
 </tbody>
 </table></div>
 <div class="callout warn"><p class="label">Lưu ý ghép đôi</p>
