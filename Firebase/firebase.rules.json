@@ -1,14 +1,9 @@
 {
   "rules": {
-    "gateways": {
-      "$uid": {
-        ".read": "auth != null && auth.uid === $uid"
-      }
-    },
     "lines": {
       ".read": "auth != null",
       "$line": {
-        ".write": "auth != null && root.child('gateways').child(auth.uid).val() === $line"
+        ".write": "auth != null && $line.matches(/^[0-9A-F]{2}$/)"
       }
     }
   }

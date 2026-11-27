@@ -10,10 +10,7 @@
   <sys:String x:Key="S.Active">ทำงาน</sys:String>
   <sys:String x:Key="S.Offline">ออฟไลน์</sys:String>
   <sys:String x:Key="S.Tip.Offline">กล่องไม่ตอบคำถามสถานะจาก PC</sys:String>
-  <sys:String x:Key="S.Sec.Gateway">PC (ESDCMS)</sys:String>
-  <sys:String x:Key="S.Sec.Boxes">กล่อง</sys:String>
   <sys:String x:Key="S.Sec.Events">การเปลี่ยนสถานะล่าสุด</sys:String>
-  <sys:String x:Key="S.Pc.NoData">ยังไม่มี PC เขียนขึ้นคลาวด์</sys:String>
   <sys:String x:Key="S.Pc.LastWrite">เขียนล่าสุด {0}</sys:String>
   <sys:String x:Key="S.Pc.Rf">RF เกตเวย์</sys:String>
   <sys:String x:Key="S.Pc.Cb">Control Box</sys:String>
@@ -26,16 +23,18 @@
   <sys:String x:Key="S.NotConnected">ไม่ได้เชื่อมต่อ</sys:String>
   <sys:String x:Key="S.Conveyor.Run">กำลังเดิน</sys:String>
   <sys:String x:Key="S.Conveyor.Stop">หยุด</sys:String>
+  <sys:String x:Key="S.NotInUse">ไม่ได้ใช้</sys:String>
+  <sys:String x:Key="S.Unknown">ยังไม่ได้ยิน</sys:String>
+  <sys:String x:Key="S.Line.Title">ไลน์ {0}</sys:String>
+  <sys:String x:Key="S.Line.NoPc">ยังไม่มี PC เขียนไลน์นี้</sys:String>
+  <sys:String x:Key="S.Ev.Line">ไลน์</sys:String>
   <sys:String x:Key="S.Never">ยังไม่เคย</sys:String>
   <sys:String x:Key="S.Ago.Sec">{0} วินาทีที่แล้ว</sys:String>
   <sys:String x:Key="S.Ago.Min">{0} นาทีที่แล้ว</sys:String>
   <sys:String x:Key="S.Ago.Hour">{0} ชั่วโมงที่แล้ว</sys:String>
   <sys:String x:Key="S.Ago.Day">{0} วันที่แล้ว</sys:String>
-  <sys:String x:Key="S.Uptime.D">{0} วัน {1} ชม. {2} นาที</sys:String>
-  <sys:String x:Key="S.Uptime.H">{0} ชม. {1} นาที</sys:String>
   <sys:String x:Key="S.Box.Since">ตั้งแต่ {0}</sys:String>
   <sys:String x:Key="S.Box.Heard">ได้ยินล่าสุด {0}</sys:String>
-  <sys:String x:Key="S.Box.Repeater">รีพีตเตอร์</sys:String>
   <sys:String x:Key="S.Ev.Time">เวลา</sys:String>
   <sys:String x:Key="S.Ev.Box">กล่อง</sys:String>
   <sys:String x:Key="S.Ev.Status">สถานะใหม่</sys:String>
@@ -45,7 +44,7 @@
   <sys:String x:Key="S.Loading">กำลังโหลด…</sys:String>
   <sys:String x:Key="S.Live.Off">ไม่ได้ดู</sys:String>
   <sys:String x:Key="S.Live.Connecting">กำลังเชื่อมต่อ Firebase…</sys:String>
-  <sys:String x:Key="S.Live.On">สด · lines/{0} · ข้อมูล {1}</sys:String>
+  <sys:String x:Key="S.Live.On">สด · ไลน์ {0} · ข้อมูล {1}</sys:String>
   <sys:String x:Key="S.Live.SigningIn">กำลังลงชื่อเข้าใช้ Firebase…</sys:String>
   <sys:String x:Key="S.Live.Checking">กำลังตรวจการตั้งค่า Firebase (ดู Console Log)…</sys:String>
   <sys:String x:Key="S.Err.Read">อ่าน lines/{0} ไม่ได้: กฎไม่อนุญาต หรือ URL ฐานข้อมูลผิด</sys:String>
@@ -61,6 +60,7 @@
   <sys:String x:Key="S.Tip.Check">ตรวจการตั้งค่า Firebase แบบเดียวกับที่ ESDCMS ใช้ (ลงชื่อเข้าใช้, กฎ, ทดลองเขียน) ผลอยู่ใน Console Log</sys:String>
   <sys:String x:Key="S.Tip.Watch">ลงชื่อเข้าใช้แล้วแสดงไลน์แบบสด</sys:String>
   <sys:String x:Key="S.Tip.Stop">หยุดดู</sys:String>
+  <sys:String x:Key="S.Tip.LogToggle">แสดง / ซ่อนหน้าต่างบันทึก (ยังบันทึกต่อ)</sys:String>
   <sys:String x:Key="S.Tip.LogClear">ล้างบันทึก</sys:String>
   <sys:String x:Key="S.Tip.LogSave">บันทึก log เป็นไฟล์ .txt</sys:String>
   <sys:String x:Key="S.Set.Title">การตั้งค่า Firebase</sys:String>
@@ -68,9 +68,9 @@
   <sys:String x:Key="S.Set.Key">Web API key</sys:String>
   <sys:String x:Key="S.Set.Email">อีเมล</sys:String>
   <sys:String x:Key="S.Set.Password">รหัสผ่าน</sys:String>
-  <sys:String x:Key="S.Set.Line">ไลน์ (Net ID, 2 หลัก)</sys:String>
+  <sys:String x:Key="S.Set.Line">ไลน์ (Net ID เช่น 03, 02)</sys:String>
   <sys:String x:Key="S.Set.Remember">จำไว้ในเครื่องนี้ (รหัสผ่านเข้ารหัสสำหรับผู้ใช้ Windows นี้)</sys:String>
   <sys:String x:Key="S.Set.Save">บันทึก</sys:String>
   <sys:String x:Key="S.Set.Cancel">ยกเลิก</sys:String>
-  <sys:String x:Key="S.Set.Missing">กรอกให้ครบทุกช่อง ไลน์เป็นตัวเลข 2 หลัก (เช่น 03)</sys:String>
+  <sys:String x:Key="S.Set.Missing">กรอกให้ครบทุกช่อง ไลน์เป็นเลขฐานสิบหก 2 หลัก คั่นด้วยจุลภาค (เช่น 03, 02)</sys:String>
 </ResourceDictionary>

@@ -1,0 +1,40 @@
+# Publishes the web cloud viewer (ESDCloudViewer/web/esd-cloud-viewer.html) on GitHub Pages as index.html.
+# Only that one file goes out: it holds no account and no database URL (each user types them or loads key.json).
+# Once: repository Settings > Pages > Source: "GitHub Actions". Page: https://<owner>.github.io/<repository>/
+name: Cloud viewer page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ESDCloudViewer/web/esd-cloud-viewer.html"
+      - ".github/workflows/cloud-viewer-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Site = the web viewer only
+        run: |
+          mkdir site
+          cp ESDCloudViewer/web/esd-cloud-viewer.html site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

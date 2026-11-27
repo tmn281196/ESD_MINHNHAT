@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESD Cloud Viewer</title>
+<!--
+  Web version of ESDCloudViewer: watches one or more lines of the ESD system live from Firebase (what ESDCMS writes,
+  Device/CloudUploader.cs), with the conveyor map of each line drawn like the ESDCMS monitor.
+  Open it in a browser (double-click, or from a web server / Firebase Hosting). It signs in with the Firebase account
+  (email/password) and reads lines/<NN>/boxes (live stream), /pcs and /events, for as many lines as set. Nothing is sent
+  anywhere else.
+  The database URL, API key, email and lines are kept in this browser (localStorage); the password only in this tab
+  (sessionStorage, gone when the tab is closed). Opening the page starts watching, or asks for the settings first.
+  Firebase/key.json can be loaded instead of typing (button in Settings, or drop the file on the page).
+  Lines empty = every line in the database. This file holds no account and no database URL, so it can go on GitHub
+  Pages as it is: each user types the settings or loads key.json. Never put a password in this file.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bar: #323F4E; --bar2: #3E4C5E; --barLine: #55647A; --group: #2B3746;
+    --ink: #1F2A36; --muted: #5B6B7C; --card: #F4F6F9; --cardLine: #D5DCE4;
+    --ok: #2E7D32; --warn: #B26A00; --bad: #C62828;
+    --active: #45F248; --warning: #FF4500; --inactive: #FFFF00; --offline: #037EF3; --unused: #9E9E9E; --conveyor: #ADD8E6;
+    --log: #012456; --logHead: #001A40;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #fff; color: var(--ink); font: 14px/1.4 "Google Sans", "Segoe UI", system-ui, sans-serif; }
+  body { display: flex; flex-direction: column; }
+  header { background: var(--bar); color: #fff; min-height: 64px; display: flex; align-items: center; justify-content: center; position: relative; padding: 8px 140px; }
+  header h1 { margin: 0; font-weight: 400; font-size: 30px; text-align: center; }
+  header .right { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+  button { font: inherit; cursor: pointer; border: 0; }
+  .lang { background: var(--bar2); color: #fff; border: 1px solid var(--barLine); font-weight: 600; font-size: 13px; height: 30px; min-width: 104px; padding: 0 12px; }
+  .lang:hover { background: #4CAF50; border-color: #4CAF50; }
+  main { flex: 1; overflow: auto; padding: 10px 15px 15px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 40px; margin-bottom: 4px; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; }
+  .legend i { width: 20px; height: 20px; display: inline-block; }
+  .empty { color: var(--muted); font-size: 16px; margin-top: 14px; }
+  .line { margin-top: 14px; }
+  .lhead { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 6px; }
+  .lhead h2 { margin: 0 6px 0 0; font-size: 20px; color: var(--bar); }
+  .chip { background: var(--card); border: 1px solid var(--cardLine); padding: 4px 10px; font-size: 13px; }
+  .chip b { margin-right: 6px; }
+  .ok { color: var(--ok); font-weight: 600; } .bad { color: var(--bad); font-weight: 600; } .warn { color: var(--warn); font-weight: 600; }
+  svg.map { display: block; width: 100%; max-height: 150px; }
+  svg.map text { font: 700 34px "Google Sans", "Segoe UI", sans-serif; dominant-baseline: central; text-anchor: middle; }
+  h3 { font-size: 18px; color: var(--bar); margin: 16px 0 8px; }
+  table { border-collapse: collapse; min-width: min(100%, 520px); }
+  td, th { text-align: left; padding: 5px 14px 5px 6px; border-bottom: 1px solid var(--cardLine); }
+  th { color: var(--muted); }
+  .st { display: inline-block; min-width: 96px; text-align: center; font-weight: 700; padding: 0 8px; }
+  .log { background: var(--log); color: #fff; height: 160px; display: flex; flex-direction: column; }
+  .log .h { background: var(--logHead); padding: 2px 5px 2px 8px; font-weight: 700; display: flex; align-items: center; gap: 2px; }
+  .log .h span { flex: 1; }
+  .lbtn { background: #0A3570; color: #DDD; width: 26px; height: 26px; font-size: 12px; }
+  .lbtn:hover { background: #164B94; }
+  .log.collapsed { height: auto; } .log.collapsed pre { display: none; }
+  .log pre { margin: 0; padding: 2px 8px; overflow: auto; flex: 1; font: 12px/1.45 "JetBrains Mono", Consolas, monospace; white-space: pre-wrap; }
+  footer { background: var(--bar); color: #fff; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 8px; }
+  footer .state { flex: 1; min-width: 200px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #9AA5B1; display: inline-block; }
+  .group { display: flex; align-items: center; border: 1px solid var(--barLine); background: var(--group); }
+  .group .gh { background: var(--bar2); padding: 0 10px; align-self: stretch; display: flex; align-items: center; font-weight: 700; font-size: 12px; }
+  .group .gv { color: #C8D2DC; padding: 0 8px; }
+  .group .gv b { color: #fff; }
+  .btn { background: #556275; color: #fff; font-weight: 600; height: 26px; padding: 0 10px; margin: 3px 3px 3px 0; }
+  .btn:hover { opacity: .88; } .btn:disabled { opacity: .45; cursor: default; }
+  dialog { border: 0; padding: 20px; width: min(520px, 94vw); }
+  dialog label { display: block; font-weight: 600; margin: 10px 0 3px; }
+  dialog input[type=text], dialog input[type=password] { width: 100%; height: 30px; padding: 0 6px; font: 12px "JetBrains Mono", Consolas, monospace; }
+  dialog .row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  dialog .row button { min-width: 90px; height: 30px; background: #E1E1E1; border: 1px solid #ADADAD; }
+  dialog .err { color: red; margin-top: 8px; }
+  dialog .keybtn { width: 100%; height: 34px; background: var(--bar); color: #fff; font-weight: 600; margin-bottom: 4px; }
+  dialog .keybtn:hover { background: var(--bar2); }
+  body.drop main { outline: 3px dashed #4CAF50; outline-offset: -6px; }
+  .btn { white-space: nowrap; }
+  @media (max-width: 640px) {
+    header { padding: 8px 16px 46px; } header h1 { font-size: 24px; } header .right { top: auto; bottom: 8px; transform: none; }
+    main { padding: 10px 16px 16px; }
+    .legend { gap: 6px 20px; } .legend span { font-size: 15px; }
+    footer .group { flex-wrap: wrap; width: 100%; } footer .group .gv { flex: 1; padding: 4px 8px; }
+    svg.map { max-height: none; }
+  }
+</style>
+</head>
+<body>
+<header><h1>ESD Cloud Viewer</h1><div class="right"><button class="lang" id="lang"></button></div></header>
+<main>
+  <div class="legend" id="legend"></div>
+  <div class="empty" id="empty"></div>
+  <div id="lines"></div>
+  <div id="eventsBox" hidden><h3 data-t="events"></h3><div id="events"></div></div>
+</main>
+<div class="log" id="logBox"><div class="h"><span>&gt;_ Console Log</span><button class="lbtn" id="logToggle"></button><button class="lbtn" id="logClear">🗑</button></div><pre id="log"></pre></div>
+<footer>
+  <div class="state"><span class="dot" id="dot"></span><span id="state"></span></div>
+  <div class="group">
+    <div class="gh">Firebase</div>
+    <div class="gv"><span data-t="line"></span> <b id="fLines">—</b> &nbsp; <span data-t="db"></span> <b id="fHost">—</b></div>
+    <button class="btn" id="bSettings">⚙ <span data-t="settings"></span></button>
+    <button class="btn" id="bWatch">▶ <span data-t="watch"></span></button>
+    <button class="btn" id="bStop">■ <span data-t="stop"></span></button>
+  </div>
+</footer>
+
+<dialog id="dlg">
+  <form method="dialog" id="form">
+    <button type="button" class="keybtn" id="dKey">📄 <span data-t="loadKey"></span></button>
+    <input type="file" id="keyFile" accept=".json,application/json" hidden>
+    <label for="iUrl" data-t="url"></label><input type="text" id="iUrl" spellcheck="false">
+    <label for="iKey" data-t="key"></label><input type="text" id="iKey" spellcheck="false">
+    <label for="iEmail" data-t="email"></label><input type="text" id="iEmail" spellcheck="false">
+    <label for="iPass" data-t="password"></label><input type="password" id="iPass">
+    <label for="iLines" data-t="lines"></label><input type="text" id="iLines" spellcheck="false" placeholder="03, 02">
+    <div class="err" id="dErr" hidden></div>
+    <div class="row"><button value="ok" id="dOk" data-t="ok"></button><button value="cancel" formnovalidate data-t="cancel"></button></div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+// ---------------------------------------------------------------------------------------------------- texts (en / ko / th)
+const TEXT = {
+  en: { name: "English", inactive: "Inactive", warning: "Warning", active: "Active", offline: "Offline", notInUse: "Not in use", unknown: "Not heard yet",
+        notWatching: "Not watching. Enter the Firebase settings (Settings), then press Watch.", line: "Line", lineT: "Line {0}", db: "Database",
+        settings: "Settings", watch: "Watch", stop: "Stop", events: "Latest status changes", time: "Time", box: "Box", status: "New status",
+        noPc: "No PC writes this line yet", lastWrite: "last write {0}", rf: "RF Gateway", cb: "Control Box", conveyor: "Conveyor",
+        connected: "connected", notConnected: "not connected", run: "moving", stopped: "stopped", never: "never", loading: "Loading…",
+        noEvents: "No status change yet.", since: "Since {0}", heard: "Heard {0}", sec: "{0} s ago", min: "{0} min ago", hour: "{0} h ago", day: "{0} days ago",
+        off: "Not watching", signingIn: "Signing in to Firebase…", connecting: "Connecting to Firebase…", live: "Live · lines {0} · data {1}",
+        signInFailed: "Sign-in to Firebase failed (see the console log).", readErr: "Cannot read lines/{0}: the rules do not allow it, or the database URL is wrong.",
+        lost: "Connection to Firebase lost, retrying…", url: "Database URL", key: "Web API key", email: "Email", password: "Password",
+        lines: "Lines (Net ID, e.g. 03, 02; empty = all)", ok: "OK", cancel: "Cancel", allLines: "all", noLines: "No line in the database yet.", loadKey: "Load key.json", logHide: "Hide the log window (logging continues)", logShow: "Show the log window", logClear: "Clear log", missing: "Fill in every field; lines: 2 hex digits separated by commas (e.g. 03, 02), empty = all." },
+  ko: { name: "한국어", inactive: "비활성", warning: "경고", active: "활성", offline: "오프라인", notInUse: "미사용", unknown: "아직 응답 없음",
+        notWatching: "보기 중이 아닙니다. Firebase 설정(설정)을 입력한 뒤 보기를 누르세요.", line: "라인", lineT: "라인 {0}", db: "데이터베이스",
+        settings: "설정", watch: "보기", stop: "중지", events: "최근 상태 변경", time: "시각", box: "박스", status: "새 상태",
+        noPc: "아직 이 라인을 기록하는 PC가 없습니다", lastWrite: "마지막 기록 {0}", rf: "RF 게이트웨이", cb: "컨트롤 박스", conveyor: "컨베이어",
+        connected: "연결됨", notConnected: "연결 안 됨", run: "작동 중", stopped: "정지", never: "없음", loading: "불러오는 중…",
+        noEvents: "아직 상태 변경이 없습니다.", since: "{0}부터", heard: "수신 {0}", sec: "{0}초 전", min: "{0}분 전", hour: "{0}시간 전", day: "{0}일 전",
+        off: "보기 중 아님", signingIn: "Firebase 로그인 중…", connecting: "Firebase에 연결 중…", live: "실시간 · 라인 {0} · 데이터 {1}",
+        signInFailed: "Firebase 로그인 실패 (콘솔 로그 참고).", readErr: "lines/{0}을(를) 읽을 수 없음: 규칙이 허용하지 않거나 데이터베이스 URL이 틀림.",
+        lost: "Firebase 연결 끊김, 다시 시도 중…", url: "데이터베이스 URL", key: "웹 API 키", email: "이메일", password: "비밀번호",
+        lines: "라인 (Net ID, 예: 03, 02; 비우면 전체)", ok: "확인", cancel: "취소", allLines: "전체", noLines: "아직 데이터베이스에 라인이 없습니다.", loadKey: "key.json 불러오기", logHide: "로그 창 숨기기 (기록은 계속됨)", logShow: "로그 창 표시", logClear: "로그 지우기", missing: "모든 칸을 입력하세요. 라인은 16진수 2자리를 쉼표로 구분 (예: 03, 02), 비우면 전체." },
+  th: { name: "ไทย", inactive: "ไม่ทำงาน", warning: "เตือน", active: "ทำงาน", offline: "ออฟไลน์", notInUse: "ไม่ได้ใช้", unknown: "ยังไม่ได้ยิน",
+        notWatching: "ยังไม่ได้ดู ใส่การตั้งค่า Firebase (ตั้งค่า) แล้วกด ดู", line: "ไลน์", lineT: "ไลน์ {0}", db: "ฐานข้อมูล",
+        settings: "ตั้งค่า", watch: "ดู", stop: "หยุด", events: "การเปลี่ยนสถานะล่าสุด", time: "เวลา", box: "กล่อง", status: "สถานะใหม่",
+        noPc: "ยังไม่มี PC เขียนไลน์นี้", lastWrite: "เขียนล่าสุด {0}", rf: "RF เกตเวย์", cb: "Control Box", conveyor: "สายพาน",
+        connected: "เชื่อมต่อแล้ว", notConnected: "ไม่ได้เชื่อมต่อ", run: "กำลังเดิน", stopped: "หยุด", never: "ยังไม่เคย", loading: "กำลังโหลด…",
+        noEvents: "ยังไม่มีการเปลี่ยนสถานะ", since: "ตั้งแต่ {0}", heard: "ได้ยินล่าสุด {0}", sec: "{0} วินาทีที่แล้ว", min: "{0} นาทีที่แล้ว", hour: "{0} ชั่วโมงที่แล้ว", day: "{0} วันที่แล้ว",
+        off: "ไม่ได้ดู", signingIn: "กำลังลงชื่อเข้าใช้ Firebase…", connecting: "กำลังเชื่อมต่อ Firebase…", live: "สด · ไลน์ {0} · ข้อมูล {1}",
+        signInFailed: "ลงชื่อเข้าใช้ Firebase ไม่สำเร็จ (ดู Console Log)", readErr: "อ่าน lines/{0} ไม่ได้: กฎไม่อนุญาต หรือ URL ฐานข้อมูลผิด",
+        lost: "การเชื่อมต่อ Firebase หลุด กำลังลองใหม่…", url: "URL ฐานข้อมูล", key: "Web API key", email: "อีเมล", password: "รหัสผ่าน",
+        lines: "ไลน์ (Net ID เช่น 03, 02; เว้นว่าง = ทั้งหมด)", ok: "ตกลง", cancel: "ยกเลิก", allLines: "ทั้งหมด", noLines: "ยังไม่มีไลน์ในฐานข้อมูล", loadKey: "โหลด key.json", logHide: "ซ่อนหน้าต่างบันทึก (ยังบันทึกต่อ)", logShow: "แสดงหน้าต่างบันทึก", logClear: "ล้างบันทึก", missing: "กรอกให้ครบทุกช่อง ไลน์เป็นเลขฐานสิบหก 2 หลัก คั่นด้วยจุลภาค (เช่น 03, 02) เว้นว่าง = ทั้งหมด" }
+};
+const LANGS = ["en", "ko", "th"];
+const $ = (id) => document.getElementById(id);
+const store = { get(k, d) { try { const v = localStorage.getItem("esdcv." + k); return v === null ? d : v; } catch (_) { return d; } },
+                set(k, v) { try { localStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } } };
+// The password stays only in this tab (sessionStorage: kept on reload, gone when the tab is closed), never in localStorage.
+const session = { get(k) { try { return sessionStorage.getItem("esdcv." + k) || ""; } catch (_) { return ""; } },
+                  set(k, v) { try { sessionStorage.setItem("esdcv." + k, v); } catch (_) { /* private mode */ } } };
+let lang = LANGS.includes(store.get("lang", "en")) ? store.get("lang", "en") : "en";
+const T = (k, ...a) => (TEXT[lang][k] || k).replace(/\{(\d)\}/g, (_, i) => a[+i]);
+
+// ---------------------------------------------------------------------------------------------------- settings
+const cfg = { url: store.get("url", ""), key: store.get("key", ""), email: store.get("email", ""), lines: store.get("lines", ""), pass: session.get("pass") };
+const lineList = () => [...new Set(cfg.lines.split(/[\s,;]+/).map((x) => x.trim().toUpperCase()).filter((x) => /^[0-9A-F]{2}$/.test(x)))];
+const hasAccount = () => !!(cfg.url && cfg.key && cfg.email && cfg.pass);
+
+// ---------------------------------------------------------------------------------------------------- console log
+function log(line) {
+  const el = $("log");
+  const atEnd = el.scrollTop + el.clientHeight >= el.scrollHeight - 4;
+  const t = new Date().toLocaleTimeString("en-GB");
+  el.textContent += t + "  " + line + "\n";
+  const lines = el.textContent.split("\n");
+  if (lines.length > 1000) el.textContent = lines.slice(-1000).join("\n");
+  if (atEnd) el.scrollTop = el.scrollHeight;
+}
+
+// ---------------------------------------------------------------------------------------------------- Firebase REST
+async function signIn() {
+  let r;
+  try {
+    r = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + encodeURIComponent(cfg.key), {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: cfg.email, password: cfg.pass, returnSecureToken: true }) });
+  } catch (e) { return { error: "no answer: " + e }; }
+  const j = await r.json().catch(() => null);
+  if (r.ok && j && j.idToken) return { token: j.idToken };
+  const m = j && j.error && (j.error.message || "");
+  return { error: "HTTP " + r.status + (m ? ", " + m.split(" ")[0].replace(/[.:]$/, "") : "") };
+}
+
+// ---------------------------------------------------------------------------------------------------- watching
+// One watcher per line. Firebase answers over HTTP/1.1 and a browser opens at most 6 connections to one host, so only
+// lines/<NN>/boxes is a live stream (its first event = the current state of every box), for the first MAX_STREAMS
+// lines; pcs and events are read every 10 s (pcs also right after the boxes change: ESDCMS writes both at once), and
+// the boxes of further lines every 5 s.
+const MAX_STREAMS = 4;
+let watchers = [];
+let watching = false;
+let token = null;
+let busy = null;
+let signInFailed = false;
+let renewTimer = null;
+let linesTimer = null;
+let gen = 0;
+
+// REST URL of a database path, with the sign-in token when there is one.
+function api(path, query) {
+  const q = [token ? "auth=" + encodeURIComponent(token) : "", query || ""].filter(Boolean).join("&");
+  return cfg.url + "/" + path + ".json" + (q ? "?" + q : "");
+}
+
+// Lines field empty = every line in the database (lines/ read with shallow=true: names only, again every 60 s).
+async function findLines() {
+  try {
+    const r = await fetch(api("lines", "shallow=true"));
+    if (r.ok) return Object.keys((await r.json()) || {}).filter((k) => /^[0-9A-F]{2}$/.test(k)).sort();
+    log("Lines: cannot list lines/ (HTTP " + r.status + ")");
+  } catch (e) { log("Lines: cannot list lines/ - " + e.message); }
+  return null;
+}
+
+async function startWatch(tok) {
+  stopWatch();
+  const my = gen;
+  token = tok;
+  watching = true;
+  let lines = lineList();
+  if (lines.length === 0) {
+    busy = "connecting"; render();
+    lines = (await findLines()) || [];
+    if (my !== gen) return;                                              // stopped or started again meanwhile
+    busy = null;
+    log("Lines: " + (lines.length ? lines.join(", ") : "none yet") + " (every line in the database)");
+    linesTimer = setInterval(async () => {
+      const now = await findLines();
+      if (my === gen && now && now.join() !== watchers.map((w) => w.line).join()) startWatch(token);
+    }, 60000);
+  }
+  watchers = lines.map((line, i) => ({ line, live: i < MAX_STREAMS, pcs: undefined, boxes: undefined, events: undefined, err: null, last: 0, stream: null, timers: [], soon: null }));
+  for (const w of watchers) {
+    if (w.live) openStream(w);
+    else { read(w, "boxes"); w.timers.push(setInterval(() => read(w, "boxes"), 5000)); }
+    read(w, "pcs"); read(w, "events");
+    w.timers.push(setInterval(() => { read(w, "pcs"); read(w, "events"); }, 10000));
+    log("Line " + w.line + " · Watch: lines/" + w.line + (w.live ? "" : " (read every 5 s)"));
+  }
+  if (token) renewTimer = setInterval(renew, 50 * 60 * 1000);
+  render();
+}
+
+function stopWatch() {
+  gen++;
+  watching = false;
+  busy = null;
+  for (const w of watchers) { if (w.stream) w.stream.close(); w.timers.forEach(clearInterval); clearTimeout(w.soon); }
+  watchers = [];
+  clearInterval(renewTimer);
+  clearInterval(linesTimer);
+}
+
+function openStream(w) {
+  if (w.stream) w.stream.close();
+  const es = new EventSource(api("lines/" + w.line + "/boxes"));
+  const onData = (patch) => (e) => {
+    const m = JSON.parse(e.data);
+    if (patch) { for (const [k, v] of Object.entries(m.data || {})) put(w, "boxes", m.path.replace(/\/$/, "") + "/" + k, v); }
+    else put(w, "boxes", m.path, m.data);
+    w.err = null; w.last = Date.now();
+    clearTimeout(w.soon); w.soon = setTimeout(() => read(w, "pcs"), 800);
+    render();
+  };
+  es.addEventListener("put", onData(false));
+  es.addEventListener("patch", onData(true));
+  es.addEventListener("keep-alive", () => { w.last = Date.now(); });
+  es.addEventListener("auth_revoked", renew);
+  es.addEventListener("cancel", () => { w.err = "readErr"; render(); });
+  es.onerror = () => { w.err = es.readyState === EventSource.CLOSED ? "readErr" : "lost"; render(); };
+  w.stream = es;
+}
+
+const QUERY = { pcs: "", boxes: "", events: "orderBy=%22%24key%22&limitToLast=30" };
+async function read(w, child) {
+  try {
+    const r = await fetch(api("lines/" + w.line + "/" + child, QUERY[child]));
+    if (!watchers.includes(w)) return;
+    if (r.ok) {
+      w[child] = (await r.json()) || {};
+      if (child === "boxes") { w.err = null; w.last = Date.now(); }
+    } else if (r.status === 401 || r.status === 403) w.err = "readErr";
+  } catch (_) {
+    if (!w.live && child === "boxes") w.err = "lost";       // read again in 5 s
+  }
+  render();
+}
+
+function put(w, child, path, data) {
+  const segs = path.split("/").filter(Boolean);
+  if (segs.length === 0) { w[child] = data; return; }
+  if (typeof w[child] !== "object" || w[child] === null) w[child] = {};
+  let o = w[child];
+  for (let i = 0; i < segs.length - 1; i++) { if (typeof o[segs[i]] !== "object" || o[segs[i]] === null) o[segs[i]] = {}; o = o[segs[i]]; }
+  const last = segs[segs.length - 1];
+  if (data === null) delete o[last]; else o[last] = data;
+}
+
+async function renew() {
+  const s = await signIn();
+  if (s.error) { log("Sign-in again failed: " + s.error); return; }
+  token = s.token;
+  watchers.filter((w) => w.live).forEach(openStream);
+}
+
+async function watch() {
+  if (!hasAccount()) { openSettings(); return; }
+  stopWatch();
+  busy = "signingIn"; render();
+  const s = await signIn();
+  busy = null;
+  if (s.error) { signInFailed = true; log("Sign-in failed: " + s.error); render(); return; }
+  signInFailed = false;
+  log("Sign-in: OK (" + cfg.email + ")");
+  startWatch(s.token);
+}
+
+// ---------------------------------------------------------------------------------------------------- view
+const LOOK = { A: ["var(--active)", "#000", "active"], W: ["var(--warning)", "#fff", "warning"], I: ["var(--inactive)", "#000", "inactive"],
+               O: ["var(--offline)", "#fff", "offline"], U: ["var(--offline)", "#fff", "unknown"], N: ["var(--unused)", "#fff", "notInUse"] };
+const look = (s) => LOOK[s] || ["var(--unused)", "#fff", null];
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function ago(ms) {
+  if (!ms) return T("never");
+  const s = Math.max(0, (Date.now() - ms) / 1000);
+  return s < 90 ? T("sec", Math.floor(s)) : s < 5400 ? T("min", Math.round(s / 60)) : s < 172800 ? T("hour", Math.round(s / 3600)) : T("day", Math.round(s / 86400));
+}
+function clock(ms) {
+  if (!ms) return "—";
+  const d = new Date(ms);
+  return d.toDateString() === new Date().toDateString() ? d.toLocaleTimeString("en-GB") : d.toLocaleString("en-GB", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+}
+
+function pcChip(name, pc) {
+  const late = !pc.lastSeen || (Date.now() - pc.lastSeen) / 1000 > 150;
+  const conv = pc.conveyor === "RUN" ? '<span class="ok">' + T("run") + "</span>" : pc.conveyor === "STOP" ? '<span class="bad">' + T("stopped") + "</span>" : "—";
+  const yn = (v) => v ? '<span class="ok">' + T("connected") + "</span>" : '<span class="bad">' + T("notConnected") + "</span>";
+  return '<span class="chip" title="ESDCMS ' + esc(pc.app || "") + '"><b>' + esc(name) + '</b><span class="' + (late ? "bad" : "ok") + '">' +
+    (pc.lastSeen ? T("lastWrite", ago(pc.lastSeen)) : T("never")) + "</span> · " + T("rf") + " " + yn(pc.rf) + " · " + T("cb") + " " + yn(pc.controlBox) +
+    " · " + T("conveyor") + " " + conv + "</span>";
+}
+
+// Conveyor map, same sizes as the ESDCMS monitor: 20 slots of 90 px, 5 px apart, on a light-blue conveyor.
+// On a narrow screen (phone) the conveyor is drawn as 2 rows of 10 slots, so the box numbers stay readable.
+function map(boxes) {
+  const tile = 90, gap = 5, edge = 5, n = 20, perRow = window.innerWidth < 700 ? 10 : 20, rows = n / perRow;
+  const width = edge + perRow * (tile + gap), rowH = tile + 4 * edge;
+  const x = (pos) => 2 * edge + (pos % perRow) * (tile + gap);
+  const y = (pos) => Math.floor(pos / perRow) * rowH + 2 * edge;
+  let svg = '<svg class="map" viewBox="0 0 ' + (width + 2 * edge) + " " + rows * rowH + '" preserveAspectRatio="xMinYMin meet">';
+  for (let r = 0; r < rows; r++) svg += '<rect x="' + edge + '" y="' + (r * rowH + edge) + '" width="' + width + '" height="' + (tile + 2 * edge) + '" fill="var(--conveyor)"/>';
+  for (let i = 0; i < n; i++) svg += '<rect x="' + x(i) + '" y="' + y(i) + '" width="' + tile + '" height="' + tile + '" fill="#fff" stroke="red" stroke-dasharray="2 2"/>';
+  // A line with box data: a slot with no box is a box that is not in use (an older ESDCMS only wrote the boxes in use,
+  // without pos: box N then sits on slot N-1), grey like ESDCMS draws it. A line with no data at all stays white.
+  const filled = new Set(), ids = new Set();
+  for (const [id, b] of Object.entries(boxes || {})) {
+    if (b && typeof b === "object") { filled.add(Number.isInteger(b.pos) ? b.pos : parseInt(id, 10) - 1); ids.add(id); }
+  }
+  if (ids.size > 0) {
+    for (let i = 0; i < n; i++) {
+      if (filled.has(i)) continue;
+      const id = String(i + 1).padStart(2, "0"), named = !ids.has(id);
+      svg += "<g>" + (named ? "<title>" + esc(T("box") + " " + id + " · " + T("notInUse")) + "</title>" : "") +
+             '<rect x="' + x(i) + '" y="' + y(i) + '" width="' + tile + '" height="' + tile + '" fill="var(--unused)"/>' +
+             (named ? '<text x="' + (x(i) + tile / 2) + '" y="' + (y(i) + tile / 2) + '" fill="#fff">' + id + "</text>" : "") + "</g>";
+    }
+  }
+  for (const [id, b] of Object.entries(boxes || {})) {
+    if (!b || typeof b !== "object") continue;
+    const pos = Number.isInteger(b.pos) ? b.pos : parseInt(id, 10) - 1;
+    if (pos < 0 || pos >= n) continue;
+    const [bg, fg, key] = look(b.s);
+    const tip = T("box") + " " + id + " · " + (key ? T(key) : b.s) + "\n" + T("since", clock(b.t)) + "\n" + T("heard", b.seen ? clock(b.seen) : T("never")) + (b.pc ? "\nPC " + b.pc : "");
+    svg += '<g><title>' + esc(tip) + '</title><rect x="' + x(pos) + '" y="' + y(pos) + '" width="' + tile + '" height="' + tile + '" fill="' + bg + '"/>' +
+           '<text x="' + (x(pos) + tile / 2) + '" y="' + (y(pos) + tile / 2) + '" fill="' + fg + '">' + esc(id) + "</text></g>";
+  }
+  return svg + "</svg>";
+}
+
+function render() {
+  document.documentElement.lang = lang;
+  $("lang").textContent = TEXT[lang].name;
+  document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = T(el.dataset.t); });
+  $("legend").innerHTML = [["var(--inactive)", "inactive"], ["var(--warning)", "warning"], ["var(--active)", "active"], ["var(--offline)", "offline"], ["var(--unused)", "notInUse"]]
+    .map(([c, k]) => '<span><i style="background:' + c + '"></i>' + T(k) + "</span>").join("");
+  applyLogCollapsed($("logBox").classList.contains("collapsed"));
+  $("logClear").title = T("logClear");
+  $("fLines").textContent = lineList().join(", ") || T("allLines");
+  $("fHost").textContent = cfg.url ? cfg.url.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : "—";
+  $("bStop").disabled = !watching;
+  $("bWatch").disabled = $("bSettings").disabled = !!busy;
+
+  let dot = "#9AA5B1", state;
+  const failing = watchers.find((w) => w.err);
+  if (busy) { dot = "#FFC107"; state = T(busy); }
+  else if (!watching) state = T(signInFailed ? "signInFailed" : "off");
+  else if (watchers.length === 0) state = T("noLines");
+  else if (failing) state = T(failing.err, failing.line);
+  else if (watchers.every((w) => !w.last)) { dot = "#FFC107"; state = T("connecting"); }
+  else { dot = "rgb(117,247,17)"; state = T("live", watchers.map((w) => w.line).join(", "), ago(Math.max(...watchers.map((w) => w.last)))); }
+  $("dot").style.background = dot;
+  $("state").textContent = state;
+
+  $("empty").textContent = !watching ? T("notWatching") : (watchers.length === 0 && !busy) ? T("noLines") : "";
+  $("eventsBox").hidden = watchers.length === 0;
+  const host = $("lines"), wanted = watchers.map((w) => w.line).join(",");
+  if (host.dataset.lines !== wanted) {
+    host.innerHTML = watchers.map(() => '<div class="line"><div class="lhead"></div><div class="lmap"></div></div>').join("");
+    host.dataset.lines = wanted;
+  }
+  watchers.forEach((w, i) => {
+    let head = '<h2>' + T("lineT", w.line) + "</h2>";
+    if (w.err) head += '<span class="bad">' + T(w.err, w.line) + "</span>";
+    else if (w.pcs === undefined) head += '<span style="color:var(--muted)">' + T("loading") + "</span>";
+    else if (!w.pcs || !Object.keys(w.pcs).length) head += '<span class="warn">' + T("noPc") + "</span>";
+    else head += Object.keys(w.pcs).sort().map((k) => pcChip(k, w.pcs[k] || {})).join("");
+    setHtml(host.children[i].firstChild, head);
+    setHtml(host.children[i].lastChild, map(w.boxes));
+  });
+
+  const all = [];
+  for (const w of watchers) for (const [k, e] of Object.entries(w.events || {})) if (e) all.push([w.line, k, e]);
+  all.sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0));
+  setHtml($("events"), all.length === 0 ? '<div style="color:var(--muted)">' + T(watchers.some((w) => w.events) ? "noEvents" : "loading") + "</div>"
+    : "<table><tr><th>" + T("time") + "</th><th>" + T("line") + "</th><th>" + T("box") + "</th><th>" + T("status") + "</th></tr>" +
+      all.slice(0, 30).map(([line, , e]) => {
+        const [bg, fg, key] = look(e.s);
+        return "<tr><td>" + clock(e.t) + "</td><td><b>" + esc(line) + "</b></td><td><b>" + String(e.box).padStart(2, "0") + '</b></td><td><span class="st" style="background:' + bg + ";color:" + fg + '">' + (key ? T(key) : esc(e.s)) + "</span></td></tr>";
+      }).join("") + "</table>");
+}
+
+// Replaces the content only when it changed (the page is drawn again every second: a box tooltip must stay open).
+function setHtml(el, html) {
+  if (el._html !== html) { el.innerHTML = html; el._html = html; }
+}
+
+// ---------------------------------------------------------------------------------------------------- settings dialog
+function openSettings() {
+  $("iUrl").value = cfg.url; $("iKey").value = cfg.key; $("iEmail").value = cfg.email; $("iPass").value = cfg.pass; $("iLines").value = cfg.lines;
+  $("dErr").hidden = true;
+  $("dlg").showModal();
+  (!$("iUrl").value ? $("dKey") : !$("iPass").value ? $("iPass") : $("iLines")).focus();
+}
+$("dOk").addEventListener("click", (e) => {
+  const lines = $("iLines").value.trim();
+  const ok = $("iUrl").value.trim() && $("iKey").value.trim() && $("iEmail").value.trim() && $("iPass").value &&
+             (lines === "" || /^\s*[0-9A-Fa-f]{2}(\s*[,; ]\s*[0-9A-Fa-f]{2})*\s*$/.test(lines));
+  if (!ok) { e.preventDefault(); $("dErr").textContent = T("missing"); $("dErr").hidden = false; return; }
+  cfg.url = $("iUrl").value.trim().replace(/\/+$/, ""); cfg.key = $("iKey").value.trim(); cfg.email = $("iEmail").value.trim();
+  cfg.pass = $("iPass").value;
+  cfg.lines = lines;
+  cfg.lines = lineList().join(", ");
+  store.set("url", cfg.url); store.set("key", cfg.key); store.set("email", cfg.email); store.set("lines", cfg.lines);
+  session.set("pass", cfg.pass);
+  log("Settings: lines " + (cfg.lines || "all") + " on " + $("fHost").textContent);
+  setTimeout(watch, 0);
+});
+
+// ---------------------------------------------------------------------------------------------------- key.json
+// Firebase/key.json = { "databaseUrl", "apiKey", "email", "password" } (optional "lines": "03, 02"). A page cannot read a
+// file on the disk by itself: it is picked once (button) or dropped on the page. Chrome / Edge remember the picked file
+// (IndexedDB) and read it again on the next visit: at once when "Allow on every visit" was chosen, otherwise after one
+// click on the button. Served over http(s), a key.json next to the page is read too. The password is never stored.
+let keyHandle = null;
+
+function idb() {
+  return new Promise((ok, no) => {
+    const r = indexedDB.open("esdcv", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("files");
+    r.onsuccess = () => ok(r.result);
+    r.onerror = () => no(r.error);
+  });
+}
+async function idbGet(k) {
+  try {
+    const db = await idb();
+    return await new Promise((ok) => { const q = db.transaction("files").objectStore("files").get(k); q.onsuccess = () => ok(q.result); q.onerror = () => ok(null); });
+  } catch (_) { return null; }
+}
+async function idbSet(k, v) {
+  try { const db = await idb(); db.transaction("files", "readwrite").objectStore("files").put(v, k); } catch (_) { /* not remembered */ }
+}
+
+function applyKey(text, from) {
+  let j;
+  try { j = JSON.parse(text); } catch (e) { log("key.json (" + from + "): not JSON - " + e.message); return false; }
+  const get = (...names) => {
+    for (const k of Object.keys(j || {})) if (names.includes(k.toLowerCase()) && typeof j[k] === "string") return j[k];
+    return "";
+  };
+  const url = get("databaseurl", "dburl", "firebase_db_url").trim().replace(/\/+$/, "");
+  const key = get("apikey", "firebase_api_key").trim(), email = get("email", "firebase_email").trim(), pass = get("password", "firebase_password");
+  const lines = Array.isArray(j.lines) ? j.lines.join(", ") : get("lines");
+  const missing = [["databaseUrl", url], ["apiKey", key], ["email", email], ["password", pass]].filter((x) => !x[1]).map((x) => x[0]);
+  if (missing.length) { log("key.json (" + from + "): missing " + missing.join(", ")); return false; }
+  cfg.url = url; cfg.key = key; cfg.email = email; cfg.pass = pass;
+  if (lines) { cfg.lines = lines; cfg.lines = lineList().join(", ") || "03"; }
+  store.set("url", cfg.url); store.set("key", cfg.key); store.set("email", cfg.email); store.set("lines", cfg.lines);
+  session.set("pass", cfg.pass);
+  log("key.json (" + from + "): loaded, lines " + cfg.lines);
+  return true;
+}
+
+function keyLoaded() {
+  if ($("dlg").open) $("dlg").close();
+  render();
+  watch();
+}
+
+async function readHandle(h, ask) {
+  try {
+    let p = await h.queryPermission({ mode: "read" });
+    if (p !== "granted" && ask) p = await h.requestPermission({ mode: "read" });
+    if (p !== "granted") return false;
+    const f = await h.getFile();
+    return applyKey(await f.text(), f.name);
+  } catch (e) { log("key.json: cannot read the remembered file - " + e.message); return false; }
+}
+
+async function useKeyFile(file) {
+  if (file && applyKey(await file.text(), file.name)) keyLoaded();
+}
+
+$("dKey").addEventListener("click", async () => {
+  if (keyHandle && await readHandle(keyHandle, true)) { keyLoaded(); return; }
+  if (!window.showOpenFilePicker) { $("keyFile").click(); return; }
+  try {
+    [keyHandle] = await window.showOpenFilePicker({ types: [{ description: "key.json", accept: { "application/json": [".json"] } }] });
+  } catch (e) {
+    if (e.name !== "AbortError") $("keyFile").click();
+    return;
+  }
+  idbSet("key", keyHandle);
+  if (await readHandle(keyHandle, true)) keyLoaded();
+});
+$("keyFile").addEventListener("change", async () => { await useKeyFile($("keyFile").files[0]); $("keyFile").value = ""; });
+
+// Drop key.json anywhere on the page
+document.addEventListener("dragover", (e) => { e.preventDefault(); document.body.classList.add("drop"); });
+document.addEventListener("dragleave", (e) => { if (!e.relatedTarget) document.body.classList.remove("drop"); });
+document.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  document.body.classList.remove("drop");
+  const item = [...(e.dataTransfer ? e.dataTransfer.items : [])].find((i) => i.kind === "file");
+  if (!item) return;
+  const handle = item.getAsFileSystemHandle ? item.getAsFileSystemHandle().catch(() => null) : Promise.resolve(null);
+  const file = item.getAsFile();
+  const h = await handle;
+  if (h && h.kind === "file") { keyHandle = h; idbSet("key", h); }
+  await useKeyFile(file);
+});
+
+// Opening the page: watch at once. The account comes from this tab (reload), the remembered key.json, or a key.json
+// next to the page (web server); without any, the settings are asked (type them, or load key.json).
+async function start() {
+  keyHandle = await idbGet("key");
+  if (!hasAccount() && keyHandle && await readHandle(keyHandle, false)) { keyLoaded(); return; }
+  if (!hasAccount() && location.protocol.startsWith("http")) {
+    try {
+      const r = await fetch("key.json", { cache: "no-store" });
+      if (r.ok && applyKey(await r.text(), "next to the page")) { keyLoaded(); return; }
+    } catch (_) { /* none */ }
+  }
+  if (hasAccount()) watch(); else openSettings();
+}
+
+$("bSettings").addEventListener("click", openSettings);
+$("bWatch").addEventListener("click", watch);
+$("bStop").addEventListener("click", () => { stopWatch(); log("Watch: stopped"); render(); });
+$("lang").addEventListener("click", () => { lang = LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length]; store.set("lang", lang); render(); });
+// Console log: show / hide (logging continues; remembered in this browser) and clear, like ESDCMS
+function applyLogCollapsed(collapsed) {
+  $("logBox").classList.toggle("collapsed", collapsed);
+  $("logToggle").textContent = collapsed ? "▴" : "▾";
+  $("logToggle").title = T(collapsed ? "logShow" : "logHide");
+}
+$("logToggle").addEventListener("click", () => {
+  const collapsed = !$("logBox").classList.contains("collapsed");
+  store.set("logCollapsed", collapsed ? "1" : "0");
+  applyLogCollapsed(collapsed);
+});
+$("logClear").addEventListener("click", () => { $("log").textContent = ""; });
+applyLogCollapsed(store.get("logCollapsed", "0") === "1");
+setInterval(() => { if (watchers.length) render(); }, 1000);
+window.addEventListener("resize", render);
+render();
+log("ESD Cloud Viewer (web) - the password is kept only while this tab is open");
+start();
+</script>
+</body>
+</html>

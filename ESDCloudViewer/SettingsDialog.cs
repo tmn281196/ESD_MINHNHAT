@@ -21,10 +21,7 @@ internal static class SettingsDialog
 		TextBox key = Field(current.ApiKey, mono);
 		TextBox email = Field(current.Email, mono);
 		PasswordBox pass = new PasswordBox { Password = current.Password, Height = 26.0, Padding = new Thickness(4.0, 2.0, 4.0, 2.0), VerticalContentAlignment = VerticalAlignment.Center };
-		TextBox line = Field(current.Line, mono);
-		line.Width = 60.0;
-		line.HorizontalAlignment = HorizontalAlignment.Left;
-		line.TextAlignment = TextAlignment.Center;
+		TextBox line = Field(string.Join(", ", current.LineList), mono);
 		CheckBox remember = new CheckBox
 		{
 			Content = Lang.T("S.Set.Remember"),
@@ -74,14 +71,15 @@ internal static class SettingsDialog
 			s.ApiKey = key.Text.Trim();
 			s.Email = email.Text.Trim();
 			s.Password = pass.Password;
-			s.Line = line.Text.Trim();
+			s.Lines = line.Text.Trim();
 			s.Remember = remember.IsChecked == true;
-			if (!s.IsComplete || !Regex.IsMatch(s.Line, "^\\d{2}$"))
+			if (!s.IsComplete || !Regex.IsMatch(s.Lines, "^\\s*[0-9A-Fa-f]{2}(\\s*[,; ]\\s*[0-9A-Fa-f]{2})*\\s*$"))
 			{
 				message.Text = Lang.T("S.Set.Missing");
 				message.Visibility = Visibility.Visible;
 				return;
 			}
+			s.Lines = string.Join(", ", s.LineList);
 			result = s;
 			win.DialogResult = true;
 		};

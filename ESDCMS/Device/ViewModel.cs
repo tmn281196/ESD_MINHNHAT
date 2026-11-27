@@ -814,19 +814,23 @@ public class ViewModel : INotifyPropertyChanged
 				return null;
 			}
 			CloudSnapshot snap = new CloudSnapshot { Line = Config.NetworkID.ToString("X2") };
-			foreach (byte id in UsedBoxIds())
+			// All 20 boxes with their slot on the monitor map, so the viewer draws the same map (boxes not in use too).
+			for (int i = 0; i < RootCanvas.DynamicDevicesList.Count && i < DEVNUM; i++)
 			{
-				char status = ESDBoxes[id - 1].Status switch
+				BlockDevice device = RootCanvas.DynamicDevicesList[i];
+				int id = i + 1;
+				char status = !device.IsUsed ? 'N' : ESDBoxes[i].Status switch
 				{
 					DeviceStatus.Active => 'A',
 					DeviceStatus.Warning => 'W',
 					DeviceStatus.Inactive => 'I',
 					DeviceStatus.Offline => 'O',
-					_ => '\0'                                    // Unknown (not heard yet), Error (bad frame): nothing new
+					DeviceStatus.Unknown => 'U',                  // not heard yet (blue, as on the monitor)
+					_ => '\0'                                    // Error (bad frame): keep the last status
 				};
 				long ticks = Interlocked.Read(ref _lastAnswerTicks[id]);
 				long seen = (ticks > 0) ? new DateTimeOffset(new DateTime(ticks, DateTimeKind.Utc)).ToUnixTimeMilliseconds() : 0;
-				snap.Boxes.Add((id, status, seen));
+				snap.Boxes.Add((id, status, device.Position, seen));
 			}
 			snap.RfOpen = DeviceManagerPage?.RFGateway?.IsOpen == true;
 			snap.ControlBoxOpen = DeviceManagerPage?.ControlBox?.SerialPort?.IsOpen == true;

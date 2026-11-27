@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- Cloud viewer of the ESD line: reads what the RF gateway (lora_gateway.ino, ENABLE_CLOUD 1) writes to Firebase.
+  <!-- Cloud viewer of the ESD lines: reads what ESDCMS (Device/CloudUploader.cs) writes to Firebase.
        Same .NET Framework, look, fonts and icon as ESDCMS (the fonts and icon are taken from ../ESDCMS). -->
   <PropertyGroup>
     <OutputType>WinExe</OutputType>

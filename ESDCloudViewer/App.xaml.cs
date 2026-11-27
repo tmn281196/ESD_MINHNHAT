@@ -12,6 +12,9 @@ public partial class App : Application
 	{
 		// Firebase needs TLS 1.2 or newer (Windows 10/11 already allow it; older .NET defaults may not).
 		ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+		// .NET Framework allows only 2 connections to one host by default, and Firebase answers over HTTP/1.1: every line
+		// keeps 2 streams open (pcs, boxes), so without this the events reads (and the 2nd line) would wait for ever.
+		ServicePointManager.DefaultConnectionLimit = Math.Max(ServicePointManager.DefaultConnectionLimit, 64);
 		DispatcherUnhandledException += OnUnhandled;
 		base.OnStartup(e);
 	}

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -31,20 +33,36 @@ public sealed class ViewerSettings
 	/// <summary>FIREBASE_PASSWORD, DPAPI-encrypted (base64); empty when not remembered.</summary>
 	public string PasswordProtected { get; set; } = string.Empty;
 
-	/// <summary>The line to show (NETWORK_ID of the gateway, 2 digits).</summary>
-	public string Line { get; set; } = "03";
+	/// <summary>The lines to show, Net IDs as 2 hex digits separated by commas ("03, 02, 01").</summary>
+	public string Lines { get; set; } = "03";
+
+	/// <summary>Older settings files: one line only (moved to <see cref="Lines"/> when loaded, never written).</summary>
+	[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+	public string Line { get; set; }
+
+	/// <summary><see cref="Lines"/> as a list ("03", "02"...), each line once, in the order given.</summary>
+	[JsonIgnore]
+	public List<string> LineList => (Lines ?? string.Empty)
+		.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+		.Select((string x) => x.Trim().ToUpperInvariant())
+		.Where((string x) => x.Length == 2 && x.All(Uri.IsHexDigit))
+		.Distinct()
+		.ToList();
 
 	/// <summary>Remember the account (password included) on this PC; otherwise only the language is kept.</summary>
 	public bool Remember { get; set; } = true;
 
 	public string Language { get; set; } = "en";
 
+	/// <summary>The console log is hidden (only its title bar shows).</summary>
+	public bool LogCollapsed { get; set; }
+
 	/// <summary>The password in clear, in memory only.</summary>
 	[JsonIgnore]
 	public string Password { get; set; } = string.Empty;
 
 	[JsonIgnore]
-	public bool IsComplete => DbUrl.Length > 0 && ApiKey.Length > 0 && Email.Length > 0 && Password.Length > 0 && Line.Length == 2;
+	public bool IsComplete => DbUrl.Length > 0 && ApiKey.Length > 0 && Email.Length > 0 && Password.Length > 0 && LineList.Count > 0;
 
 	/// <summary>Host of the database URL, for the bottom bar.</summary>
 	[JsonIgnore]
@@ -78,7 +96,11 @@ public sealed class ViewerSettings
 		s.DbUrl ??= string.Empty;
 		s.ApiKey ??= string.Empty;
 		s.Email ??= string.Empty;
-		s.Line ??= "03";
+		if (string.IsNullOrWhiteSpace(s.Lines) || (s.Line != null && s.Lines == "03"))
+		{
+			s.Lines = s.Line ?? "03";                           // settings of the one-line version
+		}
+		s.Line = null;
 		s.Password = Unprotect(s.PasswordProtected);
 		return s;
 	}

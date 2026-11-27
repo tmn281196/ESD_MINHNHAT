@@ -30,8 +30,12 @@ public sealed class CloudSnapshot
 	/// <summary>The line = Net ID as 2 hex digits ("03").</summary>
 	public string Line;
 
-	/// <summary>Boxes in use: ID -> status letter ('A' / 'W' / 'I' / 'O' Offline; '\0' = not known yet) and last heard (epoch ms, 0 = never).</summary>
-	public List<(int Id, char Status, long SeenMs)> Boxes = new List<(int, char, long)>();
+	/// <summary>
+	/// All 20 boxes: ID, status letter ('A' / 'W' / 'I', 'O' Offline, 'U' not heard yet, 'N' not in use; '\0' = keep the
+	/// last one, e.g. a frame with a bad CRC), slot on the conveyor map (0..19, as on the ESDCMS monitor) and last heard
+	/// (epoch ms, 0 = never).
+	/// </summary>
+	public List<(int Id, char Status, int Pos, long SeenMs)> Boxes = new List<(int, char, int, long)>();
 
 	public bool RfOpen;
 
@@ -47,10 +51,10 @@ public sealed class CloudSnapshot
 /// a second, and everything (PC heartbeat, every box, "seen" times) at least every HeartbeatMs. Without internet the
 /// status changes wait in memory (up to MaxEvents, the oldest are dropped) and go out when the connection is back.
 ///   lines/&lt;NN&gt;/pcs/&lt;PC&gt;   lastSeen (server time), app, startedAt, rf, controlBox, conveyor, boxesInUse, droppedEvents
-///   lines/&lt;NN&gt;/boxes/&lt;ID&gt;  s (A/W/I/O), t (status since), seen (last heard), pc
+///   lines/&lt;NN&gt;/boxes/&lt;ID&gt;  s (A/W/I/O, U not heard yet, N not in use), pos (slot on the conveyor map), t (status since), seen (last heard), pc
 ///   lines/&lt;NN&gt;/events/&lt;t&gt;_&lt;PC&gt;_&lt;n&gt;  { box, s, t, pc }   one per status change
-/// Times are Unix epoch ms from the PC clock (lastSeen from the server). Same Firebase account and rules as the
-/// gateway option had: the account may write only lines/&lt;NN&gt; where gateways/&lt;UID&gt; = "NN".
+/// Times are Unix epoch ms from the PC clock (lastSeen from the server). Rules (Firebase/firebase.rules.json): any
+/// signed-in account reads and writes every line, so one Firebase account can serve the ESDCMS of every line.
 /// </summary>
 public sealed class CloudUploader
 {
@@ -83,6 +87,8 @@ public sealed class CloudUploader
 		public long SinceMs;
 
 		public long SeenMs;
+
+		public int Pos;
 	}
 
 	private readonly Dictionary<int, BoxState> _boxes = new Dictionary<int, BoxState>();
@@ -237,19 +243,31 @@ public sealed class CloudUploader
 			_writeNow = true;
 		}
 		long now = NowMs();
-		foreach ((int id, char status, long seen) in snap.Boxes)
+		foreach ((int id, char status, int pos, long seen) in snap.Boxes)
 		{
 			if (!_boxes.TryGetValue(id, out BoxState b))
 			{
-				b = new BoxState();
+				b = new BoxState { Pos = -1 };
 				_boxes[id] = b;
 			}
 			b.SeenMs = seen;
+			if (pos != b.Pos)
+			{
+				b.Pos = pos;
+				_writeNow = true;                               // new box or the map changed (box moved on the monitor)
+			}
 			if (status != '\0' && status != b.Status)
 			{
 				b.Status = status;
 				b.SinceMs = now;
-				AddEvent(id, status, now);
+				if ("AWIO".IndexOf(status) >= 0)
+				{
+					AddEvent(id, status, now);                  // a real status change (not "not heard yet" / "not in use")
+				}
+				else
+				{
+					_writeNow = true;
+				}
 			}
 		}
 		foreach (int id in _boxes.Keys.Except(snap.Boxes.Select(x => x.Id)).ToList())
@@ -287,7 +305,7 @@ public sealed class CloudUploader
 			[pc + "rf"] = snap.RfOpen,
 			[pc + "controlBox"] = snap.ControlBoxOpen,
 			[pc + "conveyor"] = snap.Conveyor,
-			[pc + "boxesInUse"] = snap.Boxes.Count,
+			[pc + "boxesInUse"] = snap.Boxes.Count((x) => x.Status != 'N'),
 			[pc + "droppedEvents"] = _dropped
 		};
 		List<int> sent = new List<int>();
@@ -299,6 +317,7 @@ public sealed class CloudUploader
 			}
 			string p = "boxes/" + kv.Key.ToString("00") + "/";
 			body[p + "s"] = kv.Value.Status.ToString();
+			body[p + "pos"] = kv.Value.Pos;
 			body[p + "t"] = kv.Value.SinceMs;
 			body[p + "seen"] = (kv.Value.SeenMs > 0) ? (JToken)kv.Value.SeenMs : JValue.CreateNull();
 			body[p + "pc"] = _pc;

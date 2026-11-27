@@ -121,7 +121,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="64" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="200" />
+      <RowDefinition Name="LogRow" Height="200" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <!-- Title bar -->
@@ -131,10 +131,11 @@
         <Button Name="LangButton" Style="{StaticResource LangButton}" Content="{DynamicResource S.LangName}" ToolTip="{DynamicResource S.Tip.Language}" Click="LangButton_Click" />
       </StackPanel>
     </Grid>
-    <!-- Main area: legend, PCs (ESDCMS), boxes, latest status changes (built in code, MainWindow.Render) -->
+    <!-- Main area: legend as on the ESDCMS monitor, then one block per line (its PCs and its conveyor map, built in code,
+         MainWindow.Render) and the latest status changes of all lines. -->
     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
       <StackPanel Margin="15 10 15 15">
-        <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
+        <WrapPanel Orientation="Horizontal" Margin="0 0 0 4">
           <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 40 0">
             <Border Width="20" Height="20" Background="#FFFFFF00" />
             <Label Style="{StaticResource LegendLabel}" Content="{DynamicResource S.Inactive}" />
@@ -147,19 +148,20 @@
             <Border Width="20" Height="20" Background="#45f248" />
             <Label Style="{StaticResource LegendLabel}" Content="{DynamicResource S.Active}" />
           </StackPanel>
-          <StackPanel Orientation="Horizontal" VerticalAlignment="Center" ToolTip="{DynamicResource S.Tip.Offline}">
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 40 0" ToolTip="{DynamicResource S.Tip.Offline}">
             <Border Width="20" Height="20" Background="#037EF3" />
             <Label Style="{StaticResource LegendLabel}" Content="{DynamicResource S.Offline}" />
           </StackPanel>
-        </StackPanel>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Border Width="20" Height="20" Background="#9E9E9E" />
+            <Label Style="{StaticResource LegendLabel}" Content="{DynamicResource S.NotInUse}" />
+          </StackPanel>
+        </WrapPanel>
         <TextBlock Name="NotWatchingText" Text="{DynamicResource S.Empty.NotWatching}" FontSize="16" Foreground="#5B6B7C" Margin="0 14 0 0" TextWrapping="Wrap" />
         <StackPanel Name="LivePanel">
-          <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Gateway}" />
-          <StackPanel Name="PcPanel" />
-          <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Boxes}" />
-          <WrapPanel Name="BoxPanel" />
+          <StackPanel Name="LinesPanel" />
           <TextBlock Style="{StaticResource SectionTitle}" Text="{DynamicResource S.Sec.Events}" />
-          <StackPanel Name="EventPanel" MaxWidth="760" HorizontalAlignment="Left" />
+          <StackPanel Name="EventPanel" MaxWidth="820" HorizontalAlignment="Left" />
         </StackPanel>
       </StackPanel>
     </ScrollViewer>
@@ -173,6 +175,9 @@
         <fa:IconImage DockPanel.Dock="Left" Icon="Terminal" Height="12" Foreground="#FFFFFF" VerticalAlignment="Center" Margin="8 0 6 0" />
         <TextBlock DockPanel.Dock="Left" Text="Console Log" Foreground="#FFFFFF" FontWeight="Bold" VerticalAlignment="Center" />
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 5 0">
+          <ToggleButton Name="LogCollapseToggle" Style="{StaticResource LogBarButton}" Width="26" Height="26" Margin="1 0" Cursor="Hand" Background="#0A3570" ToolTip="{DynamicResource S.Tip.LogToggle}" Click="LogCollapseToggle_Click">
+            <fa:IconImage Name="LogCollapseIcon" Icon="ChevronDown" Height="8" Foreground="#DDDDDD" />
+          </ToggleButton>
           <Button Style="{StaticResource LogBarButton}" Width="26" Height="26" Margin="1 0" Cursor="Hand" Background="#0A3570" ToolTip="{DynamicResource S.Tip.LogClear}" Click="ClearLog_Click">
             <fa:IconImage Icon="TrashCan" Height="13" Foreground="#DDDDDD" />
           </Button>

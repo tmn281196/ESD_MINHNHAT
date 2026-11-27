@@ -17,8 +17,10 @@ tên hiển thị là **ESD Compliance Monitoring System**.
   không có trong font tự fallback sang font hệ thống. `Frame` (trang Monitor) và cửa sổ tạo bằng code (`UnlockDialog`) không
   kế thừa font của Window nên được gắn `AppFont` riêng.
 - Cloud: `Device/CloudUploader.cs` ghi line lên Firebase Realtime Database (REST, `Device/FirebaseRest.cs`, không dùng SDK):
-  `lines/<Net ID>/pcs/<tên PC>`, `boxes/<ID>` (A/W/I/O), `events/...`. Cài đặt ở nút ⚙ của group Cloud (`Config.Cloud*`, mật
-  khẩu DPAPI). Icon ☁: xanh ghi OK, vàng đang kết nối, xám tắt/lỗi (tooltip: mã + tên lỗi). Rules: `../Firebase/firebase.rules.json`.
+  `lines/<Net ID>/pcs/<tên PC>`, `boxes/<ID>` (đủ 20 hộp: s = A/W/I/O, U chưa nghe, N không dùng; pos = ô trên băng tải),
+  `events/...`. Cài đặt ở nút ⚙ của group Cloud (`Config.Cloud*`, mật
+  khẩu DPAPI). Icon ☁: xanh ghi OK, vàng đang kết nối, xám tắt/lỗi (tooltip: mã + tên lỗi). Rules: `../Firebase/firebase.rules.json` (ai đăng nhập ghi được mọi line: một tài khoản
+  dùng cho mọi line). Xem từ xa: `../ESDCloudViewer` (app WPF) hoặc `../ESDCloudViewer/web/esd-cloud-viewer.html`.
 - Thanh dưới gọn: RF Gateway / Control Box / Cloud chỉ có icon trạng thái và nút vuông ⚙ mở hộp thoại cài đặt (`SettingsForm.cs`).
 - Tên biến cục bộ lấy từ PDB nên khá sát bản gốc; tên tham số lambda và một số cấu trúc `async` có thể khác nguyên bản.
 - `Monitoring/MornitorPage.xaml` giữ nguyên tên file gốc (resource `monitoring/mornitorpage.baml`).

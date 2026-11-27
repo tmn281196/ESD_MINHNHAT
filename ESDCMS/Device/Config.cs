@@ -29,7 +29,7 @@ public class Config
 	/// <summary>Web API key of the Firebase project.</summary>
 	public string CloudApiKey { get; set; } = string.Empty;
 
-	/// <summary>Firebase Authentication account (Email/Password) allowed to write this line (gateways/&lt;UID&gt; in the rules).</summary>
+	/// <summary>Firebase Authentication account (Email/Password); the same account can be used on every line.</summary>
 	public string CloudEmail { get; set; } = string.Empty;
 
 	/// <summary>Its password, encrypted with Windows DPAPI for the current user (another user or PC cannot read it).</summary>

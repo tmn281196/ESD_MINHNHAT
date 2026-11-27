@@ -10,10 +10,7 @@
   <sys:String x:Key="S.Active">Active</sys:String>
   <sys:String x:Key="S.Offline">Offline</sys:String>
   <sys:String x:Key="S.Tip.Offline">The box did not answer the status query of the PC</sys:String>
-  <sys:String x:Key="S.Sec.Gateway">PC (ESDCMS)</sys:String>
-  <sys:String x:Key="S.Sec.Boxes">Boxes</sys:String>
   <sys:String x:Key="S.Sec.Events">Latest status changes</sys:String>
-  <sys:String x:Key="S.Pc.NoData">No PC wrote to the cloud yet</sys:String>
   <sys:String x:Key="S.Pc.LastWrite">last write {0}</sys:String>
   <sys:String x:Key="S.Pc.Rf">RF Gateway</sys:String>
   <sys:String x:Key="S.Pc.Cb">Control Box</sys:String>
@@ -26,16 +23,18 @@
   <sys:String x:Key="S.NotConnected">not connected</sys:String>
   <sys:String x:Key="S.Conveyor.Run">moving</sys:String>
   <sys:String x:Key="S.Conveyor.Stop">stopped</sys:String>
+  <sys:String x:Key="S.NotInUse">Not in use</sys:String>
+  <sys:String x:Key="S.Unknown">Not heard yet</sys:String>
+  <sys:String x:Key="S.Line.Title">Line {0}</sys:String>
+  <sys:String x:Key="S.Line.NoPc">No PC writes this line yet</sys:String>
+  <sys:String x:Key="S.Ev.Line">Line</sys:String>
   <sys:String x:Key="S.Never">never</sys:String>
   <sys:String x:Key="S.Ago.Sec">{0} s ago</sys:String>
   <sys:String x:Key="S.Ago.Min">{0} min ago</sys:String>
   <sys:String x:Key="S.Ago.Hour">{0} h ago</sys:String>
   <sys:String x:Key="S.Ago.Day">{0} days ago</sys:String>
-  <sys:String x:Key="S.Uptime.D">{0} d {1} h {2} min</sys:String>
-  <sys:String x:Key="S.Uptime.H">{0} h {1} min</sys:String>
   <sys:String x:Key="S.Box.Since">Since {0}</sys:String>
   <sys:String x:Key="S.Box.Heard">Heard {0}</sys:String>
-  <sys:String x:Key="S.Box.Repeater">REPEATER</sys:String>
   <sys:String x:Key="S.Ev.Time">Time</sys:String>
   <sys:String x:Key="S.Ev.Box">Box</sys:String>
   <sys:String x:Key="S.Ev.Status">New status</sys:String>
@@ -45,7 +44,7 @@
   <sys:String x:Key="S.Loading">Loading…</sys:String>
   <sys:String x:Key="S.Live.Off">Not watching</sys:String>
   <sys:String x:Key="S.Live.Connecting">Connecting to Firebase…</sys:String>
-  <sys:String x:Key="S.Live.On">Live · lines/{0} · data {1}</sys:String>
+  <sys:String x:Key="S.Live.On">Live · lines {0} · data {1}</sys:String>
   <sys:String x:Key="S.Live.SigningIn">Signing in to Firebase…</sys:String>
   <sys:String x:Key="S.Live.Checking">Checking the Firebase settings (see the console log)…</sys:String>
   <sys:String x:Key="S.Err.Read">Cannot read lines/{0}: the rules do not allow it, or the database URL is wrong.</sys:String>
@@ -61,6 +60,7 @@
   <sys:String x:Key="S.Tip.Check">Check the Firebase settings the way ESDCMS uses them (sign-in, rules, test write); results in the console log</sys:String>
   <sys:String x:Key="S.Tip.Watch">Sign in and show the line live</sys:String>
   <sys:String x:Key="S.Tip.Stop">Stop watching</sys:String>
+  <sys:String x:Key="S.Tip.LogToggle">Show / hide the log window (logging continues)</sys:String>
   <sys:String x:Key="S.Tip.LogClear">Clear log</sys:String>
   <sys:String x:Key="S.Tip.LogSave">Save log to a .txt file</sys:String>
   <sys:String x:Key="S.Set.Title">Firebase settings</sys:String>
@@ -68,9 +68,9 @@
   <sys:String x:Key="S.Set.Key">Web API key</sys:String>
   <sys:String x:Key="S.Set.Email">Email</sys:String>
   <sys:String x:Key="S.Set.Password">Password</sys:String>
-  <sys:String x:Key="S.Set.Line">Line (Net ID, 2 digits)</sys:String>
+  <sys:String x:Key="S.Set.Line">Lines (Net ID, e.g. 03, 02)</sys:String>
   <sys:String x:Key="S.Set.Remember">Remember on this PC (password encrypted for this Windows user)</sys:String>
   <sys:String x:Key="S.Set.Save">Save</sys:String>
   <sys:String x:Key="S.Set.Cancel">Cancel</sys:String>
-  <sys:String x:Key="S.Set.Missing">Fill in every field; the line is 2 digits (e.g. 03).</sys:String>
+  <sys:String x:Key="S.Set.Missing">Fill in every field; lines are 2 hex digits separated by commas (e.g. 03, 02).</sys:String>
 </ResourceDictionary>

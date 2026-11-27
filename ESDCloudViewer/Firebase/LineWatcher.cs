@@ -83,18 +83,21 @@ public sealed class LineWatcher : IDisposable
 	/// <summary>A console line (any thread).</summary>
 	public event Action<string> Log;
 
-	public LineWatcher(ViewerSettings settings, string token)
+	private readonly string _line;
+
+	public LineWatcher(ViewerSettings settings, string line, string token)
 	{
 		_s = settings.Clone();
+		_line = line;
 		_token = token;
 		_conn = CancellationTokenSource.CreateLinkedTokenSource(_stop.Token);
 	}
 
-	public string Line => _s.Line;
+	public string Line => _line;
 
 	public void Start()
 	{
-		Log?.Invoke("Watch: lines/" + _s.Line + " on " + _s.DbHost);
+		Log?.Invoke("Watch: lines/" + _line + " on " + _s.DbHost);
 		_ = RunStreamAsync("pcs");
 		_ = RunStreamAsync("boxes");
 		_ = PollEventsAsync();
@@ -136,7 +139,7 @@ public sealed class LineWatcher : IDisposable
 		{
 			token = _token;
 		}
-		return _s.DbUrl + "/lines/" + _s.Line + "/" + child + ".json?auth=" + Uri.EscapeDataString(token);
+		return _s.DbUrl + "/lines/" + _line + "/" + child + ".json?auth=" + Uri.EscapeDataString(token);
 	}
 
 	private void SetError(string key)
@@ -172,7 +175,7 @@ public sealed class LineWatcher : IDisposable
 			}
 			catch (FirebaseHttpException ex) when (ex.Status == 401 || ex.Status == 403)
 			{
-				Log?.Invoke("Stream " + child + ": not allowed to read lines/" + _s.Line + " (HTTP " + ex.Status + "): rules, or the sign-in expired");
+				Log?.Invoke("Stream " + child + ": not allowed to read lines/" + _line + " (HTTP " + ex.Status + "): rules, or the sign-in expired");
 				SetError("S.Err.Read");
 				await RenewTokenAsync().ConfigureAwait(false);
 				await DelayAsync(15000).ConfigureAwait(false);
@@ -327,6 +330,8 @@ public sealed class LineWatcher : IDisposable
 			"W" => "Warning",
 			"I" => "Inactive",
 			"O" => "Offline",
+			"U" => "Unknown",
+			"N" => "Not in use",
 			null => "(new)",
 			_ => s
 		};
@@ -389,7 +394,7 @@ public sealed class LineWatcher : IDisposable
 	{
 		while (!_stop.IsCancellationRequested)
 		{
-			string url = _s.DbUrl + "/lines/" + _s.Line + "/events.json?orderBy=%22%24key%22&limitToLast=" + EventsShown;
+			string url = _s.DbUrl + "/lines/" + _line + "/events.json?orderBy=%22%24key%22&limitToLast=" + EventsShown;
 			string token;
 			lock (_lock)
 			{
