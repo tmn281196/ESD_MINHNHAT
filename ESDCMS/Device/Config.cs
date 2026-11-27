@@ -8,14 +8,6 @@ public class Config
 
 	public string ControlBoxCOM { get; set; }
 
-	/// <summary>
-	/// WiFi of the RF gateway's cloud option (the SSID/password are in the gateway firmware, secrets.h):
-	/// true = "Gateway joins WiFi" ticked in the cloud dialog: sent to the gateway as "WiFi on" each time the RF port
-	/// opens, and the cloud icon shows the gateway's state; false = sent as "WiFi off";
-	/// null = never set here: nothing is sent (the gateway keeps its own default, WiFi on).
-	/// </summary>
-	public bool? WifiEnabled { get; set; }
-
 	/// <summary>Start the program automatically when Windows starts (user logs in).</summary>
 	public bool AutoStart { get; set; } = true;
 

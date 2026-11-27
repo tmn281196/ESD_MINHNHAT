@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Cloud viewer of the ESD line: reads what the RF gateway (lora_gateway.ino, ENABLE_CLOUD 1) writes to Firebase.
+       Same .NET Framework, look, fonts and icon as ESDCMS (the fonts and icon are taken from ../ESDCMS). -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <RootNamespace>ESDCloudViewer</RootNamespace>
+    <AssemblyName>ESDCloudViewer</AssemblyName>
+    <ApplicationIcon>..\ESDCMS\app.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <!-- DPAPI (ProtectedData) for the saved Firebase password; HttpClient for the REST calls and streams -->
+    <Reference Include="System.Security" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- UI fonts of ESDCMS (SIL OFL 1.1): Google Sans + JetBrains Mono -->
+    <Resource Include="..\ESDCMS\Fonts\*.ttf" Link="Fonts\%(Filename)%(Extension)" />
+    <None Include="..\ESDCMS\Fonts\LICENSE-*" Link="Fonts\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Resource Include="..\ESDCMS\app.ico" Link="app.ico" />
+  </ItemGroup>
+
+</Project>

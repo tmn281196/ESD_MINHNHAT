@@ -7,7 +7,8 @@
 //   2. Security > Authentication > Sign-in method: enable Email/Password; Users: add one user per gateway.
 //   3. Settings > General > Your apps: add a Web app (</>), copy apiKey from its config below.
 //   4. Realtime Database > Rules: paste firebase.rules.json, Publish; then in Data add
-//        gateways/<UID of that user> = "03"   (the line = NETWORK_ID, 2 digits, as text)
+//        gateways/<UID of that user> = 03     (the line = NETWORK_ID, 2 digits; in the console pick the type
+//                                              "string" and type 03 WITHOUT quotes, or quotes become part of it)
 //      so this gateway can write only lines/03.
 // The gateway joins WIFI_SSID by itself at power-up; the PC app only turns its WiFi on/off.
 #pragma once

@@ -101,6 +101,13 @@ def ket_noi():
 <p>Khi chạy cùng Windows, driver USB-serial thường chưa sẵn sàng và lần mở đầu thất bại. App thử lại <strong>12 lần, mỗi 5&nbsp;s</strong> (khoảng một phút) thay vì nằm im mất kết nối. Nút <strong>Refresh Connection</strong> trên thanh điều khiển ép đóng rồi mở lại cả hai cổng, hoạt động cả khi đang khóa.</p>
 <h2 id="sim">Thử không cần phần cứng</h2>
 <p>Thư mục <code>Simulators/</code> có hai app WPF giả lập phần cứng theo đúng giao thức: <code>ControlBoxSim</code> (nhận khung Control Box, echo làm ACK, có thể tắt/làm chậm echo) và <code>RfGatewaySim</code> (gateway + 20 hộp: bấm A/W/I để đổi trạng thái, bỏ Online để hộp im lặng, trả lời query <code>'?'</code>). Nối với ESDCMS bằng cặp cổng ảo com0com, ví dụ ESDCMS mở <code>COM15</code>/<code>COM16</code>, simulator mở <code>COM18</code>/<code>COM17</code>. Hướng dẫn ở <code>Simulators/README.md</code>.</p>
+<h2 id="viewer">ESDCloudViewer: xem cloud từ xa</h2>
+<p>Thư mục <code>ESDCloudViewer/</code> (cạnh <code>ESDCMS/</code>, cùng trong <code>ESDCMS.slnx</code>) là app WPF .NET Framework 4.8 thứ hai, đọc những gì gateway bật <code>ENABLE_CLOUD</code> ghi lên Firebase. Giao diện theo đúng template ESDCMS: thanh tiêu đề có nút ngôn ngữ (en/ko/th), chú thích màu như trang Monitor, Console Log nền xanh (tiếng Anh), thanh dưới có group <strong>Firebase</strong> với <em>Settings</em>, <em>Check settings</em>, <em>Watch</em>, <em>Stop</em>. Font và icon link thẳng từ <code>ESDCMS/</code>.</p>
+<ul>
+<li><strong>Cài đặt:</strong> dán 4 dòng <code>#define</code> Firebase của <code>secrets.h</code> và chọn line; lưu ở <code>%USERPROFILE%\.esdcms\cloudviewer.json</code>, mật khẩu Firebase mã hóa DPAPI theo user Windows. Mở app mà đã lưu thì tự đăng nhập và xem.</li>
+<li><strong>Xem trực tiếp:</strong> stream REST của Realtime Database (<code>lines/&lt;line&gt;/gateway</code> và <code>.../boxes</code>, sự kiện <code>put</code>/<code>patch</code>) cộng 30 lần đổi trạng thái cuối, hỏi lại mỗi 10&nbsp;s. Hộp đổi màu ngay khi gateway ghi; PC đang chạy mà 5 phút không nghe thấy hộp thì hiện Offline. Tự nối lại khi mất mạng, 50 phút đăng nhập lại một lần (token sống 60 phút).</li>
+<li><strong>Kiểm tra cấu hình:</strong> giống trang web <code>firebase_test.html</code> trước đây; kết quả <code>[ OK ]</code>/<code>[WARN]</code>/<code>[FAIL]</code> ở Console Log.</li>
+</ul>
 <div class="callout note"><p class="label">OpenGeneration</p>
 <p>Mỗi lần cổng RF mở thành công, <code>OpenGeneration</code> tăng một. Vòng polling thấy số này đổi là biết cổng vừa (re)mở và sẽ hỏi lại trạng thái tất cả hộp — xem <a href="04_poll.html">Status Polling</a>.</p></div>
 '''
@@ -179,7 +186,6 @@ def cau_hinh():
   "Com": {
     "RFGatewayCOM": "COM5",
     "ControlBoxCOM": "COM6",
-    "WifiEnabled": null,
     "AutoStart": true,
     "LogCollapsed": false,
     "Language": "en",
@@ -214,7 +220,6 @@ def cau_hinh():
 <tr><td class="mono">TxTimeoutMs</td><td class="num">500</td><td>≥ 50</td><td>Chờ echo Control Box trước khi coi lệnh thất bại — ô <em>RX timeout</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetries</td><td class="num">4</td><td>≥ 1</td><td>Số lần gửi một lệnh Control Box trước khi bỏ (gồm lần đầu) — ô <em>Retry</em>, group Control Box</td></tr>
 <tr><td class="mono">TxRetryDelayMs</td><td class="num">100</td><td>≥ 0</td><td>Khoảng cách giữa hai lần gửi cùng một lệnh Control Box — ô <em>Retry gap</em>, group Control Box</td></tr>
-<tr><td class="mono">WifiEnabled</td><td class="nowrap">null</td><td>true / false / null</td><td>Tùy chọn cloud của gateway: <code>true</code> bật WiFi, <code>false</code> tắt, <code>null</code> chưa chọn (không gửi gì, gateway giữ mặc định là bật). Đặt ở hộp thoại ☁, group RF Gateway; tên và mật khẩu WiFi nằm trong firmware (xem <a href="../he_thong/01_thiet_bi.html#cloud">Devices &amp; Roles</a>)</td></tr>
 <tr><td class="mono">AutoStart / LogCollapsed</td><td class="nowrap">true / false</td><td>—</td><td>Chạy cùng Windows; ẩn panel log</td></tr>
 </tbody>
 </table></div>
@@ -245,7 +250,7 @@ def giao_dien():
 <tr><td class="nowrap">Cảnh báo Offline</td><td>Dải vàng nhạt nằm trên bản đồ, <strong>ngay dưới hàng ô hộp</strong> và rộng bằng dải băng tải (vị trí cố định), chữ lớn đậm, icon ⚠ nhấp nháy nhẹ, <strong>chỉ hiện khi có hộp đang dùng ở Offline</strong>: "Box 03, 07 offline — please check the power supply and the wireless connection." (theo ngôn ngữ). Tự ẩn khi các hộp trả lời lại. Hộp Unknown lúc mới mở (chưa hỏi tới) không tính.</td></tr>
 <tr><td class="nowrap">Console Log</td><td>Nền xanh kiểu PowerShell, chữ JetBrains Mono trắng; mọi <code>Console.WriteLine</code> hiện ở đây (giữ 1000 dòng). Xóa / lưu .txt / ẩn-hiện. Log luôn bằng <strong>tiếng Anh</strong> dù giao diện đang ở ngôn ngữ nào.</td></tr>
 <tr><td class="nowrap">Thanh dưới</td><td>Một hàng duy nhất. Sát lề trái: nút 🔒 và <strong>Start with Windows</strong>. Sát lề phải: <strong>Refresh Connection</strong>, rồi liền ngay sau là ba group có khung, tên thiết bị (kèm icon) ở đầu mỗi group:
-<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s, nút ☁ WiFi/cloud của gateway: xanh khi ghi cloud OK, vàng khi đang kết nối, xám khi lỗi hoặc tắt) ·
+<strong>RF Gateway</strong> (icon trạng thái, combo COM, Net ID hex, Ask again s, nút ☁ trạng thái cloud của gateway: xanh khi ghi cloud OK, vàng khi đang kết nối, xám khi lỗi; bấm được cả khi khóa) ·
 <strong>Control Box</strong> (icon trạng thái, combo COM, TX gap, RX timeout, Retry, Retry gap) ·
 <strong>Motors</strong> (Start All, Stop 1..4).</td></tr>
 </tbody>
@@ -302,7 +307,7 @@ def gioi_han():
 <li><strong>Motor 3 và Motor 4 trùng chân 22</strong> trong <code>Pin.h</code> — hai kênh điều khiển cùng một relay (xem <a href="../giao_thuc/02_control_box.html">Control Box Protocol</a>).</li>
 <li><strong>Hộp nạp firmware trước 2026-11-27 phát yếu dần:</strong> sau lần đầu tự reset module LoRa, hộp tụt từ 17 xuống 10&nbsp;dBm (tầm phát còn khoảng một nửa) cho tới khi rút điện. Bản hiện tại giữ 17&nbsp;dBm (<code>TX_POWER_DBM</code>); phải nạp lại từng hộp.</li>
 <li><strong>Chưa đo được cường độ sóng:</strong> gateway không gửi RSSI/SNR lên PC (khung <code>AA…BB</code> không có chỗ, và cổng USB của gateway dành cho khung đó), nên chưa phân biệt được hộp Offline vì nhiễu / bị chắn sóng (ví dụ cạnh máy reflow) hay vì mất nguồn. Gateway bật tùy chọn cloud thì ghi RSSI/SNR của từng hộp lên Firebase (đo tại chỗ đặt gateway); không bật thì phải dùng một hộp test in RSSI ra cổng USB riêng.</li>
-<li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase mới có trang <code>firebase_test.html</code> (một line, cần đăng nhập bằng tài khoản của gateway), chưa có dashboard riêng.</li>
+<li><strong>Cloud chỉ có trạng thái hộp:</strong> gateway không thấy quyết định Offline và trạng thái băng tải của PC. Xem dữ liệu Firebase bằng app <code>ESDCloudViewer</code>: mỗi lần một line, đăng nhập bằng chính tài khoản của gateway (tài khoản này cũng ghi được line đó); chưa có tài khoản chỉ-đọc riêng.</li>
 </ul>
 
 <h2 id="khac">Chỗ khác cần biết</h2>

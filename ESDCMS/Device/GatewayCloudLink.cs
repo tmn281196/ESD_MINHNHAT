@@ -78,14 +78,12 @@ public sealed class GatewayCloudReport
 }
 
 /// <summary>
-/// Talks to the cloud option of the RF gateway over its USB port. The WiFi SSID/password are in the gateway firmware
-/// (secrets.h); the app only turns the WiFi on/off and reads the cloud state. Config frames start with 0xA5 (box/query
-/// frames with 0xAA), are never sent over LoRa, and a gateway built without the option ignores them (no answer).
+/// Reads the cloud state of the RF gateway over its USB port (read only: the WiFi SSID/password are in the gateway
+/// firmware, secrets.h, and ENABLE_CLOUD is the only on/off). These frames start with 0xA5 (box/query frames with 0xAA),
+/// are never sent over LoRa, and a gateway built without the option ignores them (no answer).
 ///   0xA5  TYPE  LEN  DATA...  CRC8  0xBB       CRC8 (poly 0x31) over TYPE, LEN, DATA
-///   PC -> gateway  'W'  1 = WiFi on / 0 = WiFi off (kept in the gateway's flash; default on)
-///                  'S'  (no data) = status request
-///   gateway -> PC  'w'  0 changed / 1 already so
-///                  's'  state, -RSSI (dBm), seconds since the last good write (2 bytes, 16383 = never), step,
+///   PC -> gateway  'S'  (no data) = status request
+///   gateway -> PC  's'  state, -RSSI (dBm), seconds since the last good write (2 bytes, 16383 = never), step,
 ///                       code (2 bytes), detail; sent as the answer to 'S' and also by itself on every change
 ///                  'r'  one report per request the gateway sends to the cloud (sign-in, database write)
 /// Numbers of 2 bytes are 14 bits, low 7 bits first; a code is signed (8192..16383 = negative). Every DATA byte of a
@@ -103,8 +101,6 @@ public sealed class GatewayCloudLink
 	private readonly List<byte> _rx = new List<byte>();
 
 	private readonly object _lock = new object();
-
-	private TaskCompletionSource<int> _ackWaiter;
 
 	private TaskCompletionSource<GatewayCloudStatus> _statusWaiter;
 
@@ -130,9 +126,9 @@ public sealed class GatewayCloudLink
 				return;
 			}
 			_rx.Add(b);
-			if ((_rx.Count == 2 && b != (byte)'w' && b != (byte)'s' && b != (byte)'r') || (_rx.Count == 3 && b > MaxReplyData))
+			if ((_rx.Count == 2 && b != (byte)'s' && b != (byte)'r') || (_rx.Count == 3 && b > MaxReplyData))
 			{
-				// Not a reply of the gateway (only 'w' / 's' / 'r', up to MaxReplyData bytes): start over.
+				// Not a frame of the gateway (only 's' / 'r', up to MaxReplyData bytes): start over.
 				_rx.Clear();
 				if (b == Stx)
 				{
@@ -151,12 +147,7 @@ public sealed class GatewayCloudLink
 			{
 				return;
 			}
-			if (f[1] == (byte)'w' && len >= 1)
-			{
-				_ackWaiter?.TrySetResult(f[3]);
-				_ackWaiter = null;
-			}
-			else if (f[1] == (byte)'s' && len >= 4)
+			if (f[1] == (byte)'s' && len >= 4)
 			{
 				int age = U14(f, 5);
 				status = new GatewayCloudStatus
@@ -231,26 +222,6 @@ public sealed class GatewayCloudLink
 	{
 		int v = U14(f, i);
 		return (v >= 8192) ? (v - 16384) : v;
-	}
-
-	/// <summary>Turns the gateway's WiFi on or off. Returns 0 changed, 1 already so, or null when it did not answer.</summary>
-	public async Task<int?> SendWifiStateAsync(RFGateway gateway, bool on, int timeoutMs = 1500)
-	{
-		TaskCompletionSource<int> waiter = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
-		lock (_lock)
-		{
-			_ackWaiter = waiter;
-		}
-		byte[] frame = BuildFrame((byte)'W', new byte[1] { (byte)(on ? 1 : 0) });
-		bool answered = await SendAndWaitAsync(gateway, frame, waiter.Task, timeoutMs);
-		lock (_lock)
-		{
-			if (_ackWaiter == waiter)
-			{
-				_ackWaiter = null;
-			}
-		}
-		return answered ? waiter.Task.Result : (int?)null;
 	}
 
 	/// <summary>Asks the gateway for its cloud status; null when it did not answer.</summary>

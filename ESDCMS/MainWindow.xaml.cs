@@ -459,7 +459,6 @@ public partial class MainWindow : Window
 			{ "RF Gateway Net ID", $"0x{c.NetworkID:X2}" },
 			{ "RF Gateway ask again", c.AskAgainSec > 0 ? c.EffectiveAskAgainSec + " s (all boxes)" : "off" },
 			{ "RF Gateway status query", c.EffectivePollRetries + " rounds x " + (c.EffectivePollRoundWaitMs / 1000.0).ToString("0.#") + " s before Offline" },
-			{ "RF Gateway WiFi", (c.WifiEnabled == null) ? "(not set: gateway default, on)" : (c.WifiEnabled.Value ? "on" : "off") },
 			{ "Control Box TX gap", c.TxGapMs + " ms" },
 			{ "Control Box RX timeout", c.TxTimeoutMs + " ms" },
 			{ "Control Box retry", c.TxRetries + "x" },
@@ -570,7 +569,7 @@ public partial class MainWindow : Window
 		}
 		foreach (Control c in new Control[]
 		{
-			RFComboBoxPorts, ControlBoxComboBoxPorts, AutoStartBox, CloudButton,
+			RFComboBoxPorts, ControlBoxComboBoxPorts, AutoStartBox,
 			ToggleableButton4, ToggleableButton0, ToggleableButton1, ToggleableButton2, ToggleableButton3
 		})
 		{
@@ -579,14 +578,10 @@ public partial class MainWindow : Window
 		}
 	}
 
-	/// <summary>Cloud button (RF Gateway group, only while unlocked): WiFi settings of the gateway's cloud option.</summary>
+	/// <summary>Cloud button (RF Gateway group, also while locked): cloud state of the gateway, read only.</summary>
 	private void CloudButton_Click(object sender, RoutedEventArgs e)
 	{
-		WifiDialog.Show(this, GlobalViewModel, () => DeviceManagerPage.RFGateway, delegate
-		{
-			DeviceManagerPage.SaveConfig();
-			_cfgSnapshot = SnapshotConfig();
-		});
+		CloudDialog.Show(this, GlobalViewModel);
 	}
 
 	/// <summary>Language button: English → 한국어 → ไทย → English. Works while locked too.</summary>

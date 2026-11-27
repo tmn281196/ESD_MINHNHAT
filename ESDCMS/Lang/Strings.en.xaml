@@ -60,21 +60,12 @@
   <sys:String x:Key="S.Tip.LogClear">Clear log</sys:String>
   <sys:String x:Key="S.Tip.LogSave">Save log to a .txt file</sys:String>
   <sys:String x:Key="S.Tip.Tile">Click: ask this box for its status</sys:String>
-  <!-- Cloud option of the RF gateway: WiFi dialog (WifiDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
-  <sys:String x:Key="S.Tip.Cloud">Cloud (RF gateway WiFi): send the box states to Firebase</sys:String>
-  <sys:String x:Key="S.Wifi.Title">RF Gateway WiFi (cloud)</sys:String>
-  <sys:String x:Key="S.Wifi.Intro">The RF gateway can send the box states to the cloud (Firebase) over WiFi. The WiFi name and password are set in the gateway firmware (secrets.h, ENABLE_CLOUD 1); here the gateway's WiFi is only turned on or off.</sys:String>
-  <sys:String x:Key="S.Wifi.Enable">Gateway joins WiFi (cloud)</sys:String>
-  <sys:String x:Key="S.Wifi.Off">WiFi off</sys:String>
-  <sys:String x:Key="S.Wifi.OnSent">WiFi turned on on the gateway.</sys:String>
-  <sys:String x:Key="S.Wifi.OffSent">WiFi turned off on the gateway.</sys:String>
-  <sys:String x:Key="S.Wifi.Unchanged">Saved; the gateway was already set so.</sys:String>
-  <sys:String x:Key="S.Wifi.SavedNotSent">Saved; it is sent to the gateway when the RF Gateway is connected.</sys:String>
-  <sys:String x:Key="S.Wifi.Save">Save &amp; send</sys:String>
+  <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
+  <sys:String x:Key="S.Wifi.Title">RF Gateway cloud</sys:String>
+  <sys:String x:Key="S.Wifi.Intro">With gateway firmware built with ENABLE_CLOUD 1, the RF gateway sends the box states to the cloud (Firebase) over WiFi. The WiFi name and password and the Firebase account are set in the firmware (secrets.h); here you can only see its state.</sys:String>
   <sys:String x:Key="S.Wifi.Close">Close</sys:String>
   <sys:String x:Key="S.Wifi.NotConnected">The RF Gateway is not connected.</sys:String>
   <sys:String x:Key="S.Wifi.NoAnswer">No answer from the gateway: its firmware may be built without ENABLE_CLOUD.</sys:String>
-  <sys:String x:Key="S.Wifi.State0">Gateway: WiFi off.</sys:String>
   <sys:String x:Key="S.Wifi.State1">Gateway: connecting to WiFi…</sys:String>
   <sys:String x:Key="S.Wifi.State2">Gateway: on WiFi ({0} dBm), connecting to the cloud…</sys:String>
   <sys:String x:Key="S.Wifi.State3">Gateway: WiFi OK ({0} dBm), cloud OK.</sys:String>

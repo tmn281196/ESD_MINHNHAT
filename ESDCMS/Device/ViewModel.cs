@@ -660,7 +660,8 @@ public class ViewModel : INotifyPropertyChanged
 					await Task.Delay(StartupQueryDelayMs, ct);
 					if (gateway.IsOpen)
 					{
-						await PushWifiToGatewayAsync(gateway);
+						_cloudLogKey = null;             // log the gateway's cloud state again after a (re)connect
+						await RefreshCloudStatusAsync();
 						await QueryAllBoxesAsync(gateway, ct);
 					}
 					lastRound = DateTime.Now;
@@ -714,43 +715,11 @@ public class ViewModel : INotifyPropertyChanged
 		}
 	}
 
-	/// <summary>
-	/// RF port opened: send the WiFi on/off set in the cloud dialog to the gateway (its SSID/password are in its firmware),
-	/// so a new or reflashed gateway follows it. Nothing is sent if it was never set (the gateway's default is WiFi on).
-	/// </summary>
-	private async Task PushWifiToGatewayAsync(RFGateway gateway)
-	{
-		_cloudLogKey = null;                     // log the gateway's cloud state again after a (re)connect
-		bool? enabled = Config?.WifiEnabled;
-		if (enabled == null)
-		{
-			return;
-		}
-		LogWifiResult(await GatewayCloud.SendWifiStateAsync(gateway, enabled.Value), enabled.Value);
-		await RefreshCloudStatusAsync();
-	}
-
-	public static void LogWifiResult(int? result, bool on)
-	{
-		switch (result)
-		{
-		case 0:
-			Console.WriteLine(on ? "Gateway: WiFi turned on" : "Gateway: WiFi turned off");
-			break;
-		case 1:
-			Console.WriteLine(on ? "Gateway: WiFi already on" : "Gateway: WiFi already off");
-			break;
-		default:
-			Console.WriteLine("Gateway: no answer to WiFi on/off (firmware built without ENABLE_CLOUD?)");
-			break;
-		}
-	}
-
 	// ---------------------------------------------------------------------------------------------
 	// Cloud icon of the RF Gateway group: yellow = connecting (to the WiFi, then to Firebase), green = writing to
-	// Firebase OK, gray = any error (WiFi or Firebase), WiFi off, no answer (firmware without ENABLE_CLOUD) or RF not
-	// connected. The gateway sends its state by itself on every change; the app also asks every CloudStatusPollMs
-	// (except when WiFi was turned off in the dialog).
+	// Firebase OK, gray = any error (WiFi or Firebase), no answer (firmware without ENABLE_CLOUD) or RF not connected.
+	// The gateway sends its state by itself on every change; the app also asks every CloudStatusPollMs. Read only: the
+	// gateway's WiFi is set in its firmware (secrets.h) and ENABLE_CLOUD is its only on/off.
 	// ---------------------------------------------------------------------------------------------
 
 	private const int CloudStatusPollMs = 5000;
@@ -779,7 +748,7 @@ public class ViewModel : INotifyPropertyChanged
 		return brush;
 	}
 
-	/// <summary>Updates the cloud icon by asking the gateway (not while WiFi was turned off in the dialog). UI thread.</summary>
+	/// <summary>Updates the cloud icon by asking the gateway. UI thread.</summary>
 	public async Task RefreshCloudStatusAsync()
 	{
 		if (_cloudRefreshBusy)
@@ -790,11 +759,6 @@ public class ViewModel : INotifyPropertyChanged
 		try
 		{
 			RFGateway gateway = DeviceManagerPage?.RFGateway;
-			if (Config?.WifiEnabled == false)
-			{
-				SetCloudIcon(CloudGray, Lang.T("S.Tip.Cloud") + " (" + Lang.T("S.Wifi.Off") + ")");
-				return;
-			}
 			if (gateway == null || !gateway.IsOpen)
 			{
 				SetCloudIcon(CloudGray, Lang.T("S.Wifi.NotConnected"));
@@ -830,10 +794,7 @@ public class ViewModel : INotifyPropertyChanged
 				_cloudLogKey = key;
 				Console.WriteLine("Gateway cloud: " + GatewayCloudText.Status(s, Lang.En));
 			}
-			if (Config?.WifiEnabled != false || s.State == 0)
-			{
-				ShowCloudStatus(s);
-			}
+			ShowCloudStatus(s);
 		});
 	}
 

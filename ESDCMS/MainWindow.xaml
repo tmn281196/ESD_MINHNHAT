@@ -262,8 +262,8 @@
               <Label Style="{StaticResource BarField}" Content="{DynamicResource S.AskAgain}" />
               <TextBox Name="AskAgainBox" Style="{StaticResource BarBox}" LostFocus="SettingsBox_LostFocus" Width="40" ToolTip="{DynamicResource S.Tip.AskAgain}" Text="{Binding Config.AskAgainSec, UpdateSourceTrigger=PropertyChanged}" />
               <Label Style="{StaticResource BarUnit}">s</Label>
-              <!-- Cloud option of the gateway (ENABLE_CLOUD): WiFi settings + status (WifiDialog) -->
-              <!-- Icon colour from the gateway: green = on WiFi (writing to Firebase), amber = connecting, red = no answer, gray = off -->
+              <!-- Cloud option of the gateway (ENABLE_CLOUD): its state, read only (CloudDialog); works while locked too -->
+              <!-- Icon colour from the gateway: green = writing to Firebase OK, amber = connecting, gray = error, no answer or RF not connected -->
               <Button Name="CloudButton" Style="{StaticResource LogBarButton}" Width="26" Height="22" Margin="8 0 0 0" VerticalAlignment="Center" Cursor="Hand" Background="#3E4C5E" ToolTip="{Binding CloudStatusText}" Click="CloudButton_Click">
                 <fa:IconImage Icon="Cloud" Height="12" Foreground="{Binding CloudIconBrush}" />
               </Button>

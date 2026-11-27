@@ -27,23 +27,19 @@
  *   EVENT_BUFFER status changes) and catches up when the connection is back.
  *
  *   WiFi SSID/password and the Firebase settings come from secrets.h (copy secrets.example.h).
- *   The gateway joins that WiFi by itself at power-up. The PC app (ESDCMS, RF Gateway > cloud
- *   button) can only turn the WiFi on/off; that choice is kept in flash (NVS), default on.
+ *   The gateway joins that WiFi by itself at power-up and stays on it: ENABLE_CLOUD is the only
+ *   switch (build with 0 for a gateway without WiFi). The PC app only reads the cloud state.
  *   The USB port is the PC protocol link: the cloud part never prints to it.
  *
- *   Config frames (USB only, never sent over LoRa). They start with 0xA5 instead of 0xAA, so a
+ *   Status frames (USB only, never sent over LoRa). They start with 0xA5 instead of 0xAA, so a
  *   gateway built without the option and an older PC app both ignore them:
  *     [0]   [1]   [2]  [3 .. 3+N-1]  [3+N]  [3+N+1]
  *     0xA5  TYPE  LEN  DATA...       CRC8   0xBB          CRC8 (poly 0x31) over TYPE, LEN, DATA
- *     PC -> gateway  'W'  DATA = 1                           WiFi on (the default)
- *                    'W'  DATA = 0, or no DATA              WiFi off (radio off) until turned on again
- *                    'S'  no DATA                           ask for the cloud status
- *                    (An older app sends 'W' SSID 0x00 password: taken as "WiFi on".)
- *     gateway -> PC  'w'  DATA = 0 changed (saved in flash) / 1 already so
- *                    's'  DATA = state, WiFi RSSI (-dBm, 0..127), seconds since the last good
+ *     PC -> gateway  'S'  no DATA                           ask for the cloud status
+ *     gateway -> PC  's'  DATA = state, WiFi RSSI (-dBm, 0..127), seconds since the last good
  *                         write (2 bytes), step, code (2 bytes), detail                  (8 bytes)
- *                         state: 0 WiFi off, 1 connecting to WiFi, 2 on WiFi, connecting to the cloud,
- *                                3 cloud OK, 4 cloud error, 5 WiFi error
+ *                         state: 1 connecting to WiFi, 2 on WiFi, connecting to the cloud,
+ *                                3 cloud OK, 4 cloud error, 5 WiFi error   (0 is not used)
  *                         step:  what it is doing (state 1/2) or where it failed (state 4/5):
  *                                1 WiFi, 2 clock (NTP), 3 Firebase sign-in, 4 database write
  *                         code:  step 1 = WiFi disconnect reason of the last try (201 SSID not found,
@@ -88,7 +84,6 @@ const int dio0 = 2;
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
-#include <Preferences.h>
 #include <time.h>
 #include <sys/time.h>
 #include "gts_root_ca.h"
@@ -151,9 +146,8 @@ void forwardFrame(uint8_t networkID, uint8_t txID, uint8_t *data, uint8_t dataLe
 #if ENABLE_CLOUD
 // =============================== Cloud option ===============================
 
-// Reported to the PC ('s' frame). The app shows 1/2 yellow, 3 green, 0/4/5 gray.
+// Reported to the PC ('s' frame). The app shows 1/2 yellow, 3 green, 4/5 gray. (0 is not used.)
 enum CloudState : uint8_t {
-  CS_NO_WIFI = 0,     // WiFi off (turned off from the PC app)
   CS_CONNECTING = 1,  // joining the WiFi
   CS_WIFI = 2,        // on WiFi, connecting to the cloud (clock, sign-in, first write)
   CS_OK = 3,          // last write to Firebase OK
@@ -219,10 +213,7 @@ uint32_t cEvSeq = 0, cDropped = 0;
 uint32_t cPcMs = 0;                 // millis() of the last valid frame from the PC (0 = none yet)
 bool cUploadSoon = false;           // a status changed: write without waiting for the interval
 uint32_t cSoonSinceMs = 0;
-bool cWifiOn = true;                // WiFi on/off set by the PC app, kept in NVS (default on)
-bool cWifiChanged = false;
 SemaphoreHandle_t cLock;
-Preferences cPrefs;
 
 // What the gateway sent to the cloud, for the PC ('r' frames): filled by the cloud task, sent by loop().
 struct CloudReport {
@@ -235,7 +226,7 @@ volatile uint8_t cRepCount = 0;
 
 // Written by the cloud task, read by loop() for the status frame. The status is one 32-bit word,
 // state | step << 4 | detail << 8 | code (14 bits) << 16, so loop() never sees half an update.
-volatile uint32_t cStatus = CS_NO_WIFI;
+volatile uint32_t cStatus = CS_CONNECTING | (CST_WIFI << 4);
 volatile int8_t cWifiRssi = 0;
 volatile uint32_t cLastOkMs = 0;
 volatile bool cEverOk = false;
@@ -394,26 +385,7 @@ void handleCfgFrame(uint8_t *f, uint8_t len) {
   uint8_t type = f[1];
   uint8_t dlen = f[2];
   if (crc8(f + 1, dlen + 2) != f[len - 2]) return;
-  const uint8_t *d = f + 3;
-
-  if (type == 'S') {
-    sendCloudStatus(cStatus);
-    return;
-  }
-  if (type != 'W') return;
-
-  // DATA = 1 on / 0 or nothing off. An older app sends "SSID 0x00 password" (2+ bytes): taken as on.
-  bool on = dlen >= 2 || (dlen == 1 && d[0] != 0);
-  cloudLock();
-  bool changed = on != cWifiOn;
-  if (changed) {
-    cWifiOn = on;
-    cWifiChanged = true;
-  }
-  cloudUnlock();
-  if (changed) cPrefs.putBool("wifiOn", on);              // flash is written only on a real change
-  uint8_t result = changed ? 0 : 1;
-  sendCfgFrame('w', &result, 1);
+  if (type == 'S') sendCloudStatus(cStatus);              // anything else (e.g. 'W' of an older app) is ignored
 }
 
 String u64str(uint64_t v) {
@@ -634,7 +606,7 @@ void cloudTask(void *) {
   WiFi.mode(WIFI_STA);
   WiFi.setAutoReconnect(true);
   WiFi.onEvent(onWifiDisconnected, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
-  bool on = false, wifiUp = false, wifiFailed = false;
+  bool wifiUp = false, wifiFailed = false;
   bool clockChecked = false, clockNoDns = false;
   uint32_t wifiUpSince = 0;
   uint32_t lastWifiTry = 0, lastWrite = 0, lastTry = 0, backoffMs = 0;
@@ -644,27 +616,10 @@ void cloudTask(void *) {
     vTaskDelay(pdMS_TO_TICKS(200));
 
     cloudLock();
-    bool changed = cWifiChanged;
-    if (changed) {
-      on = cWifiOn;
-      cWifiChanged = false;
-    }
     bool soon = cUploadSoon;
     uint32_t soonSince = cSoonSinceMs;
     cloudUnlock();
 
-    if (changed) {
-      WiFi.disconnect(!on);                               // WiFi off: radio off too
-      lastWifiTry = 0;
-      wifiUp = false;
-      wifiFailed = false;
-      cWifiReason = 0;
-    }
-    if (!on) {
-      setCloudStatus(CS_NO_WIFI, CST_NONE);
-      cWifiRssi = 0;
-      continue;
-    }
     wl_status_t ws = WiFi.status();
     if (ws != WL_CONNECTED) {
       if (wifiUp) {                                       // just lost the WiFi: start over as "connecting"
@@ -675,7 +630,6 @@ void cloudTask(void *) {
       if (lastWifiTry == 0 || millis() - lastWifiTry >= WIFI_RETRY_MS) {
         if (lastWifiTry != 0) wifiFailed = true;          // the last try did not get in
         lastWifiTry = millis();
-        WiFi.mode(WIFI_STA);                              // back on after a "WiFi off"
         WiFi.disconnect();
         WiFi.begin(WIFI_SSID, WIFI_PASSWORD);             // from secrets.h
       }
@@ -824,9 +778,6 @@ void setup() {
 
 #if ENABLE_CLOUD
   cLock = xSemaphoreCreateMutex();
-  cPrefs.begin("cloud", false);
-  cWifiOn = cPrefs.isKey("wifiOn") ? cPrefs.getBool("wifiOn") : true;   // on unless the PC app turned it off
-  cWifiChanged = true;                                                  // the cloud task picks it up
   xTaskCreatePinnedToCore(cloudTask, "cloud", 16384, nullptr, 1, nullptr, 0);
 #endif
 }

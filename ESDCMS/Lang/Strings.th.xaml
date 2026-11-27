@@ -55,21 +55,12 @@
   <sys:String x:Key="S.Tip.LogClear">ล้างบันทึก</sys:String>
   <sys:String x:Key="S.Tip.LogSave">บันทึก log เป็นไฟล์ .txt</sys:String>
   <sys:String x:Key="S.Tip.Tile">คลิก: ถามสถานะของกล่องนี้</sys:String>
-  <!-- Cloud option of the RF gateway: WiFi dialog (WifiDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
-  <sys:String x:Key="S.Tip.Cloud">คลาวด์ (WiFi ของ RF เกตเวย์): ส่งสถานะกล่องไปยัง Firebase</sys:String>
-  <sys:String x:Key="S.Wifi.Title">WiFi ของ RF เกตเวย์ (คลาวด์)</sys:String>
-  <sys:String x:Key="S.Wifi.Intro">RF เกตเวย์ส่งสถานะกล่องขึ้นคลาวด์ (Firebase) ผ่าน WiFi ได้ ชื่อและรหัสผ่าน WiFi ตั้งไว้ในเฟิร์มแวร์เกตเวย์ (secrets.h, ENABLE_CLOUD 1) ที่นี่ใช้เปิดหรือปิด WiFi ของเกตเวย์เท่านั้น</sys:String>
-  <sys:String x:Key="S.Wifi.Enable">ให้เกตเวย์เชื่อมต่อ WiFi (คลาวด์)</sys:String>
-  <sys:String x:Key="S.Wifi.Off">WiFi ปิดอยู่</sys:String>
-  <sys:String x:Key="S.Wifi.OnSent">เปิด WiFi ของเกตเวย์แล้ว</sys:String>
-  <sys:String x:Key="S.Wifi.OffSent">ปิด WiFi ของเกตเวย์แล้ว</sys:String>
-  <sys:String x:Key="S.Wifi.Unchanged">บันทึกแล้ว เกตเวย์ตั้งค่านี้อยู่แล้ว</sys:String>
-  <sys:String x:Key="S.Wifi.SavedNotSent">บันทึกแล้ว จะส่งไปยังเกตเวย์เมื่อเชื่อมต่อ RF เกตเวย์</sys:String>
-  <sys:String x:Key="S.Wifi.Save">บันทึกและส่ง</sys:String>
+  <!-- Cloud option of the RF gateway: state dialog (CloudDialog.cs), cloud icon and console texts (Device/GatewayCloudText.cs) -->
+  <sys:String x:Key="S.Wifi.Title">คลาวด์ของ RF เกตเวย์</sys:String>
+  <sys:String x:Key="S.Wifi.Intro">เมื่อเฟิร์มแวร์คอมไพล์ด้วย ENABLE_CLOUD 1 RF เกตเวย์จะส่งสถานะกล่องขึ้นคลาวด์ (Firebase) ผ่าน WiFi ชื่อและรหัสผ่าน WiFi กับบัญชี Firebase ตั้งไว้ในเฟิร์มแวร์ (secrets.h) ที่นี่ดูได้เฉพาะสถานะ</sys:String>
   <sys:String x:Key="S.Wifi.Close">ปิด</sys:String>
   <sys:String x:Key="S.Wifi.NotConnected">ยังไม่ได้เชื่อมต่อ RF เกตเวย์</sys:String>
   <sys:String x:Key="S.Wifi.NoAnswer">เกตเวย์ไม่ตอบ: เฟิร์มแวร์อาจคอมไพล์โดยไม่มี ENABLE_CLOUD</sys:String>
-  <sys:String x:Key="S.Wifi.State0">เกตเวย์: WiFi ปิดอยู่</sys:String>
   <sys:String x:Key="S.Wifi.State1">เกตเวย์: กำลังเชื่อมต่อ WiFi…</sys:String>
   <sys:String x:Key="S.Wifi.State2">เกตเวย์: เชื่อมต่อ WiFi แล้ว ({0} dBm) กำลังเชื่อมต่อคลาวด์…</sys:String>
   <sys:String x:Key="S.Wifi.State3">เกตเวย์: WiFi ปกติ ({0} dBm) คลาวด์ปกติ</sys:String>

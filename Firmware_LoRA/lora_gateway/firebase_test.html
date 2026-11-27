@@ -253,15 +253,21 @@ $("run").addEventListener("click", async () => {
           "Thêm vào database: { \"gateways\": { \"" + uid + "\": \"" + line + "\" } } (Data → ⋮ → Import JSON khi database còn trống).");
       allOk = false;
     } else if (typeof g.json === "number") {
-      row("bad", "gateways/<UID> đang là SỐ " + g.json + ", phải là CHỮ \"" + line + "\"",
-          "Sửa giá trị trong tab Data thành \"" + line + "\" (có dấu ngoặc kép).");
+      row("bad", "gateways/<UID> đang là SỐ " + g.json + ", phải là CHỮ " + line,
+          "Tab Data → bấm vào giá trị → chọn kiểu string → gõ " + line + " (KHÔNG gõ dấu ngoặc kép) → Save.");
+      allOk = false;
+    } else if (typeof g.json === "string" && g.json !== line && g.json.replace(/["'\s]/g, "") === line) {
+      row("bad", "gateways/<UID> thừa dấu ngoặc kép hoặc khoảng trắng: đang lưu [" + g.json + "], phải là [" + line + "]",
+          "Tab Data → bấm vào giá trị → xóa hết, gõ đúng " + line + " (KHÔNG gõ dấu ngoặc kép, kiểu string) → Save. " +
+          "Ô giá trị của Firebase console đã có chọn kiểu; gõ thêm dấu ngoặc kép thì chúng thành một phần của chữ.");
       allOk = false;
     } else if (g.json !== line) {
-      row("warn", "gateways/<UID> = \"" + g.json + "\", khác line đang thử (" + line + ")",
-          "Gateway này chỉ ghi được lines/" + g.json + ". Nếu NETWORK_ID là " + line + " thì sửa giá trị thành \"" + line + "\".");
+      row("warn", "gateways/<UID> = [" + g.json + "], khác line đang thử (" + line + ")",
+          "Gateway này chỉ ghi được lines/" + g.json + ". Nếu NETWORK_ID là " + line + " thì sửa giá trị thành " + line +
+          " (kiểu string, KHÔNG gõ dấu ngoặc kép).");
       allOk = false;
     } else {
-      row("ok", "gateways/<UID> = \"" + line + "\" (đúng kiểu chữ)");
+      row("ok", "gateways/<UID> = " + line + " (đúng, kiểu chữ)");
     }
 
     // 4. Write to lines/<line> like the gateway (multi-path PATCH), then remove the test value

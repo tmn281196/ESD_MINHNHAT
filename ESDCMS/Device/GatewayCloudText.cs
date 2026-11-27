@@ -16,12 +16,11 @@ internal static class GatewayCloudText
 	{
 		string text = s.State switch
 		{
-			0 => t("S.Wifi.State0"),
-			1 => t("S.Wifi.State1"),
 			2 => string.Format(t("S.Wifi.State2"), s.WifiRssi),
 			3 => string.Format(t("S.Wifi.State3"), s.WifiRssi),
 			4 => string.Format(t("S.Wifi.State4"), s.WifiRssi),
-			_ => t("S.Wifi.State5")
+			5 => t("S.Wifi.State5"),
+			_ => t("S.Wifi.State1")                 // 1 connecting to WiFi (0 is not sent any more)
 		};
 		string step = StepName(s.Step, t);
 		string reason = Reason(s.Step, s.Code, s.Detail, t);
